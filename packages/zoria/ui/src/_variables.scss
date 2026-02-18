@@ -1,0 +1,123 @@
+:root {
+  /* === Elevation / Shadows === */
+  --shadow-0: none;
+  --shadow-1: 0 1px 4px 0 rgba(0, 0, 0, 0.08);
+  --shadow-2: 0 2px 8px 0 rgba(0, 0, 0, 0.12);
+  --shadow-3: 0 4px 12px 0 rgba(0, 0, 0, 0.16);
+  --shadow-4: 0 8px 24px 0 rgba(0, 0, 0, 0.24);
+
+  /* === Border Radius === */
+  --radius-none: 0;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-round: 9999px; /* For badges, toggles, etc. */
+
+  /* === Border Width & Style === */
+  --border-width-thin: 1px;
+  --border-width-medium: 2px;
+  --border-width-thick: 3px;
+  --border-style: solid;
+
+  /* === Overlays / Opacity / Blur === */
+  --overlay-light: rgba(255, 255, 255, 0.05);
+  --overlay-dark: rgba(0, 0, 0, 0.4);
+  --overlay-accent: rgba(0, 191, 255, 0.2);
+  --blur-panel: blur(8px);
+  --backdrop-blur: blur(16px);
+
+  /* === Component Dimensions === */
+  --button-height: 2.5rem;       /* 40px */
+  --button-padding-x: 1rem;      /* 16px */
+  --input-height: 2.5rem;        /* 40px */
+  --input-padding-x: 0.75rem;    /* 12px */
+  --popover-padding: 1rem;       /* 16px */
+  --panel-padding: 1.5rem;       /* 24px */
+
+  /* === State Colors === */
+  --state-hover: rgba(255, 255, 255, 0.05);
+  --state-active: rgba(255, 255, 255, 0.1);
+  --state-selected: var(--theme-accent);
+  --state-disabled: var(--theme-text-disabled);
+  --state-focus: rgba(0, 191, 255, 0.25);
+
+  /* === Interaction Timing / Motion === */
+  --transition-fast: 0.1s ease-in-out;
+  --transition-normal: 0.25s ease-in-out;
+  --transition-slow: 0.4s ease-in-out;
+  --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* === Focus / Accessibility === */
+  --focus-ring: 0 0 0 3px rgba(0, 191, 255, 0.6);
+  --focus-outline-offset: 2px;
+
+  /* === Iconography === */
+  --icon-size-sm: 1rem;      /* 16px */
+  --icon-size-md: 1.25rem;   /* 20px */
+  --icon-size-lg: 1.5rem;    /* 24px */
+  --icon-stroke-width: 1.5;
+
+  /* === Data Visualization (Charts, Maps, HUDs) === */
+  --chart-blue: #2E7DFF;
+  --chart-green: #4CAF50;
+  --chart-yellow: #FBC02D;
+  --chart-red: #E53935;
+  --chart-orange: #FB8C00;
+  --chart-cyan: #00ACC1;
+  --chart-gray: #9DA7B1;
+  --chart-purple: #8E24AA;
+  --chart-neutral: #B0BAC3;
+
+  /* === Z-Index Layers === */
+  --z-base: 1;
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+  --z-toast: 1080;
+  --z-overlay: 2000;
+
+  /* === Grid System === */
+  --grid-columns: 12;
+  --grid-gutter: 1.5rem;   /* 24px */
+  --grid-max-width: 1200px;
+
+  --space-y-1: 0.375rem; /* 6px */
+  --space-y-2: 0.75rem; /* 12px */
+  --space-y-3: 1.5rem; /* 24px */
+  --space-y-4: 2.25rem; /* 36px */
+  --space-y-5: 3rem; /* 48px */
+
+  --space-x-1: 0.75rem; /* 12px */
+  --space-x-2: 1.5rem; /* 24px */
+  --space-x-3: 2.25rem; /* 36px */
+  --space-x-4: 3rem; /* 48px */
+  --space-x-5: 4.5rem; /* 72px */
+
+
+  /* === Spacing Scale (based on 4px rhythm, but grouped by 12) === */
+  --space-1: 0.25rem;  /* 4px  */
+  --space-2: 0.5rem;   /* 8px  */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-6: 1.5rem;   /* 24px */
+  --space-8: 2rem;     /* 32px */
+  --space-12: 3rem;    /* 48px */
+
+  /* === Layout Breakpoints (Bootstrap-like) === */
+  --breakpoint-xs: 0;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --breakpoint-xxl: 1400px;
+
+  /* === Modal sizes === */
+  --modal-sm: 450px;
+  --modal-md: 640px;
+  --modal-lg: 960px;
+}

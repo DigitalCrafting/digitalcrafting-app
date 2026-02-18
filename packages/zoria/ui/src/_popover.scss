@@ -1,0 +1,25 @@
+
+.z-popover {
+  position: absolute;
+  /* TODO fix not being hidden by modal if the popover is always open */
+  z-index: var(--z-popover);
+
+  &-body {
+    background-color: var(--theme-bg);
+    border: none;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-4);
+
+    padding: var(--space-y-2) var(--space-x-2);
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-visible {
+    visibility: visible;
+  }
+
+  &-hidden {
+    visibility: hidden;
+  }
+}

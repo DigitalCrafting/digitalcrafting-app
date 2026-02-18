@@ -1,0 +1,60 @@
+:root {
+  --theme-main-bg-color: var(--color-grey-10);
+
+  --theme-bg: var(--color-white);
+  --theme-surface: var(--color-grey-10);
+  --theme-surface-alt: var(--color-grey-20);
+  --theme-border: var(--color-grey-40);
+  --theme-text: var(--color-black-softer);
+  --theme-text-disabled: var(--color-grey-30);
+  --theme-text-inv: var(--color-white);
+  --theme-accent: var(--color-blue-grey-30);
+
+  --theme-primary: var(--color-blue-grey-50);
+  --theme-primary-hover: var(--color-blue-grey-60);
+  --theme-primary-active: var(--color-blue-grey-70);
+  --theme-primary-disabled: var(--color-grey-40);
+  --theme-primary-disabled-text: var(--color-grey-80);
+  --theme-primary-focus: var(--color-blue-grey-30);
+  --theme-primary-focus-shadow: var(--color-blue-grey-20);
+
+  --theme-focus-transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  --theme-focus-shadow:
+          0 0 0 2px var(--theme-bg),
+          0 0 0 5px var(--theme-primary-focus-shadow);
+
+  --theme-focus-shadow-sticky:
+          0 0 0 0.1rem var(--theme-primary-focus-shadow);
+
+
+  --theme-secondary: var(--color-grey-50);
+  --theme-secondary-hover: var(--color-grey-40);
+  --theme-secondary-active: var(--color-grey-50);
+  --theme-secondary-disabled: var(--color-grey-30);
+  --theme-secondary-focus: var(--color-grey-50);
+
+  /* Status */
+  --theme-success: var(--color-green-60);
+  --theme-warning: var(--color-yellow-60);
+  --theme-error: var(--color-red-60);
+  --theme-info: var(--color-blue-60);
+
+  [data-theme='dark'] {
+    --theme-bg: var(--color-black-softer);
+    --theme-surface: var(--color-grey-90);
+    --theme-surface-alt: var(--color-grey-80);
+    --theme-border: var(--color-grey-70);
+    --theme-text: var(--color-grey-10);
+    --theme-accent: var(--color-blue-grey-30);
+
+    --theme-primary: var(--color-blue-grey-40);
+    --theme-primary-hover: var(--color-blue-grey-30);
+    --theme-primary-active: var(--color-blue-grey-60);
+
+    /* Status */
+    --theme-success: var(--color-green-60);
+    --theme-warning: var(--color-yellow-60);
+    --theme-error: var(--color-red-60);
+    --theme-info: var(--color-blue-60);
+  }
+}

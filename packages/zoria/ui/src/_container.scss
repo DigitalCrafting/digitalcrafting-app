@@ -1,0 +1,13 @@
+.z-container {
+  &-sm {
+    padding: var(--space-y-2);
+  }
+
+  &-md {
+    padding: var(--space-y-3);
+  }
+
+  &-lg {
+    padding: var(--space-y-4);
+  }
+}

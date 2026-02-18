@@ -1,0 +1,17 @@
+{
+  "name": "digitalcrafting-app",
+  "version": "1.0.0",
+  "description": "DigitalCrafting App",
+  "scripts": {
+    "build": "pnpm -r build",
+    "test": "pnpm vitest"
+  },
+  "keywords": [],
+  "private": true,
+  "author": "Kamil Kasprzyk",
+  "license": "All rights reserved",
+  "packageManager": "pnpm@10.17.1",
+  "devDependencies": {
+    "vitest": "^4.0.18"
+  }
+}

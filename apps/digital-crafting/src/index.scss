@@ -1,0 +1,8 @@
+@use "../../../packages/zoria/ui/src/index";
+
+body {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-normal);
+  color: var(--theme-text);
+}

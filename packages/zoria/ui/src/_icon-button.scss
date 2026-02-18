@@ -1,0 +1,76 @@
+.z-icon-button {
+  border-radius: 50%;
+  border-width: 0;
+  border-style: none;
+
+  background-color: var(--theme-bg);
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: var(--theme-focus-transition);
+
+  &-sm {
+    width: 24px;
+    height: 24px;
+
+    .z-icon {
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  &-md {
+    width: 36px;
+    height: 36px;
+
+    .z-icon {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  &-lg {
+    width: 36px;
+    height: 36px;
+
+    .z-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    svg {
+      stroke-width: 1px;
+    }
+  }
+}
+
+.z-icon-button:disabled {
+  cursor: not-allowed;
+
+  .z-icon {
+    color: hsl(from var(--theme-primary-disabled) h s 70%);
+  }
+}
+
+.z-icon-button:hover:not(:disabled) {
+  background-color: var(--theme-primary-hover);
+  .z-icon {
+    color: var(--color-white);
+  }
+}
+
+.z-icon-button:focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 3px var(--theme-primary-focus-shadow);
+  transition: var(--theme-focus-transition);
+}
+
+.z-icon-button:active:not(:disabled) {
+  background-color: var(--theme-primary-active);
+  .z-icon {
+    color: var(--color-white);
+  }
+}

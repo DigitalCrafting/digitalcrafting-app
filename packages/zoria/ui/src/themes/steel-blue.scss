@@ -1,0 +1,128 @@
+.steel-blue {
+  --color-50: #EAF3FA;
+  --color-100: #C6DCF1;
+  --color-200: #A1C6E8;
+  --color-300: #7CAFDF;
+  --color-400: #5799D6;
+  --color-500: #3282CD;
+  --color-600: #256099;
+  --color-700: #205383;
+  --color-800: #173C5E;
+  --color-900: #0E2439;
+  --color-950: #050D15;
+
+  .shades {
+    --color-50: #256099;
+    --color-100: #24578A;
+    --color-200: #234E7B;
+    --color-300: #21466D;
+    --color-400: #1F3D5F;
+    --color-500: #1D3551;
+    --color-600: #1A2D44;
+    --color-700: #182537;
+    --color-800: #141E2B;
+    --color-900: #11161F;
+    --color-950: #090D13;
+  }
+
+  .tints {
+    --color-50: #ECEFF6;
+    --color-100: #D9E0EC;
+    --color-200: #C6D1E3;
+    --color-300: #B4C2D9;
+    --color-400: #A1B3D0;
+    --color-500: #8FA5C7;
+    --color-600: #7C96BE;
+    --color-700: #6988B4;
+    --color-800: #557BAB;
+    --color-900: #3F6DA2;
+    --color-950: #256099;
+  }
+
+  .tones {
+    --color-50: #256099;
+    --color-100: #346397;
+    --color-200: #406694;
+    --color-300: #4A6992;
+    --color-400: #546C8F;
+    --color-500: #5C708D;
+    --color-600: #64738A;
+    --color-700: #6B7688;
+    --color-800: #727985;
+    --color-900: #797D83;
+    --color-950: #808080;
+  }
+}
+
+
+//.steel-blue {
+//  --color-mirage: oklch(26.429% 0.03126 252.77);
+//  --color-mirage-50: oklch(44.955% 0.05455 241.88);
+//  --color-mirage-100: oklch(42.876% 0.05239 242.46);
+//  --color-mirage-200: oklch(38.751% 0.04864 246.03);
+//  --color-mirage-300: oklch(34.794% 0.04209 247.86);
+//  --color-mirage-400: oklch(30.708% 0.0375 250.6);
+//  --color-mirage-500: oklch(26.429% 0.03126 252.77);
+//  --color-mirage-600: oklch(24.125% 0.02827 257.53);
+//  --color-mirage-700: oklch(21.972% 0.02475 256.46);
+//  --color-mirage-800: oklch(19.913% 0.02223 260.47);
+//  --color-mirage-900: oklch(17.648% 0.01846 259.67);
+//  --color-mirage-950: oklch(16.405% 0.01562 266.62);
+//
+//  --color-pickled-bluewood: oklch(34.272% 0.04387 252.84);
+//  --color-pickled-bluewood-50: oklch(58.246% 0.08102 252.17);
+//  --color-pickled-bluewood-100: oklch(55.58% 0.0781 252.32);
+//  --color-pickled-bluewood-200: oklch(50.505% 0.07016 252.73);
+//  --color-pickled-bluewood-300: oklch(45.298% 0.06199 253.27);
+//  --color-pickled-bluewood-400: oklch(39.822% 0.0527 252.15);
+//  --color-pickled-bluewood-500: oklch(34.272% 0.04387 252.84);
+//  --color-pickled-bluewood-600: oklch(29.54% 0.03561 250.67);
+//  --color-pickled-bluewood-700: oklch(24.406% 0.02717 253.38);
+//  --color-pickled-bluewood-800: oklch(19.209% 0.01781 248.77);
+//  --color-pickled-bluewood-900: oklch(13.312% 0.00816 254.42);
+//  --color-pickled-bluewood-950: oklch(8.2309% 0.00804 240.75);
+//
+//  --color-rhino: oklch(37.679% 0.05068 253.35);
+//  --color-rhino-50: oklch(55.727% 0.0697 241.18);
+//  --color-rhino-100: oklch(53.759% 0.06767 241.58);
+//  --color-rhino-200: oklch(49.629% 0.0648 245.59);
+//  --color-rhino-300: oklch(45.674% 0.0595 248.42);
+//  --color-rhino-400: oklch(41.822% 0.05398 249.23);
+//  --color-rhino-500: oklch(37.679% 0.05068 253.35);
+//  --color-rhino-600: oklch(35.574% 0.04807 255.84);
+//  --color-rhino-700: oklch(33.37% 0.04608 257.43);
+//  --color-rhino-800: oklch(31.464% 0.04237 258.3);
+//  --color-rhino-900: oklch(29.247% 0.04203 261.25);
+//  --color-rhino-950: oklch(28.144% 0.0397 263.62);
+//
+//  --color-rhino-10:  #e9f0f7;
+//  --color-rhino-20:  #c7d5e8;
+//  --color-rhino-30:  #9fb7d3;
+//  --color-rhino-40:  #6f8fb0;
+//  --color-rhino-50:  #4c6d90;
+//  --color-rhino-60:  #395a7a;   /* <- hover */
+//  --color-rhino-70:  #324d6a;   /* <- primary (base button) */
+//  --color-rhino-80:  #2a405a;   /* <- active */
+//  --color-rhino-90:  #223348;
+//  --color-rhino-100: #1a2634;   /* <- deepest base (your original) */
+//
+//
+//  // Primary: Mirage (steel blue)
+//  --color-primary: var(--color-mirage-500);
+//  --color-primary-hover: var(--color-mirage-400);
+//  --color-primary-active: var(--color-mirage-600);
+//
+//  // Neutral
+//  --color-bg: var(--color-grey-10);
+//  --color-surface: var(--color-grey-20);
+//  --color-text: var(--color-black-soft);
+//
+//  // Accents
+//  --color-accent-aqua: #0090b8;  // info / link
+//  --color-accent-amber: #c98700; // warning
+//  --color-accent-olive: #4b8a57; // success
+//  --color-accent-polish: #8b1e1e; // national / decorative only
+//
+//
+//
+//}

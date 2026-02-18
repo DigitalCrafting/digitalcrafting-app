@@ -1,0 +1,27 @@
+.z-tooltip {
+  position: absolute;
+  z-index: var(--z-tooltip);
+
+  &-body {
+    background-color: hsl(from var(--color-black-soft) h s l / 80%);
+    color: var(--color-grey-10);
+
+    border-radius: var(--radius-lg);
+    padding: var(--space-y-1) var(--space-x-1);
+    display: flex;
+    flex-direction: column;
+
+    .z-text {
+      color: var(--color-grey-10);
+      font-size: var(--font-size-sm);
+    }
+  }
+
+  &-visible {
+    visibility: visible;
+  }
+
+  &-hidden {
+    visibility: hidden;
+  }
+}

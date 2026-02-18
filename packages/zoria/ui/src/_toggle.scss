@@ -1,0 +1,87 @@
+:root {
+  --toggle-width: 44px;
+  --toggle-height: 24px;
+  --thumb-size: 20px;
+}
+
+.z-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  user-select: none;
+  font-family: var(--font-family-sans), system-ui, sans-serif;
+  font-size: var(--font-size-md);
+  transition: var(--theme-focus-transition);
+}
+
+/* hide native checkbox but keep it accessible */
+.z-toggle input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+/* track */
+.z-toggle-slider {
+  position: relative;
+  width: var(--toggle-width);
+  height: var(--toggle-height);
+  background-color: var(--color-grey-40);
+  border-radius: var(--toggle-height);
+  transition: background-color 0.25s ease;
+  flex-shrink: 0;
+}
+
+/* thumb */
+.z-toggle-slider::before {
+  content: "";
+  position: absolute;
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  top: 2px;
+  left: 2px;
+  background-color: var(--color-white);
+  border-radius: 50%;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.35);
+  transition:
+          transform 0.25s cubic-bezier(.4,0,.2,1),
+          background-color 0.25s ease;
+
+}
+
+/* ON state */
+.z-toggle input:checked + .z-toggle-slider {
+  background-color: var(--theme-primary);
+}
+.z-toggle input:checked + .z-toggle-slider::before {
+  transform: translateX(20px);
+  background-color: var(--theme-bg);
+}
+
+/* focus (keyboard only) */
+.z-toggle input:focus-visible + .z-toggle-slider {
+  box-shadow: var(--theme-focus-shadow);
+  transition: var(--theme-focus-transition);
+}
+
+/* disabled */
+.z-toggle input:disabled + .z-toggle-slider {
+  background-color: var(--theme-primary-disabled);
+  cursor: not-allowed;
+}
+
+.z-toggle input:disabled + .z-toggle-slider::before {
+  background-color: var(--color-grey-50);
+}
+
+.z-toggle input:disabled:checked + .z-toggle-slider {
+  background-color: var(--color-grey-60);
+  cursor: not-allowed;
+}
+
+.z-toggle input:disabled ~ .z-toggle-label {
+  color: var(--theme-primary-disabled-text);
+  cursor: not-allowed;
+}

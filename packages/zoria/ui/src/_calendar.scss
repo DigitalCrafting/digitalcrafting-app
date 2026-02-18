@@ -1,0 +1,119 @@
+.z-calendar {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  overflow: hidden;
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-md);
+  color: var(--theme-text);
+
+  &-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .year-picker {
+      align-content: center;
+
+      select {
+        padding: 0 6px;
+      }
+    }
+    .month-picker {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .z-icon-button {
+        width: 28px;
+        height: 28px;
+      }
+
+      span {
+        padding: 0 6px;
+      }
+    }
+  }
+
+
+
+  &-page {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    overflow: visible;
+
+    > button {
+      aspect-ratio: 1;
+    }
+
+    .weekday,
+    .day {
+      text-align: center;
+    }
+
+    .weekday {
+      color: hsl(from var(--theme-text) h s 35%);
+    }
+
+    .day {
+      color: var(--theme-text);
+      border-radius: 50%;
+      border-width: 0;
+      border-style: none;
+      margin: 3px;
+      position: relative;
+      z-index: 1;
+
+      background-color: var(--theme-bg);
+      cursor: pointer;
+      transition: var(--theme-focus-transition);
+      text-align: center;
+
+      &-inner {
+
+      }
+
+      &:hover:not(:disabled) {
+        color: var(--color-white);
+        background-color: var(--theme-primary-hover);
+      }
+
+      &:active:not(:disabled) {
+        color: var(--color-white);
+        background-color: var(--theme-primary-active);
+      }
+
+      &:focus-visible {
+        outline: 0;
+        box-shadow:
+                //0 0 0 2px var(--theme-bg),
+                0 0 0 3px var(--theme-primary-focus-shadow);
+        transition: var(--theme-focus-transition);
+      }
+
+      &:disabled {
+        cursor: default;
+        color: hsl(from var(--theme-primary-disabled) h s 70%);
+      }
+
+      + .is-selected {
+        color: var(--color-white);
+        background-color: var(--theme-primary);
+      }
+    }
+
+    .day::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background-color: transparent;
+    }
+
+    .day.is-in-range::before {
+      background-color: hsl(from var(--theme-primary) h s 70%);
+
+
+    }
+  }
+}
