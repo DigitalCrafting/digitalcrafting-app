@@ -1,15 +1,24 @@
-import {ZCol, ZRow} from "@zoria-ui/react/components/layout/ZLayout.tsx";
-import {ZPanel} from "@zoria-ui/react/components/panel/ZPanel.tsx";
-import {ZH2} from "@zoria-ui/react/components/typography/ZTypography.tsx";
 import {
     CalendarCheckIcon,
-    CalendarIcon, CheckIcon,
+    CalendarIcon,
+    CheckIcon,
     ChevronDownIcon,
     ChevronLeftIcon,
     ChevronRightIcon,
-    ChevronUpIcon, ClockCheckIcon, ClockIcon, CopyCheckIcon, CopyIcon, EllipsisIcon, EllipsisMenuIcon, MenuIcon,
-    XIcon
-} from "@zoria-ui/react/components/icons/Icons.tsx";
+    ChevronUpIcon,
+    ClockCheckIcon,
+    ClockIcon,
+    CopyCheckIcon,
+    CopyIcon,
+    EllipsisIcon,
+    EllipsisMenuIcon,
+    MenuIcon,
+    XIcon,
+    ZCol,
+    ZH2,
+    ZPanel,
+    ZRow
+} from "@zoria-ui/react";
 
 export function IconsDemo() {
     return <ZPanel>

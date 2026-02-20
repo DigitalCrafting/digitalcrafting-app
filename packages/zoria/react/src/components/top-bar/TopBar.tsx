@@ -1,5 +1,5 @@
-import React from "react";
-import type {ZoriaProps} from "../../types/CommonTypes.ts";
+import * as React from "react";
+import type {ZoriaProps} from "../../types/CommonTypes";
 
 interface TopBarProps extends ZoriaProps {
     children?: React.ReactNode

@@ -1,5 +1,6 @@
-import {DateUtils} from "../../utils/DateUtils.ts";
-import React, {useState} from "react";
+import {DateUtils} from "../../utils/DateUtils";
+import * as React from "react";
+import {useState} from "react";
 import {IconButton} from "../buttons/IconButton";
 import {ChevronLeftIcon, ChevronRightIcon} from "../icons/Icons";
 import {CalendarUtils} from "./CalendarUtils";

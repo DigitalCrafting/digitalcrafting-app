@@ -40,3 +40,4 @@ replay_pid*
 
 /packages/zoria/ui/react
 /packages/zoria/ui/forms
+/packages/zoria/ui/styles

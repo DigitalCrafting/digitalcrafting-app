@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "DigitalCrafting App",
   "scripts": {
+    "dev": "pnpm --filter digital-crafting dev",
     "build": "pnpm -r build",
     "test": "pnpm vitest"
   },

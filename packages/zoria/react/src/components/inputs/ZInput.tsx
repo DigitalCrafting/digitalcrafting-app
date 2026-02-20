@@ -1,5 +1,5 @@
-import React from "react";
-import {ZUtils} from "../../utils/ZUtils.ts";
+import * as React from "react";
+import {ZUtils} from "../../utils/ZUtils";
 
 interface ZInputProps {
     className?: string

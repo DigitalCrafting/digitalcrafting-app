@@ -1,11 +1,11 @@
 import './App.css'
-import {ComponentsDemoPage} from "./modules/components-demo/ComponentsDemoPage.tsx";
-import {ZContainer} from "@zoria-ui/react/components/container/ZContainer.tsx";
-import {TopBar} from "@zoria-ui/react/components/top-bar/TopBar.tsx";
-import {IconButton} from "@zoria-ui/react/components/buttons/IconButton.tsx";
-import {MenuIcon} from "@zoria-ui/react/components/icons/Icons.tsx";
-import {SidePanel, SidePanelService} from "@zoria-ui/react/components/side-panel/SidePanel.tsx";
-import {ZText} from "@zoria-ui/react/components/typography/ZTypography.tsx";
+import {ComponentsDemoPage} from "./modules/components-demo/ComponentsDemoPage";
+import {ZContainer} from "@zoria-ui/react";
+import {TopBar} from "@zoria-ui/react";
+import {IconButton} from "@zoria-ui/react";
+import {MenuIcon} from "@zoria-ui/react";
+import {SidePanel, SidePanelService} from "@zoria-ui/react";
+import {ZText} from "@zoria-ui/react";
 
 function BastionTopBar() {
     return <TopBar>

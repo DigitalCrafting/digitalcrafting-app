@@ -1,5 +1,5 @@
-import React from "react";
-import {ZSize} from "../../types/ZSizes.ts";
+import * as React from "react";
+import {ZSize} from "../../types/ZSizes";
 
 interface SvgIconBaseProps extends React.SVGProps<SVGSVGElement> {
     size?: ZSize

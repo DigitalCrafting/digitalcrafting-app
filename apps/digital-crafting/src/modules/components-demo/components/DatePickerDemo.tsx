@@ -1,7 +1,4 @@
-import {ZPanel} from "@zoria-ui/react/components/panel/ZPanel.tsx";
-import {ZH2} from "@zoria-ui/react/components/typography/ZTypography.tsx";
-import {ZCol, ZRow} from "@zoria-ui/react/components/layout/ZLayout.tsx";
-import {Calendar} from "@zoria-ui/react/components/date/DatePicker.tsx";
+import {Calendar, ZCol, ZH2, ZPanel, ZRow} from "@zoria-ui/react";
 
 export function DatePickerDemo() {
     return <ZPanel>

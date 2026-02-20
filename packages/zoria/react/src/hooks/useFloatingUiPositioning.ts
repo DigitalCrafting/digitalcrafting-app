@@ -1,4 +1,5 @@
-import React, {useCallback, useEffect} from "react";
+import * as React from "react";
+import {useCallback, useEffect} from "react";
 import {autoUpdate, computePosition, flip, offset, shift} from "@floating-ui/dom";
 
 export function useFloatingUiPositioning(

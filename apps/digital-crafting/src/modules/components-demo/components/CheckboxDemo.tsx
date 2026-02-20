@@ -1,7 +1,4 @@
-import {ZCol, ZRow} from "@zoria-ui/react/components/layout/ZLayout.tsx";
-import {ZCheckbox} from "@zoria-ui/react/components/checkbox/ZCheckbox.tsx";
-import {ZPanel} from "@zoria-ui/react/components/panel/ZPanel.tsx";
-import {ZH2} from "@zoria-ui/react/components/typography/ZTypography.tsx";
+import {ZCheckbox, ZCol, ZH2, ZPanel, ZRow} from "@zoria-ui/react";
 
 export function CheckboxDemo() {
     return <ZPanel>

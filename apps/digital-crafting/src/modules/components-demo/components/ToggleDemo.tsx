@@ -1,7 +1,4 @@
-import {ZCol, ZRow} from "@zoria-ui/react/components/layout/ZLayout.tsx";
-import {ZToggle} from "@zoria-ui/react/components/checkbox/ZToggle.tsx";
-import {ZPanel} from "@zoria-ui/react/components/panel/ZPanel.tsx";
-import {ZH2} from "@zoria-ui/react/components/typography/ZTypography.tsx";
+import {ZCol, ZH2, ZPanel, ZRow, ZToggle} from "@zoria-ui/react";
 
 export function ToggleDemo() {
     return <ZPanel>

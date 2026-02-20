@@ -1,6 +1,7 @@
-import React, {useContext, useEffect, useRef} from 'react';
+import * as React from 'react';
+import {useContext, useEffect, useRef} from 'react';
 import {createPortal} from "react-dom";
-import {useFloatingUiPositioning} from "../../hooks/useFloatingUiPositioning.ts";
+import {useFloatingUiPositioning} from "../../hooks/useFloatingUiPositioning";
 
 interface PopoverContextType {
     autoDismiss: boolean,

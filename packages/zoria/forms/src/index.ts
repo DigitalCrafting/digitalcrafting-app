@@ -1,3 +1,3 @@
-export * from './events/event-emitter';
-export * from './validators/validators';
-export * from './forms/custom-forms';
+export * from './events/event-emitter.ts';
+export * from './validators/validators.ts';
+export * from './forms/custom-forms.ts';

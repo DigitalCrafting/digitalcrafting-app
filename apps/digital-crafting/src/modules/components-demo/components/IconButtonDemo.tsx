@@ -1,8 +1,4 @@
-import {ZCol, ZRow} from "@zoria-ui/react/components/layout/ZLayout.tsx";
-import {ZPanel} from "@zoria-ui/react/components/panel/ZPanel.tsx";
-import {ZH2} from "@zoria-ui/react/components/typography/ZTypography.tsx";
-import {IconButton} from "@zoria-ui/react/components/buttons/IconButton.tsx";
-import {XIcon} from "@zoria-ui/react/components/icons/Icons.tsx";
+import {IconButton, XIcon, ZCol, ZH2, ZPanel, ZRow} from "@zoria-ui/react";
 
 export function IconButtonDemo() {
     return <ZPanel>

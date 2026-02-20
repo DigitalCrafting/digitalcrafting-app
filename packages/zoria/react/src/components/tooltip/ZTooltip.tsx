@@ -1,7 +1,8 @@
-import React, {useContext, useEffect, useRef, useState} from 'react';
+import * as React from 'react';
+import {useContext, useEffect, useRef, useState} from 'react';
 import {createPortal} from "react-dom";
 import {Subject} from "rxjs";
-import {useFloatingUiPositioning} from "../../hooks/useFloatingUiPositioning.ts";
+import {useFloatingUiPositioning} from "../../hooks/useFloatingUiPositioning";
 
 interface TooltipEvent {
     triggerRef: React.RefObject<any> | null

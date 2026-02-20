@@ -1,4 +1,4 @@
-import {DateUtils} from "../../utils/DateUtils.ts";
+import {DateUtils} from "../../utils/DateUtils";
 
 export class CalendarUtils {
     // TODO i18n

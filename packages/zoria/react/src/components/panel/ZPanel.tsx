@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 
 function PanelHeader({children}: React.PropsWithChildren) {
     return <div className={`z-panel-header`}>

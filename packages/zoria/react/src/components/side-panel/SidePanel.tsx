@@ -1,5 +1,6 @@
-import type {ZoriaProps} from "../../types/CommonTypes.ts";
-import React, {useEffect, useState} from "react";
+import type {ZoriaProps} from "../../types/CommonTypes";
+import * as React from "react";
+import {useEffect, useState} from "react";
 import {Subject} from "rxjs";
 
 interface SidePanelProps extends ZoriaProps {

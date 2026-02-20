@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 export interface ZButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: string

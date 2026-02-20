@@ -1,8 +1,4 @@
-import {ZCol, ZRow} from "@zoria-ui/react/components/layout/ZLayout.tsx";
-import {ZH2, ZText} from "@zoria-ui/react/components/typography/ZTypography.tsx";
-import {ZPanel} from "@zoria-ui/react/components/panel/ZPanel.tsx";
-import {ZPopover} from "@zoria-ui/react/components/popover/ZPopover.tsx";
-import {ZButton} from "@zoria-ui/react/components/buttons/ZButton.tsx";
+import {ZButton, ZCol, ZH2, ZPanel, ZPopover, ZRow, ZText} from "@zoria-ui/react";
 
 export function PopoverDemo() {
     return <ZPanel>

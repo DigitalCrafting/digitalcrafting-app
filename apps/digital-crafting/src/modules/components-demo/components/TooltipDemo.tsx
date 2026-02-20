@@ -1,8 +1,4 @@
-import {ZCol, ZRow} from "@zoria-ui/react/components/layout/ZLayout.tsx";
-import {ZToggle} from "@zoria-ui/react/components/checkbox/ZToggle.tsx";
-import {ZTooltip} from "@zoria-ui/react/components/tooltip/ZTooltip.tsx";
-import {ZH2, ZText} from "@zoria-ui/react/components/typography/ZTypography.tsx";
-import {ZPanel} from "@zoria-ui/react/components/panel/ZPanel.tsx";
+import {ZCol, ZH2, ZPanel, ZRow, ZText, ZToggle, ZTooltip} from "@zoria-ui/react";
 
 export function TooltipDemo() {
     return <ZPanel>

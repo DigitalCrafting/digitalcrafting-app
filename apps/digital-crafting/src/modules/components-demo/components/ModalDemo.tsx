@@ -1,8 +1,4 @@
-import {ZCol, ZRow} from "@zoria-ui/react/components/layout/ZLayout.tsx";
-import {ZButton} from "@zoria-ui/react/components/buttons/ZButton.tsx";
-import {ZPanel} from "@zoria-ui/react/components/panel/ZPanel.tsx";
-import {ZH2, ZH3} from "@zoria-ui/react/components/typography/ZTypography.tsx";
-import {ZModal, ZModalService, ZModalSize} from "@zoria-ui/react/components/modal/ZModal.tsx";
+import {ZButton, ZCol, ZH2, ZH3, ZModal, ZModalService, ZModalSize, ZPanel, ZRow} from "@zoria-ui/react";
 
 function getModal(size: ZModalSize) {
     return <ZModal size={size}>

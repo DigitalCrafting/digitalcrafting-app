@@ -1,9 +1,10 @@
-import React, {useCallback, useContext, useEffect, useRef, useState} from 'react';
+import * as React from 'react';
+import {useCallback, useContext, useEffect, useRef, useState} from 'react';
 import {Subject} from "rxjs";
 import {createPortal} from "react-dom";
-import {ZSize} from "../../types/ZSizes.ts";
+import {ZSize} from "../../types/ZSizes";
 import {XIcon} from "../icons/Icons";
-import {useFocusTrap} from "../../hooks/useFocusTrap.ts";
+import {useFocusTrap} from "../../hooks/useFocusTrap";
 import {IconButton} from "../buttons/IconButton";
 import {ZCol, ZRow} from "../layout/ZLayout";
 import {ZButton, type ZButtonProps} from "../buttons/ZButton";

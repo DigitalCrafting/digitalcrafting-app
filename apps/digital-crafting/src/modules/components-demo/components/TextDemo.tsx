@@ -1,7 +1,4 @@
-import {ZCol, ZRow} from "@zoria-ui/react/components/layout/ZLayout.tsx";
-import {ZH2, ZText} from "@zoria-ui/react/components/typography/ZTypography.tsx";
-import {ZSize} from "@zoria-ui/react/types/ZSizes.ts";
-import {ZPanel} from "@zoria-ui/react/components/panel/ZPanel.tsx";
+import {ZCol, ZH2, ZPanel, ZRow, ZSize, ZText} from "@zoria-ui/react";
 
 export function TextDemo() {
     return <ZPanel>
