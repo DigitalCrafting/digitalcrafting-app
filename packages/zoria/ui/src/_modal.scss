@@ -1,6 +1,7 @@
 .z-modal {
   display: flex;
   flex-direction: column;
+  gap: var(--space-y-2);
   overflow: hidden;
   z-index: var(--z-modal);
 

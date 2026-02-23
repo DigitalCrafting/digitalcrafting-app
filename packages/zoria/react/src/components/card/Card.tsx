@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-interface ZCardProps {
+interface CardProps {
     className?: string
     'data-testid'?: string
 }
 
-export function ZCard({children, className: externalClassName = '', 'data-testid': dataTestId}: React.PropsWithChildren<ZCardProps>) {
+export function Card({children, className: externalClassName = '', 'data-testid': dataTestId}: React.PropsWithChildren<CardProps>) {
     return <div className={`z-card ${externalClassName}`}
                 data-testid={dataTestId}
     >

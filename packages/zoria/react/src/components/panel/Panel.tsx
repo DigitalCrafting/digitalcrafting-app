@@ -33,16 +33,16 @@ interface PanelProps {
     children: PanelChildrenType
 }
 
-function Panel({children}: PanelProps) {
+function InternalPanel({children}: PanelProps) {
     return <div className={`z-card z-panel`}>
         {children}
     </div>;
 }
 
-const ZPanel = Object.assign(Panel, {
+const Panel = Object.assign(InternalPanel, {
     Header: PanelHeader,
     Body: PanelBody,
     Footer: PanelFooter
 })
 
-export {ZPanel};
+export {Panel};

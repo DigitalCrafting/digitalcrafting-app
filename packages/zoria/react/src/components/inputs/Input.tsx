@@ -1,6 +1,6 @@
-import {ZUtils} from "../../utils/ZUtils";
+import {CryptoUtils} from "../../utils/Utils";
 
-interface ZInputProps {
+interface InputProps {
     className?: string
     'data-testid'?: string
     label?: string
@@ -9,16 +9,16 @@ interface ZInputProps {
     disabled?: boolean
 }
 
-export function ZInput({
+export function Input({
     className: externalClassName = '',
     'data-testid': dataTestId,
     label,
     error,
     id,
     disabled
-}: ZInputProps) {
+}: InputProps) {
     if (!id) {
-        id = `input-${ZUtils.UUID()}`
+        id = `input-${CryptoUtils.UUID()}`
     }
 
     if (!dataTestId) {

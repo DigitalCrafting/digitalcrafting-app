@@ -1,6 +1,6 @@
 import * as React from "react";
-import {ZTooltipProvider} from "./tooltip/ZTooltip";
-import {ZModalProvider} from "./modal/ZModal";
+import {TooltipProvider} from "./tooltip/Tooltip";
+import {ModalProvider} from "./modal/Modal";
 
 interface ZoriaProviderProps {
     children: React.ReactElement
@@ -8,10 +8,10 @@ interface ZoriaProviderProps {
 
 export function ZoriaProvider({children}: ZoriaProviderProps) {
     return (
-        <ZModalProvider>
-            <ZTooltipProvider>
+        <ModalProvider>
+            <TooltipProvider>
                 {children}
-            </ZTooltipProvider>
-        </ZModalProvider>
+            </TooltipProvider>
+        </ModalProvider>
     );
 }

@@ -1,4 +1,4 @@
-import {ZCol, ZRow} from "@zoria-ui/react";
+import {Col, Row} from "@zoria-ui/react";
 import {InputDemo} from "./components/InputDemo.tsx";
 import {TextDemo} from "./components/TextDemo.tsx";
 import {CheckboxDemo} from "./components/CheckboxDemo.tsx";
@@ -12,41 +12,41 @@ import {IconButtonDemo} from "./components/IconButtonDemo.tsx";
 import {DatePickerDemo} from "./components/DatePickerDemo.tsx";
 
 export function ComponentsDemoPage() {
-    return <ZRow className={`justify-center`}>
-        <ZCol span={8}>
-            <ZRow >
+    return <Row className={`justify-center`}>
+        <Col span={8}>
+            <Row >
                 <ButtonDemo />
-            </ZRow>
-            <ZRow>
+            </Row>
+            <Row>
                 <IconButtonDemo />
-            </ZRow>
-            <ZRow>
+            </Row>
+            <Row>
                 <DatePickerDemo />
-            </ZRow>
-            <ZRow>
+            </Row>
+            <Row>
                 <CheckboxDemo />
-            </ZRow>
-            <ZRow>
+            </Row>
+            <Row>
                 <ToggleDemo />
-            </ZRow>
-            <ZRow>
+            </Row>
+            <Row>
                 <InputDemo />
-            </ZRow>
-            <ZRow>
+            </Row>
+            <Row>
                 <TextDemo />
-            </ZRow>
-            <ZRow>
+            </Row>
+            <Row>
                 <PopoverDemo />
-            </ZRow>
-            <ZRow>
+            </Row>
+            <Row>
                 <TooltipDemo />
-            </ZRow>
-            <ZRow>
+            </Row>
+            <Row>
                 <ModalDemo/>
-            </ZRow>
-            <ZRow>
+            </Row>
+            <Row>
                 <IconsDemo/>
-            </ZRow>
-        </ZCol>
-    </ZRow>
+            </Row>
+        </Col>
+    </Row>
 }

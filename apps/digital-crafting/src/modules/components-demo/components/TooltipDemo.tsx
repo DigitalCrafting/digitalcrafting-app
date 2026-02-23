@@ -1,31 +1,31 @@
-import {ZCol, ZH2, ZPanel, ZRow, ZText, ZToggle, ZTooltip} from "@zoria-ui/react";
+import {Col, H2, Panel, Row, Text, Toggle, Tooltip} from "@zoria-ui/react";
 
 export function TooltipDemo() {
-    return <ZPanel>
-        <ZPanel.Header><ZH2>Tooltip</ZH2></ZPanel.Header>
-        <ZPanel.Body>
-            <ZRow className={'justify-center content-center'}>
-                <ZCol span={5} className={'justify-center align-items-center'}>
-                    <ZTooltip>
-                        <ZTooltip.Trigger>
-                            <ZToggle>Test toggle</ZToggle>
-                        </ZTooltip.Trigger>
-                        <ZTooltip.Body>
-                            <ZText>This is a toggle tooltip</ZText>
-                        </ZTooltip.Body>
-                    </ZTooltip>
-                </ZCol>
-                <ZCol span={5} className={'justify-center align-items-center'}>
-                    <ZTooltip>
-                        <ZTooltip.Trigger>
-                            <ZText>Lorem ipsum</ZText>
-                        </ZTooltip.Trigger>
-                        <ZTooltip.Body>
-                            <ZText>dolor sit amet, consectetur adipiscing elit.</ZText>
-                        </ZTooltip.Body>
-                    </ZTooltip>
-                </ZCol>
-            </ZRow>
-        </ZPanel.Body>
-    </ZPanel>
+    return <Panel>
+        <Panel.Header><H2>Tooltip</H2></Panel.Header>
+        <Panel.Body>
+            <Row className={'justify-center content-center'}>
+                <Col span={5} className={'justify-center align-items-center'}>
+                    <Tooltip>
+                        <Tooltip.Trigger>
+                            <Toggle>Test toggle</Toggle>
+                        </Tooltip.Trigger>
+                        <Tooltip.Body>
+                            <Text>This is a toggle tooltip</Text>
+                        </Tooltip.Body>
+                    </Tooltip>
+                </Col>
+                <Col span={5} className={'justify-center align-items-center'}>
+                    <Tooltip>
+                        <Tooltip.Trigger>
+                            <Text>Lorem ipsum</Text>
+                        </Tooltip.Trigger>
+                        <Tooltip.Body>
+                            <Text>dolor sit amet, consectetur adipiscing elit.</Text>
+                        </Tooltip.Body>
+                    </Tooltip>
+                </Col>
+            </Row>
+        </Panel.Body>
+    </Panel>
 }

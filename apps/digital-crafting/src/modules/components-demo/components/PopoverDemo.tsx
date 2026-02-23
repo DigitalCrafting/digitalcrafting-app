@@ -1,31 +1,31 @@
-import {ZButton, ZCol, ZH2, ZPanel, ZPopover, ZRow, ZText} from "@zoria-ui/react";
+import {Button, Col, H2, Panel, Popover, Row, Text} from "@zoria-ui/react";
 
 export function PopoverDemo() {
-    return <ZPanel>
-        <ZPanel.Header><ZH2>Popover</ZH2></ZPanel.Header>
-        <ZPanel.Body>
-            <ZRow className={'justify-center content-center'}>
-                <ZCol span={5} className={'justify-center align-items-center'}>
-                    <ZPopover>
-                        <ZPopover.Trigger>
-                            <ZButton >Popover 1</ZButton>
-                        </ZPopover.Trigger>
-                        <ZPopover.Body>
-                            <ZText>This is a popover 1 body</ZText>
-                        </ZPopover.Body>
-                    </ZPopover>
-                </ZCol>
-                <ZCol span={5} className={'justify-center align-items-center'}>
-                    <ZPopover persistent>
-                        <ZPopover.Trigger>
-                            <ZButton>Lorem ipsum (persistent)</ZButton>
-                        </ZPopover.Trigger>
-                        <ZPopover.Body>
-                            <ZText>dolor sit amet, consectetur adipiscing elit.</ZText>
-                        </ZPopover.Body>
-                    </ZPopover>
-                </ZCol>
-            </ZRow>
-        </ZPanel.Body>
-    </ZPanel>
+    return <Panel>
+        <Panel.Header><H2>Popover</H2></Panel.Header>
+        <Panel.Body>
+            <Row className={'justify-center content-center'}>
+                <Col span={5} className={'justify-center align-items-center'}>
+                    <Popover>
+                        <Popover.Trigger>
+                            <Button >Popover 1</Button>
+                        </Popover.Trigger>
+                        <Popover.Body>
+                            <Text>This is a popover 1 body</Text>
+                        </Popover.Body>
+                    </Popover>
+                </Col>
+                <Col span={5} className={'justify-center align-items-center'}>
+                    <Popover persistent>
+                        <Popover.Trigger>
+                            <Button>Lorem ipsum (persistent)</Button>
+                        </Popover.Trigger>
+                        <Popover.Body>
+                            <Text>dolor sit amet, consectetur adipiscing elit.</Text>
+                        </Popover.Body>
+                    </Popover>
+                </Col>
+            </Row>
+        </Panel.Body>
+    </Panel>
 }

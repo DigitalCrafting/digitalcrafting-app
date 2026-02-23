@@ -56,7 +56,7 @@ interface TooltipProps {
     children: [React.ReactElement<typeof TooltipTrigger>, React.ReactElement<typeof TooltipBody>]
 }
 
-function Tooltip({children}: TooltipProps) {
+function InternalTooltip({children}: TooltipProps) {
     const childrenArray = React.Children.toArray(children)
 
     // TODO: detect which is which
@@ -66,7 +66,7 @@ function Tooltip({children}: TooltipProps) {
     return <TooltipTrigger content={content} {...trigger.props}>{trigger.props.children}</TooltipTrigger>
 }
 
-const ZTooltip = Object.assign(Tooltip,
+const Tooltip = Object.assign(InternalTooltip,
     {
         Body: TooltipBody,
         Trigger: TooltipTrigger
@@ -100,11 +100,11 @@ function TooltipPortalManager() {
     </div>, document.body)}</>
 }
 
-interface ZTooltipProviderProps {
+interface TooltipProviderProps {
     children: React.ReactElement
 }
 
-function ZTooltipProvider({children}: ZTooltipProviderProps) {
+function TooltipProvider({children}: TooltipProviderProps) {
     const tooltipSubject = useRef<Subject<TooltipEvent>>(new Subject<TooltipEvent>());
 
     return <TooltipContext.Provider value={{
@@ -116,4 +116,4 @@ function ZTooltipProvider({children}: ZTooltipProviderProps) {
     </TooltipContext.Provider>
 }
 
-export {ZTooltip, ZTooltipProvider};
+export {Tooltip, TooltipProvider};

@@ -90,7 +90,7 @@ interface PopoverProps {
     children: [React.ReactElement<typeof PopoverTrigger>, React.ReactElement<typeof PopoverBody>]
 }
 
-function Popover({children, persistent = false}: PopoverProps) {
+function InternalPopover({children, persistent = false}: PopoverProps) {
     const [open, setOpen] = React.useState(false);
     // @ts-ignore
     const triggerRef = React.useRef<HTMLDivElement | HTMLButtonElement>(null);
@@ -102,11 +102,11 @@ function Popover({children, persistent = false}: PopoverProps) {
     );
 }
 
-const ZPopover = Object.assign(Popover,
+const Popover = Object.assign(InternalPopover,
     {
         Body: PopoverBody,
         Trigger: PopoverTrigger
     });
 
 
-export {ZPopover};
+export {Popover};

@@ -1,49 +1,49 @@
-import {ZButton, ZCol, ZH2, ZH3, ZModal, ZModalService, ZModalSize, ZPanel, ZRow} from "@zoria-ui/react";
+import {Button, Col, H2, H3, Modal, ModalService, ModalSize, Panel, Row} from "@zoria-ui/react";
 
-function getModal(size: ZModalSize) {
-    return <ZModal size={size}>
-        <ZModal.Header>
-            <ZH3>Modal: {size}</ZH3>
-            <ZModal.X />
-        </ZModal.Header>
-        <ZModal.Body>Body</ZModal.Body>
-        <ZModal.Footer>
-            <ZModal.ActionButton onClick={() => {console.log("action")}}>Action</ZModal.ActionButton>
-            <ZModal.SubmitButton onClick={() => {console.log("submit")}}>Submit</ZModal.SubmitButton>
-        </ZModal.Footer>
-    </ZModal>
+function getModal(size: ModalSize) {
+    return <Modal size={size}>
+        <Modal.Header>
+            <H3>Modal: {size}</H3>
+            <Modal.X />
+        </Modal.Header>
+        <Modal.Body>Body</Modal.Body>
+        <Modal.Footer>
+            <Modal.ActionButton onClick={() => {console.log("action")}}>Action</Modal.ActionButton>
+            <Modal.SubmitButton onClick={() => {console.log("submit")}}>Submit</Modal.SubmitButton>
+        </Modal.Footer>
+    </Modal>
 }
 
 export function ModalDemo() {
-    const showSmallModal = () => ZModalService.show(getModal(ZModalSize.SM));
-    const showMediumModal = () => ZModalService.show(getModal(ZModalSize.MD));
-    const showLargeModal = () => ZModalService.show(getModal(ZModalSize.LG));
-    const showFullscreenModal = () => ZModalService.show(getModal(ZModalSize.FS));
+    const showSmallModal = () => ModalService.show(getModal(ModalSize.SM));
+    const showMediumModal = () => ModalService.show(getModal(ModalSize.MD));
+    const showLargeModal = () => ModalService.show(getModal(ModalSize.LG));
+    const showFullscreenModal = () => ModalService.show(getModal(ModalSize.FS));
 
 
-    return <ZPanel>
-        <ZPanel.Header>
-            <ZH2>Modal</ZH2>
-        </ZPanel.Header>
-        <ZPanel.Body>
-            <ZCol gap='sm'>
-                <ZRow className={'justify-center content-center'}>
-                    <ZCol span={5} className={'justify-center align-items-center content-center'}>
-                        <ZButton onClick={showSmallModal}>Small modal</ZButton>
-                    </ZCol>
-                    <ZCol span={5} className={'justify-center align-items-center content-center'}>
-                        <ZButton onClick={showMediumModal}>Medium modal</ZButton>
-                    </ZCol>
-                </ZRow>
-                <ZRow className={'justify-center content-center'}>
-                    <ZCol span={5} className={'justify-center align-items-center content-center'}>
-                        <ZButton onClick={showLargeModal}>Large modal</ZButton>
-                    </ZCol>
-                    <ZCol span={5} className={'justify-center align-items-center content-center'}>
-                        <ZButton onClick={showFullscreenModal}>Fullscreen modal</ZButton>
-                    </ZCol>
-                </ZRow>
-            </ZCol>
-        </ZPanel.Body>
-    </ZPanel>;
+    return <Panel>
+        <Panel.Header>
+            <H2>Modal</H2>
+        </Panel.Header>
+        <Panel.Body>
+            <Col gap='sm'>
+                <Row className={'justify-center content-center'}>
+                    <Col span={5} className={'justify-center align-items-center content-center'}>
+                        <Button onClick={showSmallModal}>Small modal</Button>
+                    </Col>
+                    <Col span={5} className={'justify-center align-items-center content-center'}>
+                        <Button onClick={showMediumModal}>Medium modal</Button>
+                    </Col>
+                </Row>
+                <Row className={'justify-center content-center'}>
+                    <Col span={5} className={'justify-center align-items-center content-center'}>
+                        <Button onClick={showLargeModal}>Large modal</Button>
+                    </Col>
+                    <Col span={5} className={'justify-center align-items-center content-center'}>
+                        <Button onClick={showFullscreenModal}>Fullscreen modal</Button>
+                    </Col>
+                </Row>
+            </Col>
+        </Panel.Body>
+    </Panel>;
 }

@@ -1,33 +1,33 @@
-import {ZCol, ZH2, ZInput, ZPanel, ZRow} from "@zoria-ui/react";
+import {Col, H2, Input, Panel, Row} from "@zoria-ui/react";
 
 export function InputDemo() {
-    return <ZPanel>
-        <ZPanel.Header>
-            <ZH2>Input</ZH2>
-        </ZPanel.Header>
-        <ZPanel.Body>
-            <ZCol gap='sm'>
-                <ZRow className={'justify-center content-center'}>
+    return <Panel>
+        <Panel.Header>
+            <H2>Input</H2>
+        </Panel.Header>
+        <Panel.Body>
+            <Col gap='sm'>
+                <Row className={'justify-center content-center'}>
 
-                    <ZCol span={5} className={'justify-center align-items-center'}>
-                        <ZInput label='Test input'/>
-                    </ZCol>
+                    <Col span={5} className={'justify-center align-items-center'}>
+                        <Input label='Test input'/>
+                    </Col>
 
-                    <ZCol span={5} className={'justify-center align-items-center'}>
-                        <ZInput label='Test input with error' error='Terrible error'/>
-                    </ZCol>
-                </ZRow>
-                <ZRow className={'justify-center content-center'}>
+                    <Col span={5} className={'justify-center align-items-center'}>
+                        <Input label='Test input with error' error='Terrible error'/>
+                    </Col>
+                </Row>
+                <Row className={'justify-center content-center'}>
 
-                    <ZCol span={5} className={'justify-center align-items-center'}>
-                        <ZInput label='Test input disabled' disabled/>
-                    </ZCol>
+                    <Col span={5} className={'justify-center align-items-center'}>
+                        <Input label='Test input disabled' disabled/>
+                    </Col>
 
-                    <ZCol span={5} className={'justify-center align-items-center'}>
-                        <ZInput label='Test input 2 with error' error='Terrible error'/>
-                    </ZCol>
-                </ZRow>
-            </ZCol>
-        </ZPanel.Body>
-    </ZPanel>
+                    <Col span={5} className={'justify-center align-items-center'}>
+                        <Input label='Test input 2 with error' error='Terrible error'/>
+                    </Col>
+                </Row>
+            </Col>
+        </Panel.Body>
+    </Panel>
 }

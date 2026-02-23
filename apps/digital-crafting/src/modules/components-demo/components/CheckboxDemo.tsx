@@ -1,30 +1,30 @@
-import {ZCheckbox, ZCol, ZH2, ZPanel, ZRow} from "@zoria-ui/react";
+import {Checkbox, Col, H2, Panel, Row} from "@zoria-ui/react";
 
 export function CheckboxDemo() {
-    return <ZPanel>
-        <ZPanel.Header><ZH2>Checkbox</ZH2></ZPanel.Header>
-        <ZPanel.Body>
-            <ZCol gap='sm'>
-                <ZRow className={'justify-center content-center'}>
-                    <ZCol span={5} className={'justify-center align-items-center'}>
-                        <ZCheckbox>Test checkbox</ZCheckbox>
-                    </ZCol>
+    return <Panel>
+        <Panel.Header><H2>Checkbox</H2></Panel.Header>
+        <Panel.Body>
+            <Col gap='sm'>
+                <Row className={'justify-center content-center'}>
+                    <Col span={5} className={'justify-center align-items-center'}>
+                        <Checkbox>Test checkbox</Checkbox>
+                    </Col>
 
-                    <ZCol span={5} className={'justify-center align-items-center'}>
-                        <ZCheckbox disabled>Disabled checkbox</ZCheckbox>
-                    </ZCol>
-                </ZRow>
-                <ZRow className={'justify-center content-center'}>
+                    <Col span={5} className={'justify-center align-items-center'}>
+                        <Checkbox disabled>Disabled checkbox</Checkbox>
+                    </Col>
+                </Row>
+                <Row className={'justify-center content-center'}>
 
-                    <ZCol span={5} className={'justify-center align-items-center'}>
-                        <ZCheckbox checked>Test checked checkbox</ZCheckbox>
-                    </ZCol>
+                    <Col span={5} className={'justify-center align-items-center'}>
+                        <Checkbox checked>Test checked checkbox</Checkbox>
+                    </Col>
 
-                    <ZCol span={5} className={'justify-center align-items-center'}>
-                        <ZCheckbox disabled checked>Disabled checkbox</ZCheckbox>
-                    </ZCol>
-                </ZRow>
-            </ZCol>
-        </ZPanel.Body>
-    </ZPanel>;
+                    <Col span={5} className={'justify-center align-items-center'}>
+                        <Checkbox disabled checked>Disabled checkbox</Checkbox>
+                    </Col>
+                </Row>
+            </Col>
+        </Panel.Body>
+    </Panel>;
 }

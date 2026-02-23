@@ -14,18 +14,18 @@ import {
     EllipsisMenuIcon,
     MenuIcon,
     XIcon,
-    ZCol,
-    ZH2,
-    ZPanel,
-    ZRow
+    Col,
+    H2,
+    Panel,
+    Row
 } from "@zoria-ui/react";
 
 export function IconsDemo() {
-    return <ZPanel>
-        <ZPanel.Header><ZH2>Icons</ZH2></ZPanel.Header>
-        <ZPanel.Body>
-            <ZCol gap='sm'>
-                <ZRow gap='lg' className={'justify-center content-center'}>
+    return <Panel>
+        <Panel.Header><H2>Icons</H2></Panel.Header>
+        <Panel.Body>
+            <Col gap='sm'>
+                <Row gap='lg' className={'justify-center content-center'}>
                     <XIcon/>
                     <ChevronDownIcon/>
                     <ChevronLeftIcon/>
@@ -38,13 +38,13 @@ export function IconsDemo() {
                     <CheckIcon/>
                     <CopyIcon/>
                     <CopyCheckIcon/>
-                </ZRow>
-                <ZRow gap='lg' className={'justify-center content-center'}>
+                </Row>
+                <Row gap='lg' className={'justify-center content-center'}>
                     <MenuIcon/>
                     <EllipsisMenuIcon/>
                     <EllipsisIcon/>
-                </ZRow>
-            </ZCol>
-        </ZPanel.Body>
-    </ZPanel>;
+                </Row>
+            </Col>
+        </Panel.Body>
+    </Panel>;
 }

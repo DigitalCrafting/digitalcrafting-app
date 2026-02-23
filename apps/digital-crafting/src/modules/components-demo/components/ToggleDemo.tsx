@@ -1,30 +1,30 @@
-import {ZCol, ZH2, ZPanel, ZRow, ZToggle} from "@zoria-ui/react";
+import {Col, H2, Panel, Row, Toggle} from "@zoria-ui/react";
 
 export function ToggleDemo() {
-    return <ZPanel>
-        <ZPanel.Header><ZH2>Toggle</ZH2></ZPanel.Header>
-        <ZPanel.Body>
-            <ZCol gap='sm'>
-                <ZRow className={'justify-center content-center'}>
-                    <ZCol span={5} className={'justify-center align-items-center'}>
-                        <ZToggle>Test toggle</ZToggle>
-                    </ZCol>
+    return <Panel>
+        <Panel.Header><H2>Toggle</H2></Panel.Header>
+        <Panel.Body>
+            <Col gap='sm'>
+                <Row className={'justify-center content-center'}>
+                    <Col span={5} className={'justify-center align-items-center'}>
+                        <Toggle>Test toggle</Toggle>
+                    </Col>
 
-                    <ZCol span={5} className={'justify-center align-items-center'}>
-                        <ZToggle disabled>Disabled toggle</ZToggle>
-                    </ZCol>
-                </ZRow>
-                <ZRow className={'justify-center content-center'}>
+                    <Col span={5} className={'justify-center align-items-center'}>
+                        <Toggle disabled>Disabled toggle</Toggle>
+                    </Col>
+                </Row>
+                <Row className={'justify-center content-center'}>
 
-                    <ZCol span={5} className={'justify-center align-items-center'}>
-                        <ZToggle checked>Test checked toggle</ZToggle>
-                    </ZCol>
+                    <Col span={5} className={'justify-center align-items-center'}>
+                        <Toggle checked>Test checked toggle</Toggle>
+                    </Col>
 
-                    <ZCol span={5} className={'justify-center align-items-center'}>
-                        <ZToggle disabled checked>Disabled toggle</ZToggle>
-                    </ZCol>
-                </ZRow>
-            </ZCol>
-        </ZPanel.Body>
-    </ZPanel>
+                    <Col span={5} className={'justify-center align-items-center'}>
+                        <Toggle disabled checked>Disabled toggle</Toggle>
+                    </Col>
+                </Row>
+            </Col>
+        </Panel.Body>
+    </Panel>
 }

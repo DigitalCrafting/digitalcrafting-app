@@ -23,7 +23,6 @@ export function SidePanel({children, location = 'left'}: SidePanelProps) {
 
     useEffect(() => {
         const subscription = SidePanelService.subject.subscribe(() => {
-            console.log('triggered')
             setIsOpen(prev => !prev);
         })
 

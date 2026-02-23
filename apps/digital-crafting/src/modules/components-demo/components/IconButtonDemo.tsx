@@ -1,18 +1,18 @@
-import {IconButton, XIcon, ZCol, ZH2, ZPanel, ZRow} from "@zoria-ui/react";
+import {IconButton, XIcon, Col, H2, Panel, Row} from "@zoria-ui/react";
 
 export function IconButtonDemo() {
-    return <ZPanel>
-        <ZPanel.Header><ZH2>IconButton</ZH2></ZPanel.Header>
-        <ZPanel.Body>
-            <ZRow className={'justify-center content-center'}>
-                <ZCol span={5} className={'justify-center align-items-center'}>
+    return <Panel>
+        <Panel.Header><H2>IconButton</H2></Panel.Header>
+        <Panel.Body>
+            <Row className={'justify-center content-center'}>
+                <Col span={5} className={'justify-center align-items-center'}>
                     <IconButton><XIcon/></IconButton>
-                </ZCol>
+                </Col>
 
-                <ZCol span={5} className={'justify-center align-items-center'}>
+                <Col span={5} className={'justify-center align-items-center'}>
                     <IconButton disabled><XIcon/></IconButton>
-                </ZCol>
-            </ZRow>
-        </ZPanel.Body>
-    </ZPanel>;
+                </Col>
+            </Row>
+        </Panel.Body>
+    </Panel>;
 }

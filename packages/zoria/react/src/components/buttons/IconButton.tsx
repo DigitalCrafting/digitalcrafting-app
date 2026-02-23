@@ -1,17 +1,17 @@
 import * as React from 'react';
-import {ZSize} from "../../types/ZSizes";
+import {UiSize} from "../../types/UiSizes";
 
 interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode,
     disabled?: boolean
-    size?: ZSize,
+    size?: UiSize,
     'data-testid'?: string
 }
 
 export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(({
     children,
     disabled = false,
-    size = ZSize.MD,
+    size = UiSize.MD,
     onClick,
     className: externalClassName = '',
     'data-testid': dataTestId = 'qa-icon-button'

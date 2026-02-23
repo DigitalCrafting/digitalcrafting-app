@@ -1,27 +1,27 @@
-import {ZCol, ZH2, ZPanel, ZRow, ZText} from "@zoria-ui/react";
+import {Col, H2, Panel, Row, Text} from "@zoria-ui/react";
 
 export function TextDemo() {
-    return <ZPanel>
-        <ZPanel.Header><ZH2>Text</ZH2></ZPanel.Header>
-        <ZPanel.Body>
-            <ZRow className={'justify-center content-center'}>
-                <ZCol span={5} className={'justify-center text-center'}>
-                    <ZText>Example normal text</ZText>
-                </ZCol>
+    return <Panel>
+        <Panel.Header><H2>Text</H2></Panel.Header>
+        <Panel.Body>
+            <Row className={'justify-center content-center'}>
+                <Col span={5} className={'justify-center text-center'}>
+                    <Text>Example normal text</Text>
+                </Col>
 
-                <ZCol span={5} className={'justify-center text-center'}>
-                    <ZText bold>Example bold text</ZText>
-                </ZCol>
-            </ZRow>
-            <ZRow className={'justify-center content-center'}>
-                <ZCol span={5} className={'justify-center text-center'}>
-                    <ZText size='sm'>Example small text</ZText>
-                </ZCol>
+                <Col span={5} className={'justify-center text-center'}>
+                    <Text bold>Example bold text</Text>
+                </Col>
+            </Row>
+            <Row className={'justify-center content-center'}>
+                <Col span={5} className={'justify-center text-center'}>
+                    <Text size='sm'>Example small text</Text>
+                </Col>
 
-                <ZCol span={5} className={'justify-center text-center'}>
-                    <ZText size='lg'>Example large text</ZText>
-                </ZCol>
-            </ZRow>
-        </ZPanel.Body>
-    </ZPanel>
+                <Col span={5} className={'justify-center text-center'}>
+                    <Text size='lg'>Example large text</Text>
+                </Col>
+            </Row>
+        </Panel.Body>
+    </Panel>
 }

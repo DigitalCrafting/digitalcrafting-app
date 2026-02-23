@@ -62,7 +62,8 @@
   }
 }
 
-.z-icon-button:focus-visible {
+.z-icon-button:focus-visible,
+.z-icon-button:focus {
   outline: 0;
   box-shadow: 0 0 0 3px var(--theme-primary-focus-shadow);
   transition: var(--theme-focus-transition);

@@ -1,20 +1,20 @@
 import * as React from 'react';
-import {ZSize} from "../../types/ZSizes";
+import {UiSize} from "../../types/UiSizes";
 
-interface BstRowProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
-    gap?: ZSize
+interface RowProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
+    gap?: UiSize
 }
 
-export function ZRow({children, gap = ZSize.MD, className: externalClassName = '', ...rest}: React.PropsWithChildren<BstRowProps>) {
+export function Row({children, gap = UiSize.MD, className: externalClassName = '', ...rest}: React.PropsWithChildren<RowProps>) {
     return <div className={`z-row z-row-${gap} ${externalClassName}`} {...rest}>{children}</div>
 }
 
 interface BstColProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
-    gap?: ZSize;
+    gap?: UiSize;
     span?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 }
 
-export function ZCol({children, span = undefined, gap = ZSize.MD, className: externalClassName = '', ...rest}: React.PropsWithChildren<BstColProps>) {
+export function Col({children, span = undefined, gap = UiSize.MD, className: externalClassName = '', ...rest}: React.PropsWithChildren<BstColProps>) {
     let colClassName = `z-col z-col-${gap} `;
     if (span) {
         colClassName += 'z-col-' + span;

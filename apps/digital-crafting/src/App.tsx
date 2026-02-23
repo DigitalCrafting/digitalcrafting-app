@@ -1,11 +1,11 @@
 import './App.css'
 import {ComponentsDemoPage} from "./modules/components-demo/ComponentsDemoPage";
-import {ZContainer} from "@zoria-ui/react";
+import {Container} from "@zoria-ui/react";
 import {TopBar} from "@zoria-ui/react";
 import {IconButton} from "@zoria-ui/react";
 import {MenuIcon} from "@zoria-ui/react";
 import {SidePanel, SidePanelService} from "@zoria-ui/react";
-import {ZText} from "@zoria-ui/react";
+import {Text} from "@zoria-ui/react";
 
 function BastionTopBar() {
     return <TopBar>
@@ -24,11 +24,11 @@ function App() {
             <BastionTopBar/>
             <main>
                 <SidePanel>
-                    <ZText>Hello</ZText>
+                    <Text>Hello</Text>
                 </SidePanel>
-                <ZContainer>
+                <Container>
                     <ComponentsDemoPage/>
-                </ZContainer>
+                </Container>
             </main>
         </>
     )

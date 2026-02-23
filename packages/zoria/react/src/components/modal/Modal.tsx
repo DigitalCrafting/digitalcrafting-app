@@ -2,12 +2,12 @@ import * as React from 'react';
 import {useCallback, useContext, useEffect, useRef, useState} from 'react';
 import {Subject} from "rxjs";
 import {createPortal} from "react-dom";
-import {ZSize} from "../../types/ZSizes";
+import {UiSize} from "../../types/UiSizes";
 import {XIcon} from "../icons/Icons";
 import {useFocusTrap} from "../../hooks/useFocusTrap";
 import {IconButton} from "../buttons/IconButton";
-import {ZCol, ZRow} from "../layout/ZLayout";
-import {ZButton, type ZButtonProps} from "../buttons/ZButton";
+import {Col, Row} from "../layout/Layout";
+import {Button, type ButtonProps} from "../buttons/Button";
 
 interface ModalEvent {
     modal: React.ReactElement<ModalProps> | null
@@ -56,11 +56,11 @@ function ModalPortalManager() {
 
 }
 
-interface ZModalProviderProps {
+interface ModalProviderProps {
     children: React.ReactElement
 }
 
-function ZModalProvider({children}: ZModalProviderProps) {
+function ModalProvider({children}: ModalProviderProps) {
 
     return <>
         {children}
@@ -99,36 +99,36 @@ interface ModalPartProps {
 }
 
 function ModalHeader({
-                         children,
-                         className: externalClassName = '',
-                     }: React.PropsWithChildren<ModalPartProps>) {
+    children,
+    className: externalClassName = '',
+}: React.PropsWithChildren<ModalPartProps>) {
     const {dataTestId} = useModalContext();
 
-    return <ZRow data-testid={`${dataTestId}-header`} className={`z-modal-header ${externalClassName}`}>
+    return <Row data-testid={`${dataTestId}-header`} className={`z-modal-header ${externalClassName}`}>
         {children}
-    </ZRow>;
+    </Row>;
 }
 
 function ModalBody({
-                       children,
-                       className: externalClassName = '',
-                   }: React.PropsWithChildren<ModalPartProps>) {
+    children,
+    className: externalClassName = '',
+}: React.PropsWithChildren<ModalPartProps>) {
     const {dataTestId} = useModalContext();
 
-    return <ZRow data-testid={`${dataTestId}-body`} className={`z-modal-body ${externalClassName}`}>
+    return <Col data-testid={`${dataTestId}-body`} className={`z-modal-body ${externalClassName}`}>
         {children}
-    </ZRow>;
+    </Col>;
 }
 
 function ModalFooter({
-                         children,
-                         className: externalClassName = '',
-                     }: React.PropsWithChildren<ModalPartProps>) {
+    children,
+    className: externalClassName = '',
+}: React.PropsWithChildren<ModalPartProps>) {
     const {dataTestId} = useModalContext();
 
-    return <ZRow data-testid={`${dataTestId}-footer`} className={`z-modal-footer ${externalClassName}`}>
+    return <Row gap='sm' data-testid={`${dataTestId}-footer`} className={`z-modal-footer ${externalClassName}`}>
         {children}
-    </ZRow>;
+    </Row>;
 }
 
 function ModalX() {
@@ -139,13 +139,13 @@ function ModalX() {
     }
 
     return <div className='z-modal-x item-right'>
-        <IconButton size={ZSize.LG} data-testid={`${dataTestId}-x-button`} onClick={hideModal}>
+        <IconButton size={UiSize.LG} data-testid={`${dataTestId}-x-button`} onClick={hideModal}>
             <XIcon/>
         </IconButton>
     </div>
 }
 
-function ModalSubmitButton({onClick, children, ...props}: ZButtonProps) {
+function ModalSubmitButton({onClick, children, ...props}: ButtonProps) {
     const ref = useRef<HTMLButtonElement>(null);
     const {dataTestId, subject} = useModalContext();
 
@@ -165,27 +165,27 @@ function ModalSubmitButton({onClick, children, ...props}: ZButtonProps) {
         }
     }, []);
 
-    return <ZCol gap={ZSize.SM}><ZButton
+    return <Button
         ref={ref}
         onClick={internalOnClick}
         {...props}
         data-testid={`${dataTestId}-submit-button`}
-    >{children}</ZButton></ZCol>
+    >{children}</Button>
 }
 
-function ModalActionButton({onClick, children, ...props}: ZButtonProps) {
+function ModalActionButton({onClick, children, ...props}: ButtonProps) {
     const {dataTestId} = useModalContext();
 
     const internalOnClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         onClick?.(event);
     }
 
-    return <ZCol gap={ZSize.SM}><ZButton
+    return <Button
         data-testid={`${dataTestId}-action-button`}
         onClick={internalOnClick}
         {...props}
         secondary
-    >{children}</ZButton></ZCol>
+    >{children}</Button>
 }
 
 type HeaderType = React.ReactElement<typeof ModalHeader>;
@@ -199,22 +199,27 @@ type ModalChildrenType =
     | [BodyType, FooterType]
     | React.ReactNode;
 
-const ZModalSize = {
+const ModalSize = {
     SM: 'sm',
     MD: 'md',
     LG: 'lg',
     FS: 'fullscreen'
 } as const;
-type ZModalSize = (typeof ZModalSize)[keyof typeof ZModalSize];
+type ModalSize = (typeof ModalSize)[keyof typeof ModalSize];
 
 interface ModalProps {
     children: ModalChildrenType,
-    size?: ZModalSize,
+    size?: ModalSize,
     'data-testid'?: string,
     onClose?: (() => void) | null
 }
 
-function Modal({children, size = ZSize.MD, 'data-testid': dataTestId = 'qa-modal', onClose = null}: ModalProps) {
+function InternalModal({
+    children,
+    size = UiSize.MD,
+    'data-testid': dataTestId = 'qa-modal',
+    onClose = null
+}: ModalProps) {
     const subject = useRef<Subject<ModalActionEvent>>(new Subject<ModalActionEvent>())
     const modalRef = useRef<HTMLDivElement>(null);
 
@@ -258,7 +263,7 @@ function Modal({children, size = ZSize.MD, 'data-testid': dataTestId = 'qa-modal
     </ModalContextProvider>;
 }
 
-const ZModal = Object.assign(Modal, {
+const Modal = Object.assign(InternalModal, {
     Header: ModalHeader,
     Body: ModalBody,
     Footer: ModalFooter,
@@ -268,4 +273,4 @@ const ZModal = Object.assign(Modal, {
 })
 
 
-export {ZModal, ZModalProvider, ZModalSize, ModalService as ZModalService};
+export {Modal, ModalProvider, ModalSize, ModalService};

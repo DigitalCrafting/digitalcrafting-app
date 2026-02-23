@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-export interface ZButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: string
     secondary?: boolean
     'data-testid'?: string
 }
 
-export const ZButton = React.forwardRef<HTMLButtonElement, ZButtonProps>(
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 ({
      children,
      disabled,
@@ -14,7 +14,7 @@ export const ZButton = React.forwardRef<HTMLButtonElement, ZButtonProps>(
      className: externalClassName = '',
      secondary = false,
      'data-testid': dataTestid = 'qa-button'
-}: ZButtonProps, ref) => {
+}: ButtonProps, ref) => {
 const buttonStyle = secondary ? 'z-button-secondary' : 'z-button-primary';
 
 return <button ref={ref} data-testid={dataTestid} role="button"

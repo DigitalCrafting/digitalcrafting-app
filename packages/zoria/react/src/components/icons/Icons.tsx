@@ -1,8 +1,8 @@
 import * as React from "react";
-import {ZSize} from "../../types/ZSizes";
+import {UiSize} from "../../types/UiSizes";
 
 interface SvgIconBaseProps extends React.SVGProps<SVGSVGElement> {
-    size?: ZSize
+    size?: UiSize
 }
 
 export function SvgIconBase({children, ...props}: SvgIconBaseProps) {
@@ -21,38 +21,38 @@ export function SvgIconBase({children, ...props}: SvgIconBaseProps) {
     </svg>);
 }
 
-export function XIcon({size = ZSize.MD, ...props}: SvgIconBaseProps) {
+export function XIcon({size = UiSize.MD, ...props}: SvgIconBaseProps) {
     return <SvgIconBase className={`z-icon z-icon-${size}`} {...props}>
         <path d="M6 18L18 6"/>
         <path d="M6 6l12 12"/>
     </SvgIconBase>
 }
 
-export function ChevronDownIcon({size = ZSize.MD, ...props}: SvgIconBaseProps) {
+export function ChevronDownIcon({size = UiSize.MD, ...props}: SvgIconBaseProps) {
     return <SvgIconBase className={`z-icon z-icon-${size}`} {...props}>
         <path d="m6 9 6 6 6-6"/>
     </SvgIconBase>
 }
 
-export function ChevronLeftIcon({size = ZSize.MD, ...props}: SvgIconBaseProps) {
+export function ChevronLeftIcon({size = UiSize.MD, ...props}: SvgIconBaseProps) {
     return <SvgIconBase className={`z-icon z-icon-${size}`} {...props}>
         <path d="m15 18-6-6 6-6"/>
     </SvgIconBase>
 }
 
-export function ChevronRightIcon({size = ZSize.MD, ...props}: SvgIconBaseProps) {
+export function ChevronRightIcon({size = UiSize.MD, ...props}: SvgIconBaseProps) {
     return <SvgIconBase className={`z-icon z-icon-${size}`} {...props}>
         <path d="m9 18 6-6-6-6"/>
     </SvgIconBase>
 }
 
-export function ChevronUpIcon({size = ZSize.MD, ...props}: SvgIconBaseProps) {
+export function ChevronUpIcon({size = UiSize.MD, ...props}: SvgIconBaseProps) {
     return <SvgIconBase className={`z-icon z-icon-${size}`} {...props}>
         <path d="m18 15-6-6-6 6"/>
     </SvgIconBase>
 }
 
-export function CalendarIcon({size = ZSize.MD, ...props}: SvgIconBaseProps) {
+export function CalendarIcon({size = UiSize.MD, ...props}: SvgIconBaseProps) {
     return <SvgIconBase className={`z-icon z-icon-${size}`} {...props}>
         <path d="M8 2v4"/>
         <path d="M16 2v4"/>
@@ -61,7 +61,7 @@ export function CalendarIcon({size = ZSize.MD, ...props}: SvgIconBaseProps) {
     </SvgIconBase>
 }
 
-export function CalendarCheckIcon({size = ZSize.MD, ...props}: SvgIconBaseProps) {
+export function CalendarCheckIcon({size = UiSize.MD, ...props}: SvgIconBaseProps) {
     return <SvgIconBase className={`z-icon z-icon-${size}`} {...props}>
         <path d="M8 2v4"/>
         <path d="M16 2v4"/>
@@ -71,14 +71,14 @@ export function CalendarCheckIcon({size = ZSize.MD, ...props}: SvgIconBaseProps)
     </SvgIconBase>
 }
 
-export function ClockIcon({size = ZSize.MD, ...props}: SvgIconBaseProps) {
+export function ClockIcon({size = UiSize.MD, ...props}: SvgIconBaseProps) {
     return <SvgIconBase className={`z-icon z-icon-${size}`} {...props}>
         <path d="M12 6v6l4 2"/>
         <circle cx="12" cy="12" r="10"/>
     </SvgIconBase>
 }
 
-export function ClockCheckIcon({size = ZSize.MD, ...props}: SvgIconBaseProps) {
+export function ClockCheckIcon({size = UiSize.MD, ...props}: SvgIconBaseProps) {
     return <SvgIconBase className={`z-icon z-icon-${size}`} {...props}>
         <path d="M12 6v6l4 2"/>
         <path d="M22 12a10 10 0 1 0-11 9.95"/>
@@ -86,20 +86,20 @@ export function ClockCheckIcon({size = ZSize.MD, ...props}: SvgIconBaseProps) {
     </SvgIconBase>
 }
 
-export function CheckIcon({size = ZSize.MD, ...props}: SvgIconBaseProps) {
+export function CheckIcon({size = UiSize.MD, ...props}: SvgIconBaseProps) {
     return <SvgIconBase className={`z-icon z-icon-${size}`} {...props}>
         <path d="M20 6 9 17l-5-5"/>
     </SvgIconBase>
 }
 
-export function CopyIcon({size = ZSize.MD, ...props}: SvgIconBaseProps) {
+export function CopyIcon({size = UiSize.MD, ...props}: SvgIconBaseProps) {
     return <SvgIconBase className={`z-icon z-icon-${size}`} {...props}>
         <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
         <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
     </SvgIconBase>
 }
 
-export function CopyCheckIcon({size = ZSize.MD, ...props}: SvgIconBaseProps) {
+export function CopyCheckIcon({size = UiSize.MD, ...props}: SvgIconBaseProps) {
     return <SvgIconBase className={`z-icon z-icon-${size}`} {...props}>
         <path d="m12 15 2 2 4-4"/>
         <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
@@ -107,7 +107,7 @@ export function CopyCheckIcon({size = ZSize.MD, ...props}: SvgIconBaseProps) {
     </SvgIconBase>
 }
 
-export function MenuIcon({size = ZSize.MD, ...props}: SvgIconBaseProps) {
+export function MenuIcon({size = UiSize.MD, ...props}: SvgIconBaseProps) {
     return <SvgIconBase className={`z-icon z-icon-${size}`} {...props}>
         <path d="M4 5h16"/>
         <path d="M4 12h16"/>
@@ -115,7 +115,7 @@ export function MenuIcon({size = ZSize.MD, ...props}: SvgIconBaseProps) {
     </SvgIconBase>
 }
 
-export function EllipsisMenuIcon({size = ZSize.MD, ...props}: SvgIconBaseProps) {
+export function EllipsisMenuIcon({size = UiSize.MD, ...props}: SvgIconBaseProps) {
     return <SvgIconBase className={`z-icon z-icon-${size}`} {...props}>
         <circle cx="12" cy="12" r="1"/>
         <circle cx="12" cy="5" r="1"/>
@@ -123,7 +123,7 @@ export function EllipsisMenuIcon({size = ZSize.MD, ...props}: SvgIconBaseProps) 
     </SvgIconBase>
 }
 
-export function EllipsisIcon({size = ZSize.MD, ...props}: SvgIconBaseProps) {
+export function EllipsisIcon({size = UiSize.MD, ...props}: SvgIconBaseProps) {
     return <SvgIconBase className={`z-icon z-icon-${size}`} {...props}>
         <circle cx="12" cy="12" r="1"/>
         <circle cx="19" cy="12" r="1"/>
