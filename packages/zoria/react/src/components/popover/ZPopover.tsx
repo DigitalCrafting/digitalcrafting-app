@@ -4,7 +4,7 @@ import {createPortal} from "react-dom";
 import {useFloatingUiPositioning} from "../../hooks/useFloatingUiPositioning";
 
 interface PopoverContextType {
-    autoDismiss: boolean,
+    persistent: boolean,
     open: boolean,
     setOpen: (open: boolean) => void;
     triggerRef: React.RefObject<HTMLDivElement | HTMLButtonElement | null> | undefined
@@ -38,12 +38,12 @@ function PopoverTrigger({children}: PopoverTriggerProps) {
 
 function PopoverBody({children}: React.PropsWithChildren<any>) {
     const popoverRef = useRef<HTMLDivElement>(null);
-    const {open, setOpen, triggerRef, autoDismiss} = usePopoverContext();
+    const {open, setOpen, triggerRef, persistent} = usePopoverContext();
 
     useFloatingUiPositioning(triggerRef, popoverRef, 'bottom');
 
     useEffect(() => {
-        if (!open || !autoDismiss) {
+        if (!open || persistent) {
             return;
         }
 
@@ -68,7 +68,7 @@ function PopoverBody({children}: React.PropsWithChildren<any>) {
         return () => {
             document.removeEventListener('pointerdown', callback);
         }
-    }, [open, autoDismiss]);
+    }, [open, persistent]);
 
     const visibilityClassName = open ? 'z-tooltip-visible' : 'z-tooltip-hidden';
 
@@ -86,17 +86,17 @@ function PopoverBody({children}: React.PropsWithChildren<any>) {
 }
 
 interface PopoverProps {
-    autoDismiss?: boolean,
+    persistent?: boolean,
     children: [React.ReactElement<typeof PopoverTrigger>, React.ReactElement<typeof PopoverBody>]
 }
 
-function Popover({children, autoDismiss = false}: PopoverProps) {
+function Popover({children, persistent = false}: PopoverProps) {
     const [open, setOpen] = React.useState(false);
     // @ts-ignore
     const triggerRef = React.useRef<HTMLDivElement | HTMLButtonElement>(null);
 
     return (
-        <PopoverContext.Provider value={{open, setOpen, triggerRef, autoDismiss}}>
+        <PopoverContext.Provider value={{open, setOpen, triggerRef, persistent}}>
             {children}
         </PopoverContext.Provider>
     );

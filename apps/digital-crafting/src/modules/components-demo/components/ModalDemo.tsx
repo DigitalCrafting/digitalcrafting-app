@@ -26,22 +26,24 @@ export function ModalDemo() {
             <ZH2>Modal</ZH2>
         </ZPanel.Header>
         <ZPanel.Body>
-            <ZRow className={'justify-center content-center'}>
-                <ZCol span={5} className={'justify-center align-items-center content-center'}>
-                    <ZButton onClick={showSmallModal}>Small modal</ZButton>
-                </ZCol>
-                <ZCol span={5} className={'justify-center align-items-center content-center'}>
-                    <ZButton onClick={showMediumModal}>Medium modal</ZButton>
-                </ZCol>
-            </ZRow>
-            <ZRow className={'justify-center content-center'}>
-                <ZCol span={5} className={'justify-center align-items-center content-center'}>
-                    <ZButton onClick={showLargeModal}>Large modal</ZButton>
-                </ZCol>
-                <ZCol span={5} className={'justify-center align-items-center content-center'}>
-                    <ZButton onClick={showFullscreenModal}>Fullscreen modal</ZButton>
-                </ZCol>
-            </ZRow>
+            <ZCol gap='sm'>
+                <ZRow className={'justify-center content-center'}>
+                    <ZCol span={5} className={'justify-center align-items-center content-center'}>
+                        <ZButton onClick={showSmallModal}>Small modal</ZButton>
+                    </ZCol>
+                    <ZCol span={5} className={'justify-center align-items-center content-center'}>
+                        <ZButton onClick={showMediumModal}>Medium modal</ZButton>
+                    </ZCol>
+                </ZRow>
+                <ZRow className={'justify-center content-center'}>
+                    <ZCol span={5} className={'justify-center align-items-center content-center'}>
+                        <ZButton onClick={showLargeModal}>Large modal</ZButton>
+                    </ZCol>
+                    <ZCol span={5} className={'justify-center align-items-center content-center'}>
+                        <ZButton onClick={showFullscreenModal}>Fullscreen modal</ZButton>
+                    </ZCol>
+                </ZRow>
+            </ZCol>
         </ZPanel.Body>
     </ZPanel>;
 }

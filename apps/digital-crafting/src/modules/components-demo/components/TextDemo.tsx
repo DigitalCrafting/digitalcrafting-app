@@ -1,4 +1,4 @@
-import {ZCol, ZH2, ZPanel, ZRow, ZSize, ZText} from "@zoria-ui/react";
+import {ZCol, ZH2, ZPanel, ZRow, ZText} from "@zoria-ui/react";
 
 export function TextDemo() {
     return <ZPanel>
@@ -15,11 +15,11 @@ export function TextDemo() {
             </ZRow>
             <ZRow className={'justify-center content-center'}>
                 <ZCol span={5} className={'justify-center text-center'}>
-                    <ZText size={ZSize.SM}>Example small text</ZText>
+                    <ZText size='sm'>Example small text</ZText>
                 </ZCol>
 
                 <ZCol span={5} className={'justify-center text-center'}>
-                    <ZText size={ZSize.LG}>Example large text</ZText>
+                    <ZText size='lg'>Example large text</ZText>
                 </ZCol>
             </ZRow>
         </ZPanel.Body>

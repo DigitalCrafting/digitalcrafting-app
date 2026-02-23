@@ -16,9 +16,9 @@ export function PopoverDemo() {
                     </ZPopover>
                 </ZCol>
                 <ZCol span={5} className={'justify-center align-items-center'}>
-                    <ZPopover autoDismiss>
+                    <ZPopover persistent>
                         <ZPopover.Trigger>
-                            <ZButton>Lorem ipsum (autoDismiss)</ZButton>
+                            <ZButton>Lorem ipsum (persistent)</ZButton>
                         </ZPopover.Trigger>
                         <ZPopover.Body>
                             <ZText>dolor sit amet, consectetur adipiscing elit.</ZText>
