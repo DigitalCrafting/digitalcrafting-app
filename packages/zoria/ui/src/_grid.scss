@@ -43,3 +43,25 @@
     gap: var(--space-x-3);
   }
 }
+
+.z-grid {
+  display: inline-grid;
+
+  @for $i from 1 through 12 {
+    &-#{$i} {
+      grid-template-columns: repeat($i, 1fr);
+    }
+  }
+
+  &-sm {
+    gap: var(--space-x-1);
+  }
+
+  &-md {
+    gap: var(--space-x-2);
+  }
+
+  &-lg {
+    gap: var(--space-x-3);
+  }
+}
