@@ -11,7 +11,7 @@ import {IconsDemo} from "./components/IconsDemo.tsx";
 import {IconButtonDemo} from "./components/IconButtonDemo.tsx";
 import {DatePickerDemo} from "./components/DatePickerDemo.tsx";
 
-export function ComponentsDemoPage() {
+export function ComponentsDemoList() {
     return <Row className={`justify-center`}>
         <Col span={8}>
             <Row >
