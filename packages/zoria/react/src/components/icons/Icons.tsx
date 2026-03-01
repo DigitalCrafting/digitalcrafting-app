@@ -283,6 +283,18 @@ export const RouterIcon = ({size = UiSize.MD, ...props}: SvgIconBaseProps) => {
     </SvgIconBase>
 }
 
+export const SatelliteIcon = ({size = UiSize.MD, ...props}: SvgIconBaseProps) => {
+    return <SvgIconBase className={`z-icon z-icon-${size}`} {...props}>
+        <path d="m13.5 6.5-3.148-3.148a1.205 1.205 0 0 0-1.704 0L6.352 5.648a1.205 1.205 0 0 0 0 1.704L9.5 10.5"/>
+        <path d="M16.5 7.5 19 5"/>
+        <path
+            d="m17.5 10.5 3.148 3.148a1.205 1.205 0 0 1 0 1.704l-2.296 2.296a1.205 1.205 0 0 1-1.704 0L13.5 14.5"/>
+        <path d="M9 21a6 6 0 0 0-6-6"/>
+        <path
+            d="M9.352 10.648a1.205 1.205 0 0 0 0 1.704l2.296 2.296a1.205 1.205 0 0 0 1.704 0l4.296-4.296a1.205 1.205 0 0 0 0-1.704l-2.296-2.296a1.205 1.205 0 0 0-1.704 0z"/>
+    </SvgIconBase>
+}
+
 export const SatelliteDishIcon = ({size = UiSize.MD, ...props}: SvgIconBaseProps) => {
     return <SvgIconBase className={`z-icon z-icon-${size}`} {...props}>
         <path d="M4 10a7.31 7.31 0 0 0 10 10Z"/>
@@ -299,6 +311,21 @@ export const NetworkIcon = ({size = UiSize.MD, ...props}: SvgIconBaseProps) => {
         <rect x="9" y="2" width="6" height="6" rx="1"/>
         <path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/>
         <path d="M12 12V8"/>
+    </SvgIconBase>
+}
+
+export const MessageBrokerIcon = ({size = UiSize.MD, ...props}: SvgIconBaseProps) => {
+    return <SvgIconBase className={`z-icon z-icon-${size}`} {...props}>
+        <circle cx="12" cy="12" r="3"/>
+
+        <circle cx="12" cy="4" r="2"/>
+        <line x1="12" y1="7" x2="12" y2="9"/>
+        <circle cx="19" cy="8" r="2"/>
+        <circle cx="19" cy="16" r="2"/>
+        <line x1="15" y1="10" x2="17" y2="9"/>
+        <line x1="15" y1="14" x2="17" y2="15"/>
+        <circle cx="12" cy="20" r="2"/>
+        <line x1="12" y1="15" x2="12" y2="17"/>
     </SvgIconBase>
 }
 
@@ -338,6 +365,16 @@ export const CircleInfoIcon = ({size = UiSize.MD, ...props}: SvgIconBaseProps) =
         <circle cx="12" cy="12" r="10"/>
         <path d="M12 16v-4"/>
         <path d="M12 8h.01"/>
+    </SvgIconBase>
+}
+
+export const ShareIcon = ({size = UiSize.MD, ...props}: SvgIconBaseProps) => {
+    return <SvgIconBase className={`z-icon z-icon-${size}`} {...props}>
+        <circle cx="18" cy="5" r="3"/>
+        <circle cx="6" cy="12" r="3"/>
+        <circle cx="18" cy="19" r="3"/>
+        <line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/>
+        <line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/>
     </SvgIconBase>
 }
 

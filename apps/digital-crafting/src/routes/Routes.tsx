@@ -1,6 +1,5 @@
 import {createBrowserRouter} from "react-router-dom";
 import {LandingPage} from "../pages/landing-page/LandingPage.tsx";
-import {ComponentsDemoPage} from "../pages/components-demo/ComponentsDemoPage.tsx";
 import App from "../App.tsx";
 
 export const Router = createBrowserRouter([
@@ -14,7 +13,10 @@ export const Router = createBrowserRouter([
             },
             {
                 path: 'zoria',
-                element: <ComponentsDemoPage />
+                lazy: async () => {
+                    const {ComponentsDemoPage} = await import('../pages/components-demo/ComponentsDemoPage.tsx');
+                    return {element: <ComponentsDemoPage />};
+                },
             }
         ]
     },

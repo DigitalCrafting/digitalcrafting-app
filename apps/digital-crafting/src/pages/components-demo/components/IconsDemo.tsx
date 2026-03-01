@@ -25,16 +25,16 @@ import {
     HardDriveIcon,
     HardDriveUploadIcon,
     LaptopIcon,
-    MenuIcon,
+    MenuIcon, MessageBrokerIcon,
     MonitorIcon,
     NetworkIcon,
     Panel,
     RouterIcon,
-    SatelliteDishIcon,
+    SatelliteDishIcon, SatelliteIcon,
     ServerCogIcon,
     ServerCrashIcon,
     ServerIcon,
-    ServerOffIcon,
+    ServerOffIcon, ShareIcon,
     SmartphoneIcon,
     Text,
     Tooltip,
@@ -236,9 +236,21 @@ export function IconsDemo() {
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
+                        <SatelliteIcon/>
+                    </Tooltip.Trigger>
+                    <Tooltip.Body><Text>SatelliteIcon</Text></Tooltip.Body>
+                </Tooltip>
+                <Tooltip>
+                    <Tooltip.Trigger>
                         <NetworkIcon/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>NetworkIcon</Text></Tooltip.Body>
+                </Tooltip>
+                <Tooltip>
+                    <Tooltip.Trigger>
+                        <MessageBrokerIcon/>
+                    </Tooltip.Trigger>
+                    <Tooltip.Body><Text>MessageBrokerIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
@@ -269,6 +281,12 @@ export function IconsDemo() {
                         <CircleInfoIcon/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>CircleInfoIcon</Text></Tooltip.Body>
+                </Tooltip>
+                <Tooltip>
+                    <Tooltip.Trigger>
+                        <ShareIcon/>
+                    </Tooltip.Trigger>
+                    <Tooltip.Body><Text>ShareIcon</Text></Tooltip.Body>
                 </Tooltip>
             </Grid>
         </Panel.Body>
