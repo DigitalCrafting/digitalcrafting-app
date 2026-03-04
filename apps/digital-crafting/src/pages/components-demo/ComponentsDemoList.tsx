@@ -10,10 +10,14 @@ import {ModalDemo} from "./components/ModalDemo.tsx";
 import {IconsDemo} from "./components/IconsDemo.tsx";
 import {IconButtonDemo} from "./components/IconButtonDemo.tsx";
 import {DatePickerDemo} from "./components/DatePickerDemo.tsx";
+import {SpinnerDemo} from "./components/SpinnerDemo.tsx";
 
 export function ComponentsDemoList() {
     return <Row className={`justify-center`}>
         <Col span={8}>
+            <Row>
+                <SpinnerDemo />
+            </Row>
             <Row >
                 <ButtonDemo />
             </Row>

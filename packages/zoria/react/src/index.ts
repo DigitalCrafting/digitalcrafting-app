@@ -15,6 +15,7 @@ export * from "./components/modal/Modal";
 export * from "./components/panel/Panel";
 export * from "./components/popover/Popover";
 export * from "./components/side-panel/SidePanel";
+export * from "./components/spinner/Spinner";
 export * from "./components/tooltip/Tooltip";
 export * from "./components/top-bar/TopBar";
 export * from "./components/typography/Typography";
