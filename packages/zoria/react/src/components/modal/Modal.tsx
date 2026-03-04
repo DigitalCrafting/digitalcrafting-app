@@ -6,7 +6,7 @@ import {UiSize} from "../../types/UiSizes";
 import {XIcon} from "../icons/Icons";
 import {useFocusTrap} from "../../hooks/useFocusTrap";
 import {IconButton} from "../buttons/IconButton";
-import {Col, Row} from "../layout/Layout";
+import {Col, Row} from "../grid/Grid";
 import {Button, type ButtonProps} from "../buttons/Button";
 
 interface ModalEvent {
