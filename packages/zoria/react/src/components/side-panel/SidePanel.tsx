@@ -5,7 +5,6 @@ import {Subject} from "rxjs";
 
 interface SidePanelProps extends ZoriaProps {
     children: React.ReactNode
-    location?: 'left' | 'right'
 }
 
 class SidePanelServiceImpl {
@@ -18,11 +17,13 @@ class SidePanelServiceImpl {
 
 export const SidePanelService = new SidePanelServiceImpl();
 
-export function SidePanel({children, location = 'left'}: SidePanelProps) {
+export function SidePanel({children}: SidePanelProps) {
     const [isOpen, setIsOpen] = useState(false);
+
 
     useEffect(() => {
         const subscription = SidePanelService.subject.subscribe(() => {
+            console.log(`==== triggered`)
             setIsOpen(prev => !prev);
         })
 
@@ -31,5 +32,5 @@ export function SidePanel({children, location = 'left'}: SidePanelProps) {
         }
     }, []);
 
-    return <aside className={`z-side-panel z-side-panel__${location} ${isOpen ? 'open' : ''}`}>{children}</aside>
+    return <aside className={`z-side-panel ${isOpen ? '' : 'collapsed'}`}>{children}</aside>
 }

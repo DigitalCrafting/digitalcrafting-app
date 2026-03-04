@@ -11,10 +11,13 @@ import {IconsDemo} from "./components/IconsDemo.tsx";
 import {IconButtonDemo} from "./components/IconButtonDemo.tsx";
 import {DatePickerDemo} from "./components/DatePickerDemo.tsx";
 import {SpinnerDemo} from "./components/SpinnerDemo.tsx";
+import styles from "./ComponentsDemoList.module.scss";
 
 export function ComponentsDemoList() {
     return <Row className={`justify-center`}>
-        <Col span={8}>
+        <Col
+            className={styles.ComponentDemoList}
+            >
             <Row>
                 <SpinnerDemo />
             </Row>

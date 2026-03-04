@@ -11,6 +11,7 @@ export * from "./components/date/DateRangePicker";
 export * from "./components/icons/Icons";
 export * from "./components/inputs/Input";
 export * from "./components/grid/Grid";
+export * from "./components/layout/Layout";
 export * from "./components/modal/Modal";
 export * from "./components/panel/Panel";
 export * from "./components/popover/Popover";

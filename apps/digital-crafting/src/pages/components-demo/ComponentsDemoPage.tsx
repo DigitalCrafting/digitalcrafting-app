@@ -1,5 +1,5 @@
 import {ComponentsDemoList} from "./ComponentsDemoList.tsx";
-import {Container} from "@zoria-ui/react";
+import {Container, Layout, Main} from "@zoria-ui/react";
 import {TopBar} from "@zoria-ui/react";
 import {IconButton} from "@zoria-ui/react";
 import {MenuIcon} from "@zoria-ui/react";
@@ -17,15 +17,19 @@ function BastionTopBar() {
 }
 
 export const ComponentsDemoPage = () => {
-    return <>
-        <BastionTopBar/>
-        <main>
+    return <Layout>
+        <Layout.Header>
+            <BastionTopBar/>
+        </Layout.Header>
+        <Layout.Body>
             <SidePanel>
                 <Text>Hello</Text>
             </SidePanel>
-            <Container>
-                <ComponentsDemoList />
-            </Container>
-        </main>
-    </>
+            <Main>
+                <Container>
+                    <ComponentsDemoList/>
+                </Container>
+            </Main>
+        </Layout.Body>
+    </Layout>
 }

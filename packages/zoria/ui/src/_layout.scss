@@ -1,0 +1,20 @@
+.z-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  &-header {
+    flex-shrink: 0;
+  }
+
+  &-body {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+  }
+}
+
+.z-main {
+  flex: 1;
+  overflow-y: auto;
+}

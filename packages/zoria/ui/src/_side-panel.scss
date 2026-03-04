@@ -1,27 +1,17 @@
 .z-side-panel {
-  position: absolute;
-  top: 0;
   height: 100%;
-  width: 320px;
+  width: 260px;
+  overflow-y: auto;
+  flex-shrink: 0;
 
   background: var(--theme-bg);
   box-shadow: var(--shadow-2);
 
-  transition: transform 0.3s ease;
+  transition: width 0.3s ease;
   will-change: transform;
-  z-index: var(--z-dropdown);
 
-  &__left {
-    transform: translateX(-100%);
-    left: 0;
-  }
-
-  &__right {
-    transform: translateX(100%);
-    right: 0;
-  }
-
-  &.open {
-    transform: translateX(0);
+  &.collapsed {
+    width: 0;
+    overflow: hidden;
   }
 }
