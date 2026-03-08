@@ -1,0 +1,77 @@
+.landing-page-animation {
+  --color-animation: #00ffff;
+  --color-node: #64748b;
+  --color-connection: #334155;
+
+  .connections {
+    color: var(--color-connection)
+  }
+
+  .nodes {
+    color: var(--color-node)
+  }
+
+  .particles {
+  }
+
+  .packet {
+    opacity: 0;
+    offset-rotate: auto;
+    pointer-events: none;
+
+    offset-anchor: center;
+    width: 12px;
+    height: 4px;
+    rx: 2;
+
+    /* Use a gradient that extends "backwards" to look like a tail */
+    fill: url(#packetGradient);
+    filter: drop-shadow(0 0 5px #00ffff);
+
+    transform-box: fill-box;
+    transform-origin: right center;
+  }
+
+  .animating {
+    animation: move-and-absorb 1s linear forwards;
+    filter: drop-shadow(0 0 2px var(--color-animation));
+  }
+
+  @keyframes move-and-absorb {
+    0% {
+      opacity: 1;
+      offset-distance: 0;
+      transform: scaleX(0.5);
+    }
+    5% {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+    90% {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+    100% {
+      opacity: 0;
+      offset-distance: 100%;
+      transform: scaleX(0); /* Shrinks into the node */
+    }
+  }
+
+  .node-icon {
+    transition: filter 0.2s, color 0.2s;
+    color: var(--color-node);
+  }
+
+  .node-icon-trigger:hover {
+    transition: color 0.2s ease-in-out;
+    color: var(--color-animation) !important;
+    filter: drop-shadow(0 0 4px var(--color-animation));
+  }
+
+  .node-active {
+    transition: color 0.2s ease-in-out;
+    color: var(--color-animation) !important;
+    filter: drop-shadow(0 0 4px var(--color-animation));
+  }
+}
