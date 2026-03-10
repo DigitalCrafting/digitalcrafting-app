@@ -1,5 +1,3 @@
-import * as React from "react";
-
 export const LPAnimationDefs = () => {
     return <defs>
         <symbol id='server' viewBox='0 0 24 24' fill="transparent" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
