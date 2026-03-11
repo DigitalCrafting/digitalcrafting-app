@@ -11,15 +11,12 @@ export interface Path {
     d: string
 }
 
-export interface Connection {
-    from: string,
-    to: string
-}
+export type LineType = 'straight' | 'right_angle' | 'polygonal';
 
-export interface AnimatingDiagram {
-    nodes: Map<string, Node>;
-    paths: Path[];
-    connections: Connection[];
+export interface Connection {
+    from: Node,
+    to: Node,
+    lineType?: LineType
 }
 
 export interface Position {
@@ -27,6 +24,14 @@ export interface Position {
     y: number
 }
 
-export type NodeDefs = Record<string, Node>
+export type AnimatedElementType = 'node' | 'path';
 
+export interface AnimatedElement {
+    id: string,
+    type: AnimatedElementType
+}
+
+export interface Animation {
+    elements: AnimatedElement[]
+}
 

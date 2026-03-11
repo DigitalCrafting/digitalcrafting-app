@@ -5,27 +5,28 @@ import type {Connection, Node, Path, Position} from "./Types.ts";
  * - Nodes are sufficiently apart to create Paths,
  * - view space is 0,0 at top left corner, grows right and bottom
  * */
-export function calculatePaths(nodes: Map<string, Node>, connections: Connection[], nodeSize: number): Path[] {
-    if (connections && connections.length && nodes.size) {
-        return connections.map(conn => calculatePath(nodes, conn, nodeSize)).filter(path => !!path);
+export function calculatePaths(connections: Connection[], nodeSize: number): Path[] {
+    if (connections && connections.length) {
+        return connections.map(conn => calculatePath(conn, nodeSize)).filter(path => !!path);
     }
 
     return [];
 }
 
-function calculatePath(nodes: Map<string, Node>, conn: Connection, nodeSize: number): Path | null {
+export function calculatePath(conn: Connection, nodeSize: number): Path | null {
     const {from, to} = conn;
-    const fromNode = nodes.get(from);
-    const toNode = nodes.get(to);
 
-    if (!fromNode || !toNode) {
+    if (!from || !to) {
         return null;
     }
 
-    if (isStraightLine(fromNode, toNode)) {
-        return calculateStraightLine(fromNode, toNode, nodeSize);
+    if (conn.lineType === 'straight' || isStraightLine(from, to)) {
+        return calculateStraightLine(from, to, nodeSize);
+    } else if (conn.lineType === 'right_angle') {
+        throw new Error('Not implemented');
+    } else {
+        return calculatePolygonalLine(from, to, nodeSize);
     }
-
 }
 
 function isStraightLine(first: Node, second: Node): boolean {
@@ -47,7 +48,7 @@ export function calculateStraightLine(first: Node, second: Node, nodeSize: numbe
     if (firstX === secondX) {
         // top/bottom
         startPoint.x = firstX + halfNodeSize;
-        endPoint.x = startPoint.x;
+        endPoint.x = secondX + halfNodeSize;
 
         if (firstY > secondY) {
             // bottom -> top
@@ -63,7 +64,7 @@ export function calculateStraightLine(first: Node, second: Node, nodeSize: numbe
         // isStraightLine should guarantee correct else
         // left/right
         startPoint.y = firstY + halfNodeSize;
-        endPoint.y = startPoint.y;
+        endPoint.y = secondY + halfNodeSize;
 
         if (firstX > secondX) {
             // right -> left
