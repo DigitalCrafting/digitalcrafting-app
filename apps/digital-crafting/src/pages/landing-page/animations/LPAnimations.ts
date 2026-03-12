@@ -1,4 +1,4 @@
-import {AnimatedDiagramBuilder, AnimationBuilder} from "../diagram/AnimationBuilder.ts";
+import {AnimatedDiagramBuilder, AnimationBuilder} from "./AnimationBuilder.ts";
 import {
     Database1,
     Database2, Database3, Database4,
@@ -75,4 +75,4 @@ export const LANDING_PAGE_ANIMATIONS: AnimatedDiagramBuilder = AnimatedDiagramBu
         .then(Server2)
         .then(Gateway1)
         .then(Smartphone1)
-)
+).build();

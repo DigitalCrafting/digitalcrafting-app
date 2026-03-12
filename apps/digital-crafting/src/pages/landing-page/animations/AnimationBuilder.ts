@@ -1,6 +1,6 @@
-import type {Animation, Connection, LineType, Node, Path} from "./Types.ts";
+import type {Animation, Connection, LineType, Node, Path} from "../diagram/Types.ts";
 import {NODE_SIZE} from "../utils/LPAnimationConsts.ts";
-import {calculatePath} from "./PathCalculator.ts";
+import {calculatePath} from "../diagram/PathCalculator.ts";
 
 export class AnimationBuilder {
     private _connections: Connection[] = [];
@@ -34,6 +34,7 @@ export class AnimatedDiagramBuilder {
     private _nodes: Map<string, Node> = new Map();
     private _paths: Map<string, Path> = new Map();
     private _animations: Map<string, Animation> = new Map();
+    private _availableAnimations: string[] = [];
 
     private constructor(private nodeSize: number) {
     }
@@ -75,6 +76,11 @@ export class AnimatedDiagramBuilder {
         return this;
     }
 
+    public build(): AnimatedDiagramBuilder {
+        this._availableAnimations = Array.from(this._animations.keys());
+        return this;
+    }
+
     get nodes(): Node[] {
         return Array.from(this._nodes.values());
     }
@@ -91,4 +97,9 @@ export class AnimatedDiagramBuilder {
         return animation;
     }
 
+    getRandomAnimation(): Animation {
+        const available = this._availableAnimations.length;
+        const random = Math.floor(Math.random() * available);
+        return this.getAnimation(this._availableAnimations[random]);
+    }
 }

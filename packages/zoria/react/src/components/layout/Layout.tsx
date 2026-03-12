@@ -1,7 +1,11 @@
 import type {PropsWithChildren} from "react";
 
-const InternalLayout = ({children}: PropsWithChildren) => {
-    return <div className="z-layout">{children}</div>
+interface LayoutProps {
+    className: string
+}
+
+const InternalLayout = ({children, className: externalClassName = ''}: PropsWithChildren<LayoutProps>) => {
+    return <div className={`z-layout ${externalClassName}`}>{children}</div>
 }
 
 const LayoutHeader = ({children}: PropsWithChildren) => {

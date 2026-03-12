@@ -127,14 +127,14 @@ export const Database4: Node = {
  * ================ */
 export const Scheduler1: Node = {
     id: "Scheduler1",
-    iconHref: '#server',
+    iconHref: '#scheduler',
     x: 300,
     y: 550,
     isTrigger: true
 }
 export const Scheduler2: Node = {
     id: "Scheduler2",
-    iconHref: '#server',
+    iconHref: '#scheduler',
     x: 700 - NODE_SIZE,
     y: 550,
     isTrigger: true

@@ -1,10 +1,17 @@
-import { H1 } from "@zoria-ui/react";
+import {Col, H1, H2, Layout} from "@zoria-ui/react";
 import './LandingPage.scss';
 import {LPArchitectureAnimation} from "./components/LPArchitectureAnimation.tsx";
 
 export const LandingPage = () => {
-    return <main className='dc-landing-page'>
-        <H1>Landing page</H1>
-        <LPArchitectureAnimation />
-    </main>
+    return <Layout className='dc-landing-page'>
+        <Layout.Header>
+            <Col className='align-items-center'>
+                <H1>DigitalCrafting</H1>
+                <H2>Where passion meets software</H2>
+            </Col>
+        </Layout.Header>
+        <Layout.Body>
+            <LPArchitectureAnimation/>
+        </Layout.Body>
+    </Layout>
 }

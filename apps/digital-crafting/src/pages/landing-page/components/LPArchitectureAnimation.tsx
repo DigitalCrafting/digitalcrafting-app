@@ -1,41 +1,81 @@
 import './LPArchitectureAnimation.scss';
-import {Button} from "@zoria-ui/react";
 import {playNode, playPath} from "../utils/LPAnimationUtils.ts";
 import {LPAnimationDefs} from "./LPAnimationDefs.tsx";
 import {NODE_SIZE} from "../utils/LPAnimationConsts.ts";
-import {LANDING_PAGE_ANIMATIONS} from "../utils/LPAnimations.ts";
+import {LANDING_PAGE_ANIMATIONS} from "../animations/LPAnimations.ts";
 import type {Animation} from "../diagram/Types.ts";
+import {DEFAULT_PACKET_POOL} from "../diagram/PacketPool.ts";
+import {useEffect, useRef} from "react";
 
 export const LPArchitectureAnimation = () => {
-    const triggerSequence = async (source?: string, playTrigger: boolean = false) => {
-        if (!source) {
-            // TODO random
-            source = 'Smartphone1';
+    const nodesMap = useRef<Map<string, SVGUseElement>>(new Map());
+    const pathsMap = useRef<Map<string, SVGPathElement>>(new Map());
+    const packetsMap = useRef<Map<string, SVGRectElement>>(new Map());
+
+    useEffect(() => {
+        LANDING_PAGE_ANIMATIONS.nodes.forEach(node => {
+            const nodeElement = document.getElementById(node.id) as SVGUseElement | null;
+            if (nodeElement) {
+                nodesMap.current.set(node.id, nodeElement);
+            }
+        })
+        LANDING_PAGE_ANIMATIONS.paths.forEach(path => {
+            const pathElement = document.getElementById(path.id) as SVGPathElement | null;
+            if (pathElement) {
+                pathsMap.current.set(path.id, pathElement);
+            }
+        })
+        DEFAULT_PACKET_POOL.getPacketIds().forEach(packetId => {
+            const packetElement = document.getElementById(packetId) as SVGRectElement | null;
+            if (packetElement) {
+                packetsMap.current.set(packetId, packetElement);
+            }
+        })
+
+        return () => {
+            nodesMap.current.clear();
+            pathsMap.current.clear();
+            packetsMap.current.clear();
         }
-        const animation: Animation = LANDING_PAGE_ANIMATIONS.getAnimation(source);
-        // TODO packet pool
-        const packet = document.getElementById('packet2') as SVGRectElement | null;
-        if (!packet) return;
+    }, []);
+
+    const triggerSequence = async (source?: string, playTrigger: boolean = false) => {
+        let animation: Animation;
+        if (!source) {
+            animation = LANDING_PAGE_ANIMATIONS.getRandomAnimation();
+            playTrigger = true;
+        } else {
+            animation = LANDING_PAGE_ANIMATIONS.getAnimation(source);
+        }
+
+        const packetId = DEFAULT_PACKET_POOL.acquire();
+        if (!packetId) {
+            return;
+        }
+
+        const packet = packetsMap.current.get(packetId);
+        if (!packet) {
+            DEFAULT_PACKET_POOL.release(packetId);
+            return;
+        }
 
         for (let idx = playTrigger ? 0 : 1; idx < animation.elements.length; idx++) {
-            const element =  animation.elements[idx];
+            const element = animation.elements[idx];
             if (element.type === 'node') {
-                const useElement = document.getElementById(element.id) as SVGUseElement | null;
-                if (!useElement) continue;
-                await playNode(useElement, 400);
+                const nodeElement = nodesMap.current.get(element.id);
+                if (!nodeElement) continue;
+                await playNode(nodeElement, 400);
             } else {
-                const pathElement = document.getElementById(element.id) as SVGPathElement | null;
+                const pathElement = pathsMap.current.get(element.id);
                 if (!pathElement) continue;
                 await playPath(pathElement, packet, 1200);
             }
         }
+
+        DEFAULT_PACKET_POOL.release(packetId);
     }
 
-    const onClick = async () => {
-        await triggerSequence();
-    }
-
-    return <><Button onClick={onClick}>Spawn particle</Button>
+    return <>
         <svg
             className='landing-page-animation'
             id='architectureAnimation'
@@ -56,13 +96,12 @@ export const LPArchitectureAnimation = () => {
 
             </g>
             <g id='particles' fill="none">
-                <rect id='packet1' className='packet'/>
-                <rect id='packet2' className='packet'/>
-                <rect id='packet3' className='packet'/>
-                <rect id='packet4' className='packet'/>
-                <rect id='packet5' className='packet'/>
+                {
+                    DEFAULT_PACKET_POOL.getPacketIds().map(id => {
+                        return <rect id={id} key={id} className='packet'/>
+                    })
+                }
             </g>
-
             <g id='nodes'>
                 {
                     LANDING_PAGE_ANIMATIONS.nodes.map((node) => {
@@ -80,6 +119,15 @@ export const LPArchitectureAnimation = () => {
                     })
                 }
             </g>
+
+            <use href='#send'
+                 x={500 - NODE_SIZE / 2}
+                 y={250}
+                 width={NODE_SIZE}
+                 height={NODE_SIZE}
+                 className={`node-icon node-icon-trigger`}
+                 onClick={() => triggerSequence()}
+            />
         </svg>
     </>
 }
