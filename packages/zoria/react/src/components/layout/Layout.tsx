@@ -1,7 +1,7 @@
 import type {PropsWithChildren} from "react";
 
 interface LayoutProps {
-    className: string
+    className?: string
 }
 
 const InternalLayout = ({children, className: externalClassName = ''}: PropsWithChildren<LayoutProps>) => {
