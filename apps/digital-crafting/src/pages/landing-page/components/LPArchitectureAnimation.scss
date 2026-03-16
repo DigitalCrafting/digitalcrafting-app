@@ -1,5 +1,6 @@
 .landing-page-animation {
   --color-animation: #00ffff;
+  --color-trigger-active: hsl(from var(--color-animation) h s 30%);
   --color-node: #64748b;
   --color-connection: #334155;
 
@@ -64,14 +65,18 @@
   }
 
   .node-icon-trigger:hover {
-    transition: color 0.2s ease-in-out;
-    color: var(--color-animation) !important;
+    color: var(--color-animation);
     filter: drop-shadow(0 0 4px var(--color-animation));
+    cursor: pointer;
+  }
+
+  .node-icon-trigger:active {
+    color: var(--color-trigger-active);
+    filter: drop-shadow(0 0 4px var(--color-trigger-active));
   }
 
   .node-active {
-    transition: color 0.2s ease-in-out;
-    color: var(--color-animation) !important;
+    color: var(--color-animation);
     filter: drop-shadow(0 0 4px var(--color-animation));
   }
 }

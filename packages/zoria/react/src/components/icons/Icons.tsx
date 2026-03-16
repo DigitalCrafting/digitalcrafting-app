@@ -209,6 +209,17 @@ export const ServerOffIcon = ({size = UiSize.MD, ...props}: SvgIconBaseProps) =>
     </SvgIconBase>
 }
 
+export const ServerClockIcon = ({size = UiSize.MD, ...props}: SvgIconBaseProps) => {
+    return <SvgIconBase className={`z-icon z-icon-${size}`} {...props}>
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 10v2l1.4 .7"/>
+        <path d="M4.5 10H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-.5"/>
+        <path d="M4.5 14H4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-.5"/>
+        <path d="M6 18h.01"/>
+        <path d="M6 6h.01"/>
+    </SvgIconBase>
+}
+
 export const HardDriveIcon = ({size = UiSize.MD, ...props}: SvgIconBaseProps) => {
     return <SvgIconBase className={`z-icon z-icon-${size}`} {...props}>
         <path d="M10 16h.01"/>

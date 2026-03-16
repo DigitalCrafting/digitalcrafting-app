@@ -30,7 +30,7 @@ import {
     NetworkIcon,
     Panel,
     RouterIcon,
-    SatelliteDishIcon, SatelliteIcon,
+    SatelliteDishIcon, SatelliteIcon, ServerClockIcon,
     ServerCogIcon,
     ServerCrashIcon,
     ServerIcon,
@@ -179,6 +179,12 @@ export function IconsDemo() {
                         <ServerOffIcon/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>ServerOffIcon</Text></Tooltip.Body>
+                </Tooltip>
+                <Tooltip>
+                    <Tooltip.Trigger>
+                        <ServerClockIcon/>
+                    </Tooltip.Trigger>
+                    <Tooltip.Body><Text>ServerClockIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
