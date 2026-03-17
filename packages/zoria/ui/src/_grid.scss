@@ -23,7 +23,6 @@
 .z-col {
   display: flex;
   flex-direction: column;
-  flex: 0 0 auto;
 
   @for $i from 1 through 12 {
     &-#{$i} {

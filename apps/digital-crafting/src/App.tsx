@@ -1,38 +1,25 @@
-import './App.css'
-import {Container, IconButton, Layout, MenuIcon, SidePanelService, TopBar, ZoriaProvider} from '@zoria-ui/react';
-import {Outlet, useLocation} from "react-router-dom";
-
-function MainTopBar() {
-    return <TopBar>
-        <Container>
-            <IconButton onClick={() => {
-                SidePanelService.toggle()
-            }}>
-                <MenuIcon/>
-            </IconButton>
-        </Container>
-    </TopBar>
-}
+import './App.scss'
+import {Layout, ZoriaProvider} from '@zoria-ui/react';
+import {DCHeader} from "./components/DCHeader.tsx";
+import {DCBody} from "./components/DCBody.tsx";
+import {useEffect} from "react";
+import {useIsRootRoute} from "./routes/useIsRootRoute.tsx";
 
 function App() {
-    const location = useLocation();
-    const isRoot = location.pathname === "/";
+    useEffect(() => {
+        import('./pages/components-demo/ComponentsDemoPage.tsx')
+    }, []);
 
-    return <>
+    const isRoot = useIsRootRoute();
+
+    return (
         <ZoriaProvider>
-            <Layout className={isRoot ? 'dc-landing-page' : ''}>
-                <Layout.Header>
-                    {
-                        !isRoot ?
-                            <MainTopBar/> : null
-                    }
-                </Layout.Header>
-                <Layout.Body>
-                    <Outlet/>
-                </Layout.Body>
+            <Layout className={`dc ${isRoot ? 'dc-landing-page' : ''}`}>
+                <DCHeader/>
+                <DCBody/>
             </Layout>
         </ZoriaProvider>
-    </>;
+    );
 }
 
 export default App

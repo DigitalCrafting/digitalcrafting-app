@@ -1,0 +1,28 @@
+.dc {
+    .nav-link {
+        color: var(--theme-text);
+        text-decoration: none;
+    }
+
+    &.dc-landing-page {
+        color: var(--theme-text-inv);
+
+        .nav-link {
+            color: var(--theme-text-inv);
+        }
+
+        .z-text {
+            color: var(--theme-text-inv);
+            text-decoration: none;
+        }
+
+        .z-top-bar {
+            background-color: var(--color-blue-grey-90);
+            box-shadow: unset;
+        }
+
+        .z-layout-body {
+            background-color: var(--color-blue-grey-90);
+        }
+    }
+}

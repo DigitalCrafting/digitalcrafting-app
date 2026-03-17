@@ -5,15 +5,15 @@ interface LayoutProps {
 }
 
 const InternalLayout = ({children, className: externalClassName = ''}: PropsWithChildren<LayoutProps>) => {
-    return <div className={`z-layout ${externalClassName}`}>{children}</div>
+    return <div className={`z-layout ${externalClassName}`.trim()}>{children}</div>
 }
 
-const LayoutHeader = ({children}: PropsWithChildren) => {
-    return <div className="z-layout-header">{children}</div>
+const LayoutHeader = ({children, className: externalClassName = ''}: PropsWithChildren<LayoutProps>) => {
+    return <div className={`z-layout-header ${externalClassName}`.trim()}>{children}</div>
 }
 
-const LayoutBody = ({children}: PropsWithChildren) => {
-    return <div className="z-layout-body">{children}</div>
+const LayoutBody = ({children, className: externalClassName = ''}: PropsWithChildren<LayoutProps>) => {
+    return <div className={`z-layout-body ${externalClassName}`.trim()}>{children}</div>
 }
 
 export const Layout = Object.assign(InternalLayout, {

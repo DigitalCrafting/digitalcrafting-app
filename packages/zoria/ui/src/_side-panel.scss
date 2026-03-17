@@ -1,8 +1,9 @@
 .z-side-panel {
   height: 100%;
   width: 260px;
-  overflow-y: auto;
-  flex-shrink: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
 
   background: var(--theme-bg);
   box-shadow: var(--shadow-2);
@@ -10,8 +11,22 @@
   transition: width 0.3s ease;
   will-change: transform;
 
+  &-content {
+    width: 260px;
+  }
+
+  &-trigger {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+  }
+
   &.collapsed {
-    width: 0;
-    overflow: hidden;
+    width: 44px;
+
+    .z-side-panel-content {
+      transition: opacity 0.3s ease 0.1s;
+      opacity: 0;
+    }
   }
 }

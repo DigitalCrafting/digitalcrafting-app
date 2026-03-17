@@ -2,6 +2,8 @@ import type {ZoriaProps} from "../../types/CommonTypes";
 import * as React from "react";
 import {useEffect, useState} from "react";
 import {Subject} from "rxjs";
+import {IconButton} from "../buttons/IconButton";
+import {MenuIcon} from "../icons/Icons";
 
 interface SidePanelProps extends ZoriaProps {
     children: React.ReactNode
@@ -23,7 +25,6 @@ export function SidePanel({children}: SidePanelProps) {
 
     useEffect(() => {
         const subscription = SidePanelService.subject.subscribe(() => {
-            console.log(`==== triggered`)
             setIsOpen(prev => !prev);
         })
 
@@ -32,5 +33,16 @@ export function SidePanel({children}: SidePanelProps) {
         }
     }, []);
 
-    return <aside className={`z-side-panel ${isOpen ? '' : 'collapsed'}`}>{children}</aside>
+    return <aside className={`z-side-panel ${isOpen ? '' : 'collapsed'}`}>
+        <div className='z-side-panel-content'>
+            {children}
+        </div>
+        <div className='z-side-panel-trigger'>
+            <IconButton onClick={() => {
+                SidePanelService.toggle()
+            }}>
+                <MenuIcon/>
+            </IconButton>
+        </div>
+    </aside>
 }
