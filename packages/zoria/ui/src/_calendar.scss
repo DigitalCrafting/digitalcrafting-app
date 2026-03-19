@@ -5,7 +5,7 @@
   overflow: hidden;
   font-family: var(--font-family-sans);
   font-size: var(--font-size-md);
-  color: var(--theme-text);
+  color: var(--z-color-text);
 
   &-header {
     display: flex;
@@ -52,11 +52,11 @@
     }
 
     .weekday {
-      color: hsl(from var(--theme-text) h s 35%);
+      color: hsl(from var(--z-color-text) h s 35%);
     }
 
     .day {
-      color: var(--theme-text);
+      color: var(--z-color-text);
       border-radius: 50%;
       border-width: 0;
       border-style: none;
@@ -64,9 +64,9 @@
       position: relative;
       z-index: 1;
 
-      background-color: var(--theme-bg);
+      background-color: var(--z-color-surface);
       cursor: pointer;
-      transition: var(--theme-focus-transition);
+      transition: var(--z-theme-focus-transition);
       text-align: center;
 
       &-inner {
@@ -75,30 +75,29 @@
 
       &:hover:not(:disabled) {
         color: var(--color-white);
-        background-color: var(--theme-primary-hover);
+        background-color: var(--z-color-accent-hover);
       }
 
       &:active:not(:disabled) {
         color: var(--color-white);
-        background-color: var(--theme-primary-active);
+        background-color: var(--z-color-accent-active);
       }
 
       &:focus-visible {
         outline: 0;
         box-shadow:
-                //0 0 0 2px var(--theme-bg),
-                0 0 0 3px var(--theme-primary-focus-shadow);
-        transition: var(--theme-focus-transition);
+                0 0 0 3px var(--z-theme-focus-shadow);
+        transition: var(--z-theme-focus-transition);
       }
 
       &:disabled {
         cursor: default;
-        color: hsl(from var(--theme-primary-disabled) h s 70%);
+        color: hsl(from var(--z-color-disabled-text) h s 70%);
       }
 
       + .is-selected {
         color: var(--color-white);
-        background-color: var(--theme-primary);
+        background-color: var(--z-color-accent);
       }
     }
 
@@ -111,9 +110,7 @@
     }
 
     .day.is-in-range::before {
-      background-color: hsl(from var(--theme-primary) h s 70%);
-
-
+      background-color: hsl(from var(--z-color-accent) h s 70%);
     }
   }
 }

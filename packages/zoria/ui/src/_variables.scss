@@ -38,8 +38,8 @@
   /* === State Colors === */
   --state-hover: rgba(255, 255, 255, 0.05);
   --state-active: rgba(255, 255, 255, 0.1);
-  --state-selected: var(--theme-accent);
-  --state-disabled: var(--theme-text-disabled);
+  --state-selected: var(--z-color-accent-selected-bg);
+  --state-disabled: var(--z-color-disabled-text);
   --state-focus: rgba(0, 191, 255, 0.25);
 
   /* === Interaction Timing / Motion === */

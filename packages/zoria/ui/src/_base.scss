@@ -11,8 +11,8 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: var(--theme-main-bg-color);
-  color: var(--theme-text);
+  background-color: var(--z-color-bg);
+  color: var(--z-color-text);
   font-family: var(--font-family-sans);
   overflow-y: hidden;
 }

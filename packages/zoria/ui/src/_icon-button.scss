@@ -3,14 +3,14 @@
   border-width: 0;
   border-style: none;
 
-  background-color: var(--theme-bg);
+  background-color: var(--z-color-surface);
   cursor: pointer;
 
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 0;
-  transition: var(--theme-focus-transition);
+  transition: var(--z-theme-focus-transition);
 
   &-sm {
     width: 24px;
@@ -51,12 +51,12 @@
   cursor: not-allowed;
 
   .z-icon {
-    color: hsl(from var(--theme-primary-disabled) h s 70%);
+    color: hsl(from var(--z-color-disabled-bg) h s 70%);
   }
 }
 
 .z-icon-button:hover:not(:disabled) {
-  background-color: var(--theme-primary-hover);
+  background-color: var(--z-color-accent-hover);
   .z-icon {
     color: var(--color-white);
   }
@@ -65,12 +65,12 @@
 .z-icon-button:focus-visible,
 .z-icon-button:focus {
   outline: 0;
-  box-shadow: 0 0 0 3px var(--theme-primary-focus-shadow);
-  transition: var(--theme-focus-transition);
+  box-shadow: 0 0 0 3px var(--z-color-focus);
+  transition: var(--z-theme-focus-transition);
 }
 
 .z-icon-button:active:not(:disabled) {
-  background-color: var(--theme-primary-active);
+  background-color: var(--z-color-accent-active);
   .z-icon {
     color: var(--color-white);
   }

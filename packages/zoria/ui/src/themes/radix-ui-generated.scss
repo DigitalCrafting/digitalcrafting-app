@@ -1,3 +1,82 @@
+// 1 App background
+// 2 Subtle background
+// 3 UI element background
+// 4 Hovered UI element background
+// 5 Active / Selected UI element background
+// 6 Subtle borders and separators
+// 7 UI element border and focus rings
+// 8 Hovered UI element border
+// 9 Solid backgrounds
+// 10 Hovered solid backgrounds
+// 11 Low-contrast text
+// 12 High-contrast text
+
+.dark, .dark-theme {
+  --blue-1: #05131d;
+  --blue-2: #091b28;
+  --blue-3: #002944;
+  --blue-4: #00375b;
+  --blue-5: #00446f;
+  --blue-6: #005484;
+  --blue-7: #00669d;
+  --blue-8: #007bbe;
+  --blue-9: #08c;
+  --blue-10: #007bbe;
+  --blue-11: #6dc4ff;
+  --blue-12: #c6eeff;
+
+  --blue-a1: #0039fd0d;
+  --blue-a2: #0077fc19;
+  --blue-a3: #0081fe37;
+  --blue-a4: #008afd50;
+  --blue-a5: #0092ff65;
+  --blue-a6: #009bfd7c;
+  --blue-a7: #00a2ff96;
+  --blue-a8: #00a2feba;
+  --blue-a9: #00a8fec9;
+  --blue-a10: #00a2feba;
+  --blue-a11: #6dc4ff;
+  --blue-a12: #c6eeff;
+
+  --blue-contrast: #fff;
+  --blue-surface: #02253f80;
+  --blue-indicator: #08c;
+  --blue-track: #08c;
+}
+
+.dark, .dark-theme {
+  --gray-1: #111113;
+  --gray-2: #19191b;
+  --gray-3: #222325;
+  --gray-4: #292a2e;
+  --gray-5: #303136;
+  --gray-6: #393a40;
+  --gray-7: #46484f;
+  --gray-8: #5f606a;
+  --gray-9: #6c6e79;
+  --gray-10: #797b86;
+  --gray-11: #b2b3bd;
+  --gray-12: #eeeef0;
+
+  --gray-a1: #1111bb03;
+  --gray-a2: #cbcbf90b;
+  --gray-a3: #d6e2f916;
+  --gray-a4: #d1d9f920;
+  --gray-a5: #d7ddfd28;
+  --gray-a6: #d9defc33;
+  --gray-a7: #dae2fd43;
+  --gray-a8: #e0e3fd60;
+  --gray-a9: #e0e4fd70;
+  --gray-a10: #e3e7fd7e;
+  --gray-a11: #eff0feb9;
+  --gray-a12: #fdfdffef;
+
+  --gray-contrast: #FFFFFF;
+  --gray-surface: rgba(0, 0, 0, 0.05);
+  --gray-indicator: #6c6e79;
+  --gray-track: #6c6e79;
+}
+
 .radix-steel-blue {
   :root, .light, .light-theme {
     --blue-1: #fbfdff;

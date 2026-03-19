@@ -14,59 +14,59 @@
 
   cursor: pointer;
 
-  transition: var(--theme-focus-transition);
+  transition: var(--z-theme-focus-transition);
 
   &-primary {
     color: var(--color-white);
-    background-color: var(--theme-primary);
+    background-color: var(--z-color-accent);
 
     &:hover:not(:disabled) {
       box-shadow: var(--shadow-2);
-      background-color: var(--theme-primary-hover);
+      background-color: var(--z-color-accent-hover);
     }
 
     &:active:not(:disabled) {
       box-shadow: var(--shadow-2);
-      background-color: var(--theme-primary-active);
+      background-color: var(--z-color-accent-active);
     }
 
     &:focus-visible {
-      border-color: var(--theme-primary-focus);
+      border-color: var(--z-color-accent-focus);
       outline: 0;
-      box-shadow: var(--theme-focus-shadow);
+      box-shadow: var(--z-theme-focus-shadow);
     }
   }
 
   &-secondary {
     color: var(--color-blue-grey-80);
     background-color: var(--color-white);
-    border-color: var(--theme-primary);
+    border-color: var(--z-color-accent);
     border-width: 3px;
     border-style: solid;
 
     &:hover:not(:disabled) {
       box-shadow: var(--shadow-2);
-      border-color: var(--theme-primary-hover);
+      border-color: var(--z-color-accent-hover);
     }
 
     &:active:not(:disabled) {
       background-color: var(--color-grey-5);
       box-shadow: var(--shadow-2);
-      border-color: var(--theme-primary);
+      border-color: var(--z-color-accent);
     }
 
     &:focus-visible {
-      border-color: var(--theme-primary-focus);
+      border-color: var(--z-color-focus);
       outline: 0;
-      box-shadow: var(--theme-focus-shadow-sticky);
+      box-shadow: var(--z-theme-focus-shadow-sticky);
     }
   }
 
   &:disabled {
     cursor: not-allowed;
-    color: var(--theme-primary-disabled-text);
-    border-color: var(--theme-primary-disabled);
-    background-color: var(--theme-primary-disabled);
+    color: var(--z-color-disabled-text);
+    border-color: var(--z-color-disabled-bg);
+    background-color: var(--z-color-disabled-bg);
   }
 }
 

@@ -12,7 +12,7 @@
   user-select: none;
   font-family: var(--font-family-sans), system-ui, sans-serif;
   font-size: var(--font-size-md);
-  transition: var(--theme-focus-transition);
+  transition: var(--z-theme-focus-transition);
 }
 
 /* hide native checkbox but keep it accessible */
@@ -53,22 +53,22 @@
 
 /* ON state */
 .z-toggle input:checked + .z-toggle-slider {
-  background-color: var(--theme-primary);
+  background-color: var(--z-color-accent);
 }
 .z-toggle input:checked + .z-toggle-slider::before {
   transform: translateX(20px);
-  background-color: var(--theme-bg);
+  background-color: var(--z-color-surface);
 }
 
 /* focus (keyboard only) */
 .z-toggle input:focus-visible + .z-toggle-slider {
-  box-shadow: var(--theme-focus-shadow);
-  transition: var(--theme-focus-transition);
+  box-shadow: var(--z-theme-focus-shadow);
+  transition: var(--z-theme-focus-transition);
 }
 
 /* disabled */
 .z-toggle input:disabled + .z-toggle-slider {
-  background-color: var(--theme-primary-disabled);
+  background-color: var(--z-color-disabled-bg);
   cursor: not-allowed;
 }
 
@@ -82,6 +82,6 @@
 }
 
 .z-toggle input:disabled ~ .z-toggle-label {
-  color: var(--theme-primary-disabled-text);
+  color: var(--z-color-disabled-text);
   cursor: not-allowed;
 }

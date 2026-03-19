@@ -1,8 +1,10 @@
 /* Zoria UI */
+@use "0_colors" as *;
+@use "1_theme" as *;
+@use "2_tokens" as *;
+
 @use "typography";
-@use "colors";
 @use "variables";
-@use "themes";
 @use "base";
 @use "utilities";
 @use "grid";

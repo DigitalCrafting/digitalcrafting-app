@@ -24,24 +24,24 @@
   width: 24px;
   height: 24px;
   border-radius: 6px;
-  border: 2px solid var(--theme-primary);
+  border: 2px solid var(--z-color-accent);
   background-color: var(--color-white);
   transition:
           background-color 150ms cubic-bezier(.86, .0, .07, 1),
           border 150ms cubic-bezier(.86, .0, .07, 1),
           color 150ms cubic-bezier(.86, .0, .07, 1),
-          var(--theme-focus-transition);
+          var(--z-theme-focus-transition);
   flex-shrink: 0;
   display: inline-block;
 }
 
 .z-checkbox:hover:not(.disabled) .z-checkbox-box {
-  border-color: var(--theme-primary-hover);
+  border-color: var(--z-color-accent-hover);
 }
 
 .z-checkbox input:focus-visible + .z-checkbox-box {
   outline: 0;
-  box-shadow: var(--theme-focus-shadow);
+  box-shadow: var(--z-theme-focus-shadow);
 }
 
 .z-checkbox-box::after {
@@ -63,8 +63,8 @@
 }
 
 .z-checkbox input[type="checkbox"]:checked + .z-checkbox-box {
-  background-color: var(--theme-primary);
-  border-color: var(--theme-primary);
+  background-color: var(--z-color-accent);
+  border-color: var(--z-color-accent);
 }
 
 .z-checkbox input[type="checkbox"]:checked + .z-checkbox-box:after {
@@ -74,8 +74,8 @@
 
 .z-checkbox input[type="checkbox"]:disabled + .z-checkbox-box {
   cursor: not-allowed;
-  border-color: var(--theme-primary-disabled);
-  background-color: var(--theme-primary-disabled);
+  border-color: var(--z-color-disabled-bg);
+  background-color: var(--z-color-disabled-bg);
 }
 
 .z-checkbox input[type="checkbox"]:disabled + .z-checkbox-box:after {
@@ -83,8 +83,8 @@
 }
 
 .z-checkbox input[type="checkbox"]:disabled:checked + .z-checkbox-box:after {
-  background-color: var(--theme-primary-disabled);
-  border-color: var(--theme-primary-disabled);
+  background-color: var(--z-color-disabled-bg);
+  border-color: var(--z-color-disabled-bg);
 }
 
 .z-checkbox input[type="checkbox"]:disabled:checked + .z-checkbox-box:after {
@@ -94,7 +94,7 @@
 }
 
 .z-checkbox input[type="checkbox"]:disabled ~ .z-checkbox-label {
-  color: var(--theme-primary-disabled-text);
+  color: var(--z-color-disabled-text);
   cursor: not-allowed;
 }
 

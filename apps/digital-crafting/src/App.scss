@@ -1,18 +1,18 @@
 .dc {
     .nav-link {
-        color: var(--theme-text);
+        color: var(--z-color-text);
         text-decoration: none;
     }
 
     &.dc-landing-page {
-        color: var(--theme-text-inv);
+        color: var(--z-color-text-inverse);
 
         .nav-link {
-            color: var(--theme-text-inv);
+            color: var(--z-color-text-inverse);
         }
 
         .z-text {
-            color: var(--theme-text-inv);
+            color: var(--z-color-text-inverse);
             text-decoration: none;
         }
 
