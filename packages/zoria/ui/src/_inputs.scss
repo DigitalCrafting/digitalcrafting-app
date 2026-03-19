@@ -23,8 +23,8 @@
 
   &:has(.z-input-error) {
     .z-input {
-      border-color: hsl(from var(--z-color-error) h s 80%);
-      background-color: hsl(from var(--z-color-error) h s 95%);
+      border-color: var(--color-red-40);
+      background-color: var(--color-red-10);
     }
   }
 
