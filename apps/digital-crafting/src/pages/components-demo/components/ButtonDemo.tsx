@@ -1,4 +1,4 @@
-import {Button, Col, H2, Panel, Row} from "@zoria-ui/react";
+import {Button, Col, H2, LinkButton, Panel, Row, TextButton} from "@zoria-ui/react";
 
 export function ButtonDemo() {
     return <Panel>
@@ -21,6 +21,19 @@ export function ButtonDemo() {
                     </Col>
                     <Col span={5} className={'justify-center align-items-center content-center'}>
                         <Button onClick={() => console.log('working')} disabled>Primary button disabled</Button>
+                    </Col>
+                </Row>
+                <Row className={'justify-center content-center'}>
+                    <Col span={5} className={'justify-center align-items-center content-center'}>
+                        <TextButton onClick={() => console.log('working')}>Text button</TextButton>
+                    </Col>
+                    <Col span={5} className={'justify-center align-items-center content-center'}>
+                        <TextButton onClick={() => console.log('working')} disabled>Text button disabled</TextButton>
+                    </Col>
+                </Row>
+                <Row className={'justify-center content-center'}>
+                    <Col span={5} className={'justify-center align-items-center content-center'}>
+                        <LinkButton onClick={() => console.log('working')}>Link button</LinkButton>
                     </Col>
                 </Row>
             </Col>

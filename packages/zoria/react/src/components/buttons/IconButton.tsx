@@ -16,7 +16,6 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>((
     className: externalClassName = '',
     'data-testid': dataTestId = 'qa-icon-button'
 }, ref) => {
-
     return <button data-testid={dataTestId}
                    ref={ref}
                    disabled={disabled}

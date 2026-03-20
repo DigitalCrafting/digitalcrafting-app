@@ -3,3 +3,5 @@ export class CryptoUtils {
         return crypto.randomUUID();
     }
 }
+
+export function noop() {}

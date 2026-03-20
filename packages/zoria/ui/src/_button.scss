@@ -1,4 +1,4 @@
-.z-button {
+.z-button-default {
   font-family: var(--font-family-sans);
   font-size: var(--font-size-md);
   line-height: var(--line-height-normal);
@@ -15,6 +15,10 @@
   cursor: pointer;
 
   transition: var(--z-theme-focus-transition);
+}
+
+.z-button {
+  @extend .z-button-default;
 
   &-primary {
     color: var(--color-white);
@@ -38,13 +42,14 @@
   }
 
   &-secondary {
-    color: var(--color-blue-grey-80);
-    background-color: var(--color-white);
+    color: var(--z-color-accent);
+    background-color: var(--z-color-surface);
     border-color: var(--z-color-accent);
     border-width: 3px;
     border-style: solid;
 
     &:hover:not(:disabled) {
+      color: var(--z-color-accent-hover);
       box-shadow: var(--shadow-2);
       border-color: var(--z-color-accent-hover);
     }
@@ -70,3 +75,54 @@
   }
 }
 
+
+.z-button-text {
+  @extend .z-button-default;
+  color: var(--z-color-accent);
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: transparent;
+
+  &:disabled {
+    cursor: not-allowed;
+    color: var(--z-color-disabled-text);
+  }
+
+  &:hover:not(:disabled) {
+    color: var(--z-color-accent-hover);
+  }
+
+  &:active:not(:disabled) {
+    color: var(--z-color-accent-active);
+  }
+
+  &:focus-visible {
+    border-color: var(--z-color-focus);
+    outline: 0;
+    box-shadow: var(--z-theme-focus-shadow-sticky);
+  }
+}
+
+.z-button-link {
+  @extend .z-button-default;
+  color: var(--z-color-accent);
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: underline;
+  background-color: transparent;
+  align-content: center;
+
+  &:hover:not(:disabled) {
+    color: var(--z-color-accent-hover);
+  }
+
+  &:active:not(:disabled) {
+    color: var(--z-color-accent-active);
+  }
+
+  &:focus-visible {
+    border-color: var(--z-color-focus);
+    outline: 0;
+    box-shadow: var(--z-theme-focus-shadow-sticky);
+  }
+}

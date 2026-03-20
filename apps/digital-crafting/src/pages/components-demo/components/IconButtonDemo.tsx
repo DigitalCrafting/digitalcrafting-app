@@ -6,7 +6,7 @@ export function IconButtonDemo() {
         <Panel.Body>
             <Row className={'justify-center content-center'}>
                 <Col span={5} className={'justify-center align-items-center'}>
-                    <IconButton><XIcon/></IconButton>
+                    <IconButton onClick={() => console.log("working")}><XIcon/></IconButton>
                 </Col>
 
                 <Col span={5} className={'justify-center align-items-center'}>
