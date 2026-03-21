@@ -8,6 +8,7 @@ export const DCHeader = () => {
                 <Row>
                     <Link className='nav-link' to="/"><Text>Home</Text></Link>
                     <Link className='nav-link' to="/zoria"><Text>Zoria UI</Text></Link>
+                    <Link className='nav-link' to="/drone-game"><Text>Drone Game</Text></Link>
                 </Row>
             </Container>
         </TopBar>

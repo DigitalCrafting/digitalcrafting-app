@@ -7,7 +7,8 @@ import {useIsRootRoute} from "./routes/useIsRootRoute.tsx";
 
 function App() {
     useEffect(() => {
-        import('./pages/zoria-ui-demo/ZoriaUIDemoPage.tsx')
+        import('./pages/zoria-ui-demo/ZoriaUIDemoPage.tsx');
+        import('./pages/threejs-drone-game/ThreeJsDroneGamePage.tsx');
     }, []);
 
     const isRoot = useIsRootRoute();

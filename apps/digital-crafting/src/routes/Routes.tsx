@@ -17,6 +17,13 @@ export const Router = createBrowserRouter([
                     const {ZoriaUIDemoPage} = await import('../pages/zoria-ui-demo/ZoriaUIDemoPage.tsx');
                     return {element: <ZoriaUIDemoPage />};
                 },
+            },
+            {
+                path: 'drone-game',
+                lazy: async () => {
+                    const {ThreeJsDroneGamePage} = await import('../pages/threejs-drone-game/ThreeJsDroneGamePage.tsx');
+                    return {element: <ThreeJsDroneGamePage />};
+                },
             }
         ]
     },
