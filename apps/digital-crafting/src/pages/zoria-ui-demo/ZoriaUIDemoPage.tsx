@@ -1,14 +1,14 @@
-import {ComponentsDemoList} from "./ComponentsDemoList.tsx";
+import {ZoriaUIDemoList} from "./ZoriaUIDemoList.tsx";
 import {Container, Main, SidePanel, Text} from "@zoria-ui/react";
 
-export const ComponentsDemoPage = () => {
+export const ZoriaUIDemoPage = () => {
     return <>
         <SidePanel>
             <Text>Hello</Text>
         </SidePanel>
         <Main>
             <Container>
-                <ComponentsDemoList/>
+                <ZoriaUIDemoList/>
             </Container>
         </Main>
     </>

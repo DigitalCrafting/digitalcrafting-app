@@ -14,8 +14,8 @@ export const Router = createBrowserRouter([
             {
                 path: 'zoria',
                 lazy: async () => {
-                    const {ComponentsDemoPage} = await import('../pages/components-demo/ComponentsDemoPage.tsx');
-                    return {element: <ComponentsDemoPage />};
+                    const {ZoriaUIDemoPage} = await import('../pages/zoria-ui-demo/ZoriaUIDemoPage.tsx');
+                    return {element: <ZoriaUIDemoPage />};
                 },
             }
         ]
