@@ -29,10 +29,16 @@ main {
   overflow-y: auto;
 }
 
+a,
 button,
 input,
 select,
 textarea {
+  color: inherit;
   font-family: inherit;
   font-size: inherit;
+}
+
+a {
+  text-decoration: none;
 }

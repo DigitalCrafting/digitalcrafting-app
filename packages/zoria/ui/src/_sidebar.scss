@@ -1,0 +1,52 @@
+.z-sidebar {
+  height: 100%;
+  width: 260px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px 0;
+
+  background: var(--z-color-surface);
+  box-shadow: var(--shadow-2);
+
+  transition: width 0.3s ease;
+  will-change: transform;
+
+  &-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    padding-left: 12px;
+    white-space: nowrap;
+  }
+
+  &-body {
+    display: flex;
+    flex-direction: column;
+    max-width: 260px;
+    flex: 1;
+    flex-wrap: nowrap;
+  }
+
+  &-trigger {
+    position: absolute;
+    top: 8px;
+    right: 4px;
+  }
+
+  &.collapsed {
+    width: 44px;
+
+    .z-sidebar-header {
+      transition: opacity 0.2s ease 0.1s;
+      opacity: 0;
+    }
+
+    .z-sidebar-body {
+      transition: opacity 0.2s ease 0.1s;
+      opacity: 0;
+    }
+  }
+}

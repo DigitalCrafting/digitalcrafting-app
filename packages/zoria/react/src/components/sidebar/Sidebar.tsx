@@ -4,9 +4,22 @@ import {useEffect, useState} from "react";
 import {Subject} from "rxjs";
 import {IconButton} from "../buttons/IconButton";
 import {MenuIcon} from "../icons/Icons";
+import {H4} from "../typography/Typography";
+
+const SidebarHeader = ({children}: React.PropsWithChildren) => {
+    return <div className='z-sidebar-header'>
+        <H4>{children}</H4>
+    </div>
+}
+
+const SidebarBody = ({children}: React.PropsWithChildren) => {
+    return <div className='z-sidebar-body'>
+        {children}
+    </div>
+}
 
 interface SidePanelProps extends ZoriaProps {
-    children: React.ReactNode
+    children: React.ReactNode[]
 }
 
 class SidePanelServiceImpl {
@@ -19,7 +32,7 @@ class SidePanelServiceImpl {
 
 export const SidePanelService = new SidePanelServiceImpl();
 
-export function SidePanel({children}: SidePanelProps) {
+const SidebarInternal = ({children}: SidePanelProps) => {
     const [isOpen, setIsOpen] = useState(false);
 
 
@@ -33,16 +46,19 @@ export function SidePanel({children}: SidePanelProps) {
         }
     }, []);
 
-    return <aside className={`z-side-panel ${isOpen ? '' : 'collapsed'}`}>
-        <div className='z-side-panel-content'>
+    return <aside className={`z-sidebar ${isOpen ? '' : 'collapsed'}`}>
             {children}
-        </div>
-        <div className='z-side-panel-trigger'>
-            <IconButton onClick={() => {
+            <IconButton className='z-sidebar-trigger' onClick={() => {
                 SidePanelService.toggle()
             }}>
                 <MenuIcon/>
             </IconButton>
-        </div>
-    </aside>
+        </aside>
 }
+
+const Sidebar = Object.assign(SidebarInternal, {
+    Header: SidebarHeader,
+    Body: SidebarBody
+})
+
+export {Sidebar};
