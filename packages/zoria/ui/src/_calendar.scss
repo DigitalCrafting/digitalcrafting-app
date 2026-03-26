@@ -85,8 +85,7 @@
 
       &:focus-visible {
         outline: 0;
-        box-shadow:
-                0 0 0 3px var(--z-theme-focus-shadow);
+        box-shadow: var(--z-theme-focus-shadow-sticky);
         transition: var(--z-theme-focus-transition);
       }
 
@@ -95,7 +94,7 @@
         color: hsl(from var(--z-color-disabled-text) h s 70%);
       }
 
-      + .is-selected {
+      &.is-selected {
         color: var(--color-white);
         background-color: var(--z-color-accent);
       }

@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 
 export const ZoriaUIDemoPage = () => {
     return <>
-        <Sidebar>
+        <Sidebar defaultOpen>
             <Sidebar.Header>Zoria UI</Sidebar.Header>
             <Sidebar.Body>
                 <Navigation>

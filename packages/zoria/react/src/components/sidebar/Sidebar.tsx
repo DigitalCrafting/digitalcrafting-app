@@ -19,6 +19,7 @@ const SidebarBody = ({children}: React.PropsWithChildren) => {
 }
 
 interface SidePanelProps extends ZoriaProps {
+    defaultOpen?: boolean,
     children: React.ReactNode[]
 }
 
@@ -32,8 +33,8 @@ class SidePanelServiceImpl {
 
 export const SidePanelService = new SidePanelServiceImpl();
 
-const SidebarInternal = ({children}: SidePanelProps) => {
-    const [isOpen, setIsOpen] = useState(false);
+const SidebarInternal = ({children, defaultOpen = false}: SidePanelProps) => {
+    const [isOpen, setIsOpen] = useState(defaultOpen);
 
 
     useEffect(() => {
