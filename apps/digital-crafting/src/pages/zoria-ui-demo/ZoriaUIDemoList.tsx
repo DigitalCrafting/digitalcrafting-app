@@ -12,48 +12,43 @@ import {IconButtonDemo} from "./components/IconButtonDemo.tsx";
 import {DatePickerDemo} from "./components/DatePickerDemo.tsx";
 import {SpinnerDemo} from "./components/SpinnerDemo.tsx";
 import styles from "./ZoriaUIDemoList.module.scss";
+import {ZoriaUIRoutePathsEnum} from "./config/ZoriaUIRoutesTypes.ts";
+import {type FunctionComponent, useMemo} from "react";
 
-export function ZoriaUIDemoList() {
+const ZoriaUiDemoComponents = new Map<ZoriaUIRoutePathsEnum, FunctionComponent[]>([
+    [ZoriaUIRoutePathsEnum.TYPOGRAPHY, [TextDemo]],
+    [ZoriaUIRoutePathsEnum.BUTTONS, [ButtonDemo, IconButtonDemo]],
+    [ZoriaUIRoutePathsEnum.INPUTS, [InputDemo, DatePickerDemo, CheckboxDemo, ToggleDemo]],
+    [ZoriaUIRoutePathsEnum.MODAL, [ModalDemo]],
+    [ZoriaUIRoutePathsEnum.POPOVER, [PopoverDemo]],
+    [ZoriaUIRoutePathsEnum.TOOLTIP, [TooltipDemo]],
+    [ZoriaUIRoutePathsEnum.SPINNER, [SpinnerDemo]],
+    [ZoriaUIRoutePathsEnum.ICONS, [IconsDemo]]
+]);
+
+interface ZoriaUIDemoListProps {
+    type?: ZoriaUIRoutePathsEnum
+}
+
+export function ZoriaUIDemoList({type}: ZoriaUIDemoListProps) {
+    const demosToShow = useMemo(() => {
+        if (!type || !ZoriaUiDemoComponents.has(type)) {
+            return Array.from(ZoriaUiDemoComponents.values()).flat();
+        }
+        return ZoriaUiDemoComponents.get(type);
+    }, [type]);
+
     return <Row className={`justify-center`}>
         <Col
             className={styles.ZoriaUIDemoList}
             >
-            <Row>
-                <SpinnerDemo />
-            </Row>
-            <Row >
-                <ButtonDemo />
-            </Row>
-            <Row>
-                <IconButtonDemo />
-            </Row>
-            <Row>
-                <DatePickerDemo />
-            </Row>
-            <Row>
-                <CheckboxDemo />
-            </Row>
-            <Row>
-                <ToggleDemo />
-            </Row>
-            <Row>
-                <InputDemo />
-            </Row>
-            <Row>
-                <TextDemo />
-            </Row>
-            <Row>
-                <PopoverDemo />
-            </Row>
-            <Row>
-                <TooltipDemo />
-            </Row>
-            <Row>
-                <ModalDemo/>
-            </Row>
-            <Row>
-                <IconsDemo/>
-            </Row>
+            {
+                demosToShow!.map((DemoComponent) => {
+                    return <Row key={DemoComponent.name}>
+                        <DemoComponent />
+                    </Row>
+                })
+            }
         </Col>
     </Row>
 }

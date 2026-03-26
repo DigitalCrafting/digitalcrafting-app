@@ -20,17 +20,19 @@ type NavItemProps<C extends React.ElementType> = PolymorphicComponentProps<C,  {
 const NavItem = <C extends React.ElementType = "a">({children, as, active, className: externalClassName = '', ...rest}: React.PropsWithChildren<NavItemProps<C>>) => {
     const Component = as || 'a';
     const {isOpen} = useNavSectionContext() || {isOpen: true};
-    return <Component tabIndex={isOpen ? 0 : -1} className={`z-navigation-item ${externalClassName}`.trim()} {...rest}>{children}</Component>
+
+    return <Component tabIndex={isOpen ? 0 : -1} className={`z-navigation-item ${active ? 'is-selected' : ''} ${externalClassName}`.trim()} {...rest}>{children}</Component>
 }
 
 interface NavSectionProps {
     title: string,
+    defaultOpen?: boolean,
     children: React.ReactElement<NavItemProps<any>>[] | React.ReactElement<NavItemProps<any>>
 }
 
-const NavSection = ({children, title}: NavSectionProps) => {
+const NavSection = ({children, defaultOpen = false, title}: NavSectionProps) => {
     const ref = useRef<HTMLDivElement>(null);
-    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
 
     const toggleOpen = () => {
         setIsOpen(prev => !prev);

@@ -2,10 +2,10 @@
   --z-theme-focus-transition: border-color 0.2s ease, box-shadow 0.2s ease;
   --z-theme-focus-shadow:
           0 0 0 2px var(--z-color-focus-ring-offset),
-          0 0 0 5px var(--z-color-focus-ring);
+          0 0 0 4px var(--z-color-focus-ring);
 
   --z-theme-focus-shadow-sticky:
-          0 0 0 0.1rem var(--z-color-focus-ring);
+          0 0 0 2px var(--z-color-focus-ring);
   --z-theme-focus-shadow-inset:
           inset 0 0 0 2px var(--z-color-focus-ring);
 }

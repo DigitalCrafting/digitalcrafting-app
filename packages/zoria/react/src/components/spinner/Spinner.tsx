@@ -14,7 +14,7 @@ export const SpinnerCircle = ({className: externalClassName = '', size = UiSize.
         viewBox="0 0 24 24"
     >
         <g className="z-spinner-circle">
-            <circle cx="12" cy="12" r="9.5" fill="none" stroke-width="3"/>
+            <circle cx="12" cy="12" r="9.5" fill="none" strokeWidth="3"/>
         </g>
     </svg>;
 }

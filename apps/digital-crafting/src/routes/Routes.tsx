@@ -1,6 +1,7 @@
 import {createBrowserRouter} from "react-router-dom";
 import {LandingPage} from "../pages/landing-page/LandingPage.tsx";
 import App from "../App.tsx";
+import {ZoriaUIRoutesConfig} from "../pages/zoria-ui-demo/config/ZoriaUIRoutesConfig.tsx";
 
 export const Router = createBrowserRouter([
     {
@@ -17,6 +18,7 @@ export const Router = createBrowserRouter([
                     const {ZoriaUIDemoPage} = await import('../pages/zoria-ui-demo/ZoriaUIDemoPage.tsx');
                     return {element: <ZoriaUIDemoPage />};
                 },
+                children: ZoriaUIRoutesConfig
             },
             {
                 path: 'drone-game',
