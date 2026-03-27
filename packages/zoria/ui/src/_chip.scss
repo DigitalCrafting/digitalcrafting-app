@@ -1,0 +1,55 @@
+.z-chip {
+  border-radius: 16px;
+  padding: 4px 12px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+
+  &-primary {
+    --chip-color: var(--z-color-accent);
+    --chip-text: var(--color-white)
+  }
+
+  &-secondary {
+    --chip-color: var(--z-color-neutral);
+    --chip-text: var(--z-color-text);
+  }
+
+  &-error {
+    --chip-color: var(--z-color-error);
+    --chip-text: var(--color-white)
+  }
+
+  &-warning {
+    --chip-color: var(--z-color-warning);
+    --chip-text: var(--color-white)
+  }
+
+  &-info {
+    --chip-color: var(--z-color-info);
+    --chip-text: var(--color-white)
+  }
+
+  &-success {
+    --chip-color: var(--z-color-success);
+    --chip-text: var(--color-white)
+  }
+
+  &-filled {
+    color: var(--chip-text);
+    background-color: var(--chip-color);
+  }
+
+  &-outline {
+    color: hsl(from var(--chip-color) h s 35%);
+    background-color: hsl(from var(--chip-color) h s l / 10%);
+    border: 2px solid var(--chip-color);
+
+    &.z-chip-secondary {
+      color: var(--z-color-neutral-text);
+      background-color: var(--color-white);
+    }
+  }
+}

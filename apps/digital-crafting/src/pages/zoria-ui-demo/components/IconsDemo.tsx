@@ -1,4 +1,5 @@
 import {
+    BanIcon,
     CalendarCheckIcon,
     CalendarIcon,
     CheckIcon,
@@ -287,6 +288,12 @@ export function IconsDemo() {
                         <CircleInfoIcon/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>CircleInfoIcon</Text></Tooltip.Body>
+                </Tooltip>
+                <Tooltip>
+                    <Tooltip.Trigger>
+                        <BanIcon/>
+                    </Tooltip.Trigger>
+                    <Tooltip.Body><Text>BanIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>

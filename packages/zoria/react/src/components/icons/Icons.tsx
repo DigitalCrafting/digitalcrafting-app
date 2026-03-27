@@ -1,8 +1,9 @@
 import * as React from "react";
-import {UiSize} from "../../types/UiSizes";
+import {UiSize, UiVariant} from "../../types/UiSizes";
 
 interface SvgIconBaseProps extends React.SVGProps<SVGSVGElement> {
     size?: UiSize
+    variant?: UiVariant
 }
 
 export const SvgIconBase = ({children, ...props}: SvgIconBaseProps) => {
@@ -376,6 +377,13 @@ export const CircleInfoIcon = ({size = UiSize.MD, ...props}: SvgIconBaseProps) =
         <circle cx="12" cy="12" r="10"/>
         <path d="M12 16v-4"/>
         <path d="M12 8h.01"/>
+    </SvgIconBase>
+}
+
+export const BanIcon = ({size = UiSize.MD, ...props}: SvgIconBaseProps) => {
+    return <SvgIconBase className={`z-icon z-icon-${size}`} {...props}>
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M4.929 4.929 19.07 19.071"/>
     </SvgIconBase>
 }
 

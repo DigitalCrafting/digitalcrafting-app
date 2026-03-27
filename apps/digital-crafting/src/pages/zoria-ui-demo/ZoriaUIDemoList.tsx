@@ -15,14 +15,15 @@ import styles from "./ZoriaUIDemoList.module.scss";
 import {ZoriaUIRoutePathsEnum} from "./config/ZoriaUIRoutesTypes.ts";
 import {type FunctionComponent, useMemo} from "react";
 import {RadioGroupDemo} from "./components/RadioGroupDemo.tsx";
+import {ChipDemo} from "./components/ChipDemo.tsx";
 
-const ZoriaUiDemoComponents = new Map<ZoriaUIRoutePathsEnum, FunctionComponent[]>([
+const ZoriaUiDemoComponentsMap = new Map<ZoriaUIRoutePathsEnum, FunctionComponent[]>([
     [ZoriaUIRoutePathsEnum.TYPOGRAPHY, [TextDemo]],
     [ZoriaUIRoutePathsEnum.BUTTONS, [ButtonDemo, IconButtonDemo]],
-    [ZoriaUIRoutePathsEnum.INPUTS, [RadioGroupDemo, InputDemo, DatePickerDemo, CheckboxDemo, ToggleDemo]],
+    [ZoriaUIRoutePathsEnum.INPUTS, [InputDemo, DatePickerDemo, CheckboxDemo, ToggleDemo, RadioGroupDemo]],
     [ZoriaUIRoutePathsEnum.MODAL, [ModalDemo]],
     [ZoriaUIRoutePathsEnum.POPOVER, [PopoverDemo]],
-    [ZoriaUIRoutePathsEnum.TOOLTIP, [TooltipDemo]],
+    [ZoriaUIRoutePathsEnum.DISPLAY, [TooltipDemo, ChipDemo]],
     [ZoriaUIRoutePathsEnum.SPINNER, [SpinnerDemo]],
     [ZoriaUIRoutePathsEnum.ICONS, [IconsDemo]]
 ]);
@@ -33,10 +34,10 @@ interface ZoriaUIDemoListProps {
 
 export function ZoriaUIDemoList({type}: ZoriaUIDemoListProps) {
     const demosToShow = useMemo(() => {
-        if (!type || !ZoriaUiDemoComponents.has(type)) {
-            return Array.from(ZoriaUiDemoComponents.values()).flat();
+        if (!type || !ZoriaUiDemoComponentsMap.has(type)) {
+            return Array.from(ZoriaUiDemoComponentsMap.values()).flat();
         }
-        return ZoriaUiDemoComponents.get(type);
+        return ZoriaUiDemoComponentsMap.get(type);
     }, [type]);
 
     return <Row className={`justify-center`}>

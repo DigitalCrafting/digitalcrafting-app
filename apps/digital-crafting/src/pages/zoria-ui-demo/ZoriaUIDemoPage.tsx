@@ -1,5 +1,6 @@
-import {Container, Main, Navigation, Sidebar} from "@zoria-ui/react";
+import {capitalizeWord, Container, Main, Navigation, Sidebar} from "@zoria-ui/react";
 import {Link, Outlet, useLocation} from "react-router-dom";
+import {ZoriaUIDemoRoutesList} from "./config/ZoriaUIRoutesTypes.ts";
 
 export const ZoriaUIDemoPage = () => {
     const {pathname} = useLocation();
@@ -10,15 +11,11 @@ export const ZoriaUIDemoPage = () => {
             <Sidebar.Body>
                 <Navigation>
                     <Navigation.Section defaultOpen title={'Components'}>
-                        <Navigation.Item as={Link} active={pathname.includes('/about') || pathname === '/zoria'} to='/zoria/about'>About</Navigation.Item>
-                        <Navigation.Item as={Link} active={pathname.includes('/typography')} to='/zoria/typography'>Typography</Navigation.Item>
-                        <Navigation.Item as={Link} active={pathname.includes('/buttons')} to='/zoria/buttons'>Buttons</Navigation.Item>
-                        <Navigation.Item as={Link} active={pathname.includes('/inputs')} to='/zoria/inputs'>Inputs</Navigation.Item>
-                        <Navigation.Item as={Link} active={pathname.includes('/modal')} to='/zoria/modal'>Modal</Navigation.Item>
-                        <Navigation.Item as={Link} active={pathname.includes('/popover')} to='/zoria/popover'>Popover</Navigation.Item>
-                        <Navigation.Item as={Link} active={pathname.includes('/tooltip')} to='/zoria/tooltip'>Tooltip</Navigation.Item>
-                        <Navigation.Item as={Link} active={pathname.includes('/spinner')} to='/zoria/spinner'>Spinner</Navigation.Item>
-                        <Navigation.Item as={Link} active={pathname.includes('/icons')} to='/zoria/icons'>Icons</Navigation.Item>
+                        {
+                            ZoriaUIDemoRoutesList.map(route => {
+                                return <Navigation.Item key={route} as={Link} active={pathname.includes(route)} to={`/zoria/${route}`}>{capitalizeWord(route)}</Navigation.Item>
+                            })
+                        }
                     </Navigation.Section>
                     {/*<Navigation.Section title={'Forms'}>*/}
                     {/*    <Navigation.Item as={Link} to='/zoria/forms/about'>About</Navigation.Item>*/}
@@ -26,7 +23,6 @@ export const ZoriaUIDemoPage = () => {
                     {/*    <Navigation.Item as={Link} to='/zoria/forms/validation'>Validation</Navigation.Item>*/}
                     {/*    <Navigation.Item as={Link} to='/zoria/forms/exmaples'>Examples</Navigation.Item>*/}
                     {/*</Navigation.Section>*/}
-
                 </Navigation>
             </Sidebar.Body>
         </Sidebar>
