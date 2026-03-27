@@ -7,6 +7,7 @@ interface InputProps {
     error?: string
     id?: string
     disabled?: boolean
+    onChange?: (value: any) => void
 }
 
 export function Input({
@@ -15,7 +16,8 @@ export function Input({
     label,
     error,
     id,
-    disabled
+    disabled,
+    onChange
 }: InputProps) {
     if (!id) {
         id = `input-${CryptoUtils.UUID()}`
@@ -29,7 +31,7 @@ export function Input({
                 data-testid={dataTestId}
     >
         <label className='z-input-label' htmlFor={id}>{label}</label>
-        <input className='z-input' id={id} disabled={disabled}/>
+        <input className='z-input' id={id} disabled={disabled} onChange={(e) => onChange?.(e.target.value)}/>
         {
             error ? <span className='z-input-error'>{error}</span> : null
         }

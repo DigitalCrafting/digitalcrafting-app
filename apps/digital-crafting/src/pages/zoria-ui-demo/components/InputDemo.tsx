@@ -10,7 +10,7 @@ export function InputDemo() {
                 <Row className={'justify-center content-center'}>
 
                     <Col span={5} className={'justify-center align-items-center'}>
-                        <Input label='Test input'/>
+                        <Input onChange={(value) => console.log(value)} label='Test input'/>
                     </Col>
 
                     <Col span={5} className={'justify-center align-items-center'}>

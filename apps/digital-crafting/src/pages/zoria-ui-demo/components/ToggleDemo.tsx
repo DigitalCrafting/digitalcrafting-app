@@ -7,7 +7,7 @@ export function ToggleDemo() {
             <Col gap='sm'>
                 <Row className={'justify-center content-center'}>
                     <Col span={5} className={'justify-center align-items-center'}>
-                        <Toggle>Test toggle</Toggle>
+                        <Toggle onChange={(value) => console.log(value)}>Test toggle</Toggle>
                     </Col>
 
                     <Col span={5} className={'justify-center align-items-center'}>

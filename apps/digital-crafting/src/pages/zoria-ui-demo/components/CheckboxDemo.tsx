@@ -7,7 +7,7 @@ export function CheckboxDemo() {
             <Col gap='sm'>
                 <Row className={'justify-center content-center'}>
                     <Col span={5} className={'justify-center align-items-center'}>
-                        <Checkbox>Test checkbox</Checkbox>
+                        <Checkbox onChange={(value) => console.log(value)}>Test checkbox</Checkbox>
                     </Col>
 
                     <Col span={5} className={'justify-center align-items-center'}>
@@ -17,7 +17,7 @@ export function CheckboxDemo() {
                 <Row className={'justify-center content-center'}>
 
                     <Col span={5} className={'justify-center align-items-center'}>
-                        <Checkbox checked>Test checked checkbox</Checkbox>
+                        <Checkbox onChange={(value) => console.log(value)} checked>Test checked checkbox</Checkbox>
                     </Col>
 
                     <Col span={5} className={'justify-center align-items-center'}>

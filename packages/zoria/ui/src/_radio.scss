@@ -1,0 +1,86 @@
+.z-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.z-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  font-size: 1rem;
+
+  input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    appearance: none;
+    margin: 0;
+  }
+
+  &-box {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%; /* 👈 key difference */
+    border: 2px solid var(--z-color-accent);
+    background-color: var(--color-white);
+    transition:
+            background-color 150ms cubic-bezier(.86, .0, .07, 1),
+            border 150ms cubic-bezier(.86, .0, .07, 1),
+            var(--z-theme-focus-transition);
+    flex-shrink: 0;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: var(--color-white);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      transition: transform 150ms cubic-bezier(.86, .0, .07, 1);
+    }
+  }
+}
+
+.z-radio input[type="radio"]:checked + .z-radio-box {
+  background-color: var(--z-color-accent);
+  border-color: var(--z-color-accent);
+  transition: transform 120ms ease-out;
+}
+
+.z-radio input[type="radio"]:checked + .z-radio-box::after {
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 120ms ease-out;
+}
+
+.z-radio:hover:not(.disabled) .z-radio-box {
+  border-color: var(--z-color-accent-hover);
+}
+
+.z-radio input:focus-visible + .z-radio-box {
+  outline: 0;
+  box-shadow: var(--z-theme-focus-shadow);
+}
+
+.z-radio input[type="radio"]:disabled + .z-radio-box {
+  border-color: var(--z-color-disabled-bg);
+  background-color: var(--z-color-disabled-bg);
+  cursor: not-allowed;
+}
+
+.z-radio input[type="radio"]:disabled + .z-radio-box::after {
+  background-color: var(--color-grey-60);
+}
+
+.z-radio input[type="radio"]:disabled ~ .z-radio-label {
+  color: var(--z-color-disabled-text);
+  cursor: not-allowed;
+}

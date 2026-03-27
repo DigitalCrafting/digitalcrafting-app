@@ -14,11 +14,12 @@ import {SpinnerDemo} from "./components/SpinnerDemo.tsx";
 import styles from "./ZoriaUIDemoList.module.scss";
 import {ZoriaUIRoutePathsEnum} from "./config/ZoriaUIRoutesTypes.ts";
 import {type FunctionComponent, useMemo} from "react";
+import {RadioGroupDemo} from "./components/RadioGroupDemo.tsx";
 
 const ZoriaUiDemoComponents = new Map<ZoriaUIRoutePathsEnum, FunctionComponent[]>([
     [ZoriaUIRoutePathsEnum.TYPOGRAPHY, [TextDemo]],
     [ZoriaUIRoutePathsEnum.BUTTONS, [ButtonDemo, IconButtonDemo]],
-    [ZoriaUIRoutePathsEnum.INPUTS, [InputDemo, DatePickerDemo, CheckboxDemo, ToggleDemo]],
+    [ZoriaUIRoutePathsEnum.INPUTS, [RadioGroupDemo, InputDemo, DatePickerDemo, CheckboxDemo, ToggleDemo]],
     [ZoriaUIRoutePathsEnum.MODAL, [ModalDemo]],
     [ZoriaUIRoutePathsEnum.POPOVER, [PopoverDemo]],
     [ZoriaUIRoutePathsEnum.TOOLTIP, [TooltipDemo]],
