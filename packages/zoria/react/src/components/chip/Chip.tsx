@@ -13,6 +13,7 @@ interface ChipProps {
     className?: string,
     color?: ChipColor,
     variant?: UiVariant,
+    compact?: boolean
     children: string | React.ReactNode[]
 }
 
@@ -20,8 +21,10 @@ export const Chip = ({
     color = 'primary',
     variant = 'filled',
     className: externalClassName = '',
+    compact = false,
     children
 }: ChipProps) => {
-    const className = `z-chip-${color} z-chip-${variant} ${externalClassName}`.trim();
+    const compactClassName = compact ? 'z-chip-compact' : '';
+    const className = `z-chip-${color} z-chip-${variant} ${compactClassName} ${externalClassName}`.trim();
     return <span className={`z-chip ${className}`}>{children}</span>
 }

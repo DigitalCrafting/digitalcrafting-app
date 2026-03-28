@@ -51,253 +51,253 @@ export function IconsDemo() {
             <Grid cols={12}>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <XIcon/>
+                        <XIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>XIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <ChevronDownIcon/>
+                        <ChevronDownIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>ChevronDownIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <ChevronLeftIcon/>
+                        <ChevronLeftIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>ChevronLeftIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <ChevronRightIcon/>
+                        <ChevronRightIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>ChevronRightIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <ChevronUpIcon/>
+                        <ChevronUpIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>ChevronUpIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <CalendarIcon/>
+                        <CalendarIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>CalendarIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <CalendarCheckIcon/>
+                        <CalendarCheckIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>CalendarCheckIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <ClockIcon/>
+                        <ClockIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>ClockIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <ClockCheckIcon/>
+                        <ClockCheckIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>ClockCheckIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <CheckIcon/>
+                        <CheckIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>CheckIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <CopyIcon/>
+                        <CopyIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>CopyIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <CopyCheckIcon/>
+                        <CopyCheckIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>CopyCheckIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <MenuIcon/>
+                        <MenuIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>MenuIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <EllipsisMenuIcon/>
+                        <EllipsisMenuIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>EllipsisMenuIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <EllipsisIcon/>
+                        <EllipsisIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>EllipsisIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <DatabaseIcon/>
+                        <DatabaseIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>DatabaseIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <DatabaseBackupIcon/>
+                        <DatabaseBackupIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>DatabaseBackupIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <DatabaseSearchIcon/>
+                        <DatabaseSearchIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>DatabaseSearchIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <ServerIcon/>
+                        <ServerIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>ServerIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <ServerCogIcon/>
+                        <ServerCogIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>ServerCogIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <ServerCrashIcon/>
+                        <ServerCrashIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>ServerCrashIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <ServerOffIcon/>
+                        <ServerOffIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>ServerOffIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <ServerClockIcon/>
+                        <ServerClockIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>ServerClockIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <HardDriveIcon/>
+                        <HardDriveIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>HardDriveIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <HardDriveDownloadIcon/>
+                        <HardDriveDownloadIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>HardDriveDownloadIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <HardDriveUploadIcon/>
+                        <HardDriveUploadIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>HardDriveUploadIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <MonitorIcon/>
+                        <MonitorIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>MonitorIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <LaptopIcon/>
+                        <LaptopIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>LaptopIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <SmartphoneIcon/>
+                        <SmartphoneIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>SmartphoneIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <WifiIcon/>
+                        <WifiIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>WifiIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <RouterIcon/>
+                        <RouterIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>RouterIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <SatelliteDishIcon/>
+                        <SatelliteDishIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>SatelliteDishIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <SatelliteIcon/>
+                        <SatelliteIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>SatelliteIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <NetworkIcon/>
+                        <NetworkIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>NetworkIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <MessageBrokerIcon/>
+                        <MessageBrokerIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>MessageBrokerIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <TriangleAlertIcon/>
+                        <TriangleAlertIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>TriangleAlertIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <CircleAlertIcon/>
+                        <CircleAlertIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>CircleAlertIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <CircleCheckIcon/>
+                        <CircleCheckIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>CircleCheckIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <CircleQuestionIcon/>
+                        <CircleQuestionIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>CircleQuestionIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <CircleInfoIcon/>
+                        <CircleInfoIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>CircleInfoIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <BanIcon/>
+                        <BanIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>BanIcon</Text></Tooltip.Body>
                 </Tooltip>
                 <Tooltip>
                     <Tooltip.Trigger>
-                        <ShareIcon/>
+                        <ShareIcon size='md'/>
                     </Tooltip.Trigger>
                     <Tooltip.Body><Text>ShareIcon</Text></Tooltip.Body>
                 </Tooltip>

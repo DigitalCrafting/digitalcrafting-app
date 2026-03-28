@@ -79,6 +79,28 @@ export function ChipDemo() {
                         </Chip>
                     </Col>
                 </Row>
+                <Row className={'justify-center content-center'}>
+                    <Col span={5} className={'justify-center align-items-center'}>
+                        <Chip compact>Compact Chip</Chip>
+                    </Col>
+                    <Col span={5} className={'justify-center align-items-center'}>
+                        <Chip compact variant='outline'>Compact Chip</Chip>
+                    </Col>
+                </Row>
+                <Row className={'justify-center content-center'}>
+                    <Col span={5} className={'justify-center align-items-center'}>
+                        <Chip compact color='error'>
+                            <BanIcon/>
+                            Compact Chip
+                        </Chip>
+                    </Col>
+                    <Col span={5} className={'justify-center align-items-center'}>
+                        <Chip compact color='error' variant='outline'>
+                            <BanIcon/>
+                            Compact Chip
+                        </Chip>
+                    </Col>
+                </Row>
             </Col>
         </Panel.Body>
     </Panel>

@@ -42,7 +42,7 @@ const NavSection = ({children, defaultOpen = false, title}: NavSectionProps) => 
 
     return <section className={`z-navigation-section ${isOpen ? 'z-navigation-section-open' : ''}`}>
         <div tabIndex={0} className={`z-navigation-section-header ${isOpen ? 'z-navigation-section-open' : ''}`} onClick={toggleOpen} onKeyDown={onKeyDown}>
-            {title} {isOpen ? <ChevronUpIcon/> : <ChevronDownIcon/>}
+            {title} {isOpen ? <ChevronUpIcon size='md'/> : <ChevronDownIcon size='md'/>}
         </div>
         <div
             style={{

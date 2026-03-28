@@ -7,6 +7,13 @@
   justify-content: center;
   align-items: center;
 
+  &-compact {
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-tight);
+    gap: 6px;
+    padding: 4px 8px;
+  }
+
   &-primary {
     --chip-color: var(--z-color-accent);
     --chip-text: var(--color-white)
