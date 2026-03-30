@@ -1,9 +1,9 @@
 :root {
   /* surfaces */
-  --z-color-bg: var(--color-grey-10);
+  --z-color-bg: var(--color-grey-5);
   --z-color-surface: var(--color-white);
-  --z-color-surface-alt: var(--color-grey-20);
-  --z-color-border: var(--color-grey-40);
+  --z-color-surface-alt: var(--color-grey-10);
+  --z-color-border: var(--color-grey-20);
   --z-color-shadow: var(--color-black-softer);
 
   /* focus */
@@ -25,16 +25,16 @@
   --z-color-accent-selected-bg: var(--color-blue-grey-20);
 
   /* neutral */
-  --z-color-neutral: var(--color-grey-50);
-  --z-color-neutral-text: var(--color-grey-90);
-  --z-color-neutral-hover: var(--color-grey-60);
-  --z-color-neutral-active: var(--color-grey-70);
-  --z-color-neutral-border: var(--color-grey-80);
-  --z-color-neutral-selected-bg: var(--color-grey-40);
+  --z-color-neutral: var(--color-grey-40);
+  --z-color-neutral-text: var(--color-grey-80);
+  --z-color-neutral-hover: var(--color-grey-50);
+  --z-color-neutral-active: var(--color-grey-60);
+  --z-color-neutral-border: var(--color-grey-70);
+  --z-color-neutral-selected-bg: var(--color-grey-30);
 
   /* disabled */
-  --z-color-disabled-bg: var(--color-grey-40);
-  --z-color-disabled-text: var(--color-grey-80);
+  --z-color-disabled-bg: var(--color-grey-20);
+  --z-color-disabled-text: var(--color-grey-70);
 
   /* status */
   --z-color-success: var(--color-green-60);
@@ -81,9 +81,9 @@
     --z-color-disabled-text: var(--color-grey-60);
 
     /* status */
-    --z-color-success: var(--color-green-60);
-    --z-color-warning: var(--color-yellow-60);
-    --z-color-error: var(--color-red-60);
-    --z-color-info: var(--color-blue-60);
+    --z-color-success: var(--color-green-50);
+    --z-color-warning: var(--color-yellow-50);
+    --z-color-error: var(--color-red-50);
+    --z-color-info: var(--color-blue-50);
   }
 }

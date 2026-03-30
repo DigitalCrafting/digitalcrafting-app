@@ -50,13 +50,21 @@
   }
 
   &-outline {
-    color: hsl(from var(--chip-color) h s 35%);
+    color: var(--chip-color);
     background-color: hsl(from var(--chip-color) h s l / 10%);
     border: 2px solid var(--chip-color);
 
+    &.z-chip-primary {
+      color: var(--color-blue-grey-70);
+    }
+
     &.z-chip-secondary {
-      color: var(--z-color-neutral-text);
-      background-color: var(--color-white);
+      color: var(--color-grey-80);
+      //background-color: var(--color-white);
+    }
+
+    &.z-chip-success {
+      color: var(--color-green-70);
     }
   }
 }
