@@ -1,0 +1,5 @@
+const EmailInput = () => {
+
+}
+
+export {EmailInput};

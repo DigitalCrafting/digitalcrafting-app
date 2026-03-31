@@ -1,0 +1,5 @@
+const MultiSelectInput = () => {
+
+}
+
+export {MultiSelectInput};
