@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {CryptoUtils} from "../../utils/Utils";
 
-interface InputProps {
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     className?: string
     'data-testid'?: string
     label?: string
@@ -12,7 +12,7 @@ interface InputProps {
     children?: React.ReactNode;
 }
 
-const InputInternal = ({
+export const Input = ({
     className: externalClassName = '',
     'data-testid': dataTestId,
     label,
@@ -20,7 +20,8 @@ const InputInternal = ({
     id,
     disabled,
     onChange,
-    children
+    children,
+    ...inputProps
 }: InputProps) => {
     if (!id) {
         id = `input-${CryptoUtils.UUID()}`
@@ -35,7 +36,7 @@ const InputInternal = ({
     >
         <label className='z-input-label' htmlFor={id}>{label}</label>
         <div className='z-input-container'>
-            <input className='z-input' id={id} disabled={disabled} onChange={(e) => onChange?.(e.target.value)}/>
+            <input className='z-input' {...inputProps} id={id} disabled={disabled} onChange={(e) => onChange?.(e.target.value)}/>
             {children}
         </div>
         {
@@ -43,7 +44,3 @@ const InputInternal = ({
         }
     </div>
 }
-
-const Input = Object.assign(InputInternal, {});
-
-export {Input};

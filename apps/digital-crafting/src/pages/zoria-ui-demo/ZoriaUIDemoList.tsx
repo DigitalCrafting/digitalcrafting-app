@@ -1,5 +1,5 @@
 import {Col, Row} from "@zoria-ui/react";
-import {InputDemo} from "./components/InputDemo.tsx";
+import {InputDemo} from "./components/inputs/InputDemo.tsx";
 import {TextDemo} from "./components/TextDemo.tsx";
 import {CheckboxDemo} from "./components/CheckboxDemo.tsx";
 import {ToggleDemo} from "./components/ToggleDemo.tsx";
@@ -16,11 +16,13 @@ import {ZoriaUIRoutePathsEnum} from "./config/ZoriaUIRoutesTypes.ts";
 import {type FunctionComponent, useMemo} from "react";
 import {RadioGroupDemo} from "./components/RadioGroupDemo.tsx";
 import {ChipDemo} from "./components/ChipDemo.tsx";
+import {TextInputDemo} from "./components/inputs/TextInputDemo.tsx";
+import {NumberInputDemo} from "./components/inputs/NumberInputDemo.tsx";
 
 const ZoriaUiDemoComponentsMap = new Map<ZoriaUIRoutePathsEnum, FunctionComponent[]>([
     [ZoriaUIRoutePathsEnum.TYPOGRAPHY, [TextDemo]],
     [ZoriaUIRoutePathsEnum.BUTTONS, [ButtonDemo, IconButtonDemo]],
-    [ZoriaUIRoutePathsEnum.INPUTS, [InputDemo, DatePickerDemo, CheckboxDemo, ToggleDemo, RadioGroupDemo]],
+    [ZoriaUIRoutePathsEnum.INPUTS, [InputDemo, TextInputDemo, NumberInputDemo, DatePickerDemo, CheckboxDemo, ToggleDemo, RadioGroupDemo]],
     [ZoriaUIRoutePathsEnum.MODAL, [ModalDemo]],
     [ZoriaUIRoutePathsEnum.POPOVER, [PopoverDemo]],
     [ZoriaUIRoutePathsEnum.DISPLAY, [TooltipDemo, ChipDemo]],

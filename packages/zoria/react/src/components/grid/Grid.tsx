@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {UiSize} from "../../types/UiSizes";
 
-interface RowProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
+export interface RowProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
     gap?: UiSize
 }
 
@@ -14,7 +14,7 @@ export function Row({
     return <div className={`z-row z-row-${gap} ${externalClassName}`} {...rest}>{children}</div>
 }
 
-interface ColProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
+export interface ColProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
     gap?: UiSize;
     span?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 }
@@ -34,7 +34,7 @@ export function Col({
     return <div className={`${colClassName} ${externalClassName}`} {...rest}>{children}</div>
 }
 
-interface GridProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
+export interface GridProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
     gap?: UiSize;
     cols?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 }
