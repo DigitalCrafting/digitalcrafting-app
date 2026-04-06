@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useContext, useEffect, useRef, useState} from 'react';
+import {useCallback, useContext, useEffect, useRef, useState} from 'react';
 import {createPortal} from "react-dom";
 import {Subject} from "rxjs";
 import {useFloatingUiPositioning} from "../../hooks/useFloatingUiPositioning";
@@ -29,8 +29,20 @@ function TooltipTrigger({children, content}: TooltipTriggerProps) {
     const triggerRef = useRef<HTMLDivElement>(null);
     const {subject} = useTooltipContext();
 
+    const onRefChange = useCallback((node: HTMLDivElement) => {
+       if (node === null) {
+           subject.next({
+               triggerRef: null,
+               content: null
+           });
+       } else {
+           triggerRef.current = node;
+       }
+    }, []);
+
     return <div
-        ref={triggerRef}
+        className={`z-tooltip-wrapper`}
+        ref={onRefChange}
         onMouseEnter={() => {
             subject.next({
                 triggerRef,

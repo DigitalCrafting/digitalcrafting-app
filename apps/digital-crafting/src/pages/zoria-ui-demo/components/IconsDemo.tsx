@@ -98,7 +98,7 @@ export function IconsDemo() {
             <Grid cols={12} className='justify-items-anchor-center'>
                 {
                     ICONS.map((Icon) => {
-                        return <Tooltip>
+                        return <Tooltip key={`${Icon.name}-demo`}>
                             <Tooltip.Trigger>
                                 <Icon size='md'/>
                             </Tooltip.Trigger>

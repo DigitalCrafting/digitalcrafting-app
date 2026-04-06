@@ -1,4 +1,4 @@
-import {Input, InputProps} from "./Input";
+import {Input, type InputProps} from "./Input";
 
 interface TextInputProps extends Omit<InputProps, 'type'> {
 

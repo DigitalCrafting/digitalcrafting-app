@@ -18,11 +18,12 @@ import {RadioGroupDemo} from "./components/RadioGroupDemo.tsx";
 import {ChipDemo} from "./components/ChipDemo.tsx";
 import {TextInputDemo} from "./components/inputs/TextInputDemo.tsx";
 import {NumberInputDemo} from "./components/inputs/NumberInputDemo.tsx";
+import {PasswordInputDemo} from "./components/inputs/PasswordInputDemo.tsx";
 
 const ZoriaUiDemoComponentsMap = new Map<ZoriaUIRoutePathsEnum, FunctionComponent[]>([
     [ZoriaUIRoutePathsEnum.TYPOGRAPHY, [TextDemo]],
     [ZoriaUIRoutePathsEnum.BUTTONS, [ButtonDemo, IconButtonDemo]],
-    [ZoriaUIRoutePathsEnum.INPUTS, [InputDemo, TextInputDemo, NumberInputDemo, DatePickerDemo, CheckboxDemo, ToggleDemo, RadioGroupDemo]],
+    [ZoriaUIRoutePathsEnum.INPUTS, [InputDemo, TextInputDemo, NumberInputDemo, PasswordInputDemo, DatePickerDemo, CheckboxDemo, ToggleDemo, RadioGroupDemo]],
     [ZoriaUIRoutePathsEnum.MODAL, [ModalDemo]],
     [ZoriaUIRoutePathsEnum.POPOVER, [PopoverDemo]],
     [ZoriaUIRoutePathsEnum.DISPLAY, [TooltipDemo, ChipDemo]],
