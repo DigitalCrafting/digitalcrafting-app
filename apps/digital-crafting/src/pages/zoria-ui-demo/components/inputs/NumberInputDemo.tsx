@@ -1,5 +1,5 @@
 import {DemoPanel} from "../demo-panel/DemoPanel.tsx";
-import {NumberInput} from "@zoria-ui/react/src/components/inputs/NumberInput.tsx";
+import {NumberInput} from "@zoria-ui/react";
 
 export const NumberInputDemo = () => {
     return <DemoPanel title={'Number Input'}>

@@ -1,5 +1,5 @@
 import {DemoPanel} from "../demo-panel/DemoPanel.tsx";
-import {PasswordInput} from "@zoria-ui/react/src/components/inputs/PasswordInput.tsx";
+import {PasswordInput} from "@zoria-ui/react";
 
 export const PasswordInputDemo = () => {
     return <DemoPanel title={'Password Input'}>
