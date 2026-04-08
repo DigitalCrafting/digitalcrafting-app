@@ -13,16 +13,16 @@ export interface TextareaInputProps extends React.TextareaHTMLAttributes<HTMLTex
 }
 
 const TextareaInput = ({
-                           className: externalClassName = '',
-                           'data-testid': dataTestId,
-                           label,
-                           error,
-                           id,
-                           disabled,
-                           onChange,
-                           children,
-                           ...textareaProps
-                       }: TextareaInputProps) => {
+    className: externalClassName = '',
+    'data-testid': dataTestId,
+    label,
+    error,
+    id,
+    disabled,
+    onChange,
+    children,
+    ...textareaProps
+}: TextareaInputProps) => {
     if (!id) {
         id = `input-${CryptoUtils.UUID()}`
     }
@@ -36,7 +36,8 @@ const TextareaInput = ({
     >
         <label className='z-input-label' htmlFor={id}>{label}</label>
         <div className='z-input-container'>
-            <textarea className='z-input z-textarea' {...textareaProps} id={id} disabled={disabled} onChange={(e) => onChange?.(e.target.value)}/>
+            <textarea className='z-input z-textarea' {...textareaProps} id={id} disabled={disabled}
+                      onChange={(e) => onChange?.(e.target.value)}/>
             {children}
         </div>
         {

@@ -8,7 +8,6 @@ export * from "./components/chip/Chip";
 export * from "./components/container/Container";
 export * from "./components/date/Calendar";
 export * from "./components/date/CalendarUtils";
-export * from "./components/date/DateRangePicker";
 export * from "./components/grid/Grid";
 export * from "./components/icons/Icons";
 export * from "./components/inputs/AutocompleteInput";

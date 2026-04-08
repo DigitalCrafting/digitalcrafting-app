@@ -1,8 +1,8 @@
 import {Calendar, Col, H2, Panel, Row} from "@zoria-ui/react";
 
-export function DatePickerDemo() {
+export function CalendarDemo() {
     return <Panel>
-        <Panel.Header><H2>Datepicker</H2></Panel.Header>
+        <Panel.Header><H2>Calendar</H2></Panel.Header>
         <Panel.Body>
             <Row className={'justify-center align-items-start'}>
                 <Col span={5} className={'justify-center align-items-center'}>
