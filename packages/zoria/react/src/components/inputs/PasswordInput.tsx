@@ -1,17 +1,23 @@
 import {Input, type InputProps} from "./Input";
-import {useState} from "react";
+import {type ChangeEvent, useState} from "react";
 import {EyeIcon, EyeOffIcon} from "../icons/Icons";
 import {IconButton} from "../buttons/IconButton";
 import {Tooltip} from "../tooltip/Tooltip";
+import {noop} from "../../utils/Utils";
 
-interface PasswordInputProps extends Omit<InputProps, 'type'> {
-
+interface PasswordInputProps extends Omit<InputProps, 'type' | 'onChange'> {
+    onChange?: (value: string) => void
 }
 
-const PasswordInput = ({children, ...props}: PasswordInputProps) => {
+const PasswordInput = ({children, onChange = noop, ...props}: PasswordInputProps) => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
-    return <Input {...props} type={showPassword ? 'text' : 'password'}>
+    const internalOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const value = event.target.value;
+        onChange(value);
+    }
+
+    return <Input {...props} onChange={internalOnChange} type={showPassword ? 'text' : 'password'}>
         <IconButton onClick={() => setShowPassword(curr => !curr)}>
             {
                 showPassword ?

@@ -3,10 +3,11 @@ import {Popover, type PopoverHandle} from "../popover/Popover";
 import {IconButton} from "../buttons/IconButton";
 import {CalendarIcon} from "../icons/Icons";
 import {Calendar} from "../date/Calendar";
-import {useRef, useState} from "react";
+import {type ChangeEvent, useRef, useState} from "react";
 
-interface DatePickerInputProps extends Omit<InputProps, 'type' | 'value'> {
+interface DatePickerInputProps extends Omit<InputProps, 'type' | 'value' | 'onChange'> {
     value?: string
+    onChange?: (value: string) => void
 }
 
 const DatePickerInput = (inputProps: DatePickerInputProps) => {
@@ -20,13 +21,15 @@ const DatePickerInput = (inputProps: DatePickerInputProps) => {
             inputRef.current.value = value;
             setSelectedDate(value);
             popoverRef.current?.close();
+            inputProps?.onChange?.(value);
         } else {
             console.error(`[DatePickerInput]: inputRef is not defined`)
         }
     }
 
     /* TODO Validate the date, add keyDown handler */
-    const onInputChange = (value: string) => {
+    const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const value = event.target.value;
         setSelectedDate(value);
         inputProps?.onChange?.(value);
     }

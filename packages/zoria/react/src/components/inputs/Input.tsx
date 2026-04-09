@@ -9,7 +9,6 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
     error?: string
     id?: string
     disabled?: boolean
-    onChange?: (value: any) => void
     children?: React.ReactNode;
     ref?: Ref<HTMLInputElement>
 }
@@ -21,7 +20,6 @@ export const Input = ({
     error,
     id,
     disabled,
-    onChange,
     children,
     ...inputProps
 }: InputProps) => {
@@ -38,7 +36,7 @@ export const Input = ({
     >
         <label className='z-input-label' htmlFor={id}>{label}</label>
         <div className='z-input-container'>
-            <input className='z-input' {...inputProps} id={id} disabled={disabled} onChange={(e) => onChange?.(e.target.value)}/>
+            <input className='z-input' {...inputProps} id={id} disabled={disabled}/>
             {children}
         </div>
         {
