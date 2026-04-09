@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useContext, useEffect, useRef} from 'react';
+import {type Ref, useContext, useEffect, useImperativeHandle, useRef} from 'react';
 import {createPortal} from "react-dom";
 import {useFloatingUiPositioning} from "../../hooks/useFloatingUiPositioning";
 import {UiSize} from "../../types/UiSizes";
@@ -82,7 +82,9 @@ function PopoverBody({children, padding = 'md'}: React.PropsWithChildren<Popover
              role="dialog"
              className={`z-popover z-popover-body z-popover-p-${padding} ${visibilityClassName}`}
         >
-            {children}
+            {
+                open ? children : null
+            }
         </div>,
         document.body
     )}
@@ -90,15 +92,24 @@ function PopoverBody({children, padding = 'md'}: React.PropsWithChildren<Popover
 
 }
 
+interface PopoverHandle {
+    close: () => void
+}
+
 interface PopoverProps {
     persistent?: boolean,
     children: [React.ReactElement<typeof PopoverTrigger>, React.ReactElement<typeof PopoverBody>]
+    ref?: Ref<PopoverHandle>
 }
 
-function InternalPopover({children, persistent = false}: PopoverProps) {
+function InternalPopover({children, ref, persistent = false}: PopoverProps) {
     const [open, setOpen] = React.useState(false);
     // @ts-ignore
     const triggerRef = React.useRef<HTMLDivElement | HTMLButtonElement>(null);
+
+    useImperativeHandle(ref, () => ({
+        close: () => setOpen(false)
+    }))
 
     return (
         <PopoverContext.Provider value={{open, setOpen, triggerRef, persistent}}>
@@ -115,3 +126,4 @@ const Popover = Object.assign(InternalPopover,
 
 
 export {Popover};
+export type {PopoverHandle};

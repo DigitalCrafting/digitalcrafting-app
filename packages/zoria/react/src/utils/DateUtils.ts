@@ -11,8 +11,10 @@ export namespace DateUtils {
         return new Date(d.getFullYear(), d.getMonth(), d.getDate() - days);
     }
 
-    export function isTheSameDay(a: Date, b:Date) {
-        return a.getTime() === b.getTime();
+    export function isTheSameDate(a: Date, b: Date) {
+        return a.getFullYear() === b.getFullYear() &&
+            a.getMonth() === b.getMonth() &&
+            a.getDate() === b.getDate();
     }
 
     export function toISODate(d: Date): string {

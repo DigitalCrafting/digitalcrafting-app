@@ -69,6 +69,7 @@ export const Calendar = React.memo((
     }: CalendarProps) => {
     const currentDate = value ? DateUtils.fromISODate(value) : new Date();
     const [selectedDate, setSelectedDate] = useState(currentDate);
+    const [visibleDate, setVisibleDate] = useState(currentDate);
 
     const yearsRange = React.useMemo(() => {
         const years = [];
@@ -80,45 +81,43 @@ export const Calendar = React.memo((
 
     const onYearSelected = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const year = Number(event.target.value);
-        const newDate = DateUtils.atMidnight(selectedDate);
+        const newDate = DateUtils.atMidnight(visibleDate);
         newDate.setFullYear(year);
-        setSelectedDate(newDate);
-        onChange?.(DateUtils.toISODate(newDate));
+        setVisibleDate(newDate);
     }
 
     const onNextMonth = () => {
-        const currentMonth = selectedDate.getMonth();
+        const currentMonth = visibleDate.getMonth();
         const newMonth = (currentMonth + 1) % 12;
-        const newDate = DateUtils.atMidnight(selectedDate);
+        const newDate = DateUtils.atMidnight(visibleDate);
         newDate.setMonth(newMonth);
-        setSelectedDate(newDate);
-        onChange?.(DateUtils.toISODate(newDate));
+        setVisibleDate(newDate);
     }
 
     const onPrevMonth = () => {
-        const currentMonth = selectedDate.getMonth();
+        const currentMonth = visibleDate.getMonth();
         const newMonth = currentMonth === 0 ? 11: currentMonth - 1;
-        const newDate = DateUtils.atMidnight(selectedDate);
+        const newDate = DateUtils.atMidnight(visibleDate);
         newDate.setMonth(newMonth);
-        setSelectedDate(newDate);
-        onChange?.(DateUtils.toISODate(newDate));
+        setVisibleDate(newDate);
     }
 
     const onDaySelected = (day: number) => {
-        const newDate = DateUtils.atMidnight(selectedDate);
+        const newDate = DateUtils.atMidnight(visibleDate);
         newDate.setDate(day);
         setSelectedDate(newDate);
+        setVisibleDate(newDate);
         onChange?.(DateUtils.toISODate(newDate));
     }
 
     const dayOffset = weekdays.indexOf(startingDay);
     const weekdaysLabels = CalendarUtils.getWeekdaysLabels(weekdays, dayOffset);
 
-    const prevMonthDaysArray = CalendarUtils.prevMonthDayNumbers(selectedDate, dayOffset);
-    const currMonthDays = CalendarUtils.currentMonthDays(selectedDate);
-    const nextMonthDaysArray = CalendarUtils.nextMonthDayNumbers(selectedDate, dayOffset);
+    const prevMonthDaysArray = CalendarUtils.prevMonthDayNumbers(visibleDate, dayOffset);
+    const currMonthDays = CalendarUtils.currentMonthDays(visibleDate);
+    const nextMonthDaysArray = CalendarUtils.nextMonthDayNumbers(visibleDate, dayOffset);
 
-    const monthNmbr = selectedDate.getMonth();
+    const monthNmbr = visibleDate.getMonth();
     const monthLabel = months[monthNmbr];
 
     const days = [];
@@ -129,7 +128,7 @@ export const Calendar = React.memo((
         days.push(<Day
             key={`curr-month-${day}`}
             onSelect={onDaySelected}
-            isSelected={selectedDate.getDate() === day}
+            isSelected={DateUtils.isTheSameDate(selectedDate, visibleDate) && selectedDate.getDate() === day}
             day={day}/>
         );
     }
@@ -140,7 +139,7 @@ export const Calendar = React.memo((
     return <div className={'z-calendar'}>
         <div className='z-calendar-header'>
             <div className='year-picker'>
-                <select onChange={onYearSelected} value={selectedDate.getFullYear()}>
+                <select onChange={onYearSelected} value={visibleDate.getFullYear()}>
                     {yearsRange.map(year => {
                         return <option key={year} value={year}>{year}</option>
                     })}

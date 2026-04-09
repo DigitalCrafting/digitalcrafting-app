@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {type Ref} from 'react';
 import {CryptoUtils} from "../../utils/Utils";
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -10,6 +11,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
     disabled?: boolean
     onChange?: (value: any) => void
     children?: React.ReactNode;
+    ref?: Ref<HTMLInputElement>
 }
 
 export const Input = ({
