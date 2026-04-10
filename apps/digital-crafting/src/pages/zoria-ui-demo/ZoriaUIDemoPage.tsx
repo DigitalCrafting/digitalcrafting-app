@@ -1,4 +1,4 @@
-import {capitalizeWord, Container, Main, Navigation, Sidebar} from "@zoria-ui/react";
+import {Container, Main, Navigation, Sidebar, StringUtils} from "@zoria-ui/react";
 import {Link, Outlet, useLocation} from "react-router-dom";
 import {ZoriaUIDemoRoutesList} from "./config/ZoriaUIRoutesTypes.ts";
 
@@ -13,7 +13,7 @@ export const ZoriaUIDemoPage = () => {
                     <Navigation.Section defaultOpen title={'Components'}>
                         {
                             ZoriaUIDemoRoutesList.map(route => {
-                                return <Navigation.Item key={route} as={Link} active={pathname.includes(route)} to={`/zoria/${route}`}>{capitalizeWord(route)}</Navigation.Item>
+                                return <Navigation.Item key={route} as={Link} active={pathname.includes(route)} to={`/zoria/${route}`}>{StringUtils.capitalizeWord(route)}</Navigation.Item>
                             })
                         }
                     </Navigation.Section>
