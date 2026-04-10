@@ -69,9 +69,20 @@ function PopoverBody({children, padding = 'md'}: React.PropsWithChildren<Popover
 
             setOpen(false);
         };
+
+        const escCallback = (event: React.KeyboardEvent | KeyboardEvent) => {
+            if (event.key === 'Escape') {
+                setOpen(false);
+            }
+        }
+
+
         document.addEventListener('pointerdown', callback);
+        document.addEventListener('keydown', escCallback);
+
         return () => {
             document.removeEventListener('pointerdown', callback);
+            document.removeEventListener('keydown', escCallback);
         }
     }, [open, persistent]);
 

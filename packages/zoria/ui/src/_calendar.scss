@@ -5,11 +5,13 @@
   font-family: var(--font-family-sans);
   font-size: var(--font-size-md);
   color: var(--z-color-text);
+  padding: var(--space-y-3);
 
   &-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    padding-bottom: var(--space-y-2);
 
     .year-picker {
       align-content: center;

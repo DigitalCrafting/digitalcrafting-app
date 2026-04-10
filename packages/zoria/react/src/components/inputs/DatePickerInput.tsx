@@ -84,13 +84,21 @@ const DatePickerInput = ({error: externalError, ...inputProps}: DatePickerInputP
         inputProps?.onChange?.(value);
     }
 
-    return <Input {...inputProps} ref={inputRef} onBlur={onBlur} onChange={handleInputChange} onKeyDown={onKeyDown} error={error} type='text'>
+    return <Input {...inputProps}
+                  ref={inputRef}
+                  onBlur={onBlur}
+                  onChange={handleInputChange}
+                  onKeyDown={onKeyDown}
+                  error={error}
+                  type='text'
+                  placeholder='yyyy-MM-dd'
+    >
         <Popover ref={popoverRef}>
             <Popover.Trigger>
                 <IconButton><CalendarIcon/></IconButton>
             </Popover.Trigger>
-            <Popover.Body padding='lg'>
-                <Calendar value={selectedDate} onChange={onCalendarChange} />
+            <Popover.Body padding='none'>
+                <Calendar value={selectedDate} onChange={onCalendarChange}/>
             </Popover.Body>
         </Popover>
     </Input>

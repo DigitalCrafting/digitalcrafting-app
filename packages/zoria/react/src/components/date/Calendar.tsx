@@ -50,6 +50,7 @@ interface CalendarProps {
     id?: string
     value?: string
     onChange?: (value: string) => void
+    className?: string
     startingDay?: string
     yearRangeStart?: number
     yearRangeEnd?: number
@@ -62,6 +63,7 @@ export const Calendar = React.memo((
         startingDay = 'Sun',
         value,
         onChange,
+        className: externalClassName = '',
         yearRangeStart = 1950,
         yearRangeEnd = 2050,
         weekdays = CalendarUtils.WEEKDAYS,
@@ -136,7 +138,7 @@ export const Calendar = React.memo((
         days.push(<Day key={`next-month-${i}`} disabled={true} day={nextMonthDaysArray[i]}/>);
     }
 
-    return <div className={'z-calendar'}>
+    return <div className={`z-calendar ${externalClassName}`.trim()}>
         <div className='z-calendar-header'>
             <div className='year-picker'>
                 <select onChange={onYearSelected} value={visibleDate.getFullYear()}>
