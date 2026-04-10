@@ -9,7 +9,7 @@ import {DateUtils} from "../../utils/DateUtils";
 import {StringUtils} from "../../utils/StringUtils";
 
 // TODO make it common const //, "Enter"
-const FUNCTIONAL_KEYS = ["Backspace", "Delete", "ArrowLeft", "ArrowRight"];
+const FUNCTIONAL_KEYS = ["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab"];
 
 interface DatePickerInputProps extends Omit<InputProps, 'type' | 'value' | 'onChange' | 'onBlur'> {
     value?: string
