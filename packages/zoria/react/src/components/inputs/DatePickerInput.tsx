@@ -97,7 +97,7 @@ const DatePickerInput = ({error: externalError, ...inputProps}: DatePickerInputP
             <Popover.Trigger>
                 <IconButton><CalendarIcon/></IconButton>
             </Popover.Trigger>
-            <Popover.Body padding='none'>
+            <Popover.Body padding='none' trapFocus>
                 <Calendar value={selectedDate} onChange={onCalendarChange}/>
             </Popover.Body>
         </Popover>

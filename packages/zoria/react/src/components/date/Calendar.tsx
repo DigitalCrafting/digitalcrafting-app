@@ -98,7 +98,7 @@ export const Calendar = React.memo((
 
     const onPrevMonth = () => {
         const currentMonth = visibleDate.getMonth();
-        const newMonth = currentMonth === 0 ? 11: currentMonth - 1;
+        const newMonth = currentMonth === 0 ? 11 : currentMonth - 1;
         const newDate = DateUtils.atMidnight(visibleDate);
         newDate.setMonth(newMonth);
         setVisibleDate(newDate);

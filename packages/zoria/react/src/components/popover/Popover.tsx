@@ -3,6 +3,7 @@ import {type Ref, useContext, useEffect, useImperativeHandle, useRef} from 'reac
 import {createPortal} from "react-dom";
 import {useFloatingUiPositioning} from "../../hooks/useFloatingUiPositioning";
 import {UiSize} from "../../types/UiSizes";
+import {FocusTrap} from "../../utils/FocusTrap";
 
 interface PopoverContextType {
     persistent: boolean,
@@ -38,11 +39,13 @@ function PopoverTrigger({children}: PopoverTriggerProps) {
 }
 
 interface PopoverBodyProps {
-    padding?: UiSize | 'none'
+    padding?: UiSize | 'none',
+    trapFocus?: boolean
 }
 
-function PopoverBody({children, padding = 'md'}: React.PropsWithChildren<PopoverBodyProps>) {
+function PopoverBody({children, padding = 'md', trapFocus = false }: React.PropsWithChildren<PopoverBodyProps>) {
     const popoverRef = useRef<HTMLDivElement>(null);
+    const focusTrapInstanceRef = useRef<FocusTrap<HTMLDivElement>>(FocusTrap.for(popoverRef));
     const {open, setOpen, triggerRef, persistent} = usePopoverContext();
 
     useFloatingUiPositioning(triggerRef, popoverRef, 'bottom');
@@ -76,15 +79,20 @@ function PopoverBody({children, padding = 'md'}: React.PropsWithChildren<Popover
             }
         }
 
-
         document.addEventListener('pointerdown', callback);
         document.addEventListener('keydown', escCallback);
+        if (trapFocus) {
+            focusTrapInstanceRef.current.trap();
+        }
 
         return () => {
             document.removeEventListener('pointerdown', callback);
             document.removeEventListener('keydown', escCallback);
+            if (trapFocus) {
+                focusTrapInstanceRef.current.release(true);
+            }
         }
-    }, [open, persistent]);
+    }, [open, persistent, trapFocus]);
 
     const visibilityClassName = open ? 'z-tooltip-visible' : 'z-tooltip-hidden';
 
