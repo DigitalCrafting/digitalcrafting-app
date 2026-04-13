@@ -1,6 +1,6 @@
 import {DateUtils} from "../../utils/DateUtils";
 import * as React from "react";
-import {useState} from "react";
+import {useRef, useState} from "react";
 import {IconButton} from "../buttons/IconButton";
 import {ChevronLeftIcon, ChevronRightIcon} from "../icons/Icons";
 import {CalendarUtils} from "./CalendarUtils";
@@ -10,6 +10,7 @@ interface DayProps {
     disabled?: boolean
     isSelected?: boolean
     isInRange?: boolean
+    isToday?: boolean
     'data-testid'?: string
     onSelect?: (day: number) => void
 }
@@ -19,6 +20,7 @@ const Day = React.memo(({
     disabled = false,
     isSelected = false,
     isInRange = false,
+    isToday = false,
     'data-testid': dataTestId,
     onSelect = () => {
     }
@@ -26,6 +28,9 @@ const Day = React.memo(({
     let classNames = 'day';
     if (isSelected) {
         classNames += ' is-selected';
+    }
+    if (isToday) {
+        classNames += ' day-today';
     }
     if (isInRange) {
         classNames += ' is-in-range';
@@ -69,9 +74,9 @@ export const Calendar = React.memo((
         weekdays = CalendarUtils.WEEKDAYS,
         months = CalendarUtils.MONTHS
     }: CalendarProps) => {
-    const currentDate = value ? DateUtils.fromISODate(value) : new Date();
-    const [selectedDate, setSelectedDate] = useState(currentDate);
-    const [visibleDate, setVisibleDate] = useState(currentDate);
+    const todayDate = useRef<Date>(new Date());
+    const [selectedDate, setSelectedDate] = useState(value ? DateUtils.fromISODate(value) : undefined);
+    const [visibleDate, setVisibleDate] = useState(value ? DateUtils.fromISODate(value) : new Date());
 
     const yearsRange = React.useMemo(() => {
         const years = [];
@@ -124,18 +129,27 @@ export const Calendar = React.memo((
 
     const days = [];
     for (let i = 0; i < prevMonthDaysArray.length; i++) {
-        days.push(<Day key={`prev-month-${i}`} disabled={true} day={prevMonthDaysArray[i]}/>);
+        days.push(<Day isToday={CalendarUtils.isToday(todayDate, visibleDate, prevMonthDaysArray[i], 'prev')}
+                       key={`prev-month-${i}`}
+                       disabled={true}
+                       day={prevMonthDaysArray[i]}
+        />);
     }
     for (let day = 1; day <= currMonthDays; day++) {
         days.push(<Day
             key={`curr-month-${day}`}
             onSelect={onDaySelected}
-            isSelected={DateUtils.isTheSameDate(selectedDate, visibleDate) && selectedDate.getDate() === day}
+            isSelected={DateUtils.isTheSameDate(selectedDate, visibleDate) && selectedDate?.getDate() === day}
+            isToday={CalendarUtils.isToday(todayDate, visibleDate, day, 'current')}
             day={day}/>
         );
     }
     for (let i = 0; i < nextMonthDaysArray.length; i++) {
-        days.push(<Day key={`next-month-${i}`} disabled={true} day={nextMonthDaysArray[i]}/>);
+        days.push(<Day isToday={CalendarUtils.isToday(todayDate, visibleDate, nextMonthDaysArray[i], 'next')}
+                       key={`next-month-${i}`}
+                       disabled={true}
+                       day={nextMonthDaysArray[i]}
+        />);
     }
 
     return <div className={`z-calendar ${externalClassName}`.trim()}>

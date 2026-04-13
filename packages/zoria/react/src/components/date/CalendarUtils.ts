@@ -1,4 +1,7 @@
 import {DateUtils} from "../../utils/DateUtils";
+import type {RefObject} from "react";
+
+type MonthView = 'prev' | 'current' | 'next';
 
 export class CalendarUtils {
     // TODO i18n
@@ -57,5 +60,20 @@ export class CalendarUtils {
         }
 
         return weekdays.slice(offset).concat(weekdays.slice(0, offset));
+    }
+
+
+    static isToday = (todayRef: RefObject<Date>, visibleDate: Date, currentDay: number, monthView: MonthView): boolean => {
+        const todayDate = todayRef.current;
+        const currentDate = DateUtils.atMidnight(visibleDate);
+
+        if (monthView === 'prev') {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+        } else if (monthView === 'next') {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+        }
+
+        currentDate.setDate(currentDay);
+        return DateUtils.isTheSameDate(todayDate, currentDate);
     }
 }

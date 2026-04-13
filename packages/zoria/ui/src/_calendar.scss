@@ -70,6 +70,10 @@
       transition: var(--z-theme-focus-transition);
       text-align: center;
 
+      &-today:not(.is-selected) {
+        box-shadow: 0 0 0 2px var(--color-grey-40);
+      }
+
       &-inner {
 
       }

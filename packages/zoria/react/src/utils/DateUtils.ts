@@ -11,7 +11,11 @@ export namespace DateUtils {
         return new Date(d.getFullYear(), d.getMonth(), d.getDate() - days);
     }
 
-    export function isTheSameDate(a: Date, b: Date) {
+    export function isTheSameDate(a?: Date, b?: Date) {
+        if (!a || !b) {
+            return false;
+        }
+
         return a.getFullYear() === b.getFullYear() &&
             a.getMonth() === b.getMonth() &&
             a.getDate() === b.getDate();
@@ -24,6 +28,13 @@ export namespace DateUtils {
     export function fromISODate(value: string): Date {
         const [y, m, d] = value.split('-').map(Number)
         return new Date(y, m - 1, d)
+    }
+
+    export function fromParts(year?: number, month?: number, day?: number): Date | undefined {
+        if (!year || !month || !day) {
+            return undefined;
+        }
+        return new Date(year, month, day);
     }
 
     export function validateDate(str: string) {
