@@ -4,7 +4,7 @@ import {FocusTrap} from "../utils/FocusTrap";
 
 export const useFocusTrap = <T extends HTMLElement>(ref: RefObject<T | null>) => {
     useEffect(() => {
-        const focusTrap = new FocusTrap(ref);
+        const focusTrap = FocusTrap.for(ref);
         focusTrap.trap();
 
         return () => {
