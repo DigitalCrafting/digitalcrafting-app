@@ -8,4 +8,7 @@
           0 0 0 2px var(--z-color-focus-ring);
   --z-theme-focus-shadow-inset:
           inset 0 0 0 2px var(--z-color-focus-ring);
+
+  --z-theme-border-accent: 2px solid var(--z-color-accent-border);
+  --z-theme-border-neutral: 2px solid var(--color-grey-50);
 }

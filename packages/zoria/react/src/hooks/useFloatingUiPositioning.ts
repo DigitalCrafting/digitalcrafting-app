@@ -3,13 +3,14 @@ import {useCallback, useEffect} from "react";
 import {autoUpdate, computePosition, flip, offset, shift} from "@floating-ui/dom";
 
 export function useFloatingUiPositioning(
-    triggerRef: React.RefObject<any> | undefined | null,
+    relativeElementRef: React.RefObject<any> | undefined | null,
     floatingElRef: React.RefObject<any> | undefined | null,
-    placement: 'top' | 'right' | 'bottom' | 'left' = 'top'
+    placement: 'top' | 'right' | 'bottom' | 'left' = 'top',
+    offsetBy: number = 8
 ) {
 
     const updatePosition = useCallback(async () => {
-        const trigger = triggerRef?.current;
+        const trigger = relativeElementRef?.current;
         const floatingEl = floatingElRef?.current;
 
         if (!trigger || !floatingEl) return;
@@ -18,7 +19,7 @@ export function useFloatingUiPositioning(
             {
                 placement,
                 middleware: [
-                    offset(8),
+                    offset(offsetBy),
                     flip(),
                     shift({padding: 8})
                 ]
@@ -28,10 +29,10 @@ export function useFloatingUiPositioning(
             left: `${x}px`,
             top: `${y}px`,
         });
-    }, [triggerRef?.current, placement]);
+    }, [relativeElementRef?.current, placement]);
 
     useEffect(() => {
-        const trigger = triggerRef?.current;
+        const trigger = relativeElementRef?.current;
         const floatingEl = floatingElRef?.current;
 
         if (!trigger || !floatingEl) return;
@@ -46,5 +47,5 @@ export function useFloatingUiPositioning(
             cleanup();
             observer.disconnect();
         };
-    }, [updatePosition, triggerRef?.current]);
+    }, [updatePosition, relativeElementRef?.current]);
 }

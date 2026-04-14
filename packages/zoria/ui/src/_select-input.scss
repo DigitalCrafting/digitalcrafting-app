@@ -1,0 +1,86 @@
+.z-select-wrapper {
+  .z-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    background-color: transparent;
+    cursor: pointer;
+    width: 100%;
+
+    padding-left: var(--space-y-1);
+    padding-right: var(--space-y-1);
+
+    &-custom {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      button {
+        background-color: transparent;
+        border: none;
+        padding: 0;
+      }
+    }
+
+  }
+
+  .z-select::-ms-expand {
+    display: none;
+  }
+
+  .z-input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
+
+    &:has(input:not(:disabled)) {
+      cursor: pointer;
+    }
+
+    &:has(input:disabled) {
+      cursor: not-allowed;
+    }
+  }
+
+  .z-select-arrow {
+    position: absolute;
+    right: var(--space-y-1);
+    pointer-events: none;
+    font-size: 0.8rem;
+  }
+
+  .z-select:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  .z-options-box {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    width: 100%;
+
+    background: white;
+    border: var(--z-theme-border-neutral);
+    border-radius: 4px;
+    box-shadow: var(--shadow-2);
+    list-style: none;
+    padding: 4px 0;
+    z-index: 1000;
+
+    li {
+      padding: 10px 16px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    li:hover {
+      background-color: #f0f0f0;
+    }
+  }
+
+}

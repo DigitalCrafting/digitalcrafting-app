@@ -1,5 +1,14 @@
 import * as React from 'react';
-import {type Ref, useContext, useEffect, useImperativeHandle, useRef} from 'react';
+import {
+    type Dispatch,
+    type Ref,
+    type RefObject,
+    type SetStateAction,
+    useContext,
+    useEffect,
+    useImperativeHandle,
+    useRef
+} from 'react';
 import {createPortal} from "react-dom";
 import {useFloatingUiPositioning} from "../../hooks/useFloatingUiPositioning";
 import {UiSize} from "../../types/UiSizes";
@@ -8,7 +17,7 @@ import {FocusTrap} from "../../utils/FocusTrap";
 interface PopoverContextType {
     persistent: boolean,
     open: boolean,
-    setOpen: (open: boolean) => void;
+    setOpen: Dispatch<SetStateAction<boolean>>;
     triggerRef: React.RefObject<HTMLDivElement | HTMLButtonElement | null> | undefined
 }
 
@@ -20,35 +29,61 @@ function usePopoverContext() {
 
 interface PopoverTriggerProps {
     children: React.ReactElement<any>,
-    content?: React.ReactElement<typeof PopoverBody>
+    content?: React.ReactElement<typeof PopoverBody>,
+    disabled?: boolean,
+    ref?: RefObject<any>
 }
 
-function PopoverTrigger({children}: PopoverTriggerProps) {
+function PopoverTrigger({children, disabled = false, ref}: PopoverTriggerProps) {
     const {open, setOpen, triggerRef} = usePopoverContext();
 
-    const triggerEl = React.cloneElement(children, {
-        ref: triggerRef,
-        open,
-        'aria-expanded': open,
-        'aria-haspopup': 'dialog',
-        'data-state': open ? 'open' : 'closed',
-        onClick: () => setOpen(!open)
-    });
+    const onClick = () => {
+        if (disabled) {
+            return;
+        }
 
-    return triggerEl;
+        setOpen((prev) => {return !prev});
+    }
+
+    // return React.cloneElement(children, {
+    //     ref: (node: unknown) => {
+    //         // @ts-ignore
+    //         triggerRef!.current = node;
+    //         if (ref) {
+    //             ref.current = node;
+    //         }
+    //     },
+    //     'aria-expanded': open,
+    //     'aria-haspopup': 'dialog',
+    //     'data-state': open ? 'open' : 'closed',
+    //     onClick
+    // });
+
+    return <span
+        ref={triggerRef}
+        aria-expanded={open}
+        aria-haspopup='dialog'
+        data-state={open ? 'open' : 'closed'}
+        onClick={onClick}
+    >
+        {children}
+    </span>;
 }
 
 interface PopoverBodyProps {
     padding?: UiSize | 'none',
     trapFocus?: boolean
+    positionRef?: RefObject<HTMLElement | null>
+    offset?: number
 }
 
-function PopoverBody({children, padding = 'md', trapFocus = false }: React.PropsWithChildren<PopoverBodyProps>) {
+function PopoverBody({children, padding = 'md', trapFocus = false, positionRef, offset }: React.PropsWithChildren<PopoverBodyProps>) {
     const popoverRef = useRef<HTMLDivElement>(null);
     const focusTrapInstanceRef = useRef<FocusTrap<HTMLDivElement>>(FocusTrap.for(popoverRef));
     const {open, setOpen, triggerRef, persistent} = usePopoverContext();
+    const relativeElementRef = positionRef && positionRef.current ? positionRef : triggerRef;
 
-    useFloatingUiPositioning(triggerRef, popoverRef, 'bottom');
+    useFloatingUiPositioning(relativeElementRef, popoverRef, 'bottom', offset);
 
     useEffect(() => {
         if (!open || persistent) {
@@ -96,6 +131,8 @@ function PopoverBody({children, padding = 'md', trapFocus = false }: React.Props
 
     const visibilityClassName = open ? 'z-tooltip-visible' : 'z-tooltip-hidden';
 
+     {/* TODO remove styling completely, styling should be provided by component shown */}
+    /* Also, create separate directory for non-styled mechanisms like this Popover, Expandable, Selectable, DataView */
     return <>{createPortal(
         <div ref={popoverRef}
              role="dialog"
