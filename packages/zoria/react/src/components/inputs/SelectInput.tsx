@@ -1,11 +1,11 @@
 import {CryptoUtils} from "../../utils/Utils";
-import {useEffect, useRef} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Popover, type PopoverHandle} from "../popover/Popover";
 import {ChevronDownIcon} from "../icons/Icons";
 
 export interface SelectOption<T = unknown> {
-    value: any
-    display: T
+    value: T
+    display: React.ReactNode
     default?: boolean
 }
 
@@ -19,6 +19,7 @@ interface SelectInputInternalProps<T> {
     id?: string
     disabled?: boolean
     compact?: boolean
+    value?: T
     onChange?: (value: any) => void,
     options: SelectOption<T>[]
 }
@@ -32,20 +33,30 @@ const NativeSelectInput = ({
     error,
     disabled,
     compact = false,
+    value,
     onChange,
     options,
     ...props
 }: SelectInputInternalProps<string>) => {
 
+    const internalOnChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const value = event.target.value;
+        onChange?.(value);
+    };
 
-    return <div className={`z-input-wrapper z-select-wrapper ${externalClassName}`}
+    let additionalClassName = externalClassName;
+    if (compact) {
+        additionalClassName += ' z-select-compact';
+    }
+
+    return <div className={`z-input-wrapper z-select-wrapper ${additionalClassName}`.trim()}
                 data-testid={dataTestId}
     >
         {
             hideLabel ? null : <label className='z-input-label' htmlFor={id}>{label}</label>
         }
         <div className='z-input-container'>
-            <select className='z-input z-select' {...props} id={id} disabled={disabled}>
+            <select className='z-input z-select' value={value} {...props} onChange={internalOnChange} id={id} disabled={disabled}>
                 {
                     options.map(option => (
                         <option key={option.value}
@@ -73,24 +84,43 @@ const ZoriaSelectInput = ({
     error,
     disabled,
     compact = false,
+    value = undefined,
     onChange,
     options,
     ...props
 }: SelectInputInternalProps<any>) => {
+    const [currentlySelected, setCurrentlySelected] = useState<SelectOption<any> | undefined>(options.find(option => option.value === value));
+    const [width, setWidth] = useState(0);
     const popoverRef = useRef<PopoverHandle>(null);
     const containerRef = useRef<HTMLDivElement>(null);
 
-
-    const onSelected = (event, option: SelectOption) => {
-        console.log(option)
+    const onSelected = (event: React.MouseEvent | MouseEvent, option: SelectOption) => {
+        event.stopPropagation();
+        event.preventDefault();
+        console.log(`========== SelectInput.onSelected`)
+        setCurrentlySelected(option);
+        onChange?.(option.value);
+        popoverRef?.current?.close();
     }
 
     useEffect(() => {
-        console.log(containerRef.current)
-        console.log(containerRef.current?.clientWidth)
+        const updateWidth = () => {
+            if (containerRef.current) {
+                setWidth(containerRef.current.getBoundingClientRect().width);
+            }
+        };
+
+        window.addEventListener('resize', updateWidth);
+        updateWidth();
+        return () => window.removeEventListener('resize', updateWidth);
     }, []);
 
-    return <div className={`z-input-wrapper z-select-wrapper ${externalClassName}`}
+    let additionalClassName = externalClassName;
+    if (compact) {
+        additionalClassName += ' z-select-compact';
+    }
+
+    return <div className={`z-input-wrapper z-select-wrapper ${additionalClassName}`.trim()}
                 data-testid={dataTestId}
     >
         {
@@ -101,14 +131,13 @@ const ZoriaSelectInput = ({
                 <div className='z-input-container' ref={containerRef}>
                     <div className='z-input z-select z-select-custom'>
                         <input type='hidden' {...props} id={id} disabled={disabled}/>
-                        <button>{'selected value'}</button>
+                        <button>{currentlySelected?.display}</button>
                         <ChevronDownIcon/>
                     </div>
                 </div>
             </Popover.Trigger>
-            {/* TODO remove shadow top */}
             <Popover.Body offset={0} padding='none'>
-                <ul className='z-options-box' style={{width: `${containerRef!.current?.clientWidth}px`}}>
+                <ul className='z-options-box' style={{minWidth: width}}>
                     {
                         options.map(option => (
                             <li key={option.value} onClick={(event) => onSelected(event, option)}>

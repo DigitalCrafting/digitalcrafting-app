@@ -13,6 +13,8 @@ html, body {
   color: var(--z-color-text);
   font-family: var(--font-family-sans);
   overflow-y: hidden;
+
+  accent-color: var(--z-color-accent);
 }
 
 #root {

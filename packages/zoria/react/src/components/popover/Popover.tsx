@@ -31,10 +31,9 @@ interface PopoverTriggerProps {
     children: React.ReactElement<any>,
     content?: React.ReactElement<typeof PopoverBody>,
     disabled?: boolean,
-    ref?: RefObject<any>
 }
 
-function PopoverTrigger({children, disabled = false, ref}: PopoverTriggerProps) {
+function PopoverTrigger({children, disabled = false}: PopoverTriggerProps) {
     const {open, setOpen, triggerRef} = usePopoverContext();
 
     const onClick = () => {
@@ -44,20 +43,6 @@ function PopoverTrigger({children, disabled = false, ref}: PopoverTriggerProps) 
 
         setOpen((prev) => {return !prev});
     }
-
-    // return React.cloneElement(children, {
-    //     ref: (node: unknown) => {
-    //         // @ts-ignore
-    //         triggerRef!.current = node;
-    //         if (ref) {
-    //             ref.current = node;
-    //         }
-    //     },
-    //     'aria-expanded': open,
-    //     'aria-haspopup': 'dialog',
-    //     'data-state': open ? 'open' : 'closed',
-    //     onClick
-    // });
 
     return <span
         ref={triggerRef}
@@ -98,9 +83,12 @@ function PopoverBody({children, padding = 'md', trapFocus = false, positionRef, 
 
             if (!popoverEl) return;
 
+            const isInsideAnyPopover = (target as HTMLElement).closest('[data-z-popover]');
+
             if (
                 popoverEl.contains(target) ||
-                triggerEl?.contains(target)
+                triggerEl?.contains(target) ||
+                isInsideAnyPopover
             ) {
                 return;
             }
@@ -137,6 +125,7 @@ function PopoverBody({children, padding = 'md', trapFocus = false, positionRef, 
         <div ref={popoverRef}
              role="dialog"
              className={`z-popover z-popover-body z-popover-p-${padding} ${visibilityClassName}`}
+             data-z-popover
         >
             {
                 open ? children : null

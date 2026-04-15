@@ -1,9 +1,10 @@
 import {DateUtils} from "../../utils/DateUtils";
 import * as React from "react";
-import {useRef, useState} from "react";
+import {useMemo, useRef, useState} from "react";
 import {IconButton} from "../buttons/IconButton";
 import {ChevronLeftIcon, ChevronRightIcon} from "../icons/Icons";
 import {CalendarUtils} from "./CalendarUtils";
+import {SelectInput, type SelectOption} from "../inputs/SelectInput";
 
 interface DayProps {
     day: number
@@ -69,7 +70,7 @@ export const Calendar = React.memo((
         value,
         onChange,
         className: externalClassName = '',
-        yearRangeStart = 1950,
+        yearRangeStart = 1990,
         yearRangeEnd = 2050,
         weekdays = CalendarUtils.WEEKDAYS,
         months = CalendarUtils.MONTHS
@@ -78,16 +79,8 @@ export const Calendar = React.memo((
     const [selectedDate, setSelectedDate] = useState(value ? DateUtils.fromISODate(value) : undefined);
     const [visibleDate, setVisibleDate] = useState(value ? DateUtils.fromISODate(value) : new Date());
 
-    const yearsRange = React.useMemo(() => {
-        const years = [];
-        for (let i = yearRangeStart; i <= yearRangeEnd; i++) {
-            years.push(i);
-        }
-        return years;
-    }, [yearRangeStart, yearRangeEnd]);
-
-    const onYearSelected = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const year = Number(event.target.value);
+    const onYearSelected = (inputValue: string) => {
+        const year = Number(inputValue);
         const newDate = DateUtils.atMidnight(visibleDate);
         newDate.setFullYear(year);
         setVisibleDate(newDate);
@@ -152,14 +145,25 @@ export const Calendar = React.memo((
         />);
     }
 
+    const yearsRange = React.useMemo(() => {
+        const years = [];
+        for (let i = yearRangeStart; i <= yearRangeEnd; i++) {
+            years.push(i);
+        }
+        return years;
+    }, [yearRangeStart, yearRangeEnd]);
+
+    const yearOptions: SelectOption[] = useMemo(() => {
+        return yearsRange.map(year => ({
+            value: year,
+            display: year
+        }))
+    }, [])
+
     return <div className={`z-calendar ${externalClassName}`.trim()}>
         <div className='z-calendar-header'>
             <div className='year-picker'>
-                <select onChange={onYearSelected} value={visibleDate.getFullYear()}>
-                    {yearsRange.map(year => {
-                        return <option key={year} value={year}>{year}</option>
-                    })}
-                </select>
+                <SelectInput hideLabel onChange={onYearSelected} options={yearOptions} value={visibleDate.getFullYear()} compact />
             </div>
             <div className='month-picker'>
                 <IconButton onClick={onPrevMonth}><ChevronLeftIcon/></IconButton>
