@@ -1,9 +1,9 @@
-import {Input, type InputProps} from "./Input";
+import {Input, type InputProps} from "../Input";
 import {type ChangeEvent, useState} from "react";
-import {EyeIcon, EyeOffIcon} from "../icons/Icons";
-import {IconButton} from "../buttons/IconButton";
-import {Tooltip} from "../tooltip/Tooltip";
-import {noop} from "../../utils/Utils";
+import {EyeIcon, EyeOffIcon} from "../../icons/Icons";
+import {IconButton} from "../../buttons/IconButton";
+import {Tooltip} from "../../tooltip/Tooltip";
+import {noop} from "../../../utils/Utils";
 
 interface PasswordInputProps extends Omit<InputProps, 'type' | 'onChange'> {
     onChange?: (value: string) => void

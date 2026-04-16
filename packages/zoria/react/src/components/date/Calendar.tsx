@@ -4,7 +4,7 @@ import {useMemo, useRef, useState} from "react";
 import {IconButton} from "../buttons/IconButton";
 import {ChevronLeftIcon, ChevronRightIcon} from "../icons/Icons";
 import {CalendarUtils} from "./CalendarUtils";
-import {SelectInput, type SelectOption} from "../inputs/SelectInput";
+import {SelectInput, type SelectOption} from "../inputs/select/SelectInput";
 
 interface DayProps {
     day: number
@@ -153,7 +153,7 @@ export const Calendar = React.memo((
         return years;
     }, [yearRangeStart, yearRangeEnd]);
 
-    const yearOptions: SelectOption[] = useMemo(() => {
+    const yearOptions: SelectOption<number, number>[] = useMemo(() => {
         return yearsRange.map(year => ({
             value: year,
             display: year

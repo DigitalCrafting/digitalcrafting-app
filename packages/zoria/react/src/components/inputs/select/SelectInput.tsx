@@ -1,15 +1,16 @@
-import {CryptoUtils} from "../../utils/Utils";
+import {CryptoUtils} from "../../../utils/Utils";
 import React, {useEffect, useRef, useState} from "react";
-import {Popover, type PopoverHandle} from "../popover/Popover";
-import {ChevronDownIcon} from "../icons/Icons";
+import {Popover, type PopoverHandle} from "../../popover/Popover";
+import {ChevronDownIcon} from "../../icons/Icons";
+import {SelectDropdownTrap} from "./SelectDropdownTrap";
 
-export interface SelectOption<T = unknown> {
+export interface SelectOption<T = string, D = string> {
     value: T
-    display: React.ReactNode
+    display: D
     default?: boolean
 }
 
-interface SelectInputInternalProps<T> {
+interface SelectInputInternalProps<T = string, D = string> {
     native?: boolean
     className?: string
     'data-testid'?: string
@@ -21,7 +22,7 @@ interface SelectInputInternalProps<T> {
     compact?: boolean
     value?: T
     onChange?: (value: any) => void,
-    options: SelectOption<T>[]
+    options: SelectOption<T, D>[]
 }
 
 const NativeSelectInput = ({
@@ -35,9 +36,10 @@ const NativeSelectInput = ({
     compact = false,
     value,
     onChange,
+    native,
     options,
     ...props
-}: SelectInputInternalProps<string>) => {
+}: SelectInputInternalProps) => {
 
     const internalOnChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const value = event.target.value;
@@ -56,7 +58,8 @@ const NativeSelectInput = ({
             hideLabel ? null : <label className='z-input-label' htmlFor={id}>{label}</label>
         }
         <div className='z-input-container'>
-            <select className='z-input z-select' value={value} {...props} onChange={internalOnChange} id={id} disabled={disabled}>
+            <select className='z-input z-select' value={value} {...props} onChange={internalOnChange} id={id}
+                    disabled={disabled}>
                 {
                     options.map(option => (
                         <option key={option.value}
@@ -88,16 +91,19 @@ const ZoriaSelectInput = ({
     onChange,
     options,
     ...props
-}: SelectInputInternalProps<any>) => {
-    const [currentlySelected, setCurrentlySelected] = useState<SelectOption<any> | undefined>(options.find(option => option.value === value));
+}: SelectInputInternalProps<any, any>) => {
+    const [currentlySelected, setCurrentlySelected] = useState<SelectOption<any, any> | undefined>(options.find(option => option.value === value));
     const [width, setWidth] = useState(0);
+    const [selectOpen, setSelectOpen] = useState(false);
     const popoverRef = useRef<PopoverHandle>(null);
     const containerRef = useRef<HTMLDivElement>(null);
+    const dropdownRef = useRef<HTMLUListElement>(null);
 
-    const onSelected = (event: React.MouseEvent | MouseEvent, option: SelectOption) => {
+    const selectTrapRef = useRef<SelectDropdownTrap<HTMLUListElement>>(SelectDropdownTrap.for(dropdownRef));
+
+    const onSelected = (event: React.MouseEvent | MouseEvent, option: SelectOption<any, any>) => {
         event.stopPropagation();
         event.preventDefault();
-        console.log(`========== SelectInput.onSelected`)
         setCurrentlySelected(option);
         onChange?.(option.value);
         popoverRef?.current?.close();
@@ -115,6 +121,16 @@ const ZoriaSelectInput = ({
         return () => window.removeEventListener('resize', updateWidth);
     }, []);
 
+    useEffect(() => {
+        if (selectOpen) {
+            selectTrapRef.current.trap();
+        }
+
+        return () => {
+            selectTrapRef.current.release();
+        }
+    }, [selectOpen]);
+
     let additionalClassName = externalClassName;
     if (compact) {
         additionalClassName += ' z-select-compact';
@@ -126,7 +142,7 @@ const ZoriaSelectInput = ({
         {
             hideLabel ? null : <label className='z-input-label' htmlFor={id}>{label}</label>
         }
-        <Popover ref={popoverRef}>
+        <Popover ref={popoverRef} onStatusChanged={(isOpen) => setSelectOpen(isOpen)}>
             <Popover.Trigger>
                 <div className='z-input-container' ref={containerRef}>
                     <div className='z-input z-select z-select-custom'>
@@ -137,10 +153,20 @@ const ZoriaSelectInput = ({
                 </div>
             </Popover.Trigger>
             <Popover.Body offset={0} padding='none'>
-                <ul className='z-options-box' style={{minWidth: width}}>
+                <ul className='z-options-box'
+                    style={{minWidth: width}}
+                    aria-autocomplete='list'
+                    ref={dropdownRef}
+                >
                     {
                         options.map(option => (
-                            <li key={option.value} onClick={(event) => onSelected(event, option)}>
+                            <li
+                                tabIndex={-1}
+                                className={option.value === currentlySelected?.value ? 'is-selected' : ''}
+                                aria-selected={option.value === currentlySelected?.value}
+                                key={option.value}
+                                onClick={(event) => onSelected(event, option)}
+                            >
                                 {option.display}
                             </li>)
                         )
@@ -156,23 +182,18 @@ const ZoriaSelectInput = ({
 
 
 type SelectInputProps = |
-    ({ native: true } & SelectInputInternalProps<string>) |
-    ({ native: false } & SelectInputInternalProps<any>) |
-    SelectInputInternalProps<any>;
+    ({ native: false } & SelectInputInternalProps<any, any>) |
+    ({ native: true } & SelectInputInternalProps) |
+    SelectInputInternalProps<any, any>;
 
-const SelectInput = ({native = false, id, 'data-testid': dataTestId, ...props}: SelectInputProps) => {
-    if (!id) {
-        id = `input-${CryptoUtils.UUID()}`
-    }
+const SelectInput = (allProps: SelectInputProps) => {
+    const id = allProps.id || `input-${CryptoUtils.UUID()}`;
+    const dataTestId = allProps['data-testid'] || `${id}-testId`;
 
-    if (!dataTestId) {
-        dataTestId = `${id}-testId`
-    }
-
-    if (native) {
-        return <NativeSelectInput id={id} data-testid={dataTestId} {...props} />
+    if (allProps.native === true) {
+        return <NativeSelectInput id={id} data-testid={dataTestId} {...allProps} />
     } else {
-        return <ZoriaSelectInput {...props} />
+        return <ZoriaSelectInput {...allProps} />
     }
 }
 

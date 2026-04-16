@@ -1,7 +1,7 @@
 import * as React from 'react';
 import type {ChangeEvent, KeyboardEventHandler} from 'react';
-import {Input, type InputProps} from "./Input";
-import {noop} from "../../utils/Utils";
+import {Input, type InputProps} from "../Input";
+import {noop} from "../../../utils/Utils";
 
 interface NumberInputProps extends Omit<InputProps, 'type' | 'inputMode' | 'onChange'> {
     onKeyDown?: KeyboardEventHandler<HTMLInputElement>

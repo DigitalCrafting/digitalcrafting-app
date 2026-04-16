@@ -1,4 +1,5 @@
 import type {RefObject} from "react";
+import {FocusableElementsObserver} from "./FocusableElementsObserver";
 
 const focusableElementsSelectors = [
     'a',
@@ -10,13 +11,14 @@ const focusableElementsSelectors = [
 ];
 
 export class FocusTrap<T extends HTMLElement> {
-    private rootElRef: RefObject<T | null>;
+    private readonly rootElRef: RefObject<T | null>;
     private previousFocus: HTMLElement | null = null;
     private focusableElements: HTMLElement[] = [];
-    private observer: MutationObserver | null = null;
+    private observer: FocusableElementsObserver<T>;
 
     private constructor(ref: RefObject<T | null>) {
         this.rootElRef = ref;
+        this.observer = FocusableElementsObserver.for(this.rootElRef);
     }
 
     public static for<T extends HTMLElement>(ref: RefObject<T | null>): FocusTrap<T> {
@@ -25,7 +27,7 @@ export class FocusTrap<T extends HTMLElement> {
 
     public trap() {
         this.previousFocus = document.activeElement as HTMLElement;
-        this.startObserving();
+        this.observer.startObserving(this.updateFocusableElements);
         this.updateFocusableElements();
 
         window.addEventListener('keydown', this.handleKeyDown);
@@ -36,7 +38,7 @@ export class FocusTrap<T extends HTMLElement> {
     }
 
     public release(restore: boolean = true) {
-        this.observer?.disconnect();
+        this.observer.stopObserving();
         window.removeEventListener('keydown', this.handleKeyDown);
 
         if (restore && this.previousFocus) {
@@ -49,7 +51,7 @@ export class FocusTrap<T extends HTMLElement> {
         }
     }
 
-    public updateFocusableElements() {
+    private updateFocusableElements = () => {
         const element = this.rootElRef.current;
         if (!element) return;
 
@@ -75,18 +77,4 @@ export class FocusTrap<T extends HTMLElement> {
             event.preventDefault();
         }
     };
-
-    private startObserving() {
-        const element = this.rootElRef.current;
-        if (!element) return;
-
-        this.observer = new MutationObserver(() => {
-            this.updateFocusableElements();
-        });
-
-        this.observer.observe(element, {
-            childList: true,
-            subtree: true,
-        });
-    }
 }

@@ -1,5 +1,5 @@
-import {Input, type InputProps} from "./Input";
-import {noop} from "../../utils/Utils";
+import {Input, type InputProps} from "../Input";
+import {noop} from "../../../utils/Utils";
 import type {ChangeEvent} from "react";
 
 interface TextInputProps extends Omit<InputProps, 'type' | 'onChange'> {

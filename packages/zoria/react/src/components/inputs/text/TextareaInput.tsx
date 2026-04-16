@@ -1,5 +1,5 @@
 import * as React from "react";
-import {CryptoUtils} from "../../utils/Utils";
+import {CryptoUtils} from "../../../utils/Utils";
 
 export interface TextareaInputProps extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange'> {
     className?: string
