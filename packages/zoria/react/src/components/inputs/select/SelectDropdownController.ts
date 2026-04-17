@@ -67,9 +67,6 @@ export class SelectDropdownController<T extends HTMLElement> {
             const currentElement = this.selectElements.getCurrent();
             currentElement.click();
             this.sentinelRef?.current?.focus();
-            if (this.previousFocus) {
-                this.previousFocus = null;
-            }
             return;
         }
 
@@ -98,9 +95,6 @@ export class SelectDropdownController<T extends HTMLElement> {
 
         if (event.key === 'Escape') {
             this.sentinelRef?.current?.focus();
-            if (this.previousFocus) {
-                this.previousFocus = null;
-            }
             this.closeDropdown();
         }
     }
