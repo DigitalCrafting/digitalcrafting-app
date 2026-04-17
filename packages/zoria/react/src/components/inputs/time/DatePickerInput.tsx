@@ -24,7 +24,6 @@ const DatePickerInput = ({error: externalError, ...inputProps}: DatePickerInputP
     const popoverRef = useRef<PopoverHandle>(null);
 
     const onCalendarChange = (value: string) => {
-        console.log(`========== DatePickerInput.onCalendarChange`)
         if (inputRef.current) {
             inputRef.current.value = value;
             setSelectedDate(value);

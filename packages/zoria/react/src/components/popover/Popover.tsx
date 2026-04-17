@@ -58,11 +58,12 @@ function PopoverTrigger({children, disabled = false}: PopoverTriggerProps) {
 interface PopoverBodyProps {
     padding?: UiSize | 'none',
     trapFocus?: boolean
+    disableEscape?: boolean
     positionRef?: RefObject<HTMLElement | null>
     offset?: number
 }
 
-function PopoverBody({children, padding = 'md', trapFocus = false, positionRef, offset }: React.PropsWithChildren<PopoverBodyProps>) {
+function PopoverBody({children, padding = 'md', trapFocus = false, disableEscape = false, positionRef, offset }: React.PropsWithChildren<PopoverBodyProps>) {
     const popoverRef = useRef<HTMLDivElement>(null);
     const focusTrapInstanceRef = useRef<FocusTrap<HTMLDivElement>>(FocusTrap.for(popoverRef));
     const {open, setOpen, triggerRef, persistent} = usePopoverContext();
@@ -97,7 +98,6 @@ function PopoverBody({children, padding = 'md', trapFocus = false, positionRef, 
         };
 
         const escCallback = (event: React.KeyboardEvent | KeyboardEvent) => {
-
             if (event.key === 'Escape') {
                 const target = event.target as Node;
                 const isInsideAnyPopover = (target as HTMLElement).closest('[data-z-popover]');
@@ -111,14 +111,18 @@ function PopoverBody({children, padding = 'md', trapFocus = false, positionRef, 
         }
 
         document.addEventListener('pointerdown', callback);
-        document.addEventListener('keydown', escCallback);
+        if (!disableEscape) {
+            document.addEventListener('keydown', escCallback);
+        }
         if (trapFocus) {
             focusTrapInstanceRef.current.trap();
         }
 
         return () => {
             document.removeEventListener('pointerdown', callback);
-            document.removeEventListener('keydown', escCallback);
+            if (!disableEscape) {
+                document.removeEventListener('keydown', escCallback);
+            }
             if (trapFocus) {
                 focusTrapInstanceRef.current.release(true);
             }

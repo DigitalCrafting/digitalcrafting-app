@@ -1,22 +1,26 @@
 import {DemoPanel} from "../demo-panel/DemoPanel.tsx";
-import {SelectInput, type SelectOption} from "@zoria-ui/react";
+import {SelectInput, type ZoriaSelectOption} from "@zoria-ui/react";
 
-const DemoSelectOption: SelectOption[] = [
+const DemoSelectOption: ZoriaSelectOption[] = [
     {
         display: 'first',
-        value: 'first'
+        value: 'first',
+        searchValue: 'first'
     },
     {
         display: 'second',
-        value: 'second'
+        value: 'second',
+        searchValue: 'second'
     },
     {
         display: 'third',
-        value: 'third'
+        value: 'third',
+        searchValue: 'third'
     },
     {
         display: 'fourth',
-        value: 'fourth'
+        value: 'fourth',
+        searchValue: 'fourth'
     },
 ]
 

@@ -75,27 +75,34 @@ export class SelectDropdownController<T extends HTMLElement> {
         if (event.key === 'Enter' || event.key === ' ') {
             const currentElement = this.selectElements.getCurrent();
             currentElement.click();
+            this.sentinelRef?.current?.focus();
+            return;
         }
 
         if (event.key === 'ArrowDown') {
             this.focusOption(this.selectElements.getNext());
+            return;
         }
 
         if (event.key === 'ArrowUp') {
             this.focusOption(this.selectElements.getPrev());
+            return;
         }
 
         if (event.key === 'Home') {
             this.focusOption(this.selectElements.getFirst());
+            return;
         }
 
         if (event.key === 'End') {
             this.focusOption(this.selectElements.getLast());
+            return;
         }
 
         if (event.key === 'Escape') {
-            this.sentinelRef?.current?.focus();
             this.closeDropdown();
+            this.sentinelRef?.current?.focus();
+            return;
         }
     }
 

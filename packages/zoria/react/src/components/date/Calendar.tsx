@@ -4,7 +4,7 @@ import {useMemo, useRef, useState} from "react";
 import {IconButton} from "../buttons/IconButton";
 import {ChevronLeftIcon, ChevronRightIcon} from "../icons/Icons";
 import {CalendarUtils} from "./CalendarUtils";
-import {SelectInput, type SelectOption} from "../inputs/select/SelectInput";
+import {SelectInput, type ZoriaSelectOption} from "../inputs/select/SelectInput";
 
 interface DayProps {
     day: number
@@ -153,21 +153,21 @@ export const Calendar = React.memo((
         return years;
     }, [yearRangeStart, yearRangeEnd]);
 
-    const yearOptions: SelectOption<number, number>[] = useMemo(() => {
+    const yearOptions: ZoriaSelectOption<number, number>[] = useMemo(() => {
         return yearsRange.map(year => ({
             value: year,
-            display: year
+            display: year,
+            searchValue: String(year)
         }))
     }, [])
 
     return <div className={`z-calendar ${externalClassName}`.trim()}>
         <div className='z-calendar-header'>
             <div className='year-picker'>
-                <SelectInput hideLabel onChange={onYearSelected} options={yearOptions} value={visibleDate.getFullYear()} compact />
+                <SelectInput hideLabel valueDecoration={monthLabel} onChange={onYearSelected} options={yearOptions} value={visibleDate.getFullYear()} compact />
             </div>
             <div className='month-picker'>
                 <IconButton onClick={onPrevMonth}><ChevronLeftIcon/></IconButton>
-                <span>{monthLabel}</span>
                 <IconButton onClick={onNextMonth}><ChevronRightIcon/></IconButton>
             </div>
         </div>

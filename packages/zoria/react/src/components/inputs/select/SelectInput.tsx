@@ -4,14 +4,19 @@ import {Popover, type PopoverHandle} from "../../popover/Popover";
 import {ChevronDownIcon} from "../../icons/Icons";
 import {SelectDropdownController} from "./SelectDropdownController";
 
-
-export interface SelectOption<T = string, D = string> {
-    value: T
-    display: D
-    default?: boolean
+export interface NativeSelectOption {
+    value: string
+    display: string
 }
 
-interface SelectInputInternalProps<T = string, D = string> {
+/* TODO remove generic ? */
+export interface ZoriaSelectOption<T = string, D = string> {
+    value: T
+    display: D
+    searchValue: string
+}
+
+interface SelectInputInternalProps<T = string> {
     native?: boolean
     className?: string
     'data-testid'?: string
@@ -22,9 +27,11 @@ interface SelectInputInternalProps<T = string, D = string> {
     disabled?: boolean
     compact?: boolean
     value?: T
+    valueDecoration?: string
     onChange?: (value: any) => void,
-    options: SelectOption<T, D>[]
 }
+
+type NativeSelectInputProps = SelectInputInternalProps & {native: true, options: NativeSelectOption[]}
 
 const NativeSelectInput = ({
     className: externalClassName = '',
@@ -40,7 +47,7 @@ const NativeSelectInput = ({
     native,
     options,
     ...props
-}: SelectInputInternalProps) => {
+}: NativeSelectInputProps) => {
 
     const internalOnChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const value = event.target.value;
@@ -65,7 +72,7 @@ const NativeSelectInput = ({
                     options.map(option => (
                         <option key={option.value}
                                 value={option.value}
-                                selected={option.default}>
+                        >
                             {option.display}
                         </option>)
                     )
@@ -81,9 +88,9 @@ const NativeSelectInput = ({
 
 interface ZoriaSelectDropdownProps {
     currentlySelected: any;
-    options: SelectOption<any, any>[];
+    options: ZoriaSelectOption<any, any>[];
     width: number;
-    onSelected: (option: SelectOption<any, any>) => void;
+    onSelected: (option: ZoriaSelectOption<any, any>) => void;
     sentinelRef: RefObject<HTMLButtonElement | null>;
     close: () => void
 }
@@ -98,7 +105,7 @@ const ZoriaSelectDropdown = ({
 }: ZoriaSelectDropdownProps) => {
     const dropdownRef = useRef<HTMLUListElement>(null);
 
-    const onOptionSelected = (event: React.MouseEvent | MouseEvent, option: SelectOption<any, any>) => {
+    const onOptionSelected = (event: React.MouseEvent | MouseEvent, option: ZoriaSelectOption<any, any>) => {
         event.preventDefault();
         event.stopPropagation();
         onSelected(option);
@@ -136,6 +143,8 @@ const ZoriaSelectDropdown = ({
     </ul>
 }
 
+type ZoriaSelectInputProps<T = any> = SelectInputInternalProps<T> & {native?: false, options: ZoriaSelectOption<any, any>[]}
+
 const ZoriaSelectInput = ({
     className: externalClassName = '',
     'data-testid': dataTestId,
@@ -146,20 +155,29 @@ const ZoriaSelectInput = ({
     disabled,
     compact = false,
     value = undefined,
+    valueDecoration = '',
     onChange,
     options,
     ...props
-}: SelectInputInternalProps<any, any>) => {
-    const [currentlySelected, setCurrentlySelected] = useState<SelectOption<any, any> | undefined>(options.find(option => option.value === value));
+}: ZoriaSelectInputProps) => {
+    const [currentlySelected, setCurrentlySelected] = useState<ZoriaSelectOption<any, any> | undefined>(options.find(option => option.value === value));
     const [width, setWidth] = useState(0);
     const popoverRef = useRef<PopoverHandle>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const sentinelRef = useRef<HTMLButtonElement>(null);
 
-    const onSelected = (option: SelectOption<any, any>) => {
+    const onSelected = (option: ZoriaSelectOption<any, any>) => {
         setCurrentlySelected(option);
         onChange?.(option.value);
         popoverRef?.current?.close();
+    }
+
+    const onKeyDown = (event: React.KeyboardEvent | KeyboardEvent) => {
+        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+            event.preventDefault();
+            event.stopPropagation();
+            (event.target as HTMLElement).click();
+        }
     }
 
     useEffect(() => {
@@ -190,12 +208,12 @@ const ZoriaSelectInput = ({
                 <div className='z-input-container' ref={containerRef}>
                     <div className='z-input z-select z-select-custom'>
                         <input tabIndex={-1} type='hidden' {...props} id={id} disabled={disabled}/>
-                        <button ref={sentinelRef}>{currentlySelected?.display}</button>
+                        <button onKeyDown={onKeyDown} ref={sentinelRef}>{valueDecoration} {currentlySelected?.display}</button>
                         <ChevronDownIcon tabIndex={-1}/>
                     </div>
                 </div>
             </Popover.Trigger>
-            <Popover.Body offset={0} padding='none'>
+            <Popover.Body offset={0} padding='none' disableEscape>
                 <ZoriaSelectDropdown currentlySelected={currentlySelected}
                                      options={options}
                                      width={width}
@@ -212,10 +230,7 @@ const ZoriaSelectInput = ({
 }
 
 
-type SelectInputProps = |
-    ({ native: false } & SelectInputInternalProps<any, any>) |
-    ({ native: true } & SelectInputInternalProps) |
-    SelectInputInternalProps<any, any>;
+type SelectInputProps = ZoriaSelectInputProps | NativeSelectInputProps;
 
 const SelectInput = (allProps: SelectInputProps) => {
     const id = allProps.id || `input-${CryptoUtils.UUID()}`;

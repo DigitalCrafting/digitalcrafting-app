@@ -10,24 +10,40 @@
   &-header {
     display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: space-between;
     padding-bottom: var(--space-y-2);
 
     .year-picker {
-      align-content: center;
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      gap: var(--space-x-1);
 
-      select {
-        padding: 0 6px;
+      .z-input-container {
+        border: none;
+        padding: 0;
+      }
+
+      button {
+        font-size: var(--font-size-md);
+        cursor: pointer;
       }
     }
+
     .month-picker {
       display: flex;
       flex-direction: row;
-      align-items: center;
+      gap: var(--space-y-1);
+      justify-content: space-between;
 
       .z-icon-button {
         width: 28px;
         height: 28px;
+
+        svg {
+          stroke-width: 1.5;
+        }
       }
 
       span {
