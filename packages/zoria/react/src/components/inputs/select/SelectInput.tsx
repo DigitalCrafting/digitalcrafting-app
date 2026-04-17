@@ -1,8 +1,9 @@
 import {CryptoUtils} from "../../../utils/Utils";
-import React, {type RefObject, useEffect, useRef, useState} from "react";
+import React, {type RefObject, useEffect, useMemo, useRef, useState} from "react";
 import {Popover, type PopoverHandle} from "../../popover/Popover";
 import {ChevronDownIcon} from "../../icons/Icons";
 import {SelectDropdownController} from "./SelectDropdownController";
+import {SelectInputController} from "./SelectInputController";
 
 export interface NativeSelectOption {
     value: string
@@ -31,7 +32,7 @@ interface SelectInputInternalProps<T = string> {
     onChange?: (value: any) => void,
 }
 
-type NativeSelectInputProps = SelectInputInternalProps & {native: true, options: NativeSelectOption[]}
+type NativeSelectInputProps = SelectInputInternalProps & { native: true, options: NativeSelectOption[] }
 
 const NativeSelectInput = ({
     className: externalClassName = '',
@@ -143,7 +144,10 @@ const ZoriaSelectDropdown = ({
     </ul>
 }
 
-type ZoriaSelectInputProps<T = any> = SelectInputInternalProps<T> & {native?: false, options: ZoriaSelectOption<any, any>[]}
+type ZoriaSelectInputProps<T = any> = SelectInputInternalProps<T> & {
+    native?: false,
+    options: ZoriaSelectOption<any, any>[]
+}
 
 const ZoriaSelectInput = ({
     className: externalClassName = '',
@@ -172,13 +176,9 @@ const ZoriaSelectInput = ({
         popoverRef?.current?.close();
     }
 
-    const onKeyDown = (event: React.KeyboardEvent | KeyboardEvent) => {
-        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-            event.preventDefault();
-            event.stopPropagation();
-            (event.target as HTMLElement).click();
-        }
-    }
+    const onKeyDown = useMemo(() => {
+        return SelectInputController.forOptions(options).withOnMatched(onSelected).handleKeyDown;
+    }, [])
 
     useEffect(() => {
         const updateWidth = () => {
@@ -208,7 +208,8 @@ const ZoriaSelectInput = ({
                 <div className='z-input-container' ref={containerRef}>
                     <div className='z-input z-select z-select-custom'>
                         <input tabIndex={-1} type='hidden' {...props} id={id} disabled={disabled}/>
-                        <button onKeyDown={onKeyDown} ref={sentinelRef}>{valueDecoration} {currentlySelected?.display}</button>
+                        <button onKeyDown={onKeyDown}
+                                ref={sentinelRef}>{valueDecoration} {currentlySelected?.display}</button>
                         <ChevronDownIcon tabIndex={-1}/>
                     </div>
                 </div>
