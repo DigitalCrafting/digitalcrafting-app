@@ -26,16 +26,10 @@ export const SelectInputDemo = () => {
             <DemoPanel.Col span={3}>
                 <SelectInput options={DemoSelectOption} onChange={(value) => console.log(value)} label='Select input'/>
             </DemoPanel.Col>
-            <DemoPanel.Col span={2}/>
+            <DemoPanel.Col span={2} />
             <DemoPanel.Col span={3}>
                 <SelectInput native options={DemoSelectOption} onChange={(value) => console.log(value)} label='Native select input'/>
             </DemoPanel.Col>
         </DemoPanel.Row>
-        {/*<DemoPanel.Row>*/}
-        {/*    <DemoPanel.Col span={3}>*/}
-        {/*        <SelectInput compact options={DemoSelectOption} onChange={(value) => console.log(value)} hideLabel label='Select input'/>*/}
-        {/*    </DemoPanel.Col>*/}
-        {/*    <DemoPanel.Col span={5}/>*/}
-        {/*</DemoPanel.Row>*/}
     </DemoPanel>
 }

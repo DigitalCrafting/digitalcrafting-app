@@ -63,4 +63,12 @@
   &-lg {
     gap: var(--space-x-3);
   }
+
+  &-span {
+    @for $i from 1 through 12 {
+      &-#{$i} {
+        grid-column: span $i;
+      }
+    }
+  }
 }

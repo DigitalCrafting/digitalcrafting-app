@@ -34,18 +34,31 @@ export function Col({
     return <div className={`${colClassName} ${externalClassName}`} {...rest}>{children}</div>
 }
 
+interface GridColProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
+    span?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+}
+
+const GridCol = ({
+    children,
+    span = 4,
+    className: externalClassName = '',
+    ...rest
+}: React.PropsWithChildren<GridColProps>) => {
+    return <div className={`z-grid-span-${span} ${externalClassName}`.trim()} {...rest}>{children}</div>
+}
+
 export interface GridProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
     gap?: UiSize;
     cols?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 }
 
-export function Grid({
+const GridInternal = ({
     children,
-    cols = 1,
+    cols = 12,
     gap = UiSize.MD,
     className: externalClassName = '',
     ...rest
-}: GridProps) {
+}: GridProps) => {
     let colClassName = `z-grid z-grid-${gap} `;
     if (cols) {
         colClassName += 'z-grid-' + cols;
@@ -53,3 +66,9 @@ export function Grid({
 
     return <div className={`${colClassName} ${externalClassName}`} {...rest}>{children}</div>;
 }
+
+const Grid = Object.assign(GridInternal, {
+    Col: GridCol
+})
+
+export {Grid};
