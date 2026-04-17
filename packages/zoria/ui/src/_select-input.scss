@@ -44,6 +44,17 @@
     &:has(input:disabled) {
       cursor: not-allowed;
     }
+
+    button:focus-visible,
+    button:focus {
+      outline: 0;
+    }
+
+    &:focus-within:has(button:focus-visible) {
+      border-color: var(--z-color-focus);
+      outline: 0;
+      box-shadow: var(--z-theme-focus-shadow-sticky);
+    }
   }
 
   .z-select-arrow {
@@ -113,8 +124,8 @@
     &:focus,
     &:focus-visible {
       outline: 0;
-      box-shadow: var(--z-theme-focus-shadow-inset);
+      color: var(--z-color-text-inverse);
+      background-color: var(--z-color-accent-hover);
     }
   }
-
 }

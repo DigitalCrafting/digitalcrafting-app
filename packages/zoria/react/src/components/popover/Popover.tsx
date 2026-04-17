@@ -13,7 +13,6 @@ import {createPortal} from "react-dom";
 import {useFloatingUiPositioning} from "../../hooks/useFloatingUiPositioning";
 import {UiSize} from "../../types/UiSizes";
 import {FocusTrap} from "../../utils/FocusTrap";
-import {noop} from "../../utils/Utils";
 
 interface PopoverContextType {
     persistent: boolean,
@@ -98,8 +97,16 @@ function PopoverBody({children, padding = 'md', trapFocus = false, positionRef, 
         };
 
         const escCallback = (event: React.KeyboardEvent | KeyboardEvent) => {
+
             if (event.key === 'Escape') {
-                setOpen(false);
+                const target = event.target as Node;
+                const isInsideAnyPopover = (target as HTMLElement).closest('[data-z-popover]');
+
+                if (isInsideAnyPopover && isInsideAnyPopover === popoverRef.current || !isInsideAnyPopover) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    setOpen(false);
+                }
             }
         }
 
@@ -150,7 +157,7 @@ interface PopoverProps {
     onStatusChanged?: (open: boolean) => void
 }
 
-function InternalPopover({children, ref, persistent = false, onStatusChanged = noop}: PopoverProps) {
+function InternalPopover({children, ref, persistent = false}: PopoverProps) {
     const [open, setOpen] = React.useState(false);
     // @ts-ignore
     const triggerRef = React.useRef<HTMLDivElement | HTMLButtonElement>(null);
@@ -158,10 +165,6 @@ function InternalPopover({children, ref, persistent = false, onStatusChanged = n
     useImperativeHandle(ref, () => ({
         close: () => setOpen(false)
     }))
-
-    useEffect(() => {
-        onStatusChanged(open);
-    }, [open]);
 
     return (
         <PopoverContext.Provider value={{open, setOpen, triggerRef, persistent}}>

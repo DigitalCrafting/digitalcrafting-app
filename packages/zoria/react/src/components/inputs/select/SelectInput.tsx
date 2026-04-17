@@ -1,8 +1,9 @@
 import {CryptoUtils} from "../../../utils/Utils";
-import React, {useEffect, useRef, useState} from "react";
+import React, {type RefObject, useEffect, useRef, useState} from "react";
 import {Popover, type PopoverHandle} from "../../popover/Popover";
 import {ChevronDownIcon} from "../../icons/Icons";
-import {SelectDropdownTrap} from "./SelectDropdownTrap";
+import {SelectDropdownController} from "./SelectDropdownController";
+
 
 export interface SelectOption<T = string, D = string> {
     value: T
@@ -78,6 +79,63 @@ const NativeSelectInput = ({
     </div>
 }
 
+interface ZoriaSelectDropdownProps {
+    currentlySelected: any;
+    options: SelectOption<any, any>[];
+    width: number;
+    onSelected: (option: SelectOption<any, any>) => void;
+    sentinelRef: RefObject<HTMLButtonElement | null>;
+    close: () => void
+}
+
+const ZoriaSelectDropdown = ({
+    currentlySelected,
+    options,
+    width,
+    onSelected,
+    sentinelRef,
+    close
+}: ZoriaSelectDropdownProps) => {
+    const dropdownRef = useRef<HTMLUListElement>(null);
+
+    const onOptionSelected = (event: React.MouseEvent | MouseEvent, option: SelectOption<any, any>) => {
+        event.preventDefault();
+        event.stopPropagation();
+        onSelected(option);
+    }
+
+    useEffect(() => {
+        const selectController = SelectDropdownController.for(dropdownRef)
+            .withFocusSentinel(sentinelRef)
+            .withCloseCallback(close)
+            .control();
+
+        return () => {
+            selectController.release();
+        }
+    }, []);
+
+    return <ul className='z-options-box'
+               style={{minWidth: width}}
+               aria-autocomplete='list'
+               ref={dropdownRef}
+    >
+        {
+            options.map(option => (
+                <li
+                    tabIndex={-1}
+                    className={option.value === currentlySelected?.value ? 'is-selected' : ''}
+                    aria-selected={option.value === currentlySelected?.value}
+                    key={option.value}
+                    onClick={(event) => onOptionSelected(event, option)}
+                >
+                    {option.display}
+                </li>)
+            )
+        }
+    </ul>
+}
+
 const ZoriaSelectInput = ({
     className: externalClassName = '',
     'data-testid': dataTestId,
@@ -94,16 +152,11 @@ const ZoriaSelectInput = ({
 }: SelectInputInternalProps<any, any>) => {
     const [currentlySelected, setCurrentlySelected] = useState<SelectOption<any, any> | undefined>(options.find(option => option.value === value));
     const [width, setWidth] = useState(0);
-    const [selectOpen, setSelectOpen] = useState(false);
     const popoverRef = useRef<PopoverHandle>(null);
     const containerRef = useRef<HTMLDivElement>(null);
-    const dropdownRef = useRef<HTMLUListElement>(null);
+    const sentinelRef = useRef<HTMLButtonElement>(null);
 
-    const selectTrapRef = useRef<SelectDropdownTrap<HTMLUListElement>>(SelectDropdownTrap.for(dropdownRef));
-
-    const onSelected = (event: React.MouseEvent | MouseEvent, option: SelectOption<any, any>) => {
-        event.stopPropagation();
-        event.preventDefault();
+    const onSelected = (option: SelectOption<any, any>) => {
         setCurrentlySelected(option);
         onChange?.(option.value);
         popoverRef?.current?.close();
@@ -121,16 +174,6 @@ const ZoriaSelectInput = ({
         return () => window.removeEventListener('resize', updateWidth);
     }, []);
 
-    useEffect(() => {
-        if (selectOpen) {
-            selectTrapRef.current.trap();
-        }
-
-        return () => {
-            selectTrapRef.current.release();
-        }
-    }, [selectOpen]);
-
     let additionalClassName = externalClassName;
     if (compact) {
         additionalClassName += ' z-select-compact';
@@ -142,36 +185,24 @@ const ZoriaSelectInput = ({
         {
             hideLabel ? null : <label className='z-input-label' htmlFor={id}>{label}</label>
         }
-        <Popover ref={popoverRef} onStatusChanged={(isOpen) => setSelectOpen(isOpen)}>
+        <Popover ref={popoverRef}>
             <Popover.Trigger>
                 <div className='z-input-container' ref={containerRef}>
                     <div className='z-input z-select z-select-custom'>
-                        <input type='hidden' {...props} id={id} disabled={disabled}/>
-                        <button>{currentlySelected?.display}</button>
-                        <ChevronDownIcon/>
+                        <input tabIndex={-1} type='hidden' {...props} id={id} disabled={disabled}/>
+                        <button ref={sentinelRef}>{currentlySelected?.display}</button>
+                        <ChevronDownIcon tabIndex={-1}/>
                     </div>
                 </div>
             </Popover.Trigger>
             <Popover.Body offset={0} padding='none'>
-                <ul className='z-options-box'
-                    style={{minWidth: width}}
-                    aria-autocomplete='list'
-                    ref={dropdownRef}
-                >
-                    {
-                        options.map(option => (
-                            <li
-                                tabIndex={-1}
-                                className={option.value === currentlySelected?.value ? 'is-selected' : ''}
-                                aria-selected={option.value === currentlySelected?.value}
-                                key={option.value}
-                                onClick={(event) => onSelected(event, option)}
-                            >
-                                {option.display}
-                            </li>)
-                        )
-                    }
-                </ul>
+                <ZoriaSelectDropdown currentlySelected={currentlySelected}
+                                     options={options}
+                                     width={width}
+                                     onSelected={onSelected}
+                                     sentinelRef={sentinelRef}
+                                     close={() => popoverRef.current?.close()}
+                />
             </Popover.Body>
         </Popover>
         {
