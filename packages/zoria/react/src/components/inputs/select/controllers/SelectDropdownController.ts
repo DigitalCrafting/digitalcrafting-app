@@ -1,14 +1,18 @@
 import * as React from 'react';
 import type {RefObject} from "react";
-import {FocusableElementsObserver} from "../../../utils/FocusableElementsObserver";
-import {CircularArray} from "../../../data-structures/CircularArray";
+import {FocusableElementsObserver} from "../../../../utils/FocusableElementsObserver";
+import {CircularArray} from "../../../../data-structures/CircularArray";
+import {SelectKeyboardSearchService} from "./SelectKeyboardSearchService";
+import type {ZoriaSelectOption} from "../SelectInput";
 
 export class SelectDropdownController<T extends HTMLElement> {
     private readonly rootElRef: RefObject<T | null>;
+    private options!: ZoriaSelectOption<any, any>[];
     private selectElements!: CircularArray<HTMLElement>;
     private observer: FocusableElementsObserver<T>;
     private sentinelRef!: RefObject<HTMLButtonElement | null>;
     private closeDropdown!: () => void;
+    private keyboardSearchService!: SelectKeyboardSearchService;
 
     private constructor(ref: RefObject<T | null>) {
         this.rootElRef = ref;
@@ -26,6 +30,12 @@ export class SelectDropdownController<T extends HTMLElement> {
 
     public withCloseCallback(close: () => void): SelectDropdownController<T> {
         this.closeDropdown = close;
+        return this;
+    }
+
+    public withOptions(_options: ZoriaSelectOption[]): SelectDropdownController<T> {
+        this.options = _options;
+        this.keyboardSearchService = SelectKeyboardSearchService.forOptions(this.options);
         return this;
     }
 
@@ -102,6 +112,22 @@ export class SelectDropdownController<T extends HTMLElement> {
         if (event.key === 'Escape') {
             this.closeDropdown();
             this.sentinelRef?.current?.focus();
+            return;
+        }
+
+        if (event.key.length === 1 && event.key !== ' ' && !event.ctrlKey && !event.metaKey) {
+            event.preventDefault();
+            event.stopPropagation();
+            const match = this.keyboardSearchService.search(event);
+            if (match) {
+                const htmlMatch = this.selectElements.getItems().find(
+                    el => el.getAttribute('data-value') === String(match.value)
+                );
+                if (htmlMatch) {
+                    this.selectElements.setCurrent(htmlMatch);
+                    this.focusOption(htmlMatch);
+                }
+            }
             return;
         }
     }

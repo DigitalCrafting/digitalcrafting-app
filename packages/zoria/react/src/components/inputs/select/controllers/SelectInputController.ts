@@ -1,14 +1,15 @@
 import * as React from "react";
-import type {ZoriaSelectOption} from "./SelectInput";
+import type {ZoriaSelectOption} from "../SelectInput";
+import {SelectKeyboardSearchService} from "./SelectKeyboardSearchService";
 
 export class SelectInputController {
-    private searchString = "";
-    private searchTimeoutId!: number;
     private options: ZoriaSelectOption<any, any>[];
     private callback!: (value: ZoriaSelectOption<any, any>) => void;
+    private keyboardSearchService!: SelectKeyboardSearchService;
 
     private constructor(_options: ZoriaSelectOption[]) {
         this.options = _options;
+        this.keyboardSearchService = SelectKeyboardSearchService.forOptions(this.options);
     }
 
     public static forOptions(_options: ZoriaSelectOption[]): SelectInputController {
@@ -31,19 +32,10 @@ export class SelectInputController {
         if (event.key.length === 1 && event.key !== ' ' && !event.ctrlKey && !event.metaKey) {
             event.preventDefault();
             event.stopPropagation();
-
-            this.searchString += event.key.toLowerCase();
-
-            const match = this.options.find(opt => opt.searchValue.toLowerCase().startsWith(this.searchString));
-
+            const match = this.keyboardSearchService.search(event);
             if (match) {
                 this.callback(match);
             }
-
-            clearTimeout(this.searchTimeoutId);
-            this.searchTimeoutId = setTimeout(() => {
-                this.searchString = "";
-            }, 500);
         }
     }
 }

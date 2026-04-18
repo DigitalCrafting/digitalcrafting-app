@@ -2,8 +2,8 @@ import {CryptoUtils} from "../../../utils/Utils";
 import React, {type RefObject, useEffect, useMemo, useRef, useState} from "react";
 import {Popover, type PopoverHandle} from "../../popover/Popover";
 import {ChevronDownIcon} from "../../icons/Icons";
-import {SelectDropdownController} from "./SelectDropdownController";
-import {SelectInputController} from "./SelectInputController";
+import {SelectDropdownController} from "./controllers/SelectDropdownController";
+import {SelectInputController} from "./controllers/SelectInputController";
 
 export interface NativeSelectOption {
     value: string
@@ -116,12 +116,13 @@ const ZoriaSelectDropdown = ({
         const selectController = SelectDropdownController.for(dropdownRef)
             .withFocusSentinel(sentinelRef)
             .withCloseCallback(close)
+            .withOptions(options)
             .control();
 
         return () => {
             selectController.release();
         }
-    }, []);
+    }, [options]);
 
     return <ul className='z-options-box'
                style={{minWidth: width}}
@@ -136,6 +137,8 @@ const ZoriaSelectDropdown = ({
                     aria-selected={option.value === currentlySelected?.value}
                     key={option.value}
                     onClick={(event) => onOptionSelected(event, option)}
+                    data-searchvalue={option.searchValue}
+                    data-value={option.value}
                 >
                     {option.display}
                 </li>)
