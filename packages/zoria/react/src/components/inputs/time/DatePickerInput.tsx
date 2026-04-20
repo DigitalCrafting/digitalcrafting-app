@@ -7,6 +7,7 @@ import * as React from "react";
 import {type ChangeEvent, type KeyboardEventHandler, useRef, useState} from "react";
 import {DateUtils} from "../../../utils/DateUtils";
 import {StringUtils} from "../../../utils/StringUtils";
+import {Card} from "../../card/Card";
 
 // TODO make it common const //, "Enter"
 const FUNCTIONAL_KEYS = ["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab"];
@@ -97,8 +98,10 @@ const DatePickerInput = ({error: externalError, ...inputProps}: DatePickerInputP
             <Popover.Trigger>
                 <IconButton><CalendarIcon/></IconButton>
             </Popover.Trigger>
-            <Popover.Body padding='none' trapFocus>
-                <Calendar value={selectedDate} onChange={onCalendarChange}/>
+            <Popover.Body trapFocus>
+                <Card padding='none' shadow='lg'>
+                    <Calendar value={selectedDate} onChange={onCalendarChange}/>
+                </Card>
             </Popover.Body>
         </Popover>
     </Input>

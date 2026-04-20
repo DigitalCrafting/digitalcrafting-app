@@ -4,6 +4,7 @@ import {Popover, type PopoverHandle} from "../../popover/Popover";
 import {ChevronDownIcon} from "../../icons/Icons";
 import {SelectDropdownController} from "./controllers/SelectDropdownController";
 import {SelectInputController} from "./controllers/SelectInputController";
+import {Card} from "../../card/Card";
 
 export interface NativeSelectOption {
     value: string
@@ -217,14 +218,16 @@ const ZoriaSelectInput = ({
                     </div>
                 </div>
             </Popover.Trigger>
-            <Popover.Body offset={0} padding='none' disableEscape>
-                <ZoriaSelectDropdown currentlySelected={currentlySelected}
-                                     options={options}
-                                     width={width}
-                                     onSelected={onSelected}
-                                     sentinelRef={sentinelRef}
-                                     close={() => popoverRef.current?.close()}
-                />
+            <Popover.Body offset={0} disableEscape>
+                <Card padding='none' shadow='lg'>
+                    <ZoriaSelectDropdown currentlySelected={currentlySelected}
+                                         options={options}
+                                         width={width}
+                                         onSelected={onSelected}
+                                         sentinelRef={sentinelRef}
+                                         close={() => popoverRef.current?.close()}
+                    />
+                </Card>
             </Popover.Body>
         </Popover>
         {

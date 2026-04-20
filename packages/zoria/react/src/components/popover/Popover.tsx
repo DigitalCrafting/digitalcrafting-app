@@ -11,7 +11,6 @@ import {
 } from 'react';
 import {createPortal} from "react-dom";
 import {useFloatingUiPositioning} from "../../hooks/useFloatingUiPositioning";
-import {UiSize} from "../../types/UiSizes";
 import {FocusTrap} from "../../utils/FocusTrap";
 
 interface PopoverContextType {
@@ -56,14 +55,13 @@ function PopoverTrigger({children, disabled = false}: PopoverTriggerProps) {
 }
 
 interface PopoverBodyProps {
-    padding?: UiSize | 'none',
     trapFocus?: boolean
     disableEscape?: boolean
     positionRef?: RefObject<HTMLElement | null>
     offset?: number
 }
 
-function PopoverBody({children, padding = 'md', trapFocus = false, disableEscape = false, positionRef, offset }: React.PropsWithChildren<PopoverBodyProps>) {
+function PopoverBody({children, trapFocus = false, disableEscape = false, positionRef, offset }: React.PropsWithChildren<PopoverBodyProps>) {
     const popoverRef = useRef<HTMLDivElement>(null);
     const focusTrapInstanceRef = useRef<FocusTrap<HTMLDivElement>>(FocusTrap.for(popoverRef));
     const {open, setOpen, triggerRef, persistent} = usePopoverContext();
@@ -136,7 +134,7 @@ function PopoverBody({children, padding = 'md', trapFocus = false, disableEscape
     return <>{createPortal(
         <div ref={popoverRef}
              role="dialog"
-             className={`z-popover z-popover-body z-popover-p-${padding} ${visibilityClassName}`}
+             className={`z-popover z-popover-body ${visibilityClassName}`}
              data-z-popover
              aria-expanded={open}
         >

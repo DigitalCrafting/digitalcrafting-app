@@ -1,4 +1,10 @@
 .z-panel {
+  width: 100%;
+  background-color: var(--z-color-surface);
+  border: none;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-2);
+
   &-header {
     border-bottom: 1px solid var(--z-color-border);
     width: 100%;

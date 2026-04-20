@@ -1,4 +1,4 @@
-import {Button, Col, H2, Panel, Popover, Row, Text} from "@zoria-ui/react";
+import {Button, Card, Col, H2, Panel, Popover, Row, Text} from "@zoria-ui/react";
 
 export function PopoverDemo() {
     return <Panel>
@@ -11,7 +11,9 @@ export function PopoverDemo() {
                             <Button >Popover 1</Button>
                         </Popover.Trigger>
                         <Popover.Body>
-                            <Text>This is a popover 1 body</Text>
+                            <Card>
+                                <Text>This is a popover 1 body</Text>
+                            </Card>
                         </Popover.Body>
                     </Popover>
                 </Col>
@@ -21,7 +23,9 @@ export function PopoverDemo() {
                             <Button>Lorem ipsum (persistent)</Button>
                         </Popover.Trigger>
                         <Popover.Body>
-                            <Text>dolor sit amet, consectetur adipiscing elit.</Text>
+                            <Card>
+                                <Text>dolor sit amet, consectetur adipiscing elit.</Text>
+                            </Card>
                         </Popover.Body>
                     </Popover>
                 </Col>

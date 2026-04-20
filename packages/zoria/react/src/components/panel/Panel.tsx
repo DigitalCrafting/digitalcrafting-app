@@ -34,7 +34,7 @@ interface PanelProps {
 }
 
 function InternalPanel({children}: PanelProps) {
-    return <div className={`z-card z-panel`}>
+    return <div className={`z-panel`}>
         {children}
     </div>;
 }
