@@ -4,17 +4,17 @@
   color: currentColor;
 
   &-sm {
-    width: 12px;
-    height: 12px;
+    width: var(--icon-size-sm);
+    height: var(--icon-size-sm);
   }
 
   &-md {
-    width: 24px;
-    height: 24px;
+    width: var(--icon-size-md);
+    height: var(--icon-size-md);
   }
 
   &-lg {
-    width: 48px;
-    height: 48px;
+    width: var(--icon-size-lg);
+    height: var(--icon-size-lg);
   }
 }

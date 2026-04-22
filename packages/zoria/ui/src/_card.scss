@@ -41,3 +41,10 @@
     }
   }
 }
+
+[data-theme='dark'] {
+  .z-card {
+    border: 1px solid var(--color-grey-70);
+    box-shadow: none;
+  }
+}

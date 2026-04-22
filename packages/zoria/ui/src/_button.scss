@@ -8,7 +8,7 @@
   padding-right: var(--button-padding-x);
   padding-left: var(--button-padding-x);
 
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   border-width: 0;
   border-style: none;
 
@@ -45,8 +45,8 @@
     color: var(--z-color-accent);
     background-color: var(--z-color-surface);
     border-color: var(--z-color-accent);
-    border-width: 3px;
-    border-style: solid;
+    border-width: var(--border-width-thick);
+    border-style: var(--border-style);
 
     &:hover:not(:disabled) {
       color: var(--z-color-accent-hover);

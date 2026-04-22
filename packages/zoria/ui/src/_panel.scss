@@ -6,7 +6,7 @@
   box-shadow: var(--shadow-2);
 
   &-header {
-    border-bottom: 1px solid var(--z-color-border);
+    border-bottom: var(--z-theme-border-thin-neutral);
     width: 100%;
     max-width: 100%;
     padding: var(--space-y-2);
@@ -21,7 +21,7 @@
   }
 
   &-footer {
-    border-top: 1px solid var(--z-color-border);
+    border-top: var(--z-theme-border-thin-neutral);
     width: 100%;
     max-width: 100%;
     padding: var(--space-y-2);

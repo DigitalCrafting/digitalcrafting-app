@@ -1,0 +1,24 @@
+:root {
+  /* ==== Focus ==== */
+  --z-theme-focus-transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  --z-theme-focus-shadow:
+          0 0 0 2px var(--z-color-focus-ring-offset),
+          0 0 0 4px var(--z-color-focus-ring);
+
+  --z-theme-focus-shadow-sticky:
+          0 0 0 2px var(--z-color-focus-ring);
+  --z-theme-focus-shadow-inset:
+          inset 0 0 0 2px var(--z-color-focus-ring);
+
+  /* ==== Border ==== */
+  --z-theme-border-medium-accent: 2px solid var(--z-color-accent);
+  --z-theme-border-thick-accent: 3px solid var(--z-color-accent);
+
+  --z-theme-border-thin-neutral: 1px solid var(--z-color-border);
+  --z-theme-border-medium-neutral: 2px solid var(--color-grey-50);
+
+  /* ==== Messaging ==== */
+  --z-theme-error-border-color: var(--color-red-20);
+  --z-theme-error-bg-color: var(--color-red-5);
+
+}

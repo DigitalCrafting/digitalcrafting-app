@@ -1,10 +1,12 @@
 :root {
   /* surfaces */
   --z-color-bg: var(--color-grey-5);
+  --z-color-bg-alt: hsl(from var(--color-black-soft) h s l / 95%);
   --z-color-surface: var(--color-white);
   --z-color-surface-alt: var(--color-grey-10);
   --z-color-border: var(--color-grey-20);
   --z-color-shadow: var(--color-black-softer);
+  --z-color-backgrop: hsl(from var(--color-black-soft) h s l / 80%);
 
   /* focus */
   --z-color-focus: var(--color-blue-grey-30);
@@ -35,6 +37,7 @@
   /* disabled */
   --z-color-disabled-bg: var(--color-grey-20);
   --z-color-disabled-text: var(--color-grey-70);
+  --z-color-disabled-border: var(--color-grey-60);
 
   /* status */
   --z-color-success: var(--color-green-60);
@@ -44,11 +47,13 @@
 
   [data-theme='dark'] {
     /* surfaces */
-    --z-color-bg: var(--color-grey-100);
-    --z-color-surface: var(--color-grey-90);
-    --z-color-surface-alt: var(--color-grey-80);
+    --z-color-bg: var(--color-grey-80);
+    --z-color-bg-alt: hsl(from var(--color-grey-10) h s l / 95%);
+    --z-color-surface: hsl(from var(--color-grey-90) h s 15%);
+    --z-color-surface-alt: var(--color-grey-70);
     --z-color-border: var(--color-grey-70);
     --z-color-shadow: var(--color-blue-grey-100);
+    --z-color-backgrop: hsl(from var(--color-grey-80) h s l / 80%);
 
     /* focus */
     --z-color-focus: var(--color-blue-grey-40);
@@ -61,12 +66,12 @@
     --z-color-text-inverse: var(--color-black);
 
     /* accent */
-    --z-color-accent: var(--color-blue-grey-40);
-    --z-color-accent-text: var(--color-blue-grey-100);
-    --z-color-accent-hover: var(--color-blue-grey-30);
-    --z-color-accent-active: var(--color-blue-grey-20);
-    --z-color-accent-border: var(--color-blue-grey-20);
-    --z-color-accent-selected-bg: var(--color-blue-grey-80);
+    --z-color-accent: var(--color-persian-blue-40);
+    --z-color-accent-text: var(--color-persian-blue-100);
+    --z-color-accent-hover: var(--color-persian-blue-30);
+    --z-color-accent-active: var(--color-persian-blue-20);
+    --z-color-accent-border: var(--color-persian-blue-20);
+    --z-color-accent-selected-bg: var(--color-persian-blue-80);
 
     /* neutral */
     --z-color-neutral: var(--color-grey-60);

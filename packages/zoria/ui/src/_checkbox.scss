@@ -24,8 +24,8 @@
   width: 24px;
   height: 24px;
   border-radius: 6px;
-  border: 2px solid var(--z-color-accent);
-  background-color: var(--color-white);
+  border: var(--z-theme-border-medium-accent);
+  background-color: var(--z-color-surface);
   transition:
           background-color 150ms cubic-bezier(.86, .0, .07, 1),
           border 150ms cubic-bezier(.86, .0, .07, 1),
@@ -88,7 +88,7 @@
 }
 
 .z-checkbox input[type="checkbox"]:disabled:checked + .z-checkbox-box:after {
-  border-color: var(--color-grey-60);
+  border-color: var(--z-color-disabled-border);
   opacity: 1;
   transform: translate(-50%, -50%) rotate(-45deg) scale(1);
 }

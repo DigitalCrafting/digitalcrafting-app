@@ -30,7 +30,7 @@
     gap: 6px;
     align-items: center;
 
-    border: 2px solid var(--color-grey-50);
+    border: var(--z-theme-border-medium-neutral);
     border-radius: var(--radius-md);
     transition: var(--z-theme-focus-transition);
     outline: none;
@@ -64,6 +64,7 @@
     font-family: var(--font-family-sans);
     font-size: var(--font-size-sm);
     line-height: var(--line-height-relaxed);
+    background-color: transparent;
     border: none;
     flex: 1;
     min-width: 0;
@@ -89,8 +90,8 @@
   &:has(.z-input-error) {
     .z-input,
     .z-input-container {
-      border-color: var(--color-red-20);
-      background-color: var(--color-red-5);
+      border-color: var(--z-theme-error-border-color);
+      background-color: var(--z-theme-error-bg-color);
     }
   }
 
