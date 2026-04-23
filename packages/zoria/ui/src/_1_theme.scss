@@ -9,8 +9,8 @@
   --z-color-backgrop: hsl(from var(--color-black-soft) h s l / 80%);
 
   /* focus */
-  --z-color-focus: var(--color-blue-grey-30);
-  --z-color-focus-ring: var(--color-blue-grey-20);
+  --z-color-focus: var(--color-blue-grey-40);
+  --z-color-focus-ring: var(--color-blue-grey-30);
   --z-color-focus-ring-offset: var(--color-white);
 
   /* text */
@@ -21,8 +21,8 @@
   /* accent */
   --z-color-accent: var(--color-blue-grey-50);
   --z-color-accent-text: var(--color-blue-grey-80);
-  --z-color-accent-hover: var(--color-blue-grey-60);
-  --z-color-accent-active: var(--color-blue-grey-70);
+  --z-color-accent-hover: var(--color-blue-grey-50);
+  --z-color-accent-active: var(--color-blue-grey-60);
   --z-color-accent-border: var(--color-blue-grey-80);
   --z-color-accent-selected-bg: var(--color-blue-grey-20);
 

@@ -1,0 +1,97 @@
+:root {
+  [data-theme='dark'] {
+    /* --- GREYSCALE (Zinc-Steel) --- */
+    /* Optimized for dark backgrounds with a cold, metallic tint */
+    --grey-50: oklch(0.98 0.01 260);
+    --grey-100: oklch(0.94 0.01 260);
+    --grey-200: oklch(0.88 0.02 260);
+    --grey-300: oklch(0.75 0.02 260);
+    --grey-400: oklch(0.60 0.02 260);
+    --grey-500: oklch(0.45 0.02 260); /* Mid-tone */
+    --grey-600: oklch(0.32 0.02 260);
+    --grey-700: oklch(0.22 0.02 260); /* Surface elevation */
+    --grey-800: oklch(0.16 0.01 260); /* Surface base */
+    --grey-900: oklch(0.12 0.01 260); /* Background */
+    --grey-950: oklch(0.08 0.01 260); /* Pure deep background */
+
+    /* --- ACCENT (Tactical Mint/Aqua) --- */
+    --accent-50: oklch(0.96 0.04 195);
+    --accent-100: oklch(0.90 0.08 195);
+    --accent-500: oklch(0.70 0.12 195); /* Primary Brand */
+    --accent-600: oklch(0.62 0.12 195); /* Hover */
+    --accent-700: oklch(0.55 0.12 195);
+    --accent-800: oklch(0.40 0.12 195);
+    --accent-900: oklch(0.25 0.06 195); /* Subtle Borders */
+
+    /* --- STATUS & NOTIFICATIONS --- */
+    /* Red: Critical/Danger */
+    --error-500: oklch(0.62 0.18 25);
+    /* Orange: Warning/Caution */
+    --warning-500: oklch(0.75 0.15 70);
+    /* Green: Success/Stable */
+    --success-500: oklch(0.72 0.13 145);
+    /* Blue: Info/System (Cobalt) */
+    --info-500: oklch(0.65 0.15 255);
+
+    /* --- TELEMETRY / MULTI-CHART COLORS --- */
+    /* These are chosen to be distinct from the Status colors */
+    --data-1: oklch(0.82 0.12 85); /* Amber/Yellow (Battery/Signal) */
+    --data-2: oklch(0.68 0.14 310); /* Magenta/Purple (Frequency/Alt) */
+    --data-3: oklch(0.75 0.10 220); /* Sky Blue (Velocity/Wind) */
+  }
+}
+
+:root {
+  [data-theme='tactical'] {
+    /* --- NEUTRAL CHROME (Charcoal DNA: #233d4d) --- */
+    --chrome-h: 232.8;
+    --chrome-c: 0.04;
+
+    --grey-5: oklch(0.98 0.01 var(--chrome-h));
+    --grey-10: oklch(0.92 0.02 var(--chrome-h));
+    --grey-20: oklch(0.84 0.03 var(--chrome-h));
+    --grey-30: oklch(0.72 0.04 var(--chrome-h));
+    --grey-40: oklch(0.60 0.04 var(--chrome-h));
+    --grey-50: oklch(0.48 0.04 var(--chrome-h));
+    --grey-60: oklch(0.36 0.04 var(--chrome-h));
+    --grey-70: oklch(0.24 0.04 var(--chrome-h));
+    --grey-80: oklch(0.16 0.03 var(--chrome-h)); /* Surface */
+    --grey-90: oklch(0.12 0.02 var(--chrome-h)); /* Panel BG */
+    --grey-95: oklch(0.06 0.01 var(--chrome-h)); /* App BG */
+
+    /* --- AMBER ACCENT (Pumpkin DNA: #fe7f2d) --- */
+    --accent-h: 46.5;
+    --accent-c: 0.18;
+
+    --accent-50: oklch(0.96 0.03 var(--accent-h));
+    --accent-500: oklch(0.68 var(--accent-c) var(--accent-h)); /* Primary */
+    --accent-600: oklch(0.60 var(--accent-c) var(--accent-h)); /* Hover */
+    --accent-900: oklch(0.25 0.08 var(--accent-h)); /* Glow Base */
+
+    /* --- STATUS DNA --- */
+    --error-h: 28;
+    --success-h: 150;
+    --info-h: 245;
+
+    /* Layout */
+    --ui-bg: var(--grey-95);
+    --ui-surface: var(--grey-90);
+    --ui-border: var(--grey-80);
+
+    /* The "Neutral" Button Logic */
+    --btn-bg: var(--grey-80);
+    --btn-border: var(--grey-70);
+    --btn-text: var(--grey-10);
+    --btn-hover-bg: var(--grey-70);
+
+    /* The "Active" State Logic (This is where Amber appears) */
+    --ui-active: var(--accent-500);
+    --ui-active-text: var(--grey-95); /* High contrast dark text on Amber */
+    --ui-active-glow: 0 0 15px oklch(0.68 var(--accent-c) var(--accent-h) / 0.3);
+
+    /* Status Tokens (DNA Method) */
+    --status-error: oklch(0.62 0.18 var(--error-h));
+    --status-success: oklch(0.70 0.14 var(--success-h));
+    --status-info: oklch(0.65 0.15 var(--info-h));
+  }
+}
