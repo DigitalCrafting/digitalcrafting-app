@@ -6,12 +6,12 @@
   --shadow-3: 0 4px 12px 0 rgba(0, 0, 0, 0.16);
   --shadow-4: 0 8px 24px 0 rgba(0, 0, 0, 0.24);
 
-  [data-theme='dark'] {
+  &[data-theme='dark'] {
     --shadow-0: none;
-    --shadow-1: 0 1px 4px 0 rgba(200, 200, 200, 0.08);
-    --shadow-2: 0 2px 8px 0 rgba(200, 200, 200, 0.12);
-    --shadow-3: 0 4px 12px 0 rgba(200, 200, 200, 0.16);
-    --shadow-4: 0 8px 24px 0 rgba(200, 200, 200, 0.24);
+    --shadow-1: none;
+    --shadow-2: none;
+    --shadow-3: none;
+    --shadow-4: none;
   }
 
   /* === Border Radius === */
@@ -28,13 +28,6 @@
   --border-width-thick: 3px;
   --border-style: solid;
 
-  /* === Overlays / Opacity / Blur === */
-  --overlay-light: rgba(255, 255, 255, 0.05);
-  --overlay-dark: rgba(0, 0, 0, 0.4);
-  --overlay-accent: rgba(0, 191, 255, 0.2);
-  --blur-panel: blur(8px);
-  --backdrop-blur: blur(16px);
-
   /* === Component Dimensions === */
   --button-height: 2.5rem;       /* 40px */
   --button-padding-x: 1rem;      /* 16px */
@@ -43,22 +36,11 @@
   --popover-padding: 1rem;       /* 16px */
   --panel-padding: 1.5rem;       /* 24px */
 
-  /* === State Colors === */
-  --state-hover: rgba(255, 255, 255, 0.05);
-  --state-active: rgba(255, 255, 255, 0.1);
-  --state-selected: var(--z-color-accent-selected-bg);
-  --state-disabled: var(--z-color-disabled-text);
-  --state-focus: rgba(0, 191, 255, 0.25);
-
   /* === Interaction Timing / Motion === */
   --transition-fast: 0.1s ease-in-out;
   --transition-normal: 0.25s ease-in-out;
   --transition-slow: 0.4s ease-in-out;
   --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
-
-  /* === Focus / Accessibility === */
-  --focus-ring: 0 0 0 3px rgba(0, 191, 255, 0.6);
-  --focus-outline-offset: 2px;
 
   /* === Iconography === */
   --icon-size-sm: 0.75rem;

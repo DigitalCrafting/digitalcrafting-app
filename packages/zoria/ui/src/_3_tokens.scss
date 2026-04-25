@@ -21,4 +21,9 @@
   --z-theme-error-border-color: var(--color-red-20);
   --z-theme-error-bg-color: var(--color-red-5);
 
+  &[data-theme='dark'] {
+    /* ==== Messaging ==== */
+    --z-theme-error-border-color: oklch(0.62 0.18 28);
+    --z-theme-error-bg-color: oklch(0.72 0.08 28);
+  }
 }

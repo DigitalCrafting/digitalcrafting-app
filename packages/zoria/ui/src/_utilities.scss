@@ -1,10 +1,12 @@
 .justify-start  { justify-content: flex-start; }
 .justify-center { justify-content: center; }
 .justify-end    { justify-content: flex-end; }
+.justify-space-between    { justify-content: space-between; }
 
 .content-start    { align-content: flex-start; }
 .content-center   { align-content: center; }
 .content-end      { align-content: flex-end; }
+.content-space-between      { align-content: space-between; }
 
 .text-start    { text-align: start; }
 .text-center   { text-align: center; }

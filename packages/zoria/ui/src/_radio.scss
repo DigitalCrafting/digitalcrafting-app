@@ -28,7 +28,7 @@
     height: 24px;
     border-radius: 50%;
     border: 2px solid var(--z-color-accent);
-    background-color: var(--color-white);
+    background-color: var(--z-color-surface);
     transition:
             background-color 150ms cubic-bezier(.86, .0, .07, 1),
             border 150ms cubic-bezier(.86, .0, .07, 1),
@@ -40,7 +40,7 @@
       position: absolute;
       width: 10px;
       height: 10px;
-      background-color: var(--color-white);
+      background-color: var(--z-color-surface);
       border-radius: 50%;
       top: 50%;
       left: 50%;

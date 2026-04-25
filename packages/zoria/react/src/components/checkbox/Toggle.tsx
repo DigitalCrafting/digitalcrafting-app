@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 interface ToggleProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
-    children: string
+    children?: string
     onChange?: (value: boolean) => void
 }
 

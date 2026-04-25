@@ -45,19 +45,19 @@
   --z-color-error: var(--color-red-60);
   --z-color-info: var(--color-blue-60);
 
-  [data-theme='dark'] {
+  &[data-theme='dark'] {
     /* surfaces */
-    --z-color-bg: var(--color-grey-80);
+    --z-color-bg: var(--color-grey-90);
     --z-color-bg-alt: hsl(from var(--color-grey-10) h s l / 95%);
-    --z-color-surface: hsl(from var(--color-grey-90) h s 15%);
+    --z-color-surface: var(--color-grey-80);
     --z-color-surface-alt: var(--color-grey-70);
     --z-color-border: var(--color-grey-70);
     --z-color-shadow: var(--color-blue-grey-100);
     --z-color-backgrop: hsl(from var(--color-grey-80) h s l / 80%);
 
     /* focus */
-    --z-color-focus: var(--color-blue-grey-40);
-    --z-color-focus-ring: var(--color-blue-grey-50);
+    --z-color-focus: var(--color-pumpkin-spice-40);
+    --z-color-focus-ring: var(--color-pumpkin-spice-40);
     --z-color-focus-ring-offset: var(--color-grey-100);
 
     /* text */
@@ -66,12 +66,12 @@
     --z-color-text-inverse: var(--color-black);
 
     /* accent */
-    --z-color-accent: var(--color-persian-blue-40);
-    --z-color-accent-text: var(--color-persian-blue-100);
-    --z-color-accent-hover: var(--color-persian-blue-30);
-    --z-color-accent-active: var(--color-persian-blue-20);
-    --z-color-accent-border: var(--color-persian-blue-20);
-    --z-color-accent-selected-bg: var(--color-persian-blue-80);
+    --z-color-accent: var(--color-pumpkin-spice-40);
+    --z-color-accent-text: var(--color-pumpkin-spice-95);
+    --z-color-accent-hover: var(--color-pumpkin-spice-30);
+    --z-color-accent-active: var(--color-pumpkin-spice-50);
+    --z-color-accent-border: var(--color-pumpkin-spice-20);
+    --z-color-accent-selected-bg: var(--color-pumpkin-spice-80);
 
     /* neutral */
     --z-color-neutral: var(--color-grey-60);
@@ -82,13 +82,14 @@
     --z-color-neutral-selected-bg: var(--color-grey-80);
 
     /* disabled */
-    --z-color-disabled-bg: var(--color-grey-80);
-    --z-color-disabled-text: var(--color-grey-60);
+    --z-color-disabled-bg: var(--color-grey-70);
+    --z-color-disabled-text: var(--color-grey-40);
+    --z-color-disabled-border: var(--color-grey-70);
 
     /* status */
-    --z-color-success: var(--color-green-50);
-    --z-color-warning: var(--color-yellow-50);
-    --z-color-error: var(--color-red-50);
+    --z-color-success: oklch(0.70 0.14 150);
+    --z-color-warning: oklch(0.80 0.20 80);
+    --z-color-error: oklch(0.62 0.16 28);
     --z-color-info: var(--color-blue-50);
   }
 }

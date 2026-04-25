@@ -67,3 +67,11 @@
     }
   }
 }
+
+:root[data-theme='dark'] {
+  .z-chip {
+    &.z-chip-secondary {
+      color: var(--z-color-text);
+    }
+  }
+}

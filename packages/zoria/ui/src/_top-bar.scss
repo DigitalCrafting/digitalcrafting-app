@@ -12,7 +12,7 @@
   align-items: center;
 }
 
-[data-theme='dark'] {
+:root[data-theme='dark'] {
   .z-top-bar {
     border-bottom: 1px solid var(--color-grey-70);
     box-shadow: none;

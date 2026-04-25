@@ -1,5 +1,5 @@
 :root {
-  [data-theme='dark'] {
+  &[data-theme='dark'] {
     /* --- GREYSCALE (Zinc-Steel) --- */
     /* Optimized for dark backgrounds with a cold, metallic tint */
     --grey-50: oklch(0.98 0.01 260);
@@ -44,20 +44,20 @@
 :root {
   [data-theme='tactical'] {
     /* --- NEUTRAL CHROME (Charcoal DNA: #233d4d) --- */
-    --chrome-h: 232.8;
-    --chrome-c: 0.04;
+    --neutral-h: 232.8;
+    --neutral-c: 0.04;
 
-    --grey-5: oklch(0.98 0.01 var(--chrome-h));
-    --grey-10: oklch(0.92 0.02 var(--chrome-h));
-    --grey-20: oklch(0.84 0.03 var(--chrome-h));
-    --grey-30: oklch(0.72 0.04 var(--chrome-h));
-    --grey-40: oklch(0.60 0.04 var(--chrome-h));
-    --grey-50: oklch(0.48 0.04 var(--chrome-h));
-    --grey-60: oklch(0.36 0.04 var(--chrome-h));
-    --grey-70: oklch(0.24 0.04 var(--chrome-h));
-    --grey-80: oklch(0.16 0.03 var(--chrome-h)); /* Surface */
-    --grey-90: oklch(0.12 0.02 var(--chrome-h)); /* Panel BG */
-    --grey-95: oklch(0.06 0.01 var(--chrome-h)); /* App BG */
+    --grey-5: oklch(0.98 0.01 232.8);
+    --grey-10: oklch(0.92 0.02 232.8);
+    --grey-20: oklch(0.84 0.03 232.8);
+    --grey-30: oklch(0.72 0.04 232.8);
+    --grey-40: oklch(0.60 0.04 232.8);
+    --grey-50: oklch(0.48 0.04 232.8);
+    --grey-60: oklch(0.36 0.04 232.8);
+    --grey-70: oklch(0.24 0.04 232.8);
+    --grey-80: oklch(0.16 0.03 232.8); /* Surface */
+    --grey-90: oklch(0.12 0.02 232.8); /* Panel BG */
+    --grey-95: oklch(0.06 0.01 232.8); /* App BG */
 
     /* --- AMBER ACCENT (Pumpkin DNA: #fe7f2d) --- */
     --accent-h: 46.5;
