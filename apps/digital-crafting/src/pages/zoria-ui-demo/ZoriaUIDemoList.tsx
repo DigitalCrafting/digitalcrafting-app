@@ -1,13 +1,13 @@
 import {Col, Row} from "@zoria-ui/react";
 import {InputDemo} from "./components/inputs/InputDemo.tsx";
-import {TextDemo} from "./components/TextDemo.tsx";
+import {TextDemo} from "./components/typography/TextDemo.tsx";
 import {CheckboxDemo} from "./components/inputs/CheckboxDemo.tsx";
 import {ToggleDemo} from "./components/inputs/ToggleDemo.tsx";
 import {ButtonDemo} from "./components/ButtonDemo.tsx";
 import {TooltipDemo} from "./components/TooltipDemo.tsx";
 import {PopoverDemo} from "./components/PopoverDemo.tsx";
 import {ModalDemo} from "./components/ModalDemo.tsx";
-import {IconsDemo} from "./components/IconsDemo.tsx";
+import {IconsDemo} from "./components/typography/IconsDemo.tsx";
 import {IconButtonDemo} from "./components/IconButtonDemo.tsx";
 import {CalendarDemo} from "./components/inputs/CalendarDemo.tsx";
 import {SpinnerDemo} from "./components/SpinnerDemo.tsx";
@@ -22,16 +22,16 @@ import {PasswordInputDemo} from "./components/inputs/PasswordInputDemo.tsx";
 import {TextareaInputDemo} from "./components/inputs/TextareaInputDemo.tsx";
 import {DatePickerInputDemo} from "./components/inputs/DatePickerInputDemo.tsx";
 import {SelectInputDemo} from "./components/inputs/SelectInputDemo.tsx";
+import {HeadersDemo} from "./components/typography/HeadersDemo.tsx";
 
 const ZoriaUiDemoComponentsMap = new Map<ZoriaUIRoutePathsEnum, FunctionComponent[]>([
-    [ZoriaUIRoutePathsEnum.TYPOGRAPHY, [TextDemo]],
+    [ZoriaUIRoutePathsEnum.TYPOGRAPHY, [TextDemo, HeadersDemo, IconsDemo]],
     [ZoriaUIRoutePathsEnum.BUTTONS, [ButtonDemo, IconButtonDemo]],
     [ZoriaUIRoutePathsEnum.INPUTS, [InputDemo, TextInputDemo, TextareaInputDemo, NumberInputDemo, SelectInputDemo,  PasswordInputDemo, DatePickerInputDemo, CalendarDemo, CheckboxDemo, ToggleDemo, RadioGroupDemo]],
     [ZoriaUIRoutePathsEnum.MODAL, [ModalDemo]],
     [ZoriaUIRoutePathsEnum.POPOVER, [PopoverDemo]],
     [ZoriaUIRoutePathsEnum.DISPLAY, [TooltipDemo, ChipDemo]],
-    [ZoriaUIRoutePathsEnum.SPINNER, [SpinnerDemo]],
-    [ZoriaUIRoutePathsEnum.ICONS, [IconsDemo]]
+    [ZoriaUIRoutePathsEnum.SPINNER, [SpinnerDemo]]
 ]);
 
 interface ZoriaUIDemoListProps {

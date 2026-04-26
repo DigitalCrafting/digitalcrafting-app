@@ -3,7 +3,7 @@ import {Link, useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 
 export const DCHeader = () => {
-    const [darkThemeEnabled, setDarkThemeEnabled] = useState(true);
+    const [darkThemeEnabled, setDarkThemeEnabled] = useState(false);
     const location = useLocation();
 
     useEffect(() => {

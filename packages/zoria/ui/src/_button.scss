@@ -19,6 +19,7 @@
 
 .z-button {
   @extend .z-button-default;
+  --button-secondary-active-bg: var(--color-grey-10);
 
   &-primary {
     color: var(--color-white);
@@ -55,7 +56,7 @@
     }
 
     &:active:not(:disabled) {
-      background-color: var(--color-grey-5);
+      background-color: var(--button-secondary-active-bg);
       box-shadow: var(--shadow-2);
       border-color: var(--z-color-accent);
     }
@@ -70,7 +71,7 @@
   &:disabled {
     cursor: not-allowed;
     color: var(--z-color-disabled-text);
-    border-color: var(--z-color-disabled-bg);
+    border: none;
     background-color: var(--z-color-disabled-bg);
   }
 }
@@ -124,5 +125,11 @@
     border-color: var(--z-color-focus);
     outline: 0;
     box-shadow: var(--z-theme-focus-shadow-sticky);
+  }
+}
+
+:root[data-theme='dark'] {
+  .z-button {
+    --button-secondary-active-bg: var(--color-grey-70);
   }
 }

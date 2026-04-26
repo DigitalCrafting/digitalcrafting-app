@@ -7,7 +7,6 @@ export const ZoriaUIRoutePathsEnum = {
     POPOVER: 'popover',
     DISPLAY: 'display',
     SPINNER: 'spinner',
-    ICONS: 'icons',
 } as const;
 export type ZoriaUIRoutePathsEnum = (typeof ZoriaUIRoutePathsEnum)[keyof typeof ZoriaUIRoutePathsEnum];
 
@@ -20,5 +19,4 @@ export const ZoriaUIDemoRoutesList = [
     ZoriaUIRoutePathsEnum.POPOVER,
     ZoriaUIRoutePathsEnum.DISPLAY,
     ZoriaUIRoutePathsEnum.SPINNER,
-    ZoriaUIRoutePathsEnum.ICONS,
 ]
