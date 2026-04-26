@@ -4,18 +4,18 @@ import {TextDemo} from "./components/typography/TextDemo.tsx";
 import {CheckboxDemo} from "./components/inputs/CheckboxDemo.tsx";
 import {ToggleDemo} from "./components/inputs/ToggleDemo.tsx";
 import {ButtonDemo} from "./components/ButtonDemo.tsx";
-import {TooltipDemo} from "./components/TooltipDemo.tsx";
+import {TooltipDemo} from "./components/display/TooltipDemo.tsx";
 import {PopoverDemo} from "./components/PopoverDemo.tsx";
 import {ModalDemo} from "./components/ModalDemo.tsx";
 import {IconsDemo} from "./components/typography/IconsDemo.tsx";
 import {IconButtonDemo} from "./components/IconButtonDemo.tsx";
 import {CalendarDemo} from "./components/inputs/CalendarDemo.tsx";
-import {SpinnerDemo} from "./components/SpinnerDemo.tsx";
+import {SpinnerDemo} from "./components/display/SpinnerDemo.tsx";
 import styles from "./ZoriaUIDemoList.module.scss";
 import {ZoriaUIRoutePathsEnum} from "./config/ZoriaUIRoutesTypes.ts";
 import {type FunctionComponent, useMemo} from "react";
 import {RadioGroupDemo} from "./components/inputs/RadioGroupDemo.tsx";
-import {ChipDemo} from "./components/ChipDemo.tsx";
+import {ChipDemo} from "./components/display/ChipDemo.tsx";
 import {TextInputDemo} from "./components/inputs/TextInputDemo.tsx";
 import {NumberInputDemo} from "./components/inputs/NumberInputDemo.tsx";
 import {PasswordInputDemo} from "./components/inputs/PasswordInputDemo.tsx";
@@ -23,6 +23,7 @@ import {TextareaInputDemo} from "./components/inputs/TextareaInputDemo.tsx";
 import {DatePickerInputDemo} from "./components/inputs/DatePickerInputDemo.tsx";
 import {SelectInputDemo} from "./components/inputs/SelectInputDemo.tsx";
 import {HeadersDemo} from "./components/typography/HeadersDemo.tsx";
+import {TableDemo} from "./components/display/TableDemo.tsx";
 
 const ZoriaUiDemoComponentsMap = new Map<ZoriaUIRoutePathsEnum, FunctionComponent[]>([
     [ZoriaUIRoutePathsEnum.TYPOGRAPHY, [TextDemo, HeadersDemo, IconsDemo]],
@@ -30,8 +31,7 @@ const ZoriaUiDemoComponentsMap = new Map<ZoriaUIRoutePathsEnum, FunctionComponen
     [ZoriaUIRoutePathsEnum.INPUTS, [InputDemo, TextInputDemo, TextareaInputDemo, NumberInputDemo, SelectInputDemo,  PasswordInputDemo, DatePickerInputDemo, CalendarDemo, CheckboxDemo, ToggleDemo, RadioGroupDemo]],
     [ZoriaUIRoutePathsEnum.MODAL, [ModalDemo]],
     [ZoriaUIRoutePathsEnum.POPOVER, [PopoverDemo]],
-    [ZoriaUIRoutePathsEnum.DISPLAY, [TooltipDemo, ChipDemo]],
-    [ZoriaUIRoutePathsEnum.SPINNER, [SpinnerDemo]]
+    [ZoriaUIRoutePathsEnum.DISPLAY, [TableDemo, TooltipDemo, ChipDemo, SpinnerDemo]],
 ]);
 
 interface ZoriaUIDemoListProps {

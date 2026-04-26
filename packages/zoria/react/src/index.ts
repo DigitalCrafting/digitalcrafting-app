@@ -31,6 +31,7 @@ export * from "./components/popover/Popover";
 export * from "./components/radio/RadioGroup";
 export * from "./components/sidebar/Sidebar";
 export * from "./components/spinner/Spinner";
+export * from "./components/table/Table";
 export * from "./components/tooltip/Tooltip";
 export * from "./components/top-bar/TopBar";
 export * from "./components/typography/Typography";
