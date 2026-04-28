@@ -1,3 +1,13 @@
+:root {
+  --z-calendar-color-weekday: var(--color-grey-60);
+  --z-calendar-color-day-disabled: var(--color-grey-40);
+
+  &[data-theme='dark'] {
+    --z-calendar-color-weekday: var(--color-grey-30);
+    --z-calendar-color-day-disabled: var(--color-grey-60);
+  }
+}
+
 .z-calendar {
   --calendar-icon-button-size: 28px;
   --calendar-svg-stroke-w: 1.5;
@@ -73,7 +83,7 @@
     }
 
     .weekday {
-      color: hsl(from var(--z-color-text) h s 35%);
+      color: var(--z-calendar-color-weekday);
     }
 
     .day {
@@ -116,7 +126,7 @@
 
       &:disabled {
         cursor: default;
-        color: hsl(from var(--z-color-disabled-text) h s 70%);
+        color: var(--z-calendar-color-day-disabled);
       }
 
       &.is-selected {

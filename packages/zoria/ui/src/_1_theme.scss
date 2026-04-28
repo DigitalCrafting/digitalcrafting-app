@@ -48,7 +48,7 @@
   &[data-theme='dark'] {
     /* surfaces */
     --z-color-bg: var(--color-grey-90);
-    --z-color-bg-alt: hsl(from var(--color-grey-10) h s l / 95%);
+    --z-color-bg-alt: var(--color-grey-10);
     --z-color-surface: var(--color-grey-80);
     --z-color-surface-alt: var(--color-grey-70);
     --z-color-border: var(--color-grey-70);
