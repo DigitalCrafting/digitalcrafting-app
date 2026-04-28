@@ -32,30 +32,35 @@ export const XIcon = (props: SvgIconBaseProps) => {
         <path d="M6 6l12 12"/>
     </SvgIconBase>
 }
+XIcon.displayName = 'XIcon';
 
 export const ChevronDownIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
         <path d="m6 9 6 6 6-6"/>
     </SvgIconBase>
 }
+ChevronDownIcon.displayName = 'ChevronDownIcon';
 
 export const ChevronLeftIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
         <path d="m15 18-6-6 6-6"/>
     </SvgIconBase>
 }
+ChevronLeftIcon.displayName = 'ChevronLeftIcon';
 
 export const ChevronRightIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
         <path d="m9 18 6-6-6-6"/>
     </SvgIconBase>
 }
+ChevronRightIcon.displayName = 'ChevronRightIcon';
 
 export const ChevronUpIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
         <path d="m18 15-6-6-6 6"/>
     </SvgIconBase>
 }
+ChevronUpIcon.displayName = 'ChevronUpIcon';
 
 export const CalendarIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -65,6 +70,7 @@ export const CalendarIcon = (props: SvgIconBaseProps) => {
         <path d="M3 10h18"/>
     </SvgIconBase>
 }
+CalendarIcon.displayName = 'CalendarIcon';
 
 export const CalendarCheckIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -75,6 +81,7 @@ export const CalendarCheckIcon = (props: SvgIconBaseProps) => {
         <path d="m9 16 2 2 4-4"/>
     </SvgIconBase>
 }
+CalendarCheckIcon.displayName = 'CalendarCheckIcon';
 
 export const ClockIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -82,6 +89,7 @@ export const ClockIcon = (props: SvgIconBaseProps) => {
         <circle cx="12" cy="12" r="10"/>
     </SvgIconBase>
 }
+ClockIcon.displayName = 'ClockIcon';
 
 export const ClockCheckIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -90,12 +98,14 @@ export const ClockCheckIcon = (props: SvgIconBaseProps) => {
         <path d="m22 16-5.5 5.5L14 19"/>
     </SvgIconBase>
 }
+ClockCheckIcon.displayName = 'ClockCheckIcon';
 
 export const CheckIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
         <path d="M20 6 9 17l-5-5"/>
     </SvgIconBase>
 }
+CheckIcon.displayName = 'CheckIcon';
 
 export const CopyIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -103,6 +113,7 @@ export const CopyIcon = (props: SvgIconBaseProps) => {
         <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
     </SvgIconBase>
 }
+CopyIcon.displayName = 'CopyIcon';
 
 export const CopyCheckIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -111,6 +122,7 @@ export const CopyCheckIcon = (props: SvgIconBaseProps) => {
         <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
     </SvgIconBase>
 }
+CopyCheckIcon.displayName = 'CopyCheckIcon';
 
 export const MenuIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -119,6 +131,7 @@ export const MenuIcon = (props: SvgIconBaseProps) => {
         <path d="M4 19h16"/>
     </SvgIconBase>
 }
+MenuIcon.displayName = 'MenuIcon';
 
 export const EllipsisMenuIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -127,6 +140,7 @@ export const EllipsisMenuIcon = (props: SvgIconBaseProps) => {
         <circle cx="12" cy="19" r="1"/>
     </SvgIconBase>
 }
+EllipsisMenuIcon.displayName = 'EllipsisMenuIcon';
 
 export const EllipsisIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -135,6 +149,7 @@ export const EllipsisIcon = (props: SvgIconBaseProps) => {
         <circle cx="5" cy="12" r="1"/>
     </SvgIconBase>
 }
+EllipsisIcon.displayName = 'EllipsisIcon';
 
 
 export const DatabaseIcon = (props: SvgIconBaseProps) => {
@@ -144,6 +159,7 @@ export const DatabaseIcon = (props: SvgIconBaseProps) => {
         <path d="M3 12A9 3 0 0 0 21 12"/>
     </SvgIconBase>
 }
+DatabaseIcon.displayName = 'DatabaseIcon';
 
 export const DatabaseBackupIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -155,6 +171,7 @@ export const DatabaseBackupIcon = (props: SvgIconBaseProps) => {
         <path d="M13 20a5 5 0 0 0 9-3 4.5 4.5 0 0 0-4.5-4.5c-1.33 0-2.54.54-3.41 1.41L12 16"/>
     </SvgIconBase>
 }
+DatabaseBackupIcon.displayName = 'DatabaseBackupIcon';
 
 export const DatabaseSearchIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -166,6 +183,7 @@ export const DatabaseSearchIcon = (props: SvgIconBaseProps) => {
         <ellipse cx="12" cy="5" rx="9" ry="3"/>
     </SvgIconBase>
 }
+DatabaseSearchIcon.displayName = 'DatabaseSearchIcon';
 
 export const ServerIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -175,6 +193,7 @@ export const ServerIcon = (props: SvgIconBaseProps) => {
         <line x1="6" x2="6.01" y1="18" y2="18"/>
     </SvgIconBase>
 }
+ServerIcon.displayName = 'ServerIcon';
 
 export const ServerCogIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -192,6 +211,7 @@ export const ServerCogIcon = (props: SvgIconBaseProps) => {
         <path d="m9.228 13.148-.923.383"/>
     </SvgIconBase>
 }
+ServerCogIcon.displayName = 'ServerCogIcon';
 
 export const ServerCrashIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -202,6 +222,7 @@ export const ServerCrashIcon = (props: SvgIconBaseProps) => {
         <path d="m13 6-4 6h6l-4 6"/>
     </SvgIconBase>
 }
+ServerCrashIcon.displayName = 'ServerCrashIcon';
 
 export const ServerOffIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -213,6 +234,7 @@ export const ServerOffIcon = (props: SvgIconBaseProps) => {
         <path d="m2 2 20 20"/>
     </SvgIconBase>
 }
+ServerOffIcon.displayName = 'ServerOffIcon';
 
 export const ServerClockIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -224,6 +246,7 @@ export const ServerClockIcon = (props: SvgIconBaseProps) => {
         <path d="M6 6h.01"/>
     </SvgIconBase>
 }
+ServerClockIcon.displayName = 'ServerClockIcon';
 
 export const HardDriveIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -234,6 +257,7 @@ export const HardDriveIcon = (props: SvgIconBaseProps) => {
         <path d="M6 16h.01"/>
     </SvgIconBase>
 }
+HardDriveIcon.displayName = 'HardDriveIcon';
 
 export const HardDriveDownloadIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -244,6 +268,7 @@ export const HardDriveDownloadIcon = (props: SvgIconBaseProps) => {
         <path d="M10 18h.01"/>
     </SvgIconBase>
 }
+HardDriveDownloadIcon.displayName = 'HardDriveDownloadIcon';
 
 export const HardDriveUploadIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -254,6 +279,7 @@ export const HardDriveUploadIcon = (props: SvgIconBaseProps) => {
         <path d="M10 18h.01"/>
     </SvgIconBase>
 }
+HardDriveUploadIcon.displayName = 'HardDriveUploadIcon';
 
 
 export const MonitorIcon = (props: SvgIconBaseProps) => {
@@ -263,6 +289,7 @@ export const MonitorIcon = (props: SvgIconBaseProps) => {
         <line x1="12" x2="12" y1="17" y2="21"/>
     </SvgIconBase>
 }
+MonitorIcon.displayName = 'MonitorIcon';
 
 export const LaptopIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -271,6 +298,7 @@ export const LaptopIcon = (props: SvgIconBaseProps) => {
         <path d="M20.054 15.987H3.946"/>
     </SvgIconBase>
 }
+LaptopIcon.displayName = 'LaptopIcon';
 
 export const SmartphoneIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -278,6 +306,7 @@ export const SmartphoneIcon = (props: SvgIconBaseProps) => {
         <path d="M12 18h.01"/>
     </SvgIconBase>
 }
+SmartphoneIcon.displayName = 'SmartphoneIcon';
 
 export const WifiIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -287,6 +316,7 @@ export const WifiIcon = (props: SvgIconBaseProps) => {
         <path d="M8.5 16.429a5 5 0 0 1 7 0"/>
     </SvgIconBase>
 }
+WifiIcon.displayName = 'WifiIcon';
 
 export const RouterIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -298,6 +328,7 @@ export const RouterIcon = (props: SvgIconBaseProps) => {
         <path d="M20.66 4.34a8 8 0 0 0-11.31 0"/>
     </SvgIconBase>
 }
+RouterIcon.displayName = 'RouterIcon';
 
 export const SatelliteIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -310,6 +341,7 @@ export const SatelliteIcon = (props: SvgIconBaseProps) => {
             d="M9.352 10.648a1.205 1.205 0 0 0 0 1.704l2.296 2.296a1.205 1.205 0 0 0 1.704 0l4.296-4.296a1.205 1.205 0 0 0 0-1.704l-2.296-2.296a1.205 1.205 0 0 0-1.704 0z"/>
     </SvgIconBase>
 }
+SatelliteIcon.displayName = 'SatelliteIcon';
 
 export const SatelliteDishIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -319,6 +351,7 @@ export const SatelliteDishIcon = (props: SvgIconBaseProps) => {
         <path d="M21 13A10 10 0 0 0 11 3"/>
     </SvgIconBase>
 }
+SatelliteDishIcon.displayName = 'SatelliteDishIcon';
 
 export const NetworkIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -329,6 +362,7 @@ export const NetworkIcon = (props: SvgIconBaseProps) => {
         <path d="M12 12V8"/>
     </SvgIconBase>
 }
+NetworkIcon.displayName = 'NetworkIcon';
 
 export const MessageBrokerIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -344,6 +378,7 @@ export const MessageBrokerIcon = (props: SvgIconBaseProps) => {
         <line x1="12" y1="15" x2="12" y2="17"/>
     </SvgIconBase>
 }
+MessageBrokerIcon.displayName = 'MessageBrokerIcon';
 
 export const TriangleAlertIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -352,6 +387,7 @@ export const TriangleAlertIcon = (props: SvgIconBaseProps) => {
         <path d="M12 17h.01"/>
     </SvgIconBase>
 }
+TriangleAlertIcon.displayName = 'TriangleAlertIcon';
 
 export const CircleAlertIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -360,6 +396,7 @@ export const CircleAlertIcon = (props: SvgIconBaseProps) => {
         <line x1="12" x2="12.01" y1="16" y2="16"/>
     </SvgIconBase>
 }
+CircleAlertIcon.displayName = 'CircleAlertIcon';
 
 export const CircleCheckIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -367,6 +404,7 @@ export const CircleCheckIcon = (props: SvgIconBaseProps) => {
         <path d="m9 12 2 2 4-4"/>
     </SvgIconBase>
 }
+CircleCheckIcon.displayName = 'CircleCheckIcon';
 
 export const CircleQuestionIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -375,6 +413,7 @@ export const CircleQuestionIcon = (props: SvgIconBaseProps) => {
         <path d="M12 17h.01"/>
     </SvgIconBase>
 }
+CircleQuestionIcon.displayName = 'CircleQuestionIcon';
 
 export const CircleInfoIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -383,6 +422,7 @@ export const CircleInfoIcon = (props: SvgIconBaseProps) => {
         <path d="M12 8h.01"/>
     </SvgIconBase>
 }
+CircleInfoIcon.displayName = 'CircleInfoIcon';
 
 export const BanIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -390,6 +430,7 @@ export const BanIcon = (props: SvgIconBaseProps) => {
         <path d="M4.929 4.929 19.07 19.071"/>
     </SvgIconBase>
 }
+BanIcon.displayName = 'BanIcon';
 
 export const ShareIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -400,6 +441,7 @@ export const ShareIcon = (props: SvgIconBaseProps) => {
         <line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/>
     </SvgIconBase>
 }
+ShareIcon.displayName = 'ShareIcon';
 
 export const EyeIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -408,6 +450,7 @@ export const EyeIcon = (props: SvgIconBaseProps) => {
         <circle cx="12" cy="12" r="3"/>
     </SvgIconBase>
 }
+EyeIcon.displayName = 'EyeIcon';
 
 export const EyeOffIcon = (props: SvgIconBaseProps) => {
     return <SvgIconBase {...props}>
@@ -417,6 +460,6 @@ export const EyeOffIcon = (props: SvgIconBaseProps) => {
         <path d="m2 2 20 20"/>
     </SvgIconBase>
 }
-
+EyeOffIcon.displayName = 'EyeOffIcon';
 
 

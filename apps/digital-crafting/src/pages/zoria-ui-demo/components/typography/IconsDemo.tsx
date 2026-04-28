@@ -102,7 +102,7 @@ export function IconsDemo() {
                             <Tooltip.Trigger>
                                 <Icon size='md'/>
                             </Tooltip.Trigger>
-                            <Tooltip.Body><Text>{Icon.name}</Text></Tooltip.Body>
+                            <Tooltip.Body><Text>{Icon.displayName}</Text></Tooltip.Body>
                         </Tooltip>
                     })
                 }
