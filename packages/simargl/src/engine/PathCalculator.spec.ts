@@ -1,6 +1,6 @@
 import {describe, expect, it} from "vitest";
 import {calculatePolygonalLine, calculateStraightLine} from "./PathCalculator.ts";
-import type {Node} from "./Types.ts";
+import type {Node} from "../types/Types.ts";
 
 describe("PathCalculator", () => {
     const nodeSize = 36;

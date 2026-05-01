@@ -3,8 +3,8 @@ import {playNode, playPath} from "../utils/LPAnimationUtils.ts";
 import {LPAnimationDefs} from "./LPAnimationDefs.tsx";
 import {NODE_SIZE} from "../utils/LPAnimationConsts.ts";
 import {LANDING_PAGE_ANIMATIONS} from "../animations/LPAnimations.ts";
-import type {Animation} from "../diagram/Types.ts";
-import {DEFAULT_PACKET_POOL} from "../diagram/PacketPool.ts";
+import type {Animation} from "@digital-crafting/simargl";
+import {DEFAULT_PACKET_POOL} from "@digital-crafting/simargl";
 import {useEffect, useRef} from "react";
 
 export const LPArchitectureAnimation = () => {

@@ -1,17 +1,26 @@
-import type {Connection, Path} from "./Types.ts";
+import type {Connection, Path} from "@digital-crafting/simargl";
+import {calculatePaths} from "@digital-crafting/simargl";
 import {
     Database1,
-    Database2, Database3, Database4,
+    Database2,
+    Database3,
+    Database4,
     Gateway1,
     Gateway2,
-    Laptop1, Laptop2, MessageBroker,
-    Pc1, Pc2, Scheduler1, Scheduler2,
+    Laptop1,
+    Laptop2,
+    MessageBroker,
+    Pc1,
+    Pc2,
+    Scheduler1,
+    Scheduler2,
     Server1,
-    Server2, Server3, Server4,
+    Server2,
+    Server3,
+    Server4,
     Smartphone1,
     Smartphone2
 } from "./Nodes.ts";
-import {calculatePaths} from "./PathCalculator.ts";
 import {NODE_SIZE} from "../utils/LPAnimationConsts.ts";
 
 export const CONNECTIONS: Connection[] = [

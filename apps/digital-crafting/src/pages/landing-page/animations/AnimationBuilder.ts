@@ -1,10 +1,9 @@
-import type {Animation, Connection, LineType, Node, Path} from "../diagram/Types.ts";
+import type {Animation, Connection, LineType, Node, Path} from "@digital-crafting/simargl";
+import {calculatePath} from "@digital-crafting/simargl";
 import {NODE_SIZE} from "../utils/LPAnimationConsts.ts";
-import {calculatePath} from "../diagram/PathCalculator.ts";
 
 export class AnimationBuilder {
     private _connections: Connection[] = [];
-    // @ts-ignore
     private currentNode: Node;
 
     private constructor(node: Node) {

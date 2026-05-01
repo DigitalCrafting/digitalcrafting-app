@@ -1,4 +1,4 @@
-import type {Connection, Node, Path, Position} from "./Types.ts";
+import type {Connection, Node, Path, Position} from "../types/Types.ts";
 
 /**
  * Assumptions:

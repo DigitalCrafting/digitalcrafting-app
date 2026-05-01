@@ -1,4 +1,4 @@
-import type {Node} from "./Types.ts";
+import type {Node} from "@digital-crafting/simargl";
 import {NODE_SIZE} from "../utils/LPAnimationConsts.ts";
 
 /* ================
