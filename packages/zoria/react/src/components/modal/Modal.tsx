@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useCallback, useContext, useEffect, useRef, useState} from 'react';
-import {Subject} from "rxjs";
+import {EventEmitter} from "@zoria-ui/events";
 import {createPortal} from "react-dom";
 import {UiSize} from "../../types/UiSizes";
 import {XIcon} from "../icons/Icons";
@@ -14,14 +14,14 @@ interface ModalEvent {
 }
 
 class ModalServiceImpl {
-    readonly subject: Subject<ModalEvent> = new Subject();
+    readonly subject: EventEmitter<ModalEvent> = new EventEmitter();
 
     show(modal: React.ReactElement<ModalProps>) {
-        this.subject.next({modal});
+        this.subject.emit({modal});
     }
 
     hide() {
-        this.subject.next({modal: null})
+        this.subject.emit({modal: null})
     }
 }
 
@@ -71,7 +71,7 @@ function ModalProvider({children}: ModalProviderProps) {
 type ModalActionEvent = 'submit' | 'close';
 
 interface ModalContextType {
-    subject: Subject<ModalActionEvent>
+    subject: EventEmitter<ModalActionEvent>
     dataTestId: string
 }
 
@@ -84,7 +84,7 @@ function useModalContext() {
 interface ModalContextProviderProps {
     children: React.ReactNode;
     dataTestId: string;
-    subject: Subject<ModalActionEvent>
+    subject: EventEmitter<ModalActionEvent>
 }
 
 function ModalContextProvider({children, dataTestId, subject}: ModalContextProviderProps) {
@@ -135,7 +135,7 @@ function ModalX() {
     const {dataTestId, subject} = useModalContext();
 
     const hideModal = () => {
-        subject.next('close');
+        subject.emit('close');
     }
 
     return <div className='z-modal-x item-right'>
@@ -220,7 +220,7 @@ function InternalModal({
     'data-testid': dataTestId = 'qa-modal',
     onClose = null
 }: ModalProps) {
-    const subject = useRef<Subject<ModalActionEvent>>(new Subject<ModalActionEvent>())
+    const subject = useRef<EventEmitter<ModalActionEvent>>(new EventEmitter<ModalActionEvent>())
     const modalRef = useRef<HTMLDivElement>(null);
 
     useFocusTrap(modalRef);
@@ -229,7 +229,7 @@ function InternalModal({
         if (onClose !== null) {
             onClose();
         } else {
-            ModalService.subject.next({modal: null});
+            ModalService.subject.emit({modal: null});
         }
     }, [onClose]);
 
@@ -237,7 +237,7 @@ function InternalModal({
         if (event.key === 'Escape') {
             hideModal();
         } else if (event.ctrlKey && event.key === 'Enter') {
-            subject.current.next('submit');
+            subject.current.emit('submit');
         }
     }, [hideModal])
 

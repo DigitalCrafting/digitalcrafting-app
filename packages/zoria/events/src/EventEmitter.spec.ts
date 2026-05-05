@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest';
-import {EventEmitter} from "./event-emitter.ts";
+import {EventEmitter} from "./EventEmitter.ts";
 
 describe('Event emitter', ()=> {
     it('should correctly emit event', () => {

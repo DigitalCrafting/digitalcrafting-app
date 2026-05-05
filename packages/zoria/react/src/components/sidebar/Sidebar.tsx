@@ -1,7 +1,7 @@
 import type {ZoriaProps} from "../../types/CommonTypes";
 import * as React from "react";
 import {useEffect, useState} from "react";
-import {Subject} from "rxjs";
+import {EventEmitter} from "@zoria-ui/events";
 import {IconButton} from "../buttons/IconButton";
 import {MenuIcon} from "../icons/Icons";
 import {H4} from "../typography/Typography";
@@ -24,10 +24,10 @@ interface SidePanelProps extends ZoriaProps {
 }
 
 class SidePanelServiceImpl {
-    readonly subject: Subject<boolean | undefined> = new Subject<boolean | undefined>();
+    readonly subject: EventEmitter<boolean | undefined> = new EventEmitter<boolean | undefined>();
 
     toggle() {
-        this.subject.next(undefined);
+        this.subject.emit(undefined);
     }
 }
 

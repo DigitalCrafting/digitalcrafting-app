@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useCallback, useContext, useEffect, useRef, useState} from 'react';
 import {createPortal} from "react-dom";
-import {Subject} from "rxjs";
+import {EventEmitter} from "@zoria-ui/events";
 import {useFloatingUiPositioning} from "../../hooks/useFloatingUiPositioning";
 
 interface TooltipEvent {
@@ -10,7 +10,7 @@ interface TooltipEvent {
 }
 
 interface TooltipContextType {
-    subject: Subject<TooltipEvent>,
+    subject: EventEmitter<TooltipEvent>,
     content?: React.ReactElement<any> | null
 }
 
@@ -31,7 +31,7 @@ function TooltipTrigger({children, content}: TooltipTriggerProps) {
 
     const onRefChange = useCallback((node: HTMLDivElement) => {
        if (node === null) {
-           subject.next({
+           subject.emit({
                triggerRef: null,
                content: null
            });
@@ -44,13 +44,13 @@ function TooltipTrigger({children, content}: TooltipTriggerProps) {
         className={`z-tooltip-wrapper`}
         ref={onRefChange}
         onMouseEnter={() => {
-            subject.next({
+            subject.emit({
                 triggerRef,
                 content
             })
         }}
         onMouseLeave={() => {
-            subject.next({
+            subject.emit({
                 triggerRef: null,
                 content: null
             });
@@ -117,10 +117,10 @@ interface TooltipProviderProps {
 }
 
 function TooltipProvider({children}: TooltipProviderProps) {
-    const tooltipSubject = useRef<Subject<TooltipEvent>>(new Subject<TooltipEvent>());
+    const tooltipEventEmitter = useRef<EventEmitter<TooltipEvent>>(new EventEmitter<TooltipEvent>());
 
     return <TooltipContext.Provider value={{
-        subject: tooltipSubject.current,
+        subject: tooltipEventEmitter.current,
         content: null
     }}>
         {children}
