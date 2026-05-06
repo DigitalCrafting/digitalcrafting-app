@@ -1,16 +1,18 @@
 import * as React from 'react';
 import {memo, useMemo, useState} from 'react';
-import {CryptoUtils, noop} from "../../utils/Utils";
+import {noop} from "../../utils/Utils";
 
 /* Internal */
 interface TabsContextType {
-    currentlyOpen: string,
-    setCurrentlyOpen: React.Dispatch<React.SetStateAction<string>>
+    currentlyOpen: string;
+    setCurrentlyOpen: React.Dispatch<React.SetStateAction<string>>;
+    dataTestId: string;
 }
 
 const TabsContext = React.createContext<TabsContextType>({
     currentlyOpen: '',
-    setCurrentlyOpen: noop
+    setCurrentlyOpen: noop,
+    dataTestId: ''
 });
 
 const useTabsContext = () => {
@@ -27,24 +29,29 @@ interface TabsTriggersSectionProps {
 }
 
 const TabsTriggersSection = ({triggers}: TabsTriggersSectionProps) => {
-    const {currentlyOpen, setCurrentlyOpen} = useTabsContext();
+    const {currentlyOpen, setCurrentlyOpen, dataTestId} = useTabsContext();
 
-    return <div className='z-tabs-triggers-section'>
+    return <div className='z-tabs-triggers-section' data-testid={`${dataTestId}-triggers`}>
         {
             triggers.map(({id, content}) => {
-                return <button
-                        key={id}
-                        className={`z-tab-trigger ${id === currentlyOpen ? 'active' : ''}`}
-                        onClick={() => setCurrentlyOpen(id)}>
+                return <div
+                    role='tab'
+                    key={id}
+                    className={`z-tab-trigger ${id === currentlyOpen ? 'active' : ''}`}
+                    onClick={() => setCurrentlyOpen(id)}
+                    data-testid={`${dataTestId}-trigger-${id}`}
+                >
                     {content}
-                </button>
+                </div>
             })
         }
     </div>
 }
 
 const TabsBodySection = ({children}: React.PropsWithChildren) => {
-    return <div className='z-tabs-body-section-section'>
+    const {dataTestId} = useTabsContext();
+
+    return <div className='z-tabs-body-section' data-testid={`${dataTestId}-body`}>
         {children}
     </div>
 }
@@ -60,11 +67,27 @@ const TabBody = ({children}: React.PropsWithChildren<TabBodyProps>) => {
 TabBody.displayName = 'TabBody';
 TabBody.__type = 'TabBody';
 
-interface TabTriggerProps {
 
+const TabTriggerIcon = ({children}: React.PropsWithChildren) => {
+    return children
 }
 
-const TabTrigger = ({children}: React.PropsWithChildren<TabTriggerProps>) => {
+const TabTriggerLabel = ({children}: React.PropsWithChildren) => {
+    return <span className='z-tab-trigger-label'>{children}</span>
+};
+
+type TabTriggerChildrenType = |
+    React.ReactElement<typeof TabTriggerIcon> |
+    React.ReactElement<typeof TabTriggerLabel> |
+    [React.ReactElement<typeof TabTriggerLabel>, React.ReactElement<typeof TabTriggerIcon>] |
+    [React.ReactElement<typeof TabTriggerIcon>, React.ReactElement<typeof TabTriggerLabel>] |
+    [React.ReactElement<typeof TabTriggerIcon>, React.ReactElement<typeof TabTriggerLabel>, React.ReactElement<typeof TabTriggerIcon>];
+
+interface TabTriggerProps {
+    children: TabTriggerChildrenType
+}
+
+const TabTrigger = ({children}: TabTriggerProps) => {
     return children
 }
 
@@ -72,7 +95,7 @@ TabTrigger.displayName = 'TabTrigger';
 TabTrigger.__type = 'TabTrigger';
 
 interface TabItemProps {
-    id?: string;
+    id: string;
     children: [React.ReactElement<typeof TabTrigger>, React.ReactElement<typeof TabBody>];
 }
 
@@ -82,8 +105,7 @@ interface TabItemComponent extends React.FC<TabItemProps> {
 }
 
 const TabItem: TabItemComponent = ({
-    children,
-    id = CryptoUtils.UUID()
+    children
 }: TabItemProps) => {
     return <div>{children}</div>
 }
@@ -98,6 +120,7 @@ function isTabItem(child: React.ReactNode): child is React.ReactElement<TabItemP
 interface TabsProps {
     children: React.ReactElement<typeof TabItem>[] | React.ReactElement<typeof TabItem>
     vertical?: boolean
+    removeBorder?: boolean
     className?: string
     defaultOpen?: string
     'data-testid'?: string;
@@ -106,14 +129,11 @@ interface TabsProps {
 const TabsInternal = memo(({
     children,
     vertical = false,
+    removeBorder = false,
     className: externalClassName = '',
-    defaultOpen = null,
-    "data-testid": dataTestId = '',
+    defaultOpen = undefined,
+    "data-testid": dataTestId = 'qa-tabs',
 }: TabsProps) => {
-    const [currentlyOpen, setCurrentlyOpen] = useState<string>(defaultOpen);
-
-    const tabsOrientationClassName = vertical ? 'z-tabs-vertical' : 'z-tabs-horizontal';
-
     const [triggers, bodiesMap] = useMemo(() => {
         const triggers: InternalTabTrigger[] = [];
         const bodiesMap = new Map<string, React.ReactElement<typeof TabBody>>();
@@ -130,14 +150,21 @@ const TabsInternal = memo(({
 
         return [triggers, bodiesMap];
     }, [children])
+    const [currentlyOpen, setCurrentlyOpen] = useState<string>(defaultOpen || triggers[0].id);
 
+    const tabsOrientationClassName = vertical ? 'z-tabs-vertical' : 'z-tabs-horizontal';
+    const removeBorderClassName = removeBorder ? 'remove-border' : '';
     const currentBody = bodiesMap.get(currentlyOpen);
+
 
     return <TabsContext.Provider value={{
         currentlyOpen,
-        setCurrentlyOpen
+        setCurrentlyOpen,
+        dataTestId
     }}>
-        <div className={`z-tabs ${tabsOrientationClassName} ${externalClassName}`.trim()}>
+        <div className={`z-tabs ${tabsOrientationClassName} ${removeBorderClassName} ${externalClassName}`.trim()}
+             data-testid={dataTestId}
+        >
             <TabsTriggersSection triggers={triggers}/>
             <TabsBodySection>{currentBody}</TabsBodySection>
         </div>
@@ -147,6 +174,8 @@ const TabsInternal = memo(({
 const Tabs = Object.assign(TabsInternal, {
     Item: TabItem,
     Trigger: TabTrigger,
+    TriggerLabel: TabTriggerLabel,
+    TriggerIcon: TabTriggerIcon,
     Body: TabBody
 })
 
