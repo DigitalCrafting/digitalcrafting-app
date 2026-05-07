@@ -19,7 +19,8 @@
 
 .z-button {
   @extend .z-button-default;
-  --button-secondary-active-bg: var(--color-grey-10);
+  --button-secondary-hover-bg: var(--color-grey-10);
+  --button-secondary-active-bg: var(--color-grey-20);
 
   &-primary {
     color: var(--color-white);
@@ -51,6 +52,7 @@
 
     &:hover:not(:disabled) {
       color: var(--z-color-accent-hover);
+      background-color: var(--button-secondary-hover-bg);
       box-shadow: var(--shadow-2);
       border-color: var(--z-color-accent-hover);
     }
