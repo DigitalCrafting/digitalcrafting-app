@@ -25,11 +25,12 @@ import {SelectInputDemo} from "./components/inputs/SelectInputDemo.tsx";
 import {HeadersDemo} from "./components/typography/HeadersDemo.tsx";
 import {TableDemo} from "./components/display/TableDemo.tsx";
 import {TabsDemo} from "./components/display/TabsDemo.tsx";
+import {TimePickerInputDemo} from "./components/inputs/TimePickerInputDemo.tsx";
 
 const ZoriaUiDemoComponentsMap = new Map<ZoriaUIRoutePathsEnum, FunctionComponent[]>([
     [ZoriaUIRoutePathsEnum.TYPOGRAPHY, [TextDemo, HeadersDemo, IconsDemo]],
     [ZoriaUIRoutePathsEnum.BUTTONS, [ButtonDemo, IconButtonDemo]],
-    [ZoriaUIRoutePathsEnum.INPUTS, [InputDemo, TextInputDemo, TextareaInputDemo, NumberInputDemo, SelectInputDemo,  PasswordInputDemo, DatePickerInputDemo, CalendarDemo, CheckboxDemo, ToggleDemo, RadioGroupDemo]],
+    [ZoriaUIRoutePathsEnum.INPUTS, [InputDemo, TextInputDemo, TextareaInputDemo, NumberInputDemo, SelectInputDemo,  PasswordInputDemo, DatePickerInputDemo, TimePickerInputDemo, CalendarDemo, CheckboxDemo, ToggleDemo, RadioGroupDemo]],
     [ZoriaUIRoutePathsEnum.MODAL, [ModalDemo]],
     [ZoriaUIRoutePathsEnum.POPOVER, [PopoverDemo]],
     [ZoriaUIRoutePathsEnum.DISPLAY, [TableDemo, TabsDemo, TooltipDemo, ChipDemo, SpinnerDemo]],

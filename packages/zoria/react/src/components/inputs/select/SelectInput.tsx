@@ -91,13 +91,13 @@ const NativeSelectInput = ({
 interface ZoriaSelectDropdownProps {
     currentlySelected: any;
     options: ZoriaSelectOption<any, any>[];
-    width: number;
+    width?: number;
     onSelected: (option: ZoriaSelectOption<any, any>) => void;
-    sentinelRef: RefObject<HTMLButtonElement | null>;
+    sentinelRef: RefObject<HTMLElement | null>;
     close: () => void
 }
 
-const ZoriaSelectDropdown = ({
+export const ZoriaSelectDropdown = ({
     currentlySelected,
     options,
     width,
@@ -126,9 +126,10 @@ const ZoriaSelectDropdown = ({
     }, [options]);
 
     return <ul className='z-options-box'
-               style={{minWidth: width}}
+               style={width ? {minWidth: width} : {}}
                aria-autocomplete='list'
                ref={dropdownRef}
+               tabIndex={-1}
     >
         {
             options.map(option => (

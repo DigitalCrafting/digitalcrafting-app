@@ -39,11 +39,15 @@
     align-items: center;
 
     background-color: var(--input-bg);
-    border: var(--z-theme-border-medium-neutral);
+    border: 1px solid var(--color-grey-50);
     border-radius: var(--radius-md);
     transition: var(--z-theme-focus-transition);
     outline: none;
     padding: 3px 6px;
+
+    span {
+      display: flex;
+    }
 
     &:has(.z-input:disabled) {
       border-color: var(--z-color-disabled-bg);

@@ -10,7 +10,7 @@ export class SelectDropdownController<T extends HTMLElement> {
     private options!: ZoriaSelectOption<any, any>[];
     private selectElements!: CircularArray<HTMLElement>;
     private observer: FocusableElementsObserver<T>;
-    private sentinelRef!: RefObject<HTMLButtonElement | null>;
+    private sentinelRef!: RefObject<HTMLElement | null>;
     private closeDropdown!: () => void;
     private keyboardSearchService!: SelectKeyboardSearchService;
 
@@ -23,7 +23,7 @@ export class SelectDropdownController<T extends HTMLElement> {
         return new SelectDropdownController<T>(ref);
     }
 
-    public withFocusSentinel(sentinelRef: RefObject<HTMLButtonElement | null>): SelectDropdownController<T> {
+    public withFocusSentinel(sentinelRef: RefObject<HTMLElement | null>): SelectDropdownController<T> {
         this.sentinelRef = sentinelRef;
         return this;
     }
