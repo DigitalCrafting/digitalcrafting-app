@@ -125,7 +125,7 @@ const TimePickerInput = ({error: externalError, minutesInterval = 30, ...inputPr
                                          options={timePickerOptions}
                                          onSelected={onTimepickerChange}
                                          sentinelRef={inputRef}
-                                         width={'100px'}
+                                         width={100}
                                          close={() => popoverRef?.current?.close()}/>
                 </Card>
             </Popover.Body>

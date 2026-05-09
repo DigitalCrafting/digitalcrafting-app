@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {memo, useMemo, useState} from 'react';
 import {noop} from "../../utils/Utils";
+import {useKeyboardClick} from "../../hooks/useKeyboardClick";
 
 /* Internal */
 interface TabsContextType {
@@ -34,14 +35,19 @@ const TabsTriggersSection = ({triggers}: TabsTriggersSectionProps) => {
     return <div className='z-tabs-triggers-section' data-testid={`${dataTestId}-triggers`}>
         {
             triggers.map(({id, content}) => {
+                const onKeyDown = useKeyboardClick(() => setCurrentlyOpen(id));
                 return <div
                     role='tab'
                     key={id}
                     className={`z-tab-trigger ${id === currentlyOpen ? 'active' : ''}`}
                     onClick={() => setCurrentlyOpen(id)}
+                    onKeyDown={onKeyDown}
                     data-testid={`${dataTestId}-trigger-${id}`}
+                    tabIndex={0}
                 >
-                    {content}
+                    <div className='z-tab-trigger-content-wrapper'>
+                        {content}
+                    </div>
                 </div>
             })
         }
