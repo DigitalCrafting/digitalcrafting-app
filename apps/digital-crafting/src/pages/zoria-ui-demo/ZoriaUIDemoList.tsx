@@ -26,11 +26,26 @@ import {HeadersDemo} from "./components/typography/HeadersDemo.tsx";
 import {TableDemo} from "./components/display/TableDemo.tsx";
 import {TabsDemo} from "./components/display/TabsDemo.tsx";
 import {TimePickerInputDemo} from "./components/inputs/TimePickerInputDemo.tsx";
+import {DateTimePickerInputDemo} from "./components/inputs/DateTimePickerInputDemo.tsx";
 
 const ZoriaUiDemoComponentsMap = new Map<ZoriaUIRoutePathsEnum, FunctionComponent[]>([
     [ZoriaUIRoutePathsEnum.TYPOGRAPHY, [TextDemo, HeadersDemo, IconsDemo]],
     [ZoriaUIRoutePathsEnum.BUTTONS, [ButtonDemo, IconButtonDemo]],
-    [ZoriaUIRoutePathsEnum.INPUTS, [InputDemo, TextInputDemo, TextareaInputDemo, NumberInputDemo, SelectInputDemo,  PasswordInputDemo, DatePickerInputDemo, TimePickerInputDemo, CalendarDemo, CheckboxDemo, ToggleDemo, RadioGroupDemo]],
+    [ZoriaUIRoutePathsEnum.INPUTS, [
+        InputDemo,
+        TextInputDemo,
+        TextareaInputDemo,
+        NumberInputDemo,
+        SelectInputDemo,
+        PasswordInputDemo,
+        DatePickerInputDemo,
+        TimePickerInputDemo,
+        DateTimePickerInputDemo,
+        CalendarDemo,
+        CheckboxDemo,
+        ToggleDemo,
+        RadioGroupDemo]
+    ],
     [ZoriaUIRoutePathsEnum.MODAL, [ModalDemo]],
     [ZoriaUIRoutePathsEnum.POPOVER, [PopoverDemo]],
     [ZoriaUIRoutePathsEnum.DISPLAY, [TableDemo, TabsDemo, TooltipDemo, ChipDemo, SpinnerDemo]],
@@ -51,11 +66,11 @@ export function ZoriaUIDemoList({type}: ZoriaUIDemoListProps) {
     return <Row className={`justify-center`}>
         <Col
             className={styles.ZoriaUIDemoList}
-            >
+        >
             {
                 demosToShow!.map((DemoComponent) => {
                     return <Row key={DemoComponent.name}>
-                        <DemoComponent />
+                        <DemoComponent/>
                     </Row>
                 })
             }

@@ -18,6 +18,7 @@ interface TimePickerInputProps extends Omit<InputProps, 'type' | 'value' | 'onCh
     minutesInterval?: number
 }
 
+/* TODO all ISO time parts, for now it's only HH:mm */
 const TimePickerInput = ({error: externalError, minutesInterval = 30, ...inputProps}: TimePickerInputProps) => {
     const [error, setError] = useState<string | undefined>(externalError);
     const [selectedTime, setSelectedTime] = useState<string | undefined>(inputProps.value);
@@ -114,7 +115,7 @@ const TimePickerInput = ({error: externalError, minutesInterval = 30, ...inputPr
                   onKeyDown={onKeyDown}
                   error={error}
                   type='text'
-                  placeholder='HH:mm'>
+                  placeholder='--:--'>
         <Popover ref={popoverRef}>
             <Popover.Trigger>
                 <IconButton><ClockIcon /></IconButton>

@@ -34,7 +34,9 @@ export const Input = ({
     return <div className={`z-input-wrapper ${externalClassName}`}
                 data-testid={dataTestId}
     >
-        <label className='z-input-label' htmlFor={id}>{label}</label>
+        {
+            label ? <label className='z-input-label' htmlFor={id}>{label}</label> : null
+        }
         <div className='z-input-container'>
             <input className='z-input' {...inputProps} id={id} disabled={disabled}/>
             {children}

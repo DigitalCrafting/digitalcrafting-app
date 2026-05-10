@@ -1,0 +1,30 @@
+.z-date-time-input-wrapper {
+  .z-date-time-input-container {
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+
+    .z-input-wrapper:first-of-type {
+      .z-input-container {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+      width: 60%;
+    }
+
+    .z-input-wrapper:last-of-type {
+      .z-input-container {
+        border-left: none;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+
+        .z-input {
+          flex: unset;
+        }
+      }
+
+      max-width: 40%;
+    }
+  }
+}
