@@ -16,18 +16,19 @@ export class SelectKeyboardSearchService {
         return new SelectKeyboardSearchService(_options);
     }
 
+    public withMatchIndex(_index: number) {
+        this.currentMatchIndex = _index;
+        return this;
+    }
+
     public search(event: React.KeyboardEvent | KeyboardEvent): ZoriaSelectOption<any, any> | null {
         const key = event.key.toLowerCase();
-
         clearTimeout(this.searchTimeoutId);
-        this.searchTimeoutId = setTimeout(() => {
-            this.searchString = "";
-            this.isSearchBySameLetter = false;
-        }, 500);
 
         if (this.searchString.length === 0) {
             this.isSearchBySameLetter = false;
             this.searchString += key;
+            return this.searchByLetter();
         } else if (this.searchString.length === 1 && key === this.searchString) {
             this.isSearchBySameLetter = true;
             return this.searchByLetter();
@@ -35,15 +36,22 @@ export class SelectKeyboardSearchService {
             this.isSearchBySameLetter = false;
             this.searchString = key;
             this.currentMatchIndex = -1;
+            this.searchTimeoutId = setTimeout(() => {
+                this.searchString = "";
+                this.isSearchBySameLetter = false;
+            }, 500);
         } else {
             this.searchString += key;
+            this.searchTimeoutId = setTimeout(() => {
+                this.searchString = "";
+                this.isSearchBySameLetter = false;
+            }, 500);
         }
 
         return this.searchByPhrase();
     }
 
     private searchByLetter(): ZoriaSelectOption<any, any> | null {
-        clearTimeout(this.searchTimeoutId);
         let startIndex = this.currentMatchIndex + 1;
         if (startIndex === this.options.length) {
             startIndex = 0;

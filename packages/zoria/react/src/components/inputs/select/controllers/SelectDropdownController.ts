@@ -35,7 +35,14 @@ export class SelectDropdownController<T extends HTMLElement> {
 
     public withOptions(_options: ZoriaSelectOption[]): SelectDropdownController<T> {
         this.options = _options;
-        this.keyboardSearchService = SelectKeyboardSearchService.forOptions(this.options);
+        const keyboardSearchService = SelectKeyboardSearchService.forOptions(this.options);
+        const matchingElement = this.rootElRef.current?.getElementsByClassName('is-selected');
+        if (matchingElement && matchingElement.length === 1) {
+            const matchIndex = this.options.findIndex((element) => element.value === matchingElement[0].getAttribute('data-value'));
+            this.keyboardSearchService = keyboardSearchService.withMatchIndex(matchIndex);
+        } else {
+            this.keyboardSearchService = keyboardSearchService.withMatchIndex(0);
+        }
         return this;
     }
 
@@ -116,8 +123,6 @@ export class SelectDropdownController<T extends HTMLElement> {
         }
 
         if (event.key.length === 1 && event.key !== ' ' && !event.ctrlKey && !event.metaKey) {
-            event.preventDefault();
-            event.stopPropagation();
             const match = this.keyboardSearchService.search(event);
             if (match) {
                 const htmlMatch = this.selectElements.getItems().find(
