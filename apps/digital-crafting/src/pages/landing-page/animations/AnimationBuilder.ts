@@ -1,5 +1,5 @@
-import type {Animation, Connection, LineType, Node, Path} from "@digital-crafting/simargl";
-import {calculatePath} from "@digital-crafting/simargl";
+import type {Animation, Connection, LineType, Node, Path} from "@digital-crafting/afd";
+import {calculatePath} from "@digital-crafting/afd";
 import {NODE_SIZE} from "../utils/LPAnimationConsts.ts";
 
 export class AnimationBuilder {

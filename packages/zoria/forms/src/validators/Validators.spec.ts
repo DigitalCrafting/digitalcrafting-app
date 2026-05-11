@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest';
-import {DEFAULT_VALIDATION_ERRORS, ValidatorComposers, Validators, ValidatorsComposition} from "./validators.ts";
+import {DEFAULT_VALIDATION_ERRORS, ValidatorComposers, Validators, ValidatorsComposition} from "./Validators.ts";
 
 describe('Validators', () => {
     describe('required', () => {

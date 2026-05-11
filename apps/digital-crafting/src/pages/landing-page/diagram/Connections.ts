@@ -1,5 +1,5 @@
-import type {Connection, Path} from "@digital-crafting/simargl";
-import {calculatePaths} from "@digital-crafting/simargl";
+import type {Connection, Path} from "@digital-crafting/afd";
+import {calculatePaths} from "@digital-crafting/afd";
 import {
     Database1,
     Database2,

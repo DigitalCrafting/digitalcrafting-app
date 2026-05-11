@@ -1,4 +1,4 @@
-import type {Node} from "@digital-crafting/simargl";
+import type {Node} from "@digital-crafting/afd";
 import {NODE_SIZE} from "../utils/LPAnimationConsts.ts";
 
 /* ================

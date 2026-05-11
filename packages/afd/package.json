@@ -1,7 +1,7 @@
 {
-  "name": "@digital-crafting/simargl",
+  "name": "@digital-crafting/afd",
   "version": "1.0.0",
-  "description": "",
+  "description": "Architecture Flow Diagrams",
   "main": "src/index.ts",
   "type": "module",
   "scripts": {

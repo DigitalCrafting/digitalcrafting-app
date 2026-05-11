@@ -1,2 +1,2 @@
-export * from './validators/validators.ts';
-export * from './forms/custom-forms.ts';
+export * from './validators/Validators.ts';
+export * from './forms/ZoriaForms.ts';

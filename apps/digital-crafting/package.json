@@ -16,7 +16,7 @@
     "@zoria-ui/forms": "workspace:*",
     "@zoria-ui/react": "workspace:*",
     "@zoria-ui/styles": "workspace:*",
-    "@digital-crafting/simargl": "workspace:*",
+    "@digital-crafting/afd": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.13.1",

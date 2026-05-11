@@ -1,3 +1,3 @@
-# Simargl
+# Architecture Flow Diagrams
 
-Named after messenger of Slavic Gods, this is library for creating animated Systems Architecture diagrams in SVG. 
+Library for creating animated Systems Architecture diagrams in SVG. 

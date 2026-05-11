@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest';
-import {FormArray, FormGroup, FormInputControl} from "./custom-forms.ts";
-import {ValidatorComposers} from "../validators/validators.ts";
+import {FormArray, FormGroup, FormInputControl} from "./ZoriaForms.ts";
+import {ValidatorComposers} from "../validators/Validators.ts";
 
 describe('Custom forms', () => {
     describe('FormInput', () => {

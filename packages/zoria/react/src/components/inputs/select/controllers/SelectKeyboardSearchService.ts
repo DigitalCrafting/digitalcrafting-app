@@ -36,16 +36,8 @@ export class SelectKeyboardSearchService {
             this.isSearchBySameLetter = false;
             this.searchString = key;
             this.currentMatchIndex = -1;
-            this.searchTimeoutId = setTimeout(() => {
-                this.searchString = "";
-                this.isSearchBySameLetter = false;
-            }, 500);
         } else {
             this.searchString += key;
-            this.searchTimeoutId = setTimeout(() => {
-                this.searchString = "";
-                this.isSearchBySameLetter = false;
-            }, 500);
         }
 
         return this.searchByPhrase();
@@ -71,6 +63,10 @@ export class SelectKeyboardSearchService {
     }
 
     private searchByPhrase(): ZoriaSelectOption<any, any> | null {
+        this.searchTimeoutId = setTimeout(() => {
+            this.searchString = "";
+            this.isSearchBySameLetter = false;
+        }, 500);
         this.currentMatchIndex = this.options.findIndex((opt) => opt.searchValue.toLowerCase().startsWith(this.searchString));
 
         if (this.currentMatchIndex > -1) {
