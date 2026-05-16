@@ -1,5 +1,5 @@
-import {EventEmitter, Observer, Subscription} from "@zoria-ui/events";
-import {ValidationError, ValidatorsComposition} from "../validators/Validators.ts";
+import {EventEmitter, type Observer, type Subscription} from "@zoria-ui/events";
+import {type ValidationError, type ValidatorsComposition} from "../validators/Validators.ts";
 
 type EventConfig = {
     emit?: boolean,

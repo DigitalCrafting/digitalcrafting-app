@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "pnpm --filter digital-crafting dev",
     "build": "pnpm -r build",
+    "build-libs": "pnpm -r --filter \"@zoria-ui/*\" run build",
+    "release": "pnpm run build && pnpm publish -r --access public",
     "test": "pnpm vitest"
   },
   "keywords": [],

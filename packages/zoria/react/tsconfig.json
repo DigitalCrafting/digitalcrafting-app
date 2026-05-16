@@ -8,7 +8,7 @@
       "DOM",
       "DOM.Iterable"
     ],
-    "module": "Bundler",
+    "module": "esnext",
     "types": [
       "node"
     ],

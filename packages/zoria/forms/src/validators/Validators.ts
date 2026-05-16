@@ -9,13 +9,14 @@ export interface ValidatorsComposition<T = any> {
     validate(value: T): ValidationError;
 }
 
-enum BuiltInValidators {
-    REQUIRED = 'REQUIRED',
-    MIN_LENGTH = 'MIN_LENGTH',
-    MAX_LENGTH = 'MAX_LENGTH',
-    MIN_VALUE = 'MIN_VALUE',
-    MAX_VALUE = 'MAX_VALUE'
-}
+const BuiltInValidators = {
+    REQUIRED: 'REQUIRED',
+    MIN_LENGTH: 'MIN_LENGTH',
+    MAX_LENGTH: 'MAX_LENGTH',
+    MIN_VALUE: 'MIN_VALUE',
+    MAX_VALUE: 'MAX_VALUE'
+} as const;
+type BuiltInValidators = (typeof BuiltInValidators)[keyof typeof BuiltInValidators];
 
 export const DEFAULT_VALIDATION_ERRORS: Record<BuiltInValidators, string> = {
     REQUIRED: 'Field is required',

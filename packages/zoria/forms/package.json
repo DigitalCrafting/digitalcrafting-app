@@ -1,25 +1,54 @@
 {
   "name": "@zoria-ui/forms",
   "private": false,
-  "version": "1.0.0",
+  "version": "0.1.0",
+  "description": "An Angular-inspired forms library for personal projects (Work in Progress).",
   "type": "module",
   "main": "src/index.ts",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
     "preview": "vite preview",
     "test": "vitest run"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "require": "./dist/index.cjs"
+      }
+    }
   },
   "dependencies": {
     "@zoria-ui/events": "workspace:*"
   },
   "devDependencies": {
+    "tsup": "^8.5.1",
     "typescript": "~5.9.3",
     "vite": "^7.3.1",
     "vitest": "^4.0.18"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "zoria",
+    "zoria-ui",
+    "forms",
+    "form-group",
+    "form-control",
+    "reactive-forms",
+    "angular-style-forms",
+    "form-validation",
+    "validation",
+    "typescript",
+    "state-management"
+  ],
+  "author": "Kamil Kasprzyk (DigitalCrafting) (https://digitalcrafting.dev)",
   "license": "ISC",
   "packageManager": "pnpm@10.17.1"
 }

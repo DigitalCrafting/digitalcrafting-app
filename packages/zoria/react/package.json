@@ -1,15 +1,42 @@
 {
   "name": "@zoria-ui/react",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "A React implementation of modular UI library for personal projects (Work in Progress).",
   "main": "src/index.ts",
   "type": "module",
   "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
     "barrels": "barrelsby --delete --noHeader --location top --directory src",
     "test": "vitest run"
   },
-  "keywords": [],
-  "author": "",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "require": "./dist/index.cjs"
+      }
+    }
+  },
+  "keywords": [
+    "zoria",
+    "zoria-ui",
+    "react",
+    "react-components",
+    "ui-components",
+    "design-system",
+    "components",
+    "accessible-ui",
+    "ts",
+    "tsx"
+  ],
+  "author": "Kamil Kasprzyk (DigitalCrafting) (https://digitalcrafting.dev)",
   "license": "ISC",
   "packageManager": "pnpm@10.17.1",
   "dependencies": {
