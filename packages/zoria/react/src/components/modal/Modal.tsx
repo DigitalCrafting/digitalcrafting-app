@@ -166,9 +166,10 @@ function ModalSubmitButton({onClick, children, ...props}: ButtonProps) {
     }, []);
 
     return <Button
+        type='button'
+        {...props}
         ref={ref}
         onClick={internalOnClick}
-        {...props}
         data-testid={`${dataTestId}-submit-button`}
     >{children}</Button>
 }
@@ -181,6 +182,7 @@ function ModalActionButton({onClick, children, ...props}: ButtonProps) {
     }
 
     return <Button
+        type='button'
         data-testid={`${dataTestId}-action-button`}
         onClick={internalOnClick}
         {...props}

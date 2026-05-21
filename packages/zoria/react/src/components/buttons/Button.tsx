@@ -13,15 +13,21 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         onClick,
         className: externalClassName = '',
         secondary = false,
-        'data-testid': dataTestid = 'qa-button'
+        'data-testid': dataTestid = 'qa-button',
+        ...rest
     }: ButtonProps, ref) => {
         const buttonStyle = secondary ? 'z-button-secondary' : 'z-button-primary';
 
-        return <button ref={ref} data-testid={dataTestid} role="button"
+        return <button
+                       type='button'
+                       {...rest}
+                       ref={ref}
+                       data-testid={dataTestid}
+                       role="button"
                        className={`z-button ${buttonStyle} ${externalClassName}`}
                        onClick={onClick}
-                       // onKeyDown={onKeyDown}
-                       disabled={disabled}>{children}</button>
+                       disabled={disabled}
+        >{children}</button>
     }
 )
 export const TextButton = React.forwardRef<HTMLButtonElement, Omit<ButtonProps, 'secondary'>>(
@@ -30,12 +36,19 @@ export const TextButton = React.forwardRef<HTMLButtonElement, Omit<ButtonProps, 
         disabled,
         onClick,
         className: externalClassName = '',
-        'data-testid': dataTestid = 'qa-text-button'
+        'data-testid': dataTestid = 'qa-text-button',
+        ...rest
     }: ButtonProps, ref) => {
-        return <button ref={ref} data-testid={dataTestid} role="button"
+        return <button
+                       type='button'
+                       {...rest}
+                       ref={ref}
+                       data-testid={dataTestid}
+                       role="button"
                        className={`z-button-text ${externalClassName}`}
                        onClick={onClick}
-                       disabled={disabled}>{children}</button>
+                       disabled={disabled}
+        >{children}</button>
     }
 )
 

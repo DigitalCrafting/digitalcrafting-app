@@ -14,14 +14,18 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>((
     size = UiSize.MD,
     onClick,
     className: externalClassName = '',
-    'data-testid': dataTestId = 'qa-icon-button'
+    'data-testid': dataTestId = 'qa-icon-button',
+    ...rest
 }, ref) => {
-    return <button data-testid={dataTestId}
-                   ref={ref}
-                   disabled={disabled}
-                   role='button'
-                   className={`z-icon-button z-icon-button-${size} ${externalClassName}`}
-                   onClick={onClick}
+    return <button
+        type='button'
+        {...rest}
+        data-testid={dataTestId}
+        ref={ref}
+        disabled={disabled}
+        role='button'
+        className={`z-icon-button z-icon-button-${size} ${externalClassName}`}
+        onClick={onClick}
     >
         {children}
     </button>

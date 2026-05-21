@@ -41,6 +41,7 @@ const Day = React.memo(({
     }
 
     return <button
+        type='button'
         onClick={() => onSelect(day)}
         className={classNames}
         disabled={disabled}

@@ -214,6 +214,7 @@ const ZoriaSelectInput = ({
                     <div className='z-input z-select z-select-custom'>
                         <input tabIndex={-1} type='hidden' {...props} id={id} disabled={disabled}/>
                         <button onKeyDown={onKeyDown}
+                                type='button'
                                 ref={sentinelRef}>{valueDecoration} {currentlySelected?.display}</button>
                         <ChevronDownIcon tabIndex={-1}/>
                     </div>
