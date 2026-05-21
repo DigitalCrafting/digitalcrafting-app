@@ -9,17 +9,23 @@
   outline: none;
 }
 
-html, body {
-  width: 100%;
+html {
   height: 100%;
+}
+
+body {
+  width: 100%;
+  min-height: 100%;
   margin: 0;
   padding: 0;
   background-color: var(--z-color-bg);
   color: var(--z-color-text);
   font-family: var(--font-family-sans);
-  overflow-y: hidden;
 
   accent-color: var(--z-color-accent);
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
