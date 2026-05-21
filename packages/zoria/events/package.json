@@ -1,7 +1,7 @@
 {
   "name": "@zoria-ui/events",
   "private": false,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A from scratch events library for personal projects (Work in Progress).",
   "type": "module",
   "main": "src/index.ts",
