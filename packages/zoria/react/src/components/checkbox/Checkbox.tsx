@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'>{
+export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'>{
     children: string,
     onChange?: (value: boolean) => void
 }

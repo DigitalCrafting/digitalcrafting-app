@@ -183,4 +183,4 @@ const Popover = Object.assign(InternalPopover,
 
 
 export {Popover};
-export type {PopoverHandle};
+export type {PopoverHandle, PopoverProps};

@@ -35,3 +35,4 @@ const PasswordInput = ({children, onChange = noop, ...props}: PasswordInputProps
 }
 
 export {PasswordInput};
+export type { PasswordInputProps };

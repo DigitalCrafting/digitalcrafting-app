@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {UiSize} from "../../types/UiSizes";
 
-interface CardProps {
+export interface CardProps {
     padding?: UiSize | 'none',
     shadow?: UiSize | 'none',
     className?: string

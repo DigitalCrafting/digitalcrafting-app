@@ -12,16 +12,23 @@ const NavSectionContext = React.createContext<NavSectionContextType>({isOpen: fa
 
 const useNavSectionContext = () => React.useContext(NavSectionContext);
 
-type NavItemProps<C extends React.ElementType> = PolymorphicComponentProps<C,  {
+type NavItemProps<C extends React.ElementType> = PolymorphicComponentProps<C, {
     className?: string,
     active?: boolean
 }>
 
-const NavItem = <C extends React.ElementType = "a">({children, as, active, className: externalClassName = '', ...rest}: React.PropsWithChildren<NavItemProps<C>>) => {
+const NavItem = <C extends React.ElementType = "a">({
+    children,
+    as,
+    active,
+    className: externalClassName = '',
+    ...rest
+}: React.PropsWithChildren<NavItemProps<C>>) => {
     const Component = as || 'a';
     const {isOpen} = useNavSectionContext() || {isOpen: true};
 
-    return <Component tabIndex={isOpen ? 0 : -1} className={`z-navigation-item ${active ? 'is-selected' : ''} ${externalClassName}`.trim()} {...rest}>{children}</Component>
+    return <Component tabIndex={isOpen ? 0 : -1}
+                      className={`z-navigation-item ${active ? 'is-selected' : ''} ${externalClassName}`.trim()} {...rest}>{children}</Component>
 }
 
 interface NavSectionProps {
@@ -41,7 +48,8 @@ const NavSection = ({children, defaultOpen = false, title}: NavSectionProps) => 
     const onKeyDown = useKeyboardClick(toggleOpen);
 
     return <section className={`z-navigation-section ${isOpen ? 'z-navigation-section-open' : ''}`}>
-        <div tabIndex={0} className={`z-navigation-section-header ${isOpen ? 'z-navigation-section-open' : ''}`} onClick={toggleOpen} onKeyDown={onKeyDown}>
+        <div tabIndex={0} className={`z-navigation-section-header ${isOpen ? 'z-navigation-section-open' : ''}`}
+             onClick={toggleOpen} onKeyDown={onKeyDown}>
             {title} {isOpen ? <ChevronUpIcon size='md'/> : <ChevronDownIcon size='md'/>}
         </div>
         <div
@@ -77,4 +85,5 @@ const Navigation = Object.assign(NavigationInternal, {
     Item: NavItem
 });
 
-export { Navigation };
+export {Navigation};
+export type {NavigationProps};

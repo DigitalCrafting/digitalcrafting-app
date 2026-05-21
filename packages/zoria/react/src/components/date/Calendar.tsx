@@ -53,7 +53,7 @@ const Day = React.memo(({
     </button>
 });
 
-interface CalendarProps {
+export interface CalendarProps {
     id?: string
     value?: string
     onChange?: (value: string) => void

@@ -55,3 +55,4 @@ const DateTimePickerInput = ({
 }
 
 export {DateTimePickerInput};
+export type { DateTimePickerInputProps };

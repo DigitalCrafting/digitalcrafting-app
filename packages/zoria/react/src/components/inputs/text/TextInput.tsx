@@ -16,3 +16,4 @@ const TextInput = ({children, onChange = noop, ...props}: TextInputProps) => {
 };
 
 export {TextInput};
+export type { TextInputProps };

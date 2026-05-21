@@ -108,3 +108,4 @@ const DatePickerInput = ({error: externalError, ...inputProps}: DatePickerInputP
 }
 
 export {DatePickerInput};
+export type { DatePickerInputProps };

@@ -135,3 +135,4 @@ const TimePickerInput = ({error: externalError, minutesInterval = 30, ...inputPr
 }
 
 export {TimePickerInput};
+export type {TimePickerInputProps};

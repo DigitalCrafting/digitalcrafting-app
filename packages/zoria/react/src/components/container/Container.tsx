@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {UiSize} from "../../types/UiSizes";
 
-interface ContainerProps {
+export interface ContainerProps {
     size?: UiSize
     className?: string
 }

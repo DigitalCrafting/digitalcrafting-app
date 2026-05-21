@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {UiSize} from "../../types/UiSizes";
 
-interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode,
     disabled?: boolean
     size?: UiSize,

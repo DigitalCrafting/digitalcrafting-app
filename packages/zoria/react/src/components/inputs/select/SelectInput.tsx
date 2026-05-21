@@ -252,4 +252,5 @@ const SelectInput = (allProps: SelectInputProps) => {
     }
 }
 
-export {SelectInput}
+export {SelectInput};
+export type { SelectInputProps };

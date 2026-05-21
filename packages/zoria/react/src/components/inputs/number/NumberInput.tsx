@@ -32,3 +32,4 @@ const NumberInput = ({children, onKeyDown: externalOnKeyDown = noop, onChange = 
 }
 
 export {NumberInput};
+export type { NumberInputProps };

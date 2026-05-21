@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {UiSize} from "../../types/UiSizes";
 
-interface TextProps {
+export interface TextProps {
     className?: string,
     'data-testid'?: string
     size?: UiSize
@@ -17,7 +17,7 @@ export function Text({ children, className = '', 'data-testid': dataTestId, size
     >{children}</span>
 }
 
-interface HeaderProps {
+export interface HeaderProps {
     className?: string,
     'data-testid'?: string
 }

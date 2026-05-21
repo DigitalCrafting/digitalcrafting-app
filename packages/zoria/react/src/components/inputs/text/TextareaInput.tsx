@@ -1,7 +1,7 @@
 import * as React from "react";
 import {CryptoUtils} from "../../../utils/Utils";
 
-export interface TextareaInputProps extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange'> {
+interface TextareaInputProps extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange'> {
     className?: string
     'data-testid'?: string
     label?: string
@@ -47,3 +47,4 @@ const TextareaInput = ({
 }
 
 export {TextareaInput};
+export type { TextareaInputProps };

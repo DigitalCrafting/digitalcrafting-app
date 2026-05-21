@@ -9,7 +9,7 @@ type ChipColor = |
     'info' |
     'success';
 
-interface ChipProps {
+export interface ChipProps {
     className?: string,
     color?: ChipColor,
     variant?: UiVariant,
