@@ -14,10 +14,12 @@ const FUNCTIONAL_KEYS = ["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab"
 
 interface DatePickerInputProps extends Omit<InputProps, 'type' | 'value' | 'onChange' | 'onBlur'> {
     value?: string
+    min?: string
+    max?: string
     onChange?: (value: string) => void
 }
 
-const DatePickerInput = ({error: externalError, ...inputProps}: DatePickerInputProps) => {
+const DatePickerInput = ({error: externalError, min, max, ...inputProps}: DatePickerInputProps) => {
     const [error, setError] = useState<string | undefined>(externalError);
     const [selectedDate, setSelectedDate] = useState<string | undefined>(inputProps.value);
 
@@ -39,8 +41,17 @@ const DatePickerInput = ({error: externalError, ...inputProps}: DatePickerInputP
     const onBlur = () => {
         if (inputRef.current) {
             const value = inputRef.current.value;
-            if (!StringUtils.isEmpty(value) && !DateUtils.validateDate(value)) {
+            if (!StringUtils.isEmpty(value)) {
+                setError(undefined);
+                onInputChange(value);
+            }
+
+            if (!DateUtils.validateDate(value)) {
                 setError("Incorrect date");
+            } else if (!!min && DateUtils.isBefore(value, min)) {
+                setError(`Date must be no earlier than ${min}`);
+            } else if (!!max && DateUtils.isAfter(value, max)) {
+                setError(`Date must be no later than ${max}`);
             } else {
                 setError(undefined);
                 onInputChange(value);
@@ -100,7 +111,7 @@ const DatePickerInput = ({error: externalError, ...inputProps}: DatePickerInputP
             </Popover.Trigger>
             <Popover.Body trapFocus>
                 <Card padding='none' shadow='lg'>
-                    <Calendar value={selectedDate} onChange={onCalendarChange}/>
+                    <Calendar value={selectedDate} onChange={onCalendarChange} min={min} max={max}/>
                 </Card>
             </Popover.Body>
         </Popover>

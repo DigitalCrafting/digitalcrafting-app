@@ -21,6 +21,26 @@ export const DateUtils = {
             a.getDate() === b.getDate();
     },
 
+    isBefore: (dateAsStr: string, min?: string) => {
+        if (!min) return false;
+
+        if (!DateUtils.isValidIsoFormat(min)) {
+            throw new TypeError(`[DateUtils.isBefore] min is not correct ISO Date format; ${min}`)
+        }
+
+        return dateAsStr < min;
+    },
+
+    isAfter: (dateAsStr: string, max?: string) => {
+        if (!max) return false;
+
+        if (!DateUtils.isValidIsoFormat(max)) {
+            throw new TypeError(`[DateUtils.isAfter] max is not correct ISO Date format; ${max}`)
+        }
+
+        return dateAsStr > max;
+    },
+
     toISODate: (d: Date): string => {
         return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
     },
@@ -37,7 +57,11 @@ export const DateUtils = {
         return new Date(year, month, day);
     },
 
-    validateDate: (str: string) => {
+    isValidIsoFormat: (str: string) => /^\d{4}-\d{2}-\d{2}$/.test(str),
+
+    validateDate: (str?: string) => {
+        if (!str) return false;
+
         const parts = str.split('-');
         if (parts.length !== 3) return false;
 

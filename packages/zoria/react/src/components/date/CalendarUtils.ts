@@ -76,4 +76,16 @@ export class CalendarUtils {
         currentDate.setDate(currentDay);
         return DateUtils.isTheSameDate(todayDate, currentDate);
     }
+
+    static isDayDisabled = (visibleDate: Date, currentDay: number, min?: string, max?: string): boolean => {
+        if (!min && !max) {
+            return false;
+        }
+
+        const currentDate = DateUtils.atMidnight(visibleDate);
+        currentDate.setDate(currentDay);
+        const currentDateStr = DateUtils.toISODate(currentDate);
+
+        return DateUtils.isBefore(currentDateStr, min) || DateUtils.isAfter(currentDateStr, max);
+    }
 }

@@ -57,6 +57,8 @@ export interface CalendarProps {
     id?: string
     value?: string
     onChange?: (value: string) => void
+    min?: string
+    max?: string
     className?: string
     startingDay?: string
     yearRangeStart?: number
@@ -70,6 +72,8 @@ export const Calendar = React.memo((
         startingDay = 'Sun',
         value,
         onChange,
+        min,
+        max,
         className: externalClassName = '',
         yearRangeStart = 1990,
         yearRangeEnd = 2050,
@@ -133,6 +137,7 @@ export const Calendar = React.memo((
         days.push(<Day
             key={`curr-month-${day}`}
             onSelect={onDaySelected}
+            disabled={CalendarUtils.isDayDisabled(visibleDate, day, min, max)}
             isSelected={DateUtils.isTheSameDate(selectedDate, visibleDate) && selectedDate?.getDate() === day}
             isToday={CalendarUtils.isToday(todayDate, visibleDate, day, 'current')}
             day={day}/>

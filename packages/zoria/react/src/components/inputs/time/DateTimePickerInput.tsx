@@ -6,6 +6,8 @@ import {DateTimeUtils} from "../../../utils/DateTimeUtils";
 interface DateTimePickerInputProps {
     value?: string;
     onChange?: (value: string) => void;
+    min?: string;
+    max?: string;
     minutesInterval?: number;
     className?: string
     label?: string
@@ -16,6 +18,8 @@ interface DateTimePickerInputProps {
 const DateTimePickerInput = ({
     value,
     onChange,
+    min,
+    max,
     minutesInterval,
     className: externalClassName = '',
     label,
@@ -45,7 +49,7 @@ const DateTimePickerInput = ({
     return <div className={`z-input-wrapper z-date-time-input-wrapper ${externalClassName}`.trim()}>
         <label className='z-input-label'>{label}</label>
         <div className='z-date-time-input-container'>
-            <DatePickerInput value={dateValue} onChange={onDateValueChange}/>
+            <DatePickerInput value={dateValue} onChange={onDateValueChange} min={min} max={max}/>
             <TimePickerInput value={timeValue} onChange={onTimeValueChange} minutesInterval={minutesInterval}/>
         </div>
         {
