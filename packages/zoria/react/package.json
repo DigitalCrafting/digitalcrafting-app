@@ -1,7 +1,7 @@
 {
   "name": "@zoria-ui/react",
-  "version": "0.1.1",
-  "description": "A React implementation of modular UI library for personal projects (Work in Progress).",
+  "version": "0.1.2",
+  "description": "A React implementation of UI library for personal projects (Work in Progress).",
   "main": "src/index.ts",
   "type": "module",
   "scripts": {

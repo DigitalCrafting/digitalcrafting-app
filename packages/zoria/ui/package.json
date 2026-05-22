@@ -1,7 +1,7 @@
 {
   "name": "@zoria-ui/styles",
-  "version": "0.1.1",
-  "description": "A modular UI library styles for personal projects (Work in Progress).",
+  "version": "0.1.2",
+  "description": "A UI library styles for personal projects (Work in Progress).",
   "private": false,
   "main": "src/index.css",
   "style": "src/index.css",
