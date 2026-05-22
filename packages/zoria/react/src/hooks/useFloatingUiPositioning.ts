@@ -20,7 +20,7 @@ export function useFloatingUiPositioning(
                 placement,
                 middleware: [
                     offset(offsetBy),
-                    flip(),
+                    flip({ fallbackPlacements: ['top-start'] }),
                     shift({padding: 8})
                 ]
             });

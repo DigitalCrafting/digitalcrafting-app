@@ -41,9 +41,10 @@ const DatePickerInput = ({error: externalError, min, max, ...inputProps}: DatePi
     const onBlur = () => {
         if (inputRef.current) {
             const value = inputRef.current.value;
-            if (!StringUtils.isEmpty(value)) {
+            if (StringUtils.isEmpty(value)) {
                 setError(undefined);
                 onInputChange(value);
+                return;
             }
 
             if (!DateUtils.validateDate(value)) {
