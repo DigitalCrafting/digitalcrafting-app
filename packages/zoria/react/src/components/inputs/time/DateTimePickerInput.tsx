@@ -5,7 +5,7 @@ import {DateTimeUtils} from "../../../utils/DateTimeUtils";
 
 interface DateTimePickerInputProps {
     value?: string;
-    onChange?: (value: string) => void;
+    onChange?: (value?: string) => void;
     min?: string;
     max?: string;
     minutesInterval?: number;
@@ -25,20 +25,34 @@ const DateTimePickerInput = ({
     label,
     error
 }: DateTimePickerInputProps) => {
-    const [internalValue, setInternalValue] = useState(value || new Date().toISOString());
-    const [dateValue, timeValue] = DateTimeUtils.split(internalValue);
+    const [internalValue, setInternalValue] = useState(value);
+    const [splitDateValue, splitTimeValue] = internalValue ? DateTimeUtils.split(internalValue) : ['', ''];
+    const [dateValue, setDateValue] = useState(splitDateValue);
+    const [timeValue, setTimeValue] = useState(splitTimeValue);
 
     const onDateValueChange = (value: string) => {
         setInternalValue(() => {
-            const newValue = DateTimeUtils.join(value, timeValue);
+            setDateValue(value || '');
+            if (!value || !timeValue) {
+                onChange?.(undefined)
+                return undefined;
+            }
+
+            const newValue = DateTimeUtils.join(value, timeValue!);
             onChange?.(newValue);
             return newValue;
         });
     }
 
     const onTimeValueChange = (value: string) => {
+        setTimeValue(value || '');
+        if (!value || !dateValue) {
+            onChange?.(undefined)
+            return undefined;
+        }
+
         setInternalValue(() => {
-            const newValue = DateTimeUtils.join(dateValue, value);
+            const newValue = DateTimeUtils.join(dateValue!, value);
             onChange?.(newValue);
             return newValue;
         });

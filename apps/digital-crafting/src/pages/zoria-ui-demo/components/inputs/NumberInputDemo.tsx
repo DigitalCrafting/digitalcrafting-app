@@ -7,7 +7,10 @@ export const NumberInputDemo = () => {
             <DemoPanel.Col span={3}>
                 <NumberInput onChange={(value) => console.log(value)} label='Number input'/>
             </DemoPanel.Col>
-            <DemoPanel.Col span={5}/>
+            <DemoPanel.Col span={2}/>
+            <DemoPanel.Col span={3}>
+                <NumberInput disableNegative onChange={(value) => console.log(value)} label='Number input disabled negative'/>
+            </DemoPanel.Col>
         </DemoPanel.Row>
     </DemoPanel>
 }
