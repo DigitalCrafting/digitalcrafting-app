@@ -8,7 +8,12 @@ interface SvgIconBaseProps extends React.SVGProps<SVGSVGElement> {
     'data-testid'?: string
 }
 
-export const SvgIconBase = ({size = undefined, className: externalClassName = '', children, ...props}: SvgIconBaseProps) => {
+export const SvgIconBase = ({
+    size = undefined,
+    className: externalClassName = '',
+    children,
+    ...props
+}: SvgIconBaseProps) => {
     const sizeClassName = !!size ? `z-icon-${size}` : '';
     return (<svg
         {...props}
@@ -462,4 +467,10 @@ export const EyeOffIcon = (props: SvgIconBaseProps) => {
 }
 EyeOffIcon.displayName = 'EyeOffIcon';
 
-
+export const SearchIcon = (props: SvgIconBaseProps) => {
+    return <SvgIconBase {...props}>
+        <path d="m21 21-4.34-4.34"/>
+        <circle cx="11" cy="11" r="8"/>
+    </SvgIconBase>
+}
+SearchIcon.displayName = 'SearchIcon';

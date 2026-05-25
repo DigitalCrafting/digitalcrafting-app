@@ -1,0 +1,19 @@
+.z-autocomplete {
+  position: absolute;
+  /* TODO fix not being hidden by modal if the popover is always open */
+  z-index: var(--z-popover);
+
+  &-body {
+    border: none;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-visible {
+    visibility: visible;
+  }
+
+  &-hidden {
+    visibility: hidden;
+  }
+}

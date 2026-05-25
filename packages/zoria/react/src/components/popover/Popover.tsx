@@ -127,7 +127,7 @@ function PopoverBody({children, trapFocus = false, disableEscape = false, positi
         }
     }, [open, persistent, trapFocus]);
 
-    const visibilityClassName = open ? 'z-tooltip-visible' : 'z-tooltip-hidden';
+    const visibilityClassName = open ? 'z-popover-visible' : 'z-popover-hidden';
 
      {/* TODO remove styling completely, styling should be provided by component shown */}
     /* Also, create separate directory for non-styled mechanisms like this Popover, Expandable, Selectable, DataView */

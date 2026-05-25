@@ -31,7 +31,7 @@ import {
     NetworkIcon,
     Panel,
     RouterIcon,
-    SatelliteDishIcon, SatelliteIcon, ServerClockIcon,
+    SatelliteDishIcon, SatelliteIcon, SearchIcon, ServerClockIcon,
     ServerCogIcon,
     ServerCrashIcon,
     ServerIcon,
@@ -88,7 +88,8 @@ const ICONS = [
     BanIcon,
     ShareIcon,
     EyeIcon,
-    EyeOffIcon
+    EyeOffIcon,
+    SearchIcon
 ]
 
 export function IconsDemo() {

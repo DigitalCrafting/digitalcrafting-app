@@ -1,5 +1,0 @@
-const AutocompleteInput = () => {
-
-}
-
-export {AutocompleteInput}

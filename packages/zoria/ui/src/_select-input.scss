@@ -123,7 +123,8 @@
     }
 
     &:focus,
-    &:focus-visible {
+    &:focus-visible,
+    &.is-focused {
       outline: 0;
       color: var(--z-color-text-inverse);
       background-color: var(--z-color-accent-hover);

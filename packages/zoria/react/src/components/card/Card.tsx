@@ -6,11 +6,13 @@ export interface CardProps {
     shadow?: UiSize | 'none',
     className?: string
     'data-testid'?: string
+    style?: Record<string, any>
 }
 
-export function Card({children, padding = 'md', shadow = 'md', className: externalClassName = '', 'data-testid': dataTestId}: React.PropsWithChildren<CardProps>) {
+export function Card({children, padding = 'md', shadow = 'md', className: externalClassName = '', 'data-testid': dataTestId, style}: React.PropsWithChildren<CardProps>) {
     return <div className={`z-card z-card-p-${padding} z-card-s-${shadow} ${externalClassName}`}
                 data-testid={dataTestId}
+                style={style}
     >
         {children}
     </div>
