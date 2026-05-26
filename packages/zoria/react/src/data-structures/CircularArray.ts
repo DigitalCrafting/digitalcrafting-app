@@ -45,22 +45,12 @@ export class CircularArray<T> {
     }
 
     public getPrev(): T {
-        const lastIdx = this.items.length - 1;
-        if (this.currentPointer === 0) {
-            this.currentPointer = lastIdx;
-            return this.items[this.currentPointer];
-        }
-
-        return this.items[--this.currentPointer];
+        this.currentPointer = (this.currentPointer - 1 + this.items.length) % this.items.length;
+        return this.items[this.currentPointer];
     }
 
     public getNext(): T {
-        const lastIdx = this.items.length - 1;
-        if (this.currentPointer === lastIdx) {
-            this.currentPointer = 0;
-            return this.items[this.currentPointer];
-        }
-
-        return this.items[++this.currentPointer];
+        this.currentPointer = (this.currentPointer + 1) % this.items.length;
+        return this.items[this.currentPointer];
     }
 }

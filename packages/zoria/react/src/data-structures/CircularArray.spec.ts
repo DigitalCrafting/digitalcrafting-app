@@ -37,37 +37,33 @@ describe('CircularArray', () => {
         expect(last).toBe(5);
     });
 
-    describe('getPrev', () => {
+    it(`should correctly cycle while calling getPrev`, () => {
+        // given
         const circArr = CircularArray.of([1, 2, 3, 4, 5]);
-        const expectedValuesList = [1, 5, 4, 3, 2, 1, 5, 4, 3, 2]
+        const expectedValuesList = [5, 4, 3, 2, 1, 5, 4, 3, 2, 1]
 
         for (let i = 0; i < 10; i++) {
             const expectedValue = expectedValuesList[i];
 
-            it(`should return ${expectedValue}`, () => {
-                // given
-                // when
-                const prev = circArr.getPrev();
+            // when
+            const prev = circArr.getPrev();
 
-                // then
-                expect(prev).toBe(expectedValue)
-            })
+            // then
+            expect(prev).toBe(expectedValue)
         }
     })
 
-    describe('getNext', () => {
+    it(`should correctly cycle while calling getNext`, () => {
+        // given
         const circArr = CircularArray.of([1, 2, 3, 4, 5]);
+        const expectedValuesList = [2, 3, 4, 5, 1, 2, 3, 4, 5, 1]
         for (let i = 0; i < 10; i++) {
-            const expectedValue = (i % 5) + 1;
+            const expectedValue = expectedValuesList[i];
+            // when
+            const next = circArr.getNext();
 
-            it(`should return ${expectedValue}${i >= 5 ? ' after wrapping' : ''}`, () => {
-                // given
-                // when
-                const next = circArr.getNext();
-
-                // then
-                expect(next).toBe(expectedValue)
-            })
+            // then
+            expect(next).toBe(expectedValue)
         }
     })
 })
