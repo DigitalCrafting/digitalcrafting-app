@@ -115,7 +115,7 @@ const AutocompleteInput = ({
     const containerRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
     const popoverRef = useRef<HTMLDivElement>(null);
-    const debounceRef = useRef<number | undefined>(undefined);
+    const debounceRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
     useFloatingUiPositioning(containerRef, popoverRef, 'bottom');
 
