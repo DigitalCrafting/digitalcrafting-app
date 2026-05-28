@@ -6,13 +6,15 @@ export interface TextProps {
     'data-testid'?: string
     size?: UiSize
     bold?: boolean
+    placeholder?: boolean
 }
 
-export function Text({ children, className = '', 'data-testid': dataTestId, size = UiSize.MD, bold = false}: React.PropsWithChildren<TextProps>) {
+export function Text({ children, className = '', 'data-testid': dataTestId, size = UiSize.MD, bold = false, placeholder = false}: React.PropsWithChildren<TextProps>) {
     const boldClass = bold ? 'z-text-bold' : '';
+    const placeholderClassName = placeholder ? 'z-text-placeholder' : '';
 
     return <span
-        className={`z-text z-text-${size} ${boldClass} ${className}`.trim()}
+        className={`z-text z-text-${size} ${boldClass} ${placeholderClassName} ${className}`.trim()}
         data-testid={dataTestId}
     >{children}</span>
 }

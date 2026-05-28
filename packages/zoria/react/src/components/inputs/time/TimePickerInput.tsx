@@ -50,9 +50,9 @@ const TimePickerInput = ({error: externalError, minutesInterval = 30, ...inputPr
         const value = selectedOption.value;
 
         if (inputRef.current) {
-            inputRef.current.value = value;
+            inputRef.current.value = value!;
             setSelectedTime(value);
-            inputProps?.onChange?.(value);
+            inputProps?.onChange?.(value!);
             popoverRef.current?.close();
             setError(undefined); // we assume Calendar will ALWAYS return correct date
         } else {

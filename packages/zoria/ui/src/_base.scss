@@ -50,6 +50,11 @@ textarea {
   font-size: inherit;
 }
 
+input::placeholder {
+  color: var(--z-color-text-placeholder);
+  opacity: 1;
+}
+
 a {
   text-decoration: none;
 }

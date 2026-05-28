@@ -55,6 +55,10 @@ h6.z-h6 {
     font-weight: var(--font-weight-bold);
   }
 
+  &-placeholder {
+    color: var(--z-color-text-placeholder);
+  }
+
   &-sm {
     font-size: var(--font-size-sm);
     line-height: var(--line-height-normal);

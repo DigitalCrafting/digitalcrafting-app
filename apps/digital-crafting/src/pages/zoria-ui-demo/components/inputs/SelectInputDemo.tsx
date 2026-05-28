@@ -64,15 +64,33 @@ const DemoSelectOption: ZoriaSelectOption[] = [
     },
 ]
 
+const DemoSelectOptionWithEmpty = [
+    {
+        display: '',
+        value: undefined,
+        searchValue: ''
+    },
+    ...DemoSelectOption
+]
+
 export const SelectInputDemo = () => {
     return <DemoPanel title={'Select Input'}>
         <DemoPanel.Row>
             <DemoPanel.Col span={3}>
-                <SelectInput options={DemoSelectOption} onChange={(value) => console.log(value)} label='Select input'/>
+                <SelectInput placeholder='Select one' options={DemoSelectOption} onChange={(value) => console.log(value)} label='Select input'/>
             </DemoPanel.Col>
             <DemoPanel.Col span={2} />
             <DemoPanel.Col span={3}>
                 <SelectInput native options={DemoSelectOption} onChange={(value) => console.log(value)} label='Native select input'/>
+            </DemoPanel.Col>
+        </DemoPanel.Row>
+        <DemoPanel.Row>
+            <DemoPanel.Col span={3}>
+                <SelectInput placeholder='Select one' options={DemoSelectOptionWithEmpty} onChange={(value) => console.log(value)} label='Select with empty option'/>
+            </DemoPanel.Col>
+            <DemoPanel.Col span={2} />
+            <DemoPanel.Col span={3}>
+                <SelectInput native options={DemoSelectOptionWithEmpty} onChange={(value) => console.log(value)} label='Native select input'/>
             </DemoPanel.Col>
         </DemoPanel.Row>
     </DemoPanel>

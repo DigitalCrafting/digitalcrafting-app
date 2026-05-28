@@ -39,51 +39,10 @@ export const AutocompleteInputDemo = () => {
         return new Promise((res) => {
             setTimeout(() => {
                 if (StringUtils.isEmpty(value)) {
-                    res([]);
+                    res(ALL_OPTIONS);
                 }
-
-                if (value.startsWith('tes')) {
-                    res([
-                        {
-                            value: 'test1',
-                            display: 'test 1',
-                            searchValue: 'test 1'
-                        },
-                        {
-                            value: 'test2',
-                            display: 'testing 2',
-                            searchValue: 'testing 2'
-                        },
-                        {
-                            value: 'test3',
-                            display: 'testiiiiing 3',
-                            searchValue: 'testiiiiing 3'
-                        },
-                    ])
-                }
-
-                if (value.startsWith('val')) {
-                    res([
-                        {
-                            value: 'val1',
-                            display: 'val 1',
-                            searchValue: 'val 1'
-                        },
-                        {
-                            value: 'val2',
-                            display: 'value 2',
-                            searchValue: 'value 2'
-                        },
-                        {
-                            value: 'val3',
-                            display: 'valuable 3',
-                            searchValue: 'valuable 3'
-                        },
-                    ])
-                }
-
-
-                res([]);
+                const filtered = ALL_OPTIONS.filter(option => option.searchValue.indexOf(value) > -1)
+                res(filtered);
             }, 1000)
         })
     }
@@ -92,11 +51,11 @@ export const AutocompleteInputDemo = () => {
     return <DemoPanel title={'Autocomplete Input'}>
         <DemoPanel.Row>
             <DemoPanel.Col span={3}>
-                <AutocompleteInput onChange={(value) => console.log(value)} queryOptions={queryOptions} label='Autocomplete with query'/>
+                <AutocompleteInput placeholder='Type to search' onChange={(value) => console.log(value)} queryOptions={queryOptions} label='Autocomplete with query'/>
             </DemoPanel.Col>
             <DemoPanel.Col span={2}/>
             <DemoPanel.Col span={3}>
-                <AutocompleteInput onChange={(value) => console.log(value)} options={ALL_OPTIONS} label='Autocomplete with static options'/>
+                <AutocompleteInput placeholder='Type to filter' onChange={(value) => console.log(value)} options={ALL_OPTIONS} label='Autocomplete with static options'/>
             </DemoPanel.Col>
         </DemoPanel.Row>
     </DemoPanel>

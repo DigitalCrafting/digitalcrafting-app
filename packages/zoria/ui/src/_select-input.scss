@@ -36,7 +36,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0;
+    padding: 0 0 0 2px;
 
     &:has(input:not(:disabled)) {
       cursor: pointer;
@@ -111,6 +111,10 @@
     padding: var(--space-y-1) var(--space-x-1);
     cursor: pointer;
     transition: background 0.2s;
+
+    &:empty::before {
+      content: "\200B";
+    }
 
     &:hover {
       color: var(--z-color-text-inverse);

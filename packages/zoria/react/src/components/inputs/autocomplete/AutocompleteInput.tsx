@@ -81,6 +81,7 @@ interface AutocompleteInputProps<T = unknown> {
     value?: T,
     valueDecoration?: string,
     onChange?: (value?: any) => void,
+    placeholder?: string,
 
     onQueryChange?: (value: string) => void
     options?: AutocompleteDropdownOption[],
@@ -98,6 +99,7 @@ const AutocompleteInput = ({
     disabled,
     value = undefined,
     onChange,
+    placeholder,
     onQueryChange,
     options: externalOptions = [],
     queryOptions,
@@ -231,7 +233,7 @@ const AutocompleteInput = ({
         setCurrentlySelected(option);
         const currentFocus = options.findIndex((el) => el.value === option?.value);
         currentFocus < 0 ? setCurrentlyFocusedIdx(0) : setCurrentlyFocusedIdx(currentFocus);
-        setInputValue(option.value);
+        setInputValue(option.display);
         setIsDropDownOpen(false);
         onChange?.(option.value);
     }
@@ -263,6 +265,7 @@ const AutocompleteInput = ({
                        onBlur={() => setIsDropDownOpen(false)}
                        type='text'
                        role='combobox'
+                       placeholder={placeholder}
                        aria-activedescendant={currentlyFocusedIdx >= 0 && options?.[currentlyFocusedIdx]
                            ? `z-opt-${currentlyFocusedIdx}`
                            : undefined}

@@ -1,36 +1,44 @@
 import {CryptoUtils} from "../../../utils/Utils";
-import React, {type RefObject, useEffect, useMemo, useRef, useState} from "react";
+import * as React from 'react';
+import {type RefObject, useEffect, useMemo, useRef, useState} from 'react';
 import {Popover, type PopoverHandle} from "../../popover/Popover";
 import {ChevronDownIcon} from "../../icons/Icons";
 import {SelectDropdownController} from "./controllers/SelectDropdownController";
 import {SelectInputController} from "./controllers/SelectInputController";
 import {Card} from "../../card/Card";
 
-export interface NativeSelectOption {
-    value: string
-    display: string
+export const ZoriaSelectEmptyOption = {
+    value: undefined,
+    display: '',
+    searchValue: ''
 }
 
+export type NativeSelectOption = {
+    value: string
+    display: string
+} | typeof ZoriaSelectEmptyOption;
+
 /* TODO remove generic ? */
-export interface ZoriaSelectOption<T = string, D = string> {
+export type ZoriaSelectOption<T = string, D = string> = {
     value: T
     display: D
     searchValue: string
-}
+} | typeof ZoriaSelectEmptyOption;
 
 interface SelectInputInternalProps<T = string> {
-    native?: boolean
-    className?: string
-    'data-testid'?: string
-    label?: string
-    hideLabel?: boolean
-    error?: string
-    id?: string
-    disabled?: boolean
-    compact?: boolean
-    value?: T
-    valueDecoration?: string
-    onChange?: (value: any) => void,
+    native?: boolean;
+    className?: string;
+    'data-testid'?: string;
+    label?: string;
+    hideLabel?: boolean;
+    error?: string;
+    id?: string;
+    disabled?: boolean;
+    compact?: boolean;
+    value?: T;
+    valueDecoration?: string;
+    placeholder?: string;
+    onChange?: (value: any) => void;
 }
 
 type NativeSelectInputProps = SelectInputInternalProps & { native: true, options: NativeSelectOption[] }
@@ -135,7 +143,7 @@ export const ZoriaSelectDropdown = ({
             options.map(option => (
                 <li
                     tabIndex={-1}
-                    className={option.value === currentlySelected?.value ? 'is-selected' : ''}
+                    className={option.value != undefined && option.value === currentlySelected?.value ? 'is-selected' : ''}
                     aria-selected={option.value === currentlySelected?.value}
                     key={option.value}
                     onClick={(event) => onOptionSelected(event, option)}
@@ -165,6 +173,7 @@ const ZoriaSelectInput = ({
     compact = false,
     value = undefined,
     valueDecoration = '',
+    placeholder,
     onChange,
     options,
     ...props
@@ -215,7 +224,12 @@ const ZoriaSelectInput = ({
                         <input tabIndex={-1} type='hidden' {...props} id={id} disabled={disabled}/>
                         <button onKeyDown={onKeyDown}
                                 type='button'
-                                ref={sentinelRef}>{valueDecoration} {currentlySelected?.display}</button>
+                                ref={sentinelRef}>
+                            {
+                                !!currentlySelected && !!currentlySelected.display ? `${valueDecoration} ${currentlySelected.display}`.trim() :
+                                    <span className='z-text-placeholder'>{placeholder}</span>
+                            }
+                        </button>
                         <ChevronDownIcon tabIndex={-1}/>
                     </div>
                 </div>
@@ -253,4 +267,4 @@ const SelectInput = (allProps: SelectInputProps) => {
 }
 
 export {SelectInput};
-export type { SelectInputProps };
+export type {SelectInputProps};

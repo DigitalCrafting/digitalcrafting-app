@@ -5,7 +5,7 @@ export const TextInputDemo = () => {
     return <DemoPanel title={'Text Input'}>
         <DemoPanel.Row>
             <DemoPanel.Col span={3}>
-                <TextInput onChange={(value) => console.log(value)} label='Text input'/>
+                <TextInput placeholder='Funny placeholder' onChange={(value) => console.log(value)} label='Text input'/>
             </DemoPanel.Col>
             <DemoPanel.Col span={5}/>
         </DemoPanel.Row>
