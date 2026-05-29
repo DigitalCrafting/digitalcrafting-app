@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {type ChangeEvent, useEffect, useRef, useState} from 'react';
+import {type ChangeEvent, useCallback, useEffect, useRef, useState} from 'react';
 import {SearchIcon, XIcon} from "../../icons/Icons";
 import {Card} from "../../card/Card";
 import {IconButton} from "../../buttons/IconButton";
@@ -101,8 +101,8 @@ const AutocompleteInput = ({
     onChange,
     placeholder,
     onQueryChange,
-    options: externalOptions = [],
-    queryOptions,
+    options: externalOptions = undefined,
+    queryOptions = undefined,
     debounceMS = 200,
     noResultsMessage = 'No results'
 }: AutocompleteInputProps) => {
@@ -173,6 +173,15 @@ const AutocompleteInput = ({
         }
     }
 
+    const queryStaticOptions = useCallback((searchValue?: string, options: AutocompleteDropdownOption[] = []) => {
+        if (!searchValue) {
+            setOptions(options);
+        } else {
+            const visibleOptions = options.filter((option) => option.searchValue.indexOf(searchValue) != -1);
+            setOptions(visibleOptions);
+        }
+    }, [])
+
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
         event.stopPropagation();
@@ -184,17 +193,10 @@ const AutocompleteInput = ({
 
         setInputValue(value);
 
-        if (externalOptions && externalOptions.length) {
-            if (!value) {
-                setOptions(externalOptions);
-                setIsDropDownOpen(true);
-            } else {
-                const visibleOptions = externalOptions.filter((option) => option.searchValue.indexOf(value) != -1);
-                setOptions(visibleOptions);
-                setIsDropDownOpen(true);
-            }
-
-        } else {
+        if (externalOptions != undefined && queryOptions == undefined) {
+            queryStaticOptions(value, externalOptions);
+            setIsDropDownOpen(true);
+        } else if (queryOptions != undefined) {
             clearTimeout(debounceRef.current);
             debounceRef.current = setTimeout(() => {
                 setIsDropDownOpen(true);
@@ -209,8 +211,14 @@ const AutocompleteInput = ({
                     setIsLoading(false);
                 })
             }, debounceMS);
+        } else {
+            throw new Error("[AutocompleteInput]: Incorrect properties")
         }
     }
+
+    useEffect(() => {
+        queryStaticOptions(inputRef?.current?.value, externalOptions);
+    }, [externalOptions])
 
     useEffect(() => {
         const updateWidth = () => {
@@ -240,8 +248,8 @@ const AutocompleteInput = ({
 
     const clear = () => {
         setInputValue('');
-        setOptions(externalOptions);
-        if (!externalOptions.length) {
+        setOptions(externalOptions || []);
+        if (!externalOptions?.length) {
             setIsDropDownOpen(false);
         }
         setCurrentlySelected(undefined);
