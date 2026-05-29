@@ -28,17 +28,19 @@ import {TabsDemo} from "./components/display/TabsDemo.tsx";
 import {TimePickerInputDemo} from "./components/inputs/TimePickerInputDemo.tsx";
 import {DateTimePickerInputDemo} from "./components/inputs/DateTimePickerInputDemo.tsx";
 import {AutocompleteInputDemo} from "./components/inputs/AutocompleteInputDemo.tsx";
+import {EmailInputDemo} from "./components/inputs/EmailInputDemo.tsx";
 
 const ZoriaUiDemoComponentsMap = new Map<ZoriaUIRoutePathsEnum, FunctionComponent[]>([
     [ZoriaUIRoutePathsEnum.TYPOGRAPHY, [TextDemo, HeadersDemo, IconsDemo]],
     [ZoriaUIRoutePathsEnum.BUTTONS, [ButtonDemo, IconButtonDemo]],
     [ZoriaUIRoutePathsEnum.INPUTS, [
-        AutocompleteInputDemo,
         InputDemo,
         TextInputDemo,
         TextareaInputDemo,
         NumberInputDemo,
         SelectInputDemo,
+        AutocompleteInputDemo,
+        EmailInputDemo,
         PasswordInputDemo,
         DatePickerInputDemo,
         TimePickerInputDemo,
