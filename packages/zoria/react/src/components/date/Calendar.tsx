@@ -4,7 +4,8 @@ import {useMemo, useRef, useState} from "react";
 import {IconButton} from "../buttons/IconButton";
 import {ChevronLeftIcon, ChevronRightIcon} from "../icons/Icons";
 import {CalendarUtils} from "./CalendarUtils";
-import {SelectInput, type ZoriaSelectOption} from "../inputs/select/SelectInput";
+import {SelectInput} from "../inputs/select/SelectInput";
+import {type ZoriaSelectOption} from "../inputs/select/SelectInputTypes";
 
 interface DayProps {
     day: number

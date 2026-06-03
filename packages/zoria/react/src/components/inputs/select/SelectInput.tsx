@@ -6,24 +6,7 @@ import {ChevronDownIcon} from "../../icons/Icons";
 import {SelectDropdownController} from "./controllers/SelectDropdownController";
 import {SelectInputController} from "./controllers/SelectInputController";
 import {Card} from "../../card/Card";
-
-export const ZoriaSelectEmptyOption = {
-    value: undefined,
-    display: '',
-    searchValue: ''
-}
-
-export type NativeSelectOption = {
-    value: string
-    display: string
-} | typeof ZoriaSelectEmptyOption;
-
-/* TODO remove generic ? */
-export type ZoriaSelectOption<T = string, D = string> = {
-    value: T
-    display: D
-    searchValue: string
-} | typeof ZoriaSelectEmptyOption;
+import {type NativeSelectOption, type ZoriaSelectOption} from "./SelectInputTypes";
 
 interface SelectInputInternalProps<T = string> {
     native?: boolean;

@@ -1,9 +1,9 @@
 import * as React from 'react';
-import type {ZoriaSelectOption} from "../SelectInput";
+import {type ZoriaSelectOption} from "../SelectInputTypes";
 
 export class SelectKeyboardSearchService {
     private searchString = "";
-    private searchTimeoutId!: number;
+    private searchTimeoutId!: ReturnType<typeof setTimeout>;
     private currentMatchIndex: number = -1;
     private isSearchBySameLetter: boolean = false;
     private readonly options: ZoriaSelectOption<any, any>[];

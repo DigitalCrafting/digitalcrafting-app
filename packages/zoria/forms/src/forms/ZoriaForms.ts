@@ -8,7 +8,16 @@ type EventConfig = {
 
 export type FormValidationError = ValidationError | null
 
+export const FormElementType = {
+    FORM_GROUP: 'FORM_GROUP',
+    FORM_ARRAY: 'FORM_ARRAY',
+    FORM_CONTROL: 'FORM_CONTROL'
+}
+export type FormElementType = (typeof FormElementType)[keyof typeof FormElementType];
+
 export interface FormElement {
+    getType(): FormElementType;
+
     getIsValid(): boolean
 
     getError(): FormValidationError;
@@ -25,6 +34,7 @@ export interface FormElement {
 }
 
 abstract class AbstractFormElement implements FormElement {
+    protected type: FormElementType;
     protected _parent: AbstractFormElement | null = null;
     protected _error: FormValidationError;
     protected _isValid: boolean;
@@ -33,13 +43,18 @@ abstract class AbstractFormElement implements FormElement {
     protected _validityChangesEventEmitter: EventEmitter<boolean>;
     protected _valueChangesEventEmitter: EventEmitter<any>;
 
-    constructor(validator?: ValidatorsComposition) {
+    constructor(_type: FormElementType, validator?: ValidatorsComposition) {
+        this.type = _type;
         this._validator = validator
         this._error = null;
         this._isValid = true;
         this._validityChangeEventPending = false;
         this._validityChangesEventEmitter = new EventEmitter();
         this._valueChangesEventEmitter = new EventEmitter();
+    }
+
+    getType(): FormElementType {
+        return this.type;
     }
 
     getIsValid(): boolean {
@@ -103,12 +118,12 @@ abstract class AbstractFormElement implements FormElement {
 }
 
 export class FormGroup extends AbstractFormElement {
-    private _formElements: { [key: string]: FormGroup | FormInputControl | FormArray }
+    private _formElements: { [key: string]: FormGroup | FormControl | FormArray }
 
     constructor(formElements: {
-        [p: string]: FormGroup | FormInputControl | FormArray
+        [p: string]: FormGroup | FormControl | FormArray
     }, validator?: ValidatorsComposition) {
-        super(validator);
+        super(FormElementType.FORM_GROUP, validator);
         this._formElements = formElements;
         this._setUpElements();
     }
@@ -151,7 +166,7 @@ export class FormGroup extends AbstractFormElement {
         this._emitValidityChanges()
     }
 
-    getElement(key: string): FormGroup | FormInputControl | FormArray {
+    getElement(key: string): FormGroup | FormControl | FormArray {
         return this._formElements[key]
     }
 
@@ -161,15 +176,15 @@ export class FormGroup extends AbstractFormElement {
      * Path parts should be separated using coma,
      * if path goes through FormArray, use index to get concrete element.
      * */
-    getElementFromPath(path: string): FormGroup | FormInputControl | FormArray {
+    getElementFromPath<T = FormGroup | FormControl | FormArray>(path: string): T | FormElement {
         const pathParts = path.split('.')
 
         if (pathParts.length === 1) {
-            return this._formElements[pathParts[0]]
+            return this._formElements[pathParts[0]] as T
         }
 
         if (pathParts.length > 1) {
-            let element: FormGroup | FormInputControl | FormArray | undefined = undefined;
+            let element: FormGroup | FormControl | FormArray | undefined = undefined;
             for (let i = 0; i< pathParts.length; i++) {
                 const pathPart = pathParts[i];
 
@@ -188,7 +203,7 @@ export class FormGroup extends AbstractFormElement {
                 }
             }
 
-            return element as FormGroup | FormInputControl | FormArray
+            return element as T
         }
 
         throw new Error(`Element on path ${path} does not exist.`)
@@ -249,11 +264,11 @@ export class FormGroup extends AbstractFormElement {
     }
 }
 
-export class FormInputControl extends AbstractFormElement {
+export class FormControl extends AbstractFormElement {
     private _value: any | null;
 
     constructor(value: any | null = null, validator?: ValidatorsComposition) {
-        super(validator);
+        super(FormElementType.FORM_CONTROL, validator);
         this._value = value
         this._updateValidity()
     }
@@ -293,10 +308,10 @@ export class FormInputControl extends AbstractFormElement {
 }
 
 export class FormArray extends AbstractFormElement {
-    private _formArray: (FormGroup | FormInputControl | FormArray)[]
+    private _formArray: (FormGroup | FormControl | FormArray)[]
 
-    constructor(array: (FormGroup | FormInputControl | FormArray)[], validator?: ValidatorsComposition) {
-        super(validator);
+    constructor(array: (FormGroup | FormControl | FormArray)[], validator?: ValidatorsComposition) {
+        super(FormElementType.FORM_ARRAY, validator);
         this._formArray = array || [];
         this._setUpElements();
         this._updateValidity();
@@ -328,7 +343,7 @@ export class FormArray extends AbstractFormElement {
         this._emitValueChanges(eventConfig)
     }
 
-    getElement<T = FormGroup | FormInputControl | FormArray>(index: number): T {
+    getElement<T = FormGroup | FormControl | FormArray>(index: number): T {
         return this._formArray[index] as T
     }
 
@@ -346,7 +361,7 @@ export class FormArray extends AbstractFormElement {
         }
     }
 
-    pushElement(element: (FormGroup | FormInputControl | FormArray)) {
+    pushElement(element: (FormGroup | FormControl | FormArray)) {
         this._formArray.push(element);
         element._setParent(this);
         this._updateValidityAndEmitEvent()
@@ -393,7 +408,7 @@ export class FormArray extends AbstractFormElement {
         }
     }
 
-    private _forEachChild(cb: (control: (FormGroup | FormInputControl | FormArray), index: number) => void): void {
+    private _forEachChild(cb: (control: (FormGroup | FormControl | FormArray), index: number) => void): void {
         this._formArray.forEach((control, index) => {
             cb(control, index);
         });

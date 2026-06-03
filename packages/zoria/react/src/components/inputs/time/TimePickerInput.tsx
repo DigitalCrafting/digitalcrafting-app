@@ -5,10 +5,11 @@ import {ClockIcon} from "../../icons/Icons";
 import * as React from "react";
 import {type ChangeEvent, type KeyboardEventHandler, useMemo, useRef, useState} from "react";
 import {StringUtils} from "../../../utils/StringUtils";
-import {ZoriaSelectDropdown, type ZoriaSelectOption} from "../select/SelectInput";
+import {ZoriaSelectDropdown} from "../select/SelectInput";
 import {TimeUtils} from "../../../utils/TimeUtils";
 import {leftPad} from "../../../utils/Utils";
 import {Card} from "../../card/Card";
+import {type ZoriaSelectOption} from "../select/SelectInputTypes";
 
 const FUNCTIONAL_KEYS = ["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab"];
 

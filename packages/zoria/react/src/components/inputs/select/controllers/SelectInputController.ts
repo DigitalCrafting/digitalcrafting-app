@@ -1,6 +1,6 @@
 import * as React from "react";
-import type {ZoriaSelectOption} from "../SelectInput";
 import {SelectKeyboardSearchService} from "./SelectKeyboardSearchService";
+import {type ZoriaSelectOption} from "../SelectInputTypes";
 
 export class SelectInputController {
     private options: ZoriaSelectOption<any, any>[];

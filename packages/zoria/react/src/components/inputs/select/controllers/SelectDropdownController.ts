@@ -1,9 +1,9 @@
-import * as React from 'react';
 import type {RefObject} from "react";
+import * as React from 'react';
 import {FocusableElementsObserver} from "../../../../utils/FocusableElementsObserver";
 import {CircularArray} from "../../../../data-structures/CircularArray";
 import {SelectKeyboardSearchService} from "./SelectKeyboardSearchService";
-import type {ZoriaSelectOption} from "../SelectInput";
+import {type ZoriaSelectOption} from "../SelectInputTypes";
 
 export class SelectDropdownController<T extends HTMLElement> {
     private readonly rootElRef: RefObject<T | null>;

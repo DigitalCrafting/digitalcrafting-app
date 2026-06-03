@@ -1,7 +1,7 @@
 {
-  "name": "@zoria-ui/react",
+  "name": "@zoria-ui/react-forms",
   "version": "0.1.4",
-  "description": "A React implementation of UI library for personal projects (Work in Progress).",
+  "description": "A React wrapper for nn Angular-inspired forms library for personal projects (Work in Progress).",
   "main": "src/index.ts",
   "type": "module",
   "scripts": {
@@ -28,11 +28,11 @@
     "zoria",
     "zoria-ui",
     "react",
-    "react-components",
-    "ui-components",
+    "forms",
+    "form",
+    "react-forms",
+    "ui-forms",
     "design-system",
-    "components",
-    "accessible-ui",
     "ts",
     "tsx"
   ],
@@ -41,8 +41,7 @@
   "packageManager": "pnpm@10.17.1",
   "dependencies": {
     "@zoria-ui/events": "workspace:*",
-    "@zoria-ui/forms": "workspace:*",
-    "@zoria-ui/styles": "workspace:*"
+    "@zoria-ui/forms": "workspace:*"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
@@ -67,8 +66,8 @@
     "vitest": "^4.0.18"
   },
   "peerDependencies": {
-    "@floating-ui/dom": "^1.7.5",
     "react": "^19.1.1",
-    "react-dom": "^19.2.4"
+    "react-dom": "^19.2.4",
+    "@zoria-ui/react": "workspace:*"
   }
 }
