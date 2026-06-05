@@ -15,5 +15,12 @@ export const ZoriaUIRoutesConfig: RouteObject[] = [
             const {ZoriaUIDemoList} = await import('../ZoriaUIDemoList.tsx');
             return {element: <ZoriaUIDemoList type={route} />};
         }
-    }))
+    })),
+    {
+        path: 'forms',
+        lazy: async () => {
+            const {FormsDemo} = await import('../forms/FormsDemo.tsx')
+            return {element: <FormsDemo />}
+        }
+    }
 ]

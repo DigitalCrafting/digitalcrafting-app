@@ -1,4 +1,4 @@
-import {FormArray, FormControl, FormElement, FormElementType, FormGroup} from "@zoria-ui/forms";
+import {FormArray, FormControl, type FormElement, FormElementType, FormGroup} from "../forms/ZoriaForms.ts";
 
 export function isFormGroup(element: FormElement): element is FormGroup {
     return element.getType() === FormElementType.FORM_GROUP;

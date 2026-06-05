@@ -1,0 +1,76 @@
+{
+  "name": "@zoria-ui/forms-inputs-react",
+  "version": "0.1.4",
+  "description": "An Input controllers for an Angular-inspired forms library for personal projects (Work in Progress).",
+  "main": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
+    "barrels": "barrelsby --delete --noHeader --location top --directory src --exclude \".*\\.spec\\.tsx?$\"",
+    "test": "vitest run"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "require": "./dist/index.cjs"
+      }
+    }
+  },
+  "keywords": [
+    "zoria",
+    "zoria-ui",
+    "react",
+    "forms",
+    "form",
+    "inputs",
+    "forms-react",
+    "forms-inputs-react",
+    "ui-forms",
+    "design-system",
+    "ts",
+    "tsx"
+  ],
+  "author": "Kamil Kasprzyk (DigitalCrafting) (https://digitalcrafting.dev)",
+  "license": "ISC",
+  "packageManager": "pnpm@10.17.1",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.4",
+    "barrelsby": "^2.8.1",
+    "eslint": "^9.39.1",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "globals": "^16.5.0",
+    "jsdom": "^29.1.1",
+    "sass": "^1.97.3",
+    "tsup": "^8.5.1",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.48.0",
+    "vite": "^7.3.1",
+    "vitest": "^4.0.18"
+  },
+  "peerDependencies": {
+    "react": "^19.1.1",
+    "react-dom": "^19.2.4",
+    "@zoria-ui/react": "workspace:*",
+    "@zoria-ui/events": "workspace:*",
+    "@zoria-ui/forms": "workspace:*",
+    "@zoria-ui/forms-react": "workspace:*"
+  }
+}

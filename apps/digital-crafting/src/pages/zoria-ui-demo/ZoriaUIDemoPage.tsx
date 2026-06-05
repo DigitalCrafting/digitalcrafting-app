@@ -17,12 +17,12 @@ export const ZoriaUIDemoPage = () => {
                             })
                         }
                     </Navigation.Section>
-                    {/*<Navigation.Section title={'Forms'}>*/}
-                    {/*    <Navigation.Item as={Link} to='/zoria/forms/about'>About</Navigation.Item>*/}
-                    {/*    <Navigation.Item as={Link} to='/zoria/forms/form-group'>Form Group</Navigation.Item>*/}
-                    {/*    <Navigation.Item as={Link} to='/zoria/forms/validation'>Validation</Navigation.Item>*/}
-                    {/*    <Navigation.Item as={Link} to='/zoria/forms/exmaples'>Examples</Navigation.Item>*/}
-                    {/*</Navigation.Section>*/}
+                    <Navigation.Section defaultOpen={pathname.includes('/forms')} title={'Forms'}>
+                        <Navigation.Item as={Link} active={pathname.includes('/forms')} to='/zoria/forms'>About</Navigation.Item>
+                        {/*<Navigation.Item as={Link} to='/zoria/forms/form-group'>Form Group</Navigation.Item>*/}
+                        {/*<Navigation.Item as={Link} to='/zoria/forms/validation'>Validation</Navigation.Item>*/}
+                        {/*<Navigation.Item as={Link} to='/zoria/forms/exmaples'>Examples</Navigation.Item>*/}
+                    </Navigation.Section>
                 </Navigation>
             </Sidebar.Body>
         </Sidebar>

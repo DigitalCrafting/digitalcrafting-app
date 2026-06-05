@@ -1,12 +1,12 @@
 {
-  "name": "@zoria-ui/react-forms",
+  "name": "@zoria-ui/forms-react",
   "version": "0.1.4",
-  "description": "A React wrapper for nn Angular-inspired forms library for personal projects (Work in Progress).",
+  "description": "A React wrapper for an Angular-inspired forms library for personal projects (Work in Progress).",
   "main": "src/index.ts",
   "type": "module",
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --clean",
-    "barrels": "barrelsby --delete --noHeader --location top --directory src --exclude \".*\\.spec\\.tsx?$\"",
+    "barrels": "barrelsby --noHeader --location top -c ./barrelsby.json",
     "test": "vitest run"
   },
   "files": [
@@ -30,7 +30,7 @@
     "react",
     "forms",
     "form",
-    "react-forms",
+    "forms-react",
     "ui-forms",
     "design-system",
     "ts",

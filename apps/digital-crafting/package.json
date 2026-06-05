@@ -13,7 +13,8 @@
     "@floating-ui/core": "^1.7.4",
     "@floating-ui/dom": "^1.7.5",
     "@floating-ui/utils": "^0.2.10",
-    "@zoria-ui/forms": "workspace:*",
+    "@zoria-ui/forms-react": "workspace:*",
+    "@zoria-ui/forms-inputs-react": "workspace:*",
     "@zoria-ui/react": "workspace:*",
     "@zoria-ui/styles": "workspace:*",
     "@digital-crafting/afd": "workspace:*",
@@ -23,6 +24,9 @@
     "three": "^0.183.2",
     "three-stdlib": "^2.36.1",
     "tslib": "^2.8.1"
+  },
+  "peerDependencies": {
+    "@zoria-ui/forms": "workspace:*"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
