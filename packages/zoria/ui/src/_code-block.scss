@@ -1,0 +1,74 @@
+:root {
+  --z-code-block-color-bg: oklch(99% 0.004 285);
+  --z-code-block-color-fg: oklch(20% 0.02 285);
+  --z-code-block-color-comment: oklch(50% 0.04 260);
+  --z-code-block-color-blue: oklch(55% 0.0803 270.09);
+  --z-code-block-color-cyan: oklch(50% 0.13 195);
+  --z-code-block-color-green: oklch(45% 0.18 150);
+  --z-code-block-color-orange: oklch(55% 0.18 60);
+  --z-code-block-color-pink: oklch(50% 0.22 345);
+  --z-code-block-color-purple: oklch(50% 0.19 290);
+  --z-code-block-color-yellow: oklch(50% 0.15 90);
+  --z-code-block-color-red: oklch(50% 0.20 28);
+
+  [data-theme='dark'] {
+    --z-code-block-color-bg: oklch(25.33% 0.022 284.13);
+    --z-code-block-color-fg: oklch(93% 0.01 106.47);
+    --z-code-block-color-comment: oklch(55% 0.05 264.3);
+    --z-code-block-color-blue: oklch(55% 0.0803 270.09);
+    --z-code-block-color-cyan: oklch(85% 0.14 195.5);
+    --z-code-block-color-green: oklch(85% 0.23 150.7);
+    --z-code-block-color-orange: oklch(80% 0.18 65.2);
+    --z-code-block-color-pink: oklch(75% 0.24 345.5);
+    --z-code-block-color-purple: oklch(75% 0.20 290.4);
+    --z-code-block-color-yellow: oklch(90% 0.16 110.3);
+    --z-code-block-color-red: oklch(70% 0.22 25.5);
+  }
+}
+
+.z-code-block {
+  background-color: var(--z-code-block-color-bg);
+  color: var(--z-code-block-color-fg);
+  font-family: 'Fira Code', 'JetBrains Mono', monospace;
+
+  .token {
+    // Keywords & Operators
+    &.keyword, &.html-tag, &.atrule {
+      color: var(--z-code-block-color-pink);
+    }
+
+    // Types & Built-ins
+    &.class-name, &.builtin, &.constant, &.brackets {
+      color: var(--z-code-block-color-cyan);
+    }
+
+    // Methods & Variables
+    &.function, &.property, &.variable {
+      color: var(--z-code-block-color-purple);
+    }
+
+    // Literals & Data
+    &.string, &.attr-name, &.char {
+      color: var(--z-code-block-color-green);
+    }
+
+    &.number, &.boolean, &.regex {
+      color: var(--z-code-block-color-purple);
+    }
+
+    &.attr-value, &.parenthesis {
+      color: var(--z-code-block-color-yellow);
+    }
+
+    // Meta
+    &.comment, &.prolog, &.doctype, &.cdata {
+      color: var(--z-code-block-color-comment);
+      font-style: italic;
+    }
+
+    &.punctuation, &.operator {
+      color: var(--z-code-block-color-fg);
+      opacity: 0.8; // Subtle fade for brackets/dots
+    }
+  }
+}
