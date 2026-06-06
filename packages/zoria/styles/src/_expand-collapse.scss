@@ -1,0 +1,28 @@
+.z-expand-collapse {
+  &-trigger {
+    cursor: pointer;
+    display: flex;
+
+    &-chevron {
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      padding: 8px;
+
+      button {
+        width: 28px;
+        height: 28px;
+      }
+    }
+
+    &:hover {
+      .z-expand-collapse-trigger-chevron button:not(:disabled) {
+        background-color: var(--z-color-accent-hover);
+        .z-icon {
+          color: var(--color-white);
+        }
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import {TokenizerConfig, TokenTypeEnum} from "./Tokenizer.types";
+import {type TokenizerConfig, TokenTypeEnum} from "./TokenizerTypes";
 
 export const TsxKeywords: string[] = [
     'break',
@@ -79,6 +79,7 @@ const TsxKeywordsRules = TsxKeywords.map(word => {
 export const TsxTokenConfig: TokenizerConfig = [
     /* ---------------------------------- */
     /* Whitespaces */
+    [/^\n/, TokenTypeEnum.BREAKLINE],
     [/^\s+/, TokenTypeEnum.WHITESPACE],
 
     /* ---------------------------------- */
@@ -104,6 +105,7 @@ export const TsxTokenConfig: TokenizerConfig = [
     [/^!:/, TokenTypeEnum.OPERATOR],
     [/^</, TokenTypeEnum.ARROW_LEFT],
     [/^>/, TokenTypeEnum.ARROW_RIGHT],
+    [/^\/>/, TokenTypeEnum.OPERATOR],
 
     /* ---------------------------------- */
     ...TsxKeywordsRules,

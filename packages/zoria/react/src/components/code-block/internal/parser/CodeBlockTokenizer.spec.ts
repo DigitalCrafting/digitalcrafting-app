@@ -1,5 +1,5 @@
 import {describe, expect, it} from "vitest";
-import {TokenTypeEnum} from "./Tokenizer.types";
+import {TokenTypeEnum} from "./TokenizerTypes";
 import {CodeBlockTokenizer} from "./CodeBlockTokenizer";
 import {TsxKeywords, TsxTokenConfig} from "./TokensConfig";
 

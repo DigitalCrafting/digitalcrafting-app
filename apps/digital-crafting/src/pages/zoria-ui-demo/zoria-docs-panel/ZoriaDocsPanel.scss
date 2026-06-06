@@ -1,0 +1,16 @@
+.zoria-docs-panel {
+  &.z-panel {
+    transition: height 0.3s ease;
+    will-change: transform;
+  }
+
+  .z-panel-header {
+    border-bottom: none;
+    cursor: pointer;
+  }
+
+  .z-panel-body {
+    padding: 0;
+  }
+
+}

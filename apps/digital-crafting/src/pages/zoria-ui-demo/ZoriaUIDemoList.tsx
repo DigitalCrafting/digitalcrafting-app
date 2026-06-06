@@ -1,4 +1,4 @@
-import {Col, Row} from "@zoria-ui/react";
+import {CodeBlock, Col, Row, TextInput} from "@zoria-ui/react";
 import {InputDemo} from "./components/inputs/InputDemo.tsx";
 import {TextDemo} from "./components/typography/TextDemo.tsx";
 import {CheckboxDemo} from "./components/inputs/CheckboxDemo.tsx";
@@ -29,6 +29,7 @@ import {TimePickerInputDemo} from "./components/inputs/TimePickerInputDemo.tsx";
 import {DateTimePickerInputDemo} from "./components/inputs/DateTimePickerInputDemo.tsx";
 import {AutocompleteInputDemo} from "./components/inputs/AutocompleteInputDemo.tsx";
 import {EmailInputDemo} from "./components/inputs/EmailInputDemo.tsx";
+import {ZoriaDocsPanel} from "./zoria-docs-panel/ZoriaDocsPanel.tsx";
 
 const ZoriaUiDemoComponentsMap = new Map<ZoriaUIRoutePathsEnum, FunctionComponent[]>([
     [ZoriaUIRoutePathsEnum.TYPOGRAPHY, [TextDemo, HeadersDemo, IconsDemo]],
@@ -71,6 +72,27 @@ export function ZoriaUIDemoList({type}: ZoriaUIDemoListProps) {
         <Col
             className={styles.ZoriaUIDemoList}
         >
+            <ZoriaDocsPanel>
+                <ZoriaDocsPanel.Title>Test panel</ZoriaDocsPanel.Title>
+                <ZoriaDocsPanel.Body>
+                    <ZoriaDocsPanel.Demo>
+                        <Row>
+                            <Col span={5}>
+                                <TextInput placeholder='Funny placeholder' onChange={(value) => console.log(value)} label='Text input'/>
+                            </Col>
+                        </Row>
+                    </ZoriaDocsPanel.Demo>
+                    <ZoriaDocsPanel.Code>
+                        <CodeBlock>
+                            {/* language=text */}
+                            {`<TextInput placeholder='Funny placeholder' onChange={(value) => console.log(value)} label='Text input'/>`}
+                        </CodeBlock>
+                    </ZoriaDocsPanel.Code>
+                    <ZoriaDocsPanel.Docs>
+                        Amazing TextInput component
+                    </ZoriaDocsPanel.Docs>
+                </ZoriaDocsPanel.Body>
+            </ZoriaDocsPanel>
             {
                 demosToShow!.map((DemoComponent) => {
                     return <Row key={DemoComponent.name}>

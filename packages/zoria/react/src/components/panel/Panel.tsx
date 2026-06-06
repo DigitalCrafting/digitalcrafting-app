@@ -1,7 +1,7 @@
 import * as React from "react";
 
-function PanelHeader({children}: React.PropsWithChildren) {
-    return <div className={`z-panel-header`}>
+function PanelHeader({children, ...rest}: React.PropsWithChildren) {
+    return <div {...rest} className={`z-panel-header`}>
         {children}
     </div>;
 }
@@ -30,11 +30,12 @@ type PanelChildrenType =
     | React.ReactNode;
 
 interface PanelProps {
-    children: PanelChildrenType
+    children: PanelChildrenType,
+    className?: string
 }
 
-function InternalPanel({children}: PanelProps) {
-    return <div className={`z-panel`}>
+function InternalPanel({children, className = ''}: PanelProps) {
+    return <div className={`z-panel ${className}`.trim()}>
         {children}
     </div>;
 }

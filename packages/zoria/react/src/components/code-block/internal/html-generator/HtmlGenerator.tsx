@@ -1,21 +1,22 @@
-import {CodeBlockLine} from "./HtmlGenerator.types";
-import {Token, TokenTypeEnum} from "../parser/Tokenizer.types";
+import type {CodeBlockLine} from "./HtmlGeneratorTypes";
+import {type Token, TokenTypeEnum} from "../parser/TokenizerTypes";
+import type {ReactNode} from "react";
 
 class HtmlGeneratorImpl {
 
     generate(codeTokens: Token[]): CodeBlockLine[] {
         const codeBlock: CodeBlockLine[] = [];
 
-        let line = [];
+        let line: ReactNode[] = [];
         codeTokens.forEach((token) => {
             if (token.type === TokenTypeEnum.BREAKLINE) {
-                line.push(<br/>)
                 codeBlock.push(line);
                 line = [];
+            } else {
+                line.push(<span className={`token ${token.type}`}>{token.value}</span>)
             }
-
-            line.push(<span className={`token ${token.type}`}>{token.value}</span>)
         })
+        codeBlock.push(line);
 
         return codeBlock;
     }

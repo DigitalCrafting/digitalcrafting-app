@@ -1,5 +1,5 @@
 import {FormGroup} from "@zoria-ui/forms";
-import {PropsWithChildren} from "react";
+import type {PropsWithChildren} from "react";
 import {FormContextProvider} from "./FormContext";
 import {_FormGroupComponent} from "./internal/FormGroup";
 import {_FormArrayComponent} from "./internal/FormArray";

@@ -1,6 +1,6 @@
 import {Parser} from "./internal/parser/Parser";
 import {HtmlGenerator} from "./internal/html-generator/HtmlGenerator";
-import {CodeBlockLine} from "./internal/html-generator/HtmlGenerator.types";
+import {type CodeBlockLine} from "./internal/html-generator/HtmlGeneratorTypes";
 
 class CodeBlockControllerImpl {
     createHtmlCodeBlock(code: string): CodeBlockLine[] {

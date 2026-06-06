@@ -1,3 +1,8 @@
+:root:has(.z-layout),
+body:has(.z-layout) {
+  overflow: hidden;
+}
+
 .z-layout {
   display: flex;
   flex-direction: column;

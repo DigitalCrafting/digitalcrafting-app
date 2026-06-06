@@ -146,5 +146,25 @@
     .z-tabs-body-section {
       border: none;
     }
+
+    &.z-tabs-horizontal {
+      .z-tab-trigger:first-of-type {
+        border-left: none;
+      }
+
+      .z-tab-trigger:last-of-type {
+        border-right: none;
+      }
+    }
+
+    &.z-tabs-vertical {
+      .z-tab-trigger:first-of-type {
+        border-top: none;
+      }
+
+      .z-tab-trigger:last-of-type {
+        border-bottom: none;
+      }
+    }
   }
 }

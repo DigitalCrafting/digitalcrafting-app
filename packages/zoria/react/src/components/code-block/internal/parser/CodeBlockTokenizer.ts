@@ -1,4 +1,4 @@
-import {Token, TokenizerConfig} from "./Tokenizer.types";
+import type {Token, TokenizerConfig} from "./TokenizerTypes";
 
 export class CodeBlockTokenizer {
     private _config!: TokenizerConfig;
