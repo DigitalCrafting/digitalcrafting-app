@@ -29,7 +29,7 @@ import {
     MenuIcon, MessageBrokerIcon,
     MonitorIcon,
     NetworkIcon,
-    Panel,
+    ExpandCollapsePanel,
     RouterIcon,
     SatelliteDishIcon, SatelliteIcon, SearchIcon, ServerClockIcon,
     ServerCogIcon,
@@ -92,10 +92,10 @@ const ICONS = [
     SearchIcon
 ]
 
-export function IconsDemo() {
-    return <Panel>
-        <Panel.Header><H2>Icons</H2></Panel.Header>
-        <Panel.Body>
+export function IconsDocs() {
+    return <ExpandCollapsePanel>
+        <ExpandCollapsePanel.Header><H2>Icons</H2></ExpandCollapsePanel.Header>
+        <ExpandCollapsePanel.Body>
             <Grid cols={12} className='justify-items-anchor-center'>
                 {
                     ICONS.map((Icon) => {
@@ -108,6 +108,6 @@ export function IconsDemo() {
                     })
                 }
             </Grid>
-        </Panel.Body>
-    </Panel>;
+        </ExpandCollapsePanel.Body>
+    </ExpandCollapsePanel>;
 }

@@ -43,6 +43,8 @@
     user-select: none;
     padding: var(--space-y-2);
     border-right: 1px solid var(--z-code-block-color-bg-separator);
+    width: 50px;
+    text-align: right;
   }
 
   &-code {

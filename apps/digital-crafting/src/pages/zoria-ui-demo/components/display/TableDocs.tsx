@@ -1,9 +1,9 @@
-import {Col, H2, Panel, Table} from "@zoria-ui/react";
+import {Col, H2, ExpandCollapsePanel, Table} from "@zoria-ui/react";
 
-export function TableDemo() {
-    return <Panel>
-        <Panel.Header><H2>Table</H2></Panel.Header>
-        <Panel.Body>
+export function TableDocs() {
+    return <ExpandCollapsePanel>
+        <ExpandCollapsePanel.Header><H2>Table</H2></ExpandCollapsePanel.Header>
+        <ExpandCollapsePanel.Body>
             <Col span={12}>
                 <Table>
                     <Table.Head>
@@ -30,6 +30,6 @@ export function TableDemo() {
                     </Table.Body>
                 </Table>
             </Col>
-        </Panel.Body>
-    </Panel>
+        </ExpandCollapsePanel.Body>
+    </ExpandCollapsePanel>
 }

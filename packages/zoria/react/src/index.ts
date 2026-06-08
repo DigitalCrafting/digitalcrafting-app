@@ -36,6 +36,7 @@ export * from "./components/inputs/time/TimePickerInput";
 export * from "./components/layout/Layout";
 export * from "./components/modal/Modal";
 export * from "./components/nav/Navigation";
+export * from "./components/panel/ExpandCollapsePanel";
 export * from "./components/panel/Panel";
 export * from "./components/popover/Popover";
 export * from "./components/radio/RadioGroup";

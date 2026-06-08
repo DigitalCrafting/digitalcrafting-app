@@ -114,6 +114,7 @@
   text-decoration: underline;
   background-color: transparent;
   align-content: center;
+  text-align: center;
 
   &:hover:not(:disabled) {
     color: var(--z-color-accent-hover);

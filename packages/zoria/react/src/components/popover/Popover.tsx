@@ -43,7 +43,8 @@ function PopoverTrigger({children, disabled = false}: PopoverTriggerProps) {
         setOpen((prev) => {return !prev});
     }
 
-    return <span
+    return <div
+        // @ts-ignore
         ref={triggerRef}
         aria-expanded={open}
         aria-haspopup='dialog'
@@ -51,7 +52,7 @@ function PopoverTrigger({children, disabled = false}: PopoverTriggerProps) {
         onClick={onClick}
     >
         {children}
-    </span>;
+    </div>;
 }
 
 interface PopoverBodyProps {

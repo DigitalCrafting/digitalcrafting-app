@@ -1,10 +1,10 @@
-import {Container, H2, H3, LaptopIcon, MonitorIcon, Panel, Row, SmartphoneIcon, Text} from "@zoria-ui/react";
+import {Container, H2, H3, LaptopIcon, MonitorIcon, ExpandCollapsePanel, Row, SmartphoneIcon, Text} from "@zoria-ui/react";
 import {Tabs} from "@zoria-ui/react/src/components/tabs/Tabs.tsx";
 
-export function TabsDemo() {
-    return <Panel>
-        <Panel.Header><H2>Tabs</H2></Panel.Header>
-        <Panel.Body>
+export function TabsDocs() {
+    return <ExpandCollapsePanel>
+        <ExpandCollapsePanel.Header><H2>Tabs</H2></ExpandCollapsePanel.Header>
+        <ExpandCollapsePanel.Body>
             <Row>
                 <H3>Horizontal</H3>
             </Row>
@@ -193,6 +193,6 @@ export function TabsDemo() {
                    </Tabs>
                </Container>
             </Row>
-        </Panel.Body>
-    </Panel>
+        </ExpandCollapsePanel.Body>
+    </ExpandCollapsePanel>
 }

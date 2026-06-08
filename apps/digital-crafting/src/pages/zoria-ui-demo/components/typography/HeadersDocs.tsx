@@ -1,9 +1,9 @@
-import {Col, H1, H2, H3, H4, H5, H6, Panel, Row} from "@zoria-ui/react";
+import {Col, H1, H2, H3, H4, H5, H6, ExpandCollapsePanel, Row} from "@zoria-ui/react";
 
-export function HeadersDemo() {
-    return <Panel>
-        <Panel.Header><H2>Headers</H2></Panel.Header>
-        <Panel.Body>
+export function HeadersDocs() {
+    return <ExpandCollapsePanel>
+        <ExpandCollapsePanel.Header><H2>Headers</H2></ExpandCollapsePanel.Header>
+        <ExpandCollapsePanel.Body>
             <Col gap='sm'>
                 <Row className={'justify-center content-center'}>
                     <Col span={5} className={'justify-center text-start'}>
@@ -36,6 +36,6 @@ export function HeadersDemo() {
                     </Col>
                 </Row>
             </Col>
-        </Panel.Body>
-    </Panel>
+        </ExpandCollapsePanel.Body>
+    </ExpandCollapsePanel>
 }

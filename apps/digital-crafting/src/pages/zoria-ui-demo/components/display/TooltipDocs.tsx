@@ -1,9 +1,9 @@
-import {Col, H2, Panel, Row, Text, Toggle, Tooltip} from "@zoria-ui/react";
+import {Col, H2, ExpandCollapsePanel, Row, Text, Toggle, Tooltip} from "@zoria-ui/react";
 
-export function TooltipDemo() {
-    return <Panel>
-        <Panel.Header><H2>Tooltip</H2></Panel.Header>
-        <Panel.Body>
+export function TooltipDocs() {
+    return <ExpandCollapsePanel>
+        <ExpandCollapsePanel.Header><H2>Tooltip</H2></ExpandCollapsePanel.Header>
+        <ExpandCollapsePanel.Body>
             <Row className={'justify-center content-center'}>
                 <Col span={5} className={'justify-center align-items-center'}>
                     <Tooltip>
@@ -26,6 +26,6 @@ export function TooltipDemo() {
                     </Tooltip>
                 </Col>
             </Row>
-        </Panel.Body>
-    </Panel>
+        </ExpandCollapsePanel.Body>
+    </ExpandCollapsePanel>
 }
