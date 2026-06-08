@@ -72,9 +72,14 @@ export function ZoriaUIDemoList({type}: ZoriaUIDemoListProps) {
             className={styles.ZoriaUIDemoList}
         >
             {
-                demosToShow!.map((DemoComponent) => {
+                demosToShow!.map((DemoComponent, index) => {
+                    const additionalProps = index === 0 ? {
+                        expandByDefault: true
+                    } : {};
+
                     return <Row key={DemoComponent.name}>
-                        <DemoComponent/>
+                        {/* @ts-ignore */}
+                        <DemoComponent {...additionalProps} />
                     </Row>
                 })
             }

@@ -1,8 +1,8 @@
 import {CalendarIcon, CodeBlock, Col, IconButton, Input, Row} from "@zoria-ui/react";
-import {ZoriaDocsPanel} from "../../zoria-docs-panel/ZoriaDocsPanel.tsx";
+import {type ExpandByDefaultProp, ZoriaDocsPanel} from "../../zoria-docs-panel/ZoriaDocsPanel.tsx";
 
-export const InputDocs = () => {
-    return <ZoriaDocsPanel expandByDefault>
+export const InputDocs = ({expandByDefault}: ExpandByDefaultProp) => {
+    return <ZoriaDocsPanel expandByDefault={expandByDefault}>
         <ZoriaDocsPanel.Title>Input</ZoriaDocsPanel.Title>
         <ZoriaDocsPanel.Body>
             <ZoriaDocsPanel.Demo>

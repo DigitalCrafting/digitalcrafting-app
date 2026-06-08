@@ -1,7 +1,8 @@
 import {Col, H2, ExpandCollapsePanel, Table} from "@zoria-ui/react";
+import type {ExpandByDefaultProp} from "../../zoria-docs-panel/ZoriaDocsPanel.tsx";
 
-export function TableDocs() {
-    return <ExpandCollapsePanel>
+export function TableDocs({expandByDefault}: ExpandByDefaultProp) {
+    return <ExpandCollapsePanel expandByDefault={expandByDefault}>
         <ExpandCollapsePanel.Header><H2>Table</H2></ExpandCollapsePanel.Header>
         <ExpandCollapsePanel.Body>
             <Col span={12}>

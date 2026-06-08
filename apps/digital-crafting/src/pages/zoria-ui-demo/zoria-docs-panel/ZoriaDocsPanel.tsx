@@ -94,4 +94,8 @@ const ZoriaDocsPanel = Object.assign(DocsPanel, {
     Demo
 })
 
-export {ZoriaDocsPanel};
+interface ExpandByDefaultProp {
+    expandByDefault?: boolean
+}
+
+export {ZoriaDocsPanel, type ExpandByDefaultProp};

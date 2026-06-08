@@ -1,7 +1,8 @@
 import {Col, H2, ExpandCollapsePanel, Row, Text} from "@zoria-ui/react";
+import type {ExpandByDefaultProp} from "../../zoria-docs-panel/ZoriaDocsPanel.tsx";
 
-export function TextDocs() {
-    return <ExpandCollapsePanel>
+export function TextDocs({expandByDefault = false}: ExpandByDefaultProp) {
+    return <ExpandCollapsePanel expandByDefault={expandByDefault}>
         <ExpandCollapsePanel.Header><H2>Text</H2></ExpandCollapsePanel.Header>
         <ExpandCollapsePanel.Body>
             <Row className={'justify-center content-center'}>
