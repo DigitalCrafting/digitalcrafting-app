@@ -7,9 +7,11 @@ export const TextInputDocs = () => {
         <ZoriaDocsPanel.Body>
             <ZoriaDocsPanel.Demo>
                 <Row>
-                    <Col span={5}>
+                    <Col span={1}/>
+                    <Col span={4}>
                         <TextInput placeholder='Funny placeholder' onChange={(value) => console.log(value)} label='Text input'/>
                     </Col>
+                    <Col span={7}/>
                 </Row>
             </ZoriaDocsPanel.Demo>
             <ZoriaDocsPanel.Code>

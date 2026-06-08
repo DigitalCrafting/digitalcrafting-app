@@ -29,6 +29,7 @@ const EmailInput = ({children, onKeyDown: externalOnKeyDown = noop, onChange = n
         const value = event.target.value;
 
         if (!value) {
+            setError(undefined);
             return;
         }
 

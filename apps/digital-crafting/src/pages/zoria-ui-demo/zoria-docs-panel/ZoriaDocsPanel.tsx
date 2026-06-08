@@ -62,13 +62,14 @@ const Body = ({children}: BodyProps) => {
 
 interface DocsPanelProps {
     children: [ReactElement<typeof Title>, ReactElement<typeof Body>];
+    expandByDefault?: boolean;
 }
 
-const DocsPanel = ({children}: DocsPanelProps) => {
+const DocsPanel = ({children, expandByDefault = false}: DocsPanelProps) => {
     const [TitleComponent, BodyComponent] = Children.toArray(children);
 
     return <Panel className='zoria-docs-panel'>
-        <ExpandCollapse expandByDefault>
+        <ExpandCollapse expandByDefault={expandByDefault}>
             <ExpandCollapse.Trigger>
                 <Panel.Header>
                     {TitleComponent}
