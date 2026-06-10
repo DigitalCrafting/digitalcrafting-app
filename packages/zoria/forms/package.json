@@ -9,7 +9,8 @@
     "dev": "vite",
     "build": "tsup src/index.ts --format esm,cjs --dts --clean",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "barrels": "barrelsby --noHeader --location top -c ./barrelsby.json"
   },
   "files": [
     "dist"

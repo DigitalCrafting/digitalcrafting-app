@@ -1,6 +1,7 @@
 import * as React from "react";
 import {ExpandCollapse} from "../expand-collapse/ExpandCollapse";
 
+/* TODO chevron is aligned differently than in *DocsPanel components */
 function PanelHeader({children, ...rest}: React.PropsWithChildren) {
     return <ExpandCollapse.Trigger asChild>
         <div {...rest} className={`z-panel-header z-expand-collapse-trigger`}>

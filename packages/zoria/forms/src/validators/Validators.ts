@@ -1,34 +1,10 @@
-/* --------------- */
-/* Validator types */
-/* --------------- */
-export type ValidationError = string | null
+import {
+    DEFAULT_VALIDATION_ERRORS,
+    type ValidationError,
+    type ValidatorFunc,
+    type ValidatorsComposition
+} from "./ValidatorsTypes.ts";
 
-export type ValidatorFunc = (value: any, message?: string) => ValidationError
-
-export interface ValidatorsComposition<T = any> {
-    validate(value: T): ValidationError;
-}
-
-const BuiltInValidators = {
-    REQUIRED: 'REQUIRED',
-    MIN_LENGTH: 'MIN_LENGTH',
-    MAX_LENGTH: 'MAX_LENGTH',
-    MIN_VALUE: 'MIN_VALUE',
-    MAX_VALUE: 'MAX_VALUE'
-} as const;
-type BuiltInValidators = (typeof BuiltInValidators)[keyof typeof BuiltInValidators];
-
-export const DEFAULT_VALIDATION_ERRORS: Record<BuiltInValidators, string> = {
-    REQUIRED: 'Field is required',
-    MIN_LENGTH: "Field's value is too short",
-    MAX_LENGTH: "Field's value is too long",
-    MIN_VALUE: "Field's value is too small",
-    MAX_VALUE: "Field's value is too big",
-}
-
-/* --------------------- */
-/* Validator definitions */
-/* --------------------- */
 const requiredValidator = (value: any, message = DEFAULT_VALIDATION_ERRORS.REQUIRED): ValidationError => {
     return !value ? message : null;
 }
@@ -118,6 +94,7 @@ export class Validators {
 
 /* -------------------------- */
 /* Validators builder classes */
+
 /* -------------------------- */
 abstract class BaseValidatorComposition<T = any> implements ValidatorsComposition<T> {
     protected _validators: ValidatorFunc[]

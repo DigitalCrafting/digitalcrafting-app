@@ -1,130 +1,17 @@
-import {EventEmitter, type Observer, type Subscription} from "@zoria-ui/events";
-import {type ValidationError, type ValidatorsComposition} from "../validators/Validators.ts";
+import type {ValidatorsComposition} from "../validators/ValidatorsTypes.ts";
+import {type EventConfig, FormElementTypeEnum} from "../internal/types/ZoriaFormTypes.ts";
+import type {FormElement} from "../internal/types/ZoriaFormElement.ts";
+import {AbstractZoriaFormElement} from "../internal/impl/AbstractZoriaFormElement.ts";
 
-type EventConfig = {
-    emit?: boolean,
-    bubbleUp?: boolean
-}
 
-export type FormValidationError = ValidationError | null
+export class FormGroup extends AbstractZoriaFormElement {
+    private _formElements: { [key: string]: AbstractZoriaFormElement }
 
-export const FormElementType = {
-    FORM_GROUP: 'FORM_GROUP',
-    FORM_ARRAY: 'FORM_ARRAY',
-    FORM_CONTROL: 'FORM_CONTROL'
-}
-export type FormElementType = (typeof FormElementType)[keyof typeof FormElementType];
-
-export interface FormElement {
-    getType(): FormElementType;
-
-    getIsValid(): boolean
-
-    getError(): FormValidationError;
-
-    getErrorsTree(): any
-
-    onValidityChanges(callback: Observer<any>): Subscription
-
-    getValue(): any
-
-    setValue(newValue: any, config?: EventConfig): void
-
-    onValueChanges(callback: Observer<any>): Subscription
-}
-
-abstract class AbstractFormElement implements FormElement {
-    protected type: FormElementType;
-    protected _parent: AbstractFormElement | null = null;
-    protected _error: FormValidationError;
-    protected _isValid: boolean;
-    protected _validityChangeEventPending: boolean;
-    protected _validator?: ValidatorsComposition;
-    protected _validityChangesEventEmitter: EventEmitter<boolean>;
-    protected _valueChangesEventEmitter: EventEmitter<any>;
-
-    constructor(_type: FormElementType, validator?: ValidatorsComposition) {
-        this.type = _type;
-        this._validator = validator
-        this._error = null;
-        this._isValid = true;
-        this._validityChangeEventPending = false;
-        this._validityChangesEventEmitter = new EventEmitter();
-        this._valueChangesEventEmitter = new EventEmitter();
-    }
-
-    getType(): FormElementType {
-        return this.type;
-    }
-
-    getIsValid(): boolean {
-        return this._isValid;
-    }
-
-    getError(): FormValidationError {
-        return this._error;
-    }
-
-    getErrorsTree(): any {
-        return this._error;
-    }
-
-    onValidityChanges(callback: Observer<any>): Subscription {
-        return this._validityChangesEventEmitter.subscribe(callback);
-    }
-
-    onValueChanges(callback: Observer<any>): Subscription {
-        return this._valueChangesEventEmitter.subscribe(callback);
-    }
-
-    protected _updateValidityAndEmitEvent(): void {
-        this._updateValidity()
-        this._emitValidityChanges()
-    }
-
-    abstract _updateValidity(): void;
-
-    protected _emitValidityChanges(overridePending: boolean = false) {
-        if (this._validityChangeEventPending || overridePending) {
-            this._validityChangesEventEmitter.emit(this._isValid)
-
-            if (this._parent) {
-                this._parent._emitValidityChanges(true);
-            }
-
-            this._validityChangeEventPending = false;
-        }
-    }
-
-    protected _emitValueChanges(eventConfig: EventConfig = {
-        emit: true,
-        bubbleUp: true
-    }) {
-        if (eventConfig.emit) {
-            this._valueChangesEventEmitter.emit(this.getValue())
-            if (eventConfig.bubbleUp && this._parent) {
-                this._parent._emitValueChanges(eventConfig)
-            }
-        }
-    }
-
-    _setParent(parent: AbstractFormElement | null): void {
-        this._parent = parent;
-    }
-
-    abstract getValue(): any;
-
-    abstract setValue(newValue: any, eventConfig?: EventConfig): void;
-}
-
-export class FormGroup extends AbstractFormElement {
-    private _formElements: { [key: string]: FormGroup | FormControl | FormArray }
-
-    constructor(formElements: {
-        [p: string]: FormGroup | FormControl | FormArray
+    constructor(formElements?: {
+        [p: string]: AbstractZoriaFormElement
     }, validator?: ValidatorsComposition) {
-        super(FormElementType.FORM_GROUP, validator);
-        this._formElements = formElements;
+        super(FormElementTypeEnum.FORM_GROUP, validator);
+        this._formElements = formElements || {};
         this._setUpElements();
     }
 
@@ -166,7 +53,7 @@ export class FormGroup extends AbstractFormElement {
         this._emitValidityChanges()
     }
 
-    getElement(key: string): FormGroup | FormControl | FormArray {
+    getElement(key: string): AbstractZoriaFormElement {
         return this._formElements[key]
     }
 
@@ -176,7 +63,7 @@ export class FormGroup extends AbstractFormElement {
      * Path parts should be separated using coma,
      * if path goes through FormArray, use index to get concrete element.
      * */
-    getElementFromPath<T = FormGroup | FormControl | FormArray>(path: string): T | FormElement {
+    getElementFromPath<T = AbstractZoriaFormElement>(path: string): T | FormElement {
         const pathParts = path.split('.')
 
         if (pathParts.length === 1) {
@@ -184,14 +71,14 @@ export class FormGroup extends AbstractFormElement {
         }
 
         if (pathParts.length > 1) {
-            let element: FormGroup | FormControl | FormArray | undefined = undefined;
-            for (let i = 0; i< pathParts.length; i++) {
+            let element: AbstractZoriaFormElement | undefined = undefined;
+            for (let i = 0; i < pathParts.length; i++) {
                 const pathPart = pathParts[i];
 
                 // @ts-ignore
                 if (!element) {
                     element = this._formElements[pathPart]
-                } else{
+                } else {
                     if (element instanceof FormGroup) {
                         element = element.getElement(pathPart)
                     } else if (element instanceof FormArray) {
@@ -264,11 +151,11 @@ export class FormGroup extends AbstractFormElement {
     }
 }
 
-export class FormControl extends AbstractFormElement {
+export class FormControl extends AbstractZoriaFormElement {
     private _value: any | null;
 
     constructor(value: any | null = null, validator?: ValidatorsComposition) {
-        super(FormElementType.FORM_CONTROL, validator);
+        super(FormElementTypeEnum.FORM_CONTROL, validator);
         this._value = value
         this._updateValidity()
     }
@@ -307,11 +194,11 @@ export class FormControl extends AbstractFormElement {
     }
 }
 
-export class FormArray extends AbstractFormElement {
-    private _formArray: (FormGroup | FormControl | FormArray)[]
+export class FormArray extends AbstractZoriaFormElement {
+    private _formArray: AbstractZoriaFormElement[]
 
-    constructor(array: (FormGroup | FormControl | FormArray)[], validator?: ValidatorsComposition) {
-        super(FormElementType.FORM_ARRAY, validator);
+    constructor(array?: AbstractZoriaFormElement[], validator?: ValidatorsComposition) {
+        super(FormElementTypeEnum.FORM_ARRAY, validator);
         this._formArray = array || [];
         this._setUpElements();
         this._updateValidity();
@@ -343,7 +230,7 @@ export class FormArray extends AbstractFormElement {
         this._emitValueChanges(eventConfig)
     }
 
-    getElement<T = FormGroup | FormControl | FormArray>(index: number): T {
+    getElement<T = AbstractZoriaFormElement>(index: number): T {
         return this._formArray[index] as T
     }
 
@@ -361,7 +248,7 @@ export class FormArray extends AbstractFormElement {
         }
     }
 
-    pushElement(element: (FormGroup | FormControl | FormArray)) {
+    pushElement(element: (AbstractZoriaFormElement)) {
         this._formArray.push(element);
         element._setParent(this);
         this._updateValidityAndEmitEvent()
@@ -408,7 +295,7 @@ export class FormArray extends AbstractFormElement {
         }
     }
 
-    private _forEachChild(cb: (control: (FormGroup | FormControl | FormArray), index: number) => void): void {
+    private _forEachChild(cb: (control: (AbstractZoriaFormElement), index: number) => void): void {
         this._formArray.forEach((control, index) => {
             cb(control, index);
         });
