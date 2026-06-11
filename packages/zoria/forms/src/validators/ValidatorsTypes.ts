@@ -1,12 +1,3 @@
-export type ValidationError = string | null
-
-/* TODO types */
-export type ValidatorFunc = (value: any, message?: string, control?: any) => ValidationError
-
-export interface ValidatorsComposition<T = any> {
-    validate(value: T): ValidationError;
-}
-
 export const BuiltInValidators = {
     REQUIRED: 'REQUIRED',
     MIN_LENGTH: 'MIN_LENGTH',

@@ -1,9 +1,7 @@
 import {
     DEFAULT_VALIDATION_ERRORS,
-    type ValidationError,
-    type ValidatorFunc,
-    type ValidatorsComposition
 } from "./ValidatorsTypes.ts";
+import type {ValidationError, ValidatorFunc} from "../internal/types/ZoriaFormElement.ts";
 
 const requiredValidator = (value: any, message = DEFAULT_VALIDATION_ERRORS.REQUIRED): ValidationError => {
     return !value ? message : null;
@@ -89,113 +87,5 @@ export class Validators {
 
     static max(max: number, message?: string): ValidatorFunc {
         return (value) => maxValueValidator(value, max, message);
-    }
-}
-
-/* -------------------------- */
-/* Validators builder classes */
-
-/* -------------------------- */
-abstract class BaseValidatorComposition<T = any> implements ValidatorsComposition<T> {
-    protected _validators: ValidatorFunc[]
-
-    constructor() {
-        this._validators = [];
-    }
-
-    public validator(custom: ValidatorFunc) {
-        this._validators.push(custom);
-        return this;
-    }
-
-    public validate(value: T): ValidationError {
-        for (const validator of this._validators) {
-            const validationError = validator(value)
-            if (validationError) {
-                return validationError;
-            }
-        }
-
-        return null;
-    }
-}
-
-
-class StringValidator extends BaseValidatorComposition<string> {
-    public required(message?: string) {
-        this._validators.push(Validators.required(message))
-        return this
-    }
-
-    public minLength(minLength: number, message?: string) {
-        this._validators.push(Validators.minLength(minLength, message));
-        return this
-    }
-
-    public maxLength(maxLength: number, message?: string) {
-        this._validators.push(Validators.maxLength(maxLength, message));
-        return this
-    }
-}
-
-class NumbersValidator extends BaseValidatorComposition<number> {
-    public required(message?: string) {
-        this._validators.push(Validators.required(message))
-        return this
-    }
-
-    public min(min: number, message?: string) {
-        this._validators.push(Validators.min(min, message));
-        return this
-    }
-
-    public max(max: number, message?: string) {
-        this._validators.push(Validators.max(max, message));
-        return this
-    }
-}
-
-class ArraysValidator extends BaseValidatorComposition<any[]> {
-    public required(message?: string) {
-        this._validators.push(Validators.required(message))
-        return this
-    }
-
-    public minLength(minLength: number, message?: string) {
-        this._validators.push(Validators.minLength(minLength, message));
-        return this
-    }
-
-    public maxLength(maxLength: number, message?: string) {
-        this._validators.push(Validators.maxLength(maxLength, message));
-        return this
-    }
-}
-
-class TypelessValidator extends BaseValidatorComposition {
-    constructor(validators: ValidatorFunc[]) {
-        super();
-        this._validators = validators
-    }
-}
-
-/* -------------------------------------- */
-/* Validators builders 'namespace' export */
-/* -------------------------------------- */
-export class ValidatorComposers {
-    static string(): StringValidator {
-        return new StringValidator()
-    }
-
-    static number(): NumbersValidator {
-        return new NumbersValidator()
-    }
-
-    static array(): ArraysValidator {
-        return new ArraysValidator()
-    }
-
-    static compose(...validators: ValidatorFunc[]): TypelessValidator {
-        return new TypelessValidator(validators)
     }
 }

@@ -1,7 +1,6 @@
-import type {ValidatorsComposition} from "../validators/ValidatorsTypes.ts";
 import {type EventConfig, FormElementTypeEnum} from "../internal/types/ZoriaFormTypes.ts";
-import type {FormElement} from "../internal/types/ZoriaFormElement.ts";
 import {AbstractZoriaFormElement} from "../internal/impl/AbstractZoriaFormElement.ts";
+import type {ValidatorFunc} from "../internal/types/ZoriaFormElement.ts";
 
 
 export class FormGroup extends AbstractZoriaFormElement {
@@ -9,8 +8,8 @@ export class FormGroup extends AbstractZoriaFormElement {
 
     constructor(formElements?: {
         [p: string]: AbstractZoriaFormElement
-    }, validator?: ValidatorsComposition) {
-        super(FormElementTypeEnum.FORM_GROUP, validator);
+    }, validators?: ValidatorFunc[]) {
+        super(FormElementTypeEnum.FORM_GROUP, validators);
         this._formElements = formElements || {};
         this._setUpElements();
     }
@@ -63,7 +62,7 @@ export class FormGroup extends AbstractZoriaFormElement {
      * Path parts should be separated using coma,
      * if path goes through FormArray, use index to get concrete element.
      * */
-    getElementFromPath<T = AbstractZoriaFormElement>(path: string): T | FormElement {
+    getElementFromPath<T = AbstractZoriaFormElement>(path: string): T | AbstractZoriaFormElement {
         const pathParts = path.split('.')
 
         if (pathParts.length === 1) {
@@ -108,8 +107,8 @@ export class FormGroup extends AbstractZoriaFormElement {
 
     _updateValidity(): void {
         let newValid = true;
-        if (this._validator) {
-            const newError = this._validator.validate(this.getValue())
+        if (this._validators) {
+            const newError = this._validators.validate(this.getValue())
             if (newError !== this._error) {
                 this._error = newError;
                 newValid = newError === null;
@@ -154,8 +153,8 @@ export class FormGroup extends AbstractZoriaFormElement {
 export class FormControl extends AbstractZoriaFormElement {
     private _value: any | null;
 
-    constructor(value: any | null = null, validator?: ValidatorsComposition) {
-        super(FormElementTypeEnum.FORM_CONTROL, validator);
+    constructor(value: any | null = null, validators?: ValidatorFunc[]) {
+        super(FormElementTypeEnum.FORM_CONTROL, validators);
         this._value = value
         this._updateValidity()
     }
@@ -175,8 +174,8 @@ export class FormControl extends AbstractZoriaFormElement {
 
     _updateValidity(): void {
         let newValid = true;
-        if (this._validator) {
-            const newError = this._validator.validate(this._value)
+        if (this._validators) {
+            const newError = this._validators.validate(this._value)
             if (this._error !== newError) {
                 this._error = newError;
                 newValid = newError === null;
@@ -197,8 +196,8 @@ export class FormControl extends AbstractZoriaFormElement {
 export class FormArray extends AbstractZoriaFormElement {
     private _formArray: AbstractZoriaFormElement[]
 
-    constructor(array?: AbstractZoriaFormElement[], validator?: ValidatorsComposition) {
-        super(FormElementTypeEnum.FORM_ARRAY, validator);
+    constructor(array?: AbstractZoriaFormElement[], validators?: ValidatorFunc[]) {
+        super(FormElementTypeEnum.FORM_ARRAY, validators);
         this._formArray = array || [];
         this._setUpElements();
         this._updateValidity();
@@ -272,8 +271,8 @@ export class FormArray extends AbstractZoriaFormElement {
     _updateValidity(): void {
         let newValid = true;
 
-        if (this._validator) {
-            const newError = this._validator.validate(this.getValue())
+        if (this._validators) {
+            const newError = this._validators.validate(this.getValue())
             if (newError !== this._error) {
                 this._error = newError;
                 newValid = newError === null;

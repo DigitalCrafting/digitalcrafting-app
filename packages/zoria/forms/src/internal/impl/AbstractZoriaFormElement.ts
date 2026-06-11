@@ -1,23 +1,23 @@
-import type {ValidatorsComposition} from "../../validators/ValidatorsTypes.ts";
-import type {EventConfig, FormElementTypeEnum, FormValidationError} from "../types/ZoriaFormTypes.ts";
-import type {FormElement} from "../types/ZoriaFormElement.ts";
+import type {EventConfig, FormElementTypeEnumType} from "../types/ZoriaFormTypes.ts";
+import type {FormElement, ValidationError, ValidatorFunc, ValidatorsComposition} from "../types/ZoriaFormElement.ts";
 import {EventEmitter, type Observer, type Subscription} from "@zoria-ui/events";
+import {ZoriaFormValidatorsComposition} from "../validators/ZoriaFormValidatorsComposition.ts";
 
-export abstract class AbstractZoriaFormElement implements FormElement {
-    protected type: FormElementTypeEnum;
+export abstract class AbstractZoriaFormElement<T extends FormElementTypeEnumType = unknown, V = unknown> implements FormElement<T, V> {
+    protected _type: T;
     protected _parent: AbstractZoriaFormElement | null = null;
-    protected _error: FormValidationError;
+    protected _error: ValidationError;
     protected _isValid: boolean;
     protected _isVisible: boolean;
     protected _validityChangeEventPending: boolean;
-    protected _validator?: ValidatorsComposition;
+    protected _validators: ValidatorsComposition;
     protected _validityChangesEventEmitter: EventEmitter<boolean>;
     protected _valueChangesEventEmitter: EventEmitter<any>;
     protected _visibilityChangesEventEmitter: EventEmitter<boolean>;
 
-    constructor(_type: FormElementTypeEnum, validator?: ValidatorsComposition) {
-        this.type = _type;
-        this._validator = validator
+    protected constructor(_type: T, validators?: ValidatorFunc[]) {
+        this._type = _type;
+        this._validators = new ZoriaFormValidatorsComposition(validators);
         this._error = null;
         this._isValid = true;
         this._isVisible = true;
@@ -27,19 +27,19 @@ export abstract class AbstractZoriaFormElement implements FormElement {
         this._visibilityChangesEventEmitter = new EventEmitter();
     }
 
-    getType(): FormElementTypeEnum {
-        return this.type;
+    getType(): T {
+        return this._type;
     }
 
     getIsValid(): boolean {
         return this._isValid;
     }
 
-    setError(error: FormValidationError): void {
+    setError(error: ValidationError): void {
         this._error = error;
     }
 
-    getError(): FormValidationError {
+    getError(): ValidationError {
         return this._error;
     }
 
@@ -47,11 +47,11 @@ export abstract class AbstractZoriaFormElement implements FormElement {
         return this._error;
     }
 
-    onValidityChanges(callback: Observer<any>): Subscription {
+    onValidityChanges(callback: Observer<boolean>): Subscription {
         return this._validityChangesEventEmitter.subscribe(callback);
     }
 
-    onValueChanges(callback: Observer<any>): Subscription {
+    onValueChanges(callback: Observer<V>): Subscription {
         return this._valueChangesEventEmitter.subscribe(callback);
     }
 
@@ -103,7 +103,27 @@ export abstract class AbstractZoriaFormElement implements FormElement {
         this._parent = parent;
     }
 
-    abstract getValue(): any;
+    addValidator(validator: ValidatorFunc): void {
+        this._validators.add(validator);
+    }
 
-    abstract setValue(newValue: any, eventConfig?: EventConfig): void;
+    clearValidator(): void {
+        this._validators.clear();
+    }
+
+    getIsRequired(): boolean {
+        return false;
+    }
+
+    removeValidator(validator: ValidatorFunc): void {
+        this._validators.remove(validator);
+    }
+
+    setValidators(validators: ValidatorFunc[]): void {
+        this._validators.set(validators);
+    }
+
+    abstract getValue(): V;
+
+    abstract setValue(newValue: V, eventConfig?: EventConfig): void;
 }

@@ -1,7 +1,8 @@
 //@ts-nocheck
-import {FormElementTypeEnum, FormGroup} from "./ZoriaForms.ts";
+import {FormGroup} from "./ZoriaForms.ts";
 import {DEFAULT_VALIDATION_ERRORS, type ValidatorFunc} from "../validators/ValidatorsTypes.ts";
 import {Validators} from "../validators/Validators.ts";
+import {FormElementTypeEnumType} from "../internal/types/ZoriaFormTypes.ts";
 
 type ZoriaFormElementBaseType = {
     /* required is separate, because requirement is rather useful information to have at hand */
@@ -143,6 +144,10 @@ const ZNumber = () => new ZNumberDefinition();
 
 const createForm = (schema: ZoriaFormSchemaType): FormGroup => {
 
+}
+
+const customerValidator = (value, control) => {
+    return 'error'
 }
 
 const form = createForm({

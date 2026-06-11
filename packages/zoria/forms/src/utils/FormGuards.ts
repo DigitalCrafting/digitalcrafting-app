@@ -1,14 +1,16 @@
-import {FormArray, FormControl, type FormElement, FormElementTypeEnum, FormGroup} from "../forms/ZoriaForms.ts";
+import {FormArray, FormControl, FormGroup} from "../forms/ZoriaForms.ts";
+import type {AbstractZoriaFormElement} from "../internal/impl/AbstractZoriaFormElement.ts";
+import {FormElementTypeEnum} from "../internal/types/ZoriaFormTypes.ts";
 
-export function isFormGroup(element: FormElement): element is FormGroup {
+export function isFormGroup(element: AbstractZoriaFormElement): element is FormGroup {
     return element.getType() === FormElementTypeEnum.FORM_GROUP;
 }
 
-export function isFormArray(element: FormElement): element is FormArray {
+export function isFormArray(element: AbstractZoriaFormElement): element is FormArray {
     return element.getType() === FormElementTypeEnum.FORM_ARRAY;
 }
 
-export function isFormControl(element: FormElement): element is FormControl {
+export function isFormControl(element: AbstractZoriaFormElement): element is FormControl {
     return element.getType() === FormElementTypeEnum.FORM_CONTROL;
 }
 

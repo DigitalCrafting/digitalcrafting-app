@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest';
-import {ValidatorComposers, Validators} from "./Validators.ts";
-import {DEFAULT_VALIDATION_ERRORS, type ValidatorsComposition} from "./ValidatorsTypes.ts";
+import {Validators} from "./Validators.ts";
+import {DEFAULT_VALIDATION_ERRORS} from "./ValidatorsTypes.ts";
 
 describe('Validators', () => {
     describe('required', () => {
@@ -178,37 +178,6 @@ describe('Validators', () => {
 
             // then
             expect(() => Validators.max(2)(testedValue)).toThrowError(/Expected number/)
-        })
-    })
-
-    describe('compositions', () => {
-        describe('string validator composition', ()=> {
-            it('should run single validator', () => {
-                // given
-                const testedValue = 'I exist!'
-                const val: ValidatorsComposition = ValidatorComposers.string().required()
-
-                // when
-                const testResult = val.validate(testedValue)
-
-                // then
-                expect(testResult).eq(null)
-            })
-
-            it('should run multiple validators', () => {
-                // given
-                const firstTestedValue = null
-                const secondTestedValue = 'I exist!'
-                const val: ValidatorsComposition = ValidatorComposers.string().required().minLength(10)
-
-                // when
-                const firstTestResult = val.validate(firstTestedValue)
-                const secondTestResult = val.validate(secondTestedValue)
-
-                // then
-                expect(firstTestResult).eq(DEFAULT_VALIDATION_ERRORS.REQUIRED)
-                expect(secondTestResult).eq(DEFAULT_VALIDATION_ERRORS.MIN_LENGTH)
-            })
         })
     })
 })

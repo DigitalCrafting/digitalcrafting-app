@@ -1,6 +1,7 @@
+// @ts-nocheck
 import {describe, expect, it} from 'vitest';
 import {FormArray, FormGroup, FormControl} from "./ZoriaForms.ts";
-import {ValidatorComposers} from "../validators/Validators.ts";
+import {Validators} from "../validators/Validators.ts";
 
 describe('Custom forms', () => {
     describe('FormInput', () => {
@@ -51,7 +52,7 @@ describe('Custom forms', () => {
 
         it('should validate field and emit event', () => {
             // given
-            const control = new FormControl('', ValidatorComposers.string().required())
+            const control = new FormControl('', [Validators.required()])
             let currentIsValid = control.getIsValid()
             control.onValidityChanges((valid) => {
                 currentIsValid = valid
@@ -197,7 +198,7 @@ describe('Custom forms', () => {
         it('should correctly validate and emit value', () => {
             // given
             const control = new FormGroup({
-                first: new FormControl('', ValidatorComposers.string().required()),
+                first: new FormControl('', [Validators.required()]),
                 second: new FormControl('second value')
             })
             let currentIsValid = control.getIsValid()
@@ -217,7 +218,7 @@ describe('Custom forms', () => {
         describe('getElementFromPath', () => {
             it('should return control 1 level deep', () => {
                 // given
-                const expectedControl = new FormControl('', ValidatorComposers.string().required())
+                const expectedControl = new FormControl('', [Validators.required()])
                 const formGroup = new FormGroup({
                     first: expectedControl,
                     second: new FormControl('second value')
@@ -232,7 +233,7 @@ describe('Custom forms', () => {
 
             it('should return control 2 levels deep', () => {
                 // given
-                const expectedControl = new FormControl('', ValidatorComposers.string().required())
+                const expectedControl = new FormControl('', [Validators.required()])
                 const formGroup = new FormGroup({
                     firstLevel: new FormGroup({
                         first: expectedControl
@@ -249,7 +250,7 @@ describe('Custom forms', () => {
 
             it('should return control 2 levels deep from FormArray', () => {
                 // given
-                const expectedControl = new FormControl('', ValidatorComposers.string().required())
+                const expectedControl = new FormControl('', [Validators.required()])
                 const formGroup = new FormGroup({
                     firstLevel: new FormArray([
                         expectedControl
@@ -266,7 +267,7 @@ describe('Custom forms', () => {
 
             it('should return control 3 levels deep', () => {
                 // given
-                const expectedControl = new FormControl('', ValidatorComposers.string().required())
+                const expectedControl = new FormControl('', [Validators.required()])
                 const formGroup = new FormGroup({
                     firstLevel: new FormGroup({
                         secondLevel: new FormGroup({
@@ -285,7 +286,7 @@ describe('Custom forms', () => {
 
             it('should return control 3 levels deep, from FormArray in the middle', () => {
                 // given
-                const expectedControl = new FormControl('', ValidatorComposers.string().required())
+                const expectedControl = new FormControl('', [Validators.required()])
                 const formGroup = new FormGroup({
                     firstLevel: new FormArray([
                         new FormGroup({
@@ -308,7 +309,7 @@ describe('Custom forms', () => {
         it('should correctly store value', () => {
             // given
             const control = new FormArray([
-                new FormControl('first value', ValidatorComposers.string().required()),
+                new FormControl('first value', [Validators.required()]),
                 new FormControl('second value')
             ])
             const expectedValue = ['first value', 'second value'];
@@ -323,7 +324,7 @@ describe('Custom forms', () => {
         it('should correctly set value in all sub-elements', () => {
             // given
             const control = new FormArray([
-                new FormControl('first value', ValidatorComposers.string().required()),
+                new FormControl('first value', [Validators.required()]),
                 new FormControl('second value')
             ])
             const expectedValue = ['new first value', 'new second value'];
@@ -338,7 +339,7 @@ describe('Custom forms', () => {
 
         it('should correctly emit and bubble-up value change event', () => {
             // given
-            const control = new FormControl('first value', ValidatorComposers.string().required());
+            const control = new FormControl('first value', [Validators.required()]);
             const controlArray = new FormArray([
                 control,
                 new FormControl('second value')
@@ -360,7 +361,7 @@ describe('Custom forms', () => {
 
         it('should emit but NOT bubble-up value change event', () => {
             // given
-            const control = new FormControl('first value', ValidatorComposers.string().required());
+            const control = new FormControl('first value', [Validators.required()]);
             const controlArray = new FormArray([
                 control,
                 new FormControl('second value')
@@ -385,7 +386,7 @@ describe('Custom forms', () => {
         it('should correctly validate and emit value', () => {
             // given
             const controlArray = new FormArray([
-                new FormControl('', ValidatorComposers.string().required()),
+                new FormControl('', [Validators.required()]),
                 new FormControl('second value')
             ])
             const initialValid = controlArray.getIsValid()
@@ -409,7 +410,7 @@ describe('Custom forms', () => {
             it('should correctly remove element', () => {
                 // given
                 const controlArray = new FormArray([
-                    new FormControl('', ValidatorComposers.string().required()),
+                    new FormControl('', [Validators.required()]),
                     new FormControl('second value')
                 ])
 
@@ -423,7 +424,7 @@ describe('Custom forms', () => {
             it('should correctly update and emit value change', () => {
                 // given
                 const controlArray = new FormArray([
-                    new FormControl('', ValidatorComposers.string().required()),
+                    new FormControl('', [Validators.required()]),
                     new FormControl('second value')
                 ])
                 const oldValue = controlArray.getValue()
@@ -448,7 +449,7 @@ describe('Custom forms', () => {
             it('should correctly update and emit validity change', () => {
                 // given
                 const controlArray = new FormArray([
-                    new FormControl('', ValidatorComposers.string().required()),
+                    new FormControl('', [Validators.required()]),
                     new FormControl('second value')
                 ])
 
@@ -472,7 +473,7 @@ describe('Custom forms', () => {
             it('should correctly add element', () => {
                 // given
                 const controlArray = new FormArray([
-                    new FormControl('', ValidatorComposers.string().required()),
+                    new FormControl('', [Validators.required()]),
                 ])
 
                 // when
@@ -485,7 +486,7 @@ describe('Custom forms', () => {
             it('should correctly update and emit value change', () => {
                 // given
                 const controlArray = new FormArray([
-                    new FormControl('first value', ValidatorComposers.string().required())
+                    new FormControl('first value', [Validators.required()])
                 ])
                 const oldValue = controlArray.getValue()
                 let emittedValue: any[] | null = null
@@ -520,7 +521,7 @@ describe('Custom forms', () => {
                 })
 
                 // when
-                controlArray.pushElement(new FormControl('', ValidatorComposers.string().required()))
+                controlArray.pushElement(new FormControl('', [Validators.required()]))
 
                 // then
                 expect(currentValidity).toBe(true);
