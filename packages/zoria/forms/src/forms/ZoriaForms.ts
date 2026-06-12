@@ -1,9 +1,12 @@
 import {type EventConfig, FormElementTypeEnum} from "../internal/types/ZoriaFormTypes.ts";
 import {AbstractZoriaFormElement} from "../internal/impl/AbstractZoriaFormElement.ts";
 import type {ValidatorFunc} from "../internal/types/ZoriaFormElement.ts";
+import {PATH_DELIMITER} from "../internal/helpers/ZoriaFormTraversal.ts";
+
+declare const process: { env: { NODE_ENV: string } };
 
 
-export class FormGroup extends AbstractZoriaFormElement {
+export class FormGroup extends AbstractZoriaFormElement<typeof FormElementTypeEnum.FORM_GROUP, Record<string, any>> {
     private _formElements: { [key: string]: AbstractZoriaFormElement }
 
     constructor(formElements?: {
@@ -24,7 +27,7 @@ export class FormGroup extends AbstractZoriaFormElement {
         return valid;
     }
 
-    getValue(): any {
+    getValue(): Record<string, any> {
         const valueObject = {};
 
         this._forEachChild((control, key) => {
@@ -52,47 +55,41 @@ export class FormGroup extends AbstractZoriaFormElement {
         this._emitValidityChanges()
     }
 
-    getElement(key: string): AbstractZoriaFormElement {
-        return this._formElements[key]
-    }
-
-    /**
-     * Returns nested child component using path.
-     *
-     * Path parts should be separated using coma,
-     * if path goes through FormArray, use index to get concrete element.
-     * */
-    getElementFromPath<T = AbstractZoriaFormElement>(path: string): T | AbstractZoriaFormElement {
-        const pathParts = path.split('.')
-
-        if (pathParts.length === 1) {
-            return this._formElements[pathParts[0]] as T
+    getElement(path?: string): AbstractZoriaFormElement<any, any> {
+        if (process.env.NODE_ENV !== 'production') {
+            if (!path?.length) {
+                throw new Error(`ZoriaFormGroup::getElement::'path' empty`);
+            }
         }
 
-        if (pathParts.length > 1) {
-            let element: AbstractZoriaFormElement | undefined = undefined;
-            for (let i = 0; i < pathParts.length; i++) {
-                const pathPart = pathParts[i];
+        const firstDotIndex = path!.indexOf(PATH_DELIMITER);
+        if (process.env.NODE_ENV !== 'production') {
+            if (firstDotIndex === 0) {
+                throw new Error(`ZoriaFormGroup::getElement::'path' incorrect: ${path}`)
+            }
+        }
 
-                // @ts-ignore
+        if (firstDotIndex < 0) {
+            const element = this._formElements[path!];
+            if (process.env.NODE_ENV !== 'production') {
                 if (!element) {
-                    element = this._formElements[pathPart]
-                } else {
-                    if (element instanceof FormGroup) {
-                        element = element.getElement(pathPart)
-                    } else if (element instanceof FormArray) {
-                        element = element.getElement(+pathPart)
-                    } else {
-                        /* We should only get FormInputControl as the last element */
-                        throw new Error(`Path ${path} does not match actual form structure`)
-                    }
+                    throw new Error(`ZoriaFormGroup::getElement::'path' incorrect: ${path}`)
                 }
             }
-
-            return element as T
+            return element;
         }
 
-        throw new Error(`Element on path ${path} does not exist.`)
+        const firstSection = path!.substring(0, firstDotIndex);
+        const element = this._formElements[firstSection];
+        if (process.env.NODE_ENV !== 'production') {
+            if (!element) {
+                throw new Error(`ZoriaFormGroup::getElement::'path' incorrect: ${path}`)
+            }
+        }
+
+        /* TODO::[performance]::replace slice with keeping track of index and _internalGetElement(path, index)  */
+        const restOfPath = path!.slice(firstDotIndex + 1);
+        return element.getElement(restOfPath);
     }
 
     getErrorsTree(): Record<string, any> {
@@ -146,163 +143,6 @@ export class FormGroup extends AbstractZoriaFormElement {
     private _setUpElements() {
         this._forEachChild((control) => {
             control._setParent(this)
-        })
-    }
-}
-
-export class FormControl extends AbstractZoriaFormElement {
-    private _value: any | null;
-
-    constructor(value: any | null = null, validators?: ValidatorFunc[]) {
-        super(FormElementTypeEnum.FORM_CONTROL, validators);
-        this._value = value
-        this._updateValidity()
-    }
-
-    getValue(): any | null {
-        return this._value;
-    }
-
-    setValue(newValue: any, eventConfig: EventConfig = {
-        emit: true,
-        bubbleUp: true
-    }): void {
-        this._value = newValue;
-        this._emitValueChanges(eventConfig)
-        this._updateValidityAndEmitEvent()
-    }
-
-    _updateValidity(): void {
-        let newValid = true;
-        if (this._validators) {
-            const newError = this._validators.validate(this._value)
-            if (this._error !== newError) {
-                this._error = newError;
-                newValid = newError === null;
-            }
-        }
-
-        if (this._isValid !== newValid) {
-            this._isValid = newValid;
-            this._validityChangeEventPending = true;
-        }
-
-        if (this._parent && this._validityChangeEventPending) {
-            this._parent._updateValidity();
-        }
-    }
-}
-
-export class FormArray extends AbstractZoriaFormElement {
-    private _formArray: AbstractZoriaFormElement[]
-
-    constructor(array?: AbstractZoriaFormElement[], validators?: ValidatorFunc[]) {
-        super(FormElementTypeEnum.FORM_ARRAY, validators);
-        this._formArray = array || [];
-        this._setUpElements();
-        this._updateValidity();
-    }
-
-    getValue(): any[] {
-        const valueArray = [] as any[]
-
-        for (const el of this._formArray) {
-            valueArray.push(el.getValue())
-        }
-
-        return valueArray;
-    }
-
-    setValue(newValue: any[], eventConfig: EventConfig = {
-        emit: true,
-        bubbleUp: true
-    }): void {
-        if (newValue.length != this._formArray.length) {
-            throw new Error("Arrays lengths don't match")
-        }
-
-        for (let i = 0; i < newValue.length; i++) {
-            // We don't want to 'bubbleUp' the event, since this control we emit change after the loop
-            this._formArray[i].setValue(newValue[i], {emit: eventConfig.emit, bubbleUp: false});
-        }
-
-        this._emitValueChanges(eventConfig)
-    }
-
-    getElement<T = AbstractZoriaFormElement>(index: number): T {
-        return this._formArray[index] as T
-    }
-
-    removeElement(index: number) {
-        if (index < 0 || index >= this._formArray.length) {
-            console.log(`Index out of bounds: ${index}`)
-            return
-        }
-
-        if (this._formArray[index]) {
-            this._formArray[index]._setParent(null)
-            this._formArray.splice(index, 1)
-            this._updateValidityAndEmitEvent()
-            this._emitValueChanges()
-        }
-    }
-
-    pushElement(element: (AbstractZoriaFormElement)) {
-        this._formArray.push(element);
-        element._setParent(this);
-        this._updateValidityAndEmitEvent()
-        this._emitValueChanges();
-    }
-
-    get length(): number {
-        return this._formArray.length
-    }
-
-    getIsValid(): boolean {
-        return this._isValid;
-    }
-
-    getErrorsTree(): any[] {
-        return this._formArray.map(control => {
-            return control.getErrorsTree();
-        })
-    }
-
-    _updateValidity(): void {
-        let newValid = true;
-
-        if (this._validators) {
-            const newError = this._validators.validate(this.getValue())
-            if (newError !== this._error) {
-                this._error = newError;
-                newValid = newError === null;
-            }
-        }
-
-        let childrenValid = true
-        this._forEachChild((control) => {
-            childrenValid = childrenValid && control.getIsValid()
-        })
-
-        if (this._isValid !== (childrenValid && newValid)) {
-            this._isValid = childrenValid && newValid;
-            this._validityChangeEventPending = true;
-        }
-
-        if (this._parent && this._validityChangeEventPending) {
-            this._parent._updateValidity();
-        }
-    }
-
-    private _forEachChild(cb: (control: (AbstractZoriaFormElement), index: number) => void): void {
-        this._formArray.forEach((control, index) => {
-            cb(control, index);
-        });
-    }
-
-    private _setUpElements() {
-        this._forEachChild((control) => {
-            control._setParent(this);
         })
     }
 }

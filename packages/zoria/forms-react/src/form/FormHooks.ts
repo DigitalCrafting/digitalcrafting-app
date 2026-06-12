@@ -4,10 +4,10 @@ import {useCallback, useEffect, useMemo, useState} from "react";
 
 const useFormGroup = (path: string): FormGroup => {
     const {formGroup} = useFormContext();
-    const element = formGroup.getElementFromPath(path);
+    const element = formGroup.getElement(path);
 
     if (!isFormGroup(element)) {
-        throw new Error(`useFormGroup: element at ${path} is not a FormGroup`)
+        throw new Error(`useFormGroup::element at ${path} is not a FormGroup`)
     }
 
     return element;
@@ -15,10 +15,10 @@ const useFormGroup = (path: string): FormGroup => {
 
 const useFormArray = (path: string): FormArray => {
     const {formGroup} = useFormContext();
-    const element = formGroup.getElementFromPath(path);
+    const element = formGroup.getElement(path);
 
     if (!isFormArray(element)) {
-        throw new Error(`useFormArray: element at ${path} is not a FormArray`)
+        throw new Error(`useFormArray::element at ${path} is not a FormArray`)
     }
 
     return element;
@@ -33,13 +33,15 @@ type UseFormControlReturn<T = any> = {
 const useFormControl = <T = any>(path: string): UseFormControlReturn<T> => {
     const {formGroup} = useFormContext();
     const control: FormControl = useMemo(() => {
-        const element = formGroup.getElementFromPath(path);
+        const element = formGroup.getElement(path);
 
-        if (!isFormControl(element)) {
-            throw new Error(`useFormControl: element at ${path} is not a FormControl`)
+        if (process.env.NODE_ENV !== 'production') {
+            if (!isFormControl(element)) {
+                throw new Error(`useFormControl::element at ${path} is not a FormControl`)
+            }
         }
 
-        return element;
+        return element as FormControl;
     }, [path]);
 
     const [value, setValue] = useState<T>(control.getValue());

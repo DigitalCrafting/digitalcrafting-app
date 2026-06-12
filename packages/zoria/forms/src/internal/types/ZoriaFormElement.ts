@@ -20,41 +20,38 @@ export interface ValidatorsComposition<T = any> {
 export interface FormElement<T extends FormElementTypeEnumType, V = unknown> {
     /* === Type === */
     getType(): T;
+    getElement(path?: string): FormElement<FormElementTypeEnumType>;
 
     /* === Errors === */
     setError(error: ValidationError): void;
-
     getError(): ValidationError;
-
     getErrorsTree(): ValidationError | Record<string, ValidationError>;
 
     /* === Validity === */
     getIsValid(): boolean;
-
     onValidityChanges(callback: Observer<any>): Subscription;
 
     /* === Validators === */
     addValidator(validator: ValidatorFunc): void;
-
     removeValidator(validator: ValidatorFunc): void;
-
     setValidators(validators: ValidatorFunc[]): void;
-
     clearValidator(): void;
 
     /* === Value === */
     getValue(): V;
-
     setValue(newValue: V, config?: EventConfig): void;
-
     onValueChanges(callback: Observer<V>): Subscription;
 
     /* === Auxiliaries === */
     setIsVisible(visible: boolean): void;
-
     getIsVisible(): boolean;
-
     onVisibilityChanges(callback: Observer<boolean>): Subscription;
+
+    disable(): void;
+    enable(): void;
+    isEnabled(): boolean;
+    isDisabled(): boolean;
+    onDisabledChanges(callback: Observer<boolean>): Subscription;
 
     getIsRequired(): boolean;
 }

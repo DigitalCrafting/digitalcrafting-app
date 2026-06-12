@@ -55,7 +55,7 @@ describe('Custom forms', () => {
             const control = new FormControl('', [Validators.required()])
             let currentIsValid = control.getIsValid()
             control.onValidityChanges((valid) => {
-                currentIsValid = valid
+                currentIsValid = !valid
             })
 
             // when
@@ -202,8 +202,8 @@ describe('Custom forms', () => {
                 second: new FormControl('second value')
             })
             let currentIsValid = control.getIsValid()
-            control.onValidityChanges((valid) => {
-                currentIsValid = valid
+            control.onValidityChanges((error) => {
+                currentIsValid = !error
             })
             expect(currentIsValid).eq(false)
 
@@ -225,7 +225,7 @@ describe('Custom forms', () => {
                 })
 
                 // when
-                const actualControl = formGroup.getElementFromPath('first');
+                const actualControl = formGroup.getElement('first');
 
                 // then
                 expect(actualControl).eq(expectedControl)
@@ -242,7 +242,7 @@ describe('Custom forms', () => {
                 })
 
                 // when
-                const actualControl = formGroup.getElementFromPath('firstLevel.first');
+                const actualControl = formGroup.getElement('firstLevel.first');
 
                 // then
                 expect(actualControl).eq(expectedControl)
@@ -259,7 +259,7 @@ describe('Custom forms', () => {
                 })
 
                 // when
-                const actualControl = formGroup.getElementFromPath('firstLevel.0');
+                const actualControl = formGroup.getElement('firstLevel.0');
 
                 // then
                 expect(actualControl).eq(expectedControl)
@@ -278,7 +278,7 @@ describe('Custom forms', () => {
                 })
 
                 // when
-                const actualControl = formGroup.getElementFromPath('firstLevel.secondLevel.first');
+                const actualControl = formGroup.getElement('firstLevel.secondLevel.first');
 
                 // then
                 expect(actualControl).eq(expectedControl)
@@ -297,7 +297,7 @@ describe('Custom forms', () => {
                 })
 
                 // when
-                const actualControl = formGroup.getElementFromPath('firstLevel.0.first');
+                const actualControl = formGroup.getElement('firstLevel.0.first');
 
                 // then
                 expect(actualControl).eq(expectedControl)
@@ -393,11 +393,11 @@ describe('Custom forms', () => {
 
             let emittedValid = false
             controlArray.onValidityChanges((isValid) => {
-                emittedValid = isValid
+                emittedValid = !isValid
             })
 
             // when
-            controlArray.getElement<FormControl>(0).setValue('new first value', {emit: true, bubbleUp: false})
+            controlArray.getElement<FormControl>('0').setValue('new first value', {emit: true, bubbleUp: false})
             const currentValid = controlArray.getIsValid()
 
             // then
@@ -456,7 +456,7 @@ describe('Custom forms', () => {
                 const currentValidity = controlArray.getIsValid()
                 let emittedValidity: boolean | null = null
                 controlArray.onValidityChanges((isValid) => {
-                    emittedValidity = isValid
+                    emittedValidity = !isValid
                 })
 
                 // when
@@ -517,7 +517,7 @@ describe('Custom forms', () => {
                 const currentValidity = controlArray.getIsValid()
                 let emittedValidity: boolean | null = null
                 controlArray.onValidityChanges((isValid) => {
-                    emittedValidity = isValid
+                    emittedValidity = !!isValid
                 })
 
                 // when
