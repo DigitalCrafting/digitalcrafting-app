@@ -1,15 +1,15 @@
 import {describe, expect, it, test} from 'vitest';
-import {Validators} from "./Validators.ts";
-import {DEFAULT_VALIDATION_ERRORS} from "./ValidatorsTypes.ts";
+import {ZoriaValidators} from "./ZoriaValidators.ts";
+import {DEFAULT_VALIDATION_ERRORS} from "./ZoriaValidatorsTypes.ts";
 
-describe('Validators', () => {
+describe('ZoriaValidators', () => {
     describe('required', () => {
         it('should correctly determine valid', () => {
             // given
             const testedValue = 'I exist!'
 
             // when
-            const testResult = Validators.required()(testedValue)
+            const testResult = ZoriaValidators.required()(testedValue)
 
             // then
             expect(testResult).eq(null)
@@ -20,7 +20,7 @@ describe('Validators', () => {
             const testedValue = ''
 
             // when
-            const testResult = Validators.required()(testedValue)
+            const testResult = ZoriaValidators.required()(testedValue)
 
             // then
             expect(testResult).eq(DEFAULT_VALIDATION_ERRORS.REQUIRED)
@@ -32,7 +32,7 @@ describe('Validators', () => {
             const testedValue = [5, 6, 7]
 
             // when
-            const testResult = Validators.minLength(2)(testedValue)
+            const testResult = ZoriaValidators.minLength(2)(testedValue)
 
             // then
             expect(testResult).eq(null)
@@ -43,7 +43,7 @@ describe('Validators', () => {
             const testedValue = [5, 6, 7]
 
             // when
-            const testResult = Validators.minLength(5)(testedValue)
+            const testResult = ZoriaValidators.minLength(5)(testedValue)
 
             // then
             expect(testResult).eq(DEFAULT_VALIDATION_ERRORS.MIN_LENGTH)
@@ -54,7 +54,7 @@ describe('Validators', () => {
             const testedValue = null
 
             // when
-            const testResult = Validators.minLength(2)(testedValue)
+            const testResult = ZoriaValidators.minLength(2)(testedValue)
 
             // then
             expect(testResult).eq(null)
@@ -67,7 +67,7 @@ describe('Validators', () => {
             const testedValue = [5, 6, 7]
 
             // when
-            const testResult = Validators.maxLength(5)(testedValue)
+            const testResult = ZoriaValidators.maxLength(5)(testedValue)
 
             // then
             expect(testResult).eq(null)
@@ -78,7 +78,7 @@ describe('Validators', () => {
             const testedValue = [5, 6, 7]
 
             // when
-            const testResult = Validators.maxLength(2)(testedValue)
+            const testResult = ZoriaValidators.maxLength(2)(testedValue)
 
             // then
             expect(testResult).eq(DEFAULT_VALIDATION_ERRORS.MAX_LENGTH)
@@ -89,7 +89,7 @@ describe('Validators', () => {
             const testedValue = null
 
             // when
-            const testResult = Validators.maxLength(2)(testedValue)
+            const testResult = ZoriaValidators.maxLength(2)(testedValue)
 
             // then
             expect(testResult).eq(null)
@@ -102,7 +102,7 @@ describe('Validators', () => {
             const testedValue = 5
 
             // when
-            const testResult = Validators.min(2)(testedValue)
+            const testResult = ZoriaValidators.min(2)(testedValue)
 
             // then
             expect(testResult).eq(null)
@@ -113,7 +113,7 @@ describe('Validators', () => {
             const testedValue = 5
 
             // when
-            const testResult = Validators.min(10)(testedValue)
+            const testResult = ZoriaValidators.min(10)(testedValue)
 
             // then
             expect(testResult).eq(DEFAULT_VALIDATION_ERRORS.MIN_VALUE)
@@ -124,7 +124,7 @@ describe('Validators', () => {
             const testedValue = null
 
             // when
-            const testResult = Validators.min(2)(testedValue)
+            const testResult = ZoriaValidators.min(2)(testedValue)
 
             // then
             expect(testResult).eq(null)
@@ -135,7 +135,7 @@ describe('Validators', () => {
             const testedValue = 'I am a number ;)'
 
             // then
-            expect(() => Validators.min(2)(testedValue)).toThrowError(/Expected number/)
+            expect(() => ZoriaValidators.min(2)(testedValue)).toThrowError(/Expected number/)
         })
     })
     describe('max', () => {
@@ -144,7 +144,7 @@ describe('Validators', () => {
             const testedValue = 5
 
             // when
-            const testResult = Validators.max(10)(testedValue)
+            const testResult = ZoriaValidators.max(10)(testedValue)
 
             // then
             expect(testResult).eq(null)
@@ -155,7 +155,7 @@ describe('Validators', () => {
             const testedValue = 5
 
             // when
-            const testResult = Validators.max(2)(testedValue)
+            const testResult = ZoriaValidators.max(2)(testedValue)
 
             // then
             expect(testResult).eq(DEFAULT_VALIDATION_ERRORS.MAX_VALUE)
@@ -166,7 +166,7 @@ describe('Validators', () => {
             const testedValue = null
 
             // when
-            const testResult = Validators.max(2)(testedValue)
+            const testResult = ZoriaValidators.max(2)(testedValue)
 
             // then
             expect(testResult).eq(null)
@@ -177,7 +177,7 @@ describe('Validators', () => {
             const testedValue = 'I am a number ;)'
 
             // then
-            expect(() => Validators.max(2)(testedValue)).toThrowError(/Expected number/)
+            expect(() => ZoriaValidators.max(2)(testedValue)).toThrowError(/Expected number/)
         })
     })
 })

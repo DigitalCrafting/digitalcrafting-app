@@ -1,8 +1,8 @@
 //@ts-nocheck
 import {FormGroup} from "../internal/impl/ZoriaFormGroup.ts";
-import {DEFAULT_VALIDATION_ERRORS, type ValidatorFunc} from "../validators/ValidatorsTypes.ts";
-import {Validators} from "../validators/Validators.ts";
-import {FormElementTypeEnumType} from "../internal/types/ZoriaFormTypes.ts";
+import {ZoriaValidators} from "../internal/validators/ZoriaValidators.ts";
+import {FormElementTypeEnum, type ValidatorFunc} from "../internal/types/ZoriaFormElement.ts";
+import {DEFAULT_VALIDATION_ERRORS} from "../internal/validators/ZoriaValidatorsTypes.ts";
 
 type ZoriaFormElementBaseType = {
     /* required is separate, because requirement is rather useful information to have at hand */
@@ -58,7 +58,7 @@ class ZObjectDefinition {
 
     /* TODO object required validator */
     required(message = DEFAULT_VALIDATION_ERRORS.REQUIRED) {
-        this.config.requiredValidator = Validators.required(message);
+        this.config.requiredValidator = ZoriaValidators.required(message);
         return this;
     }
 }
@@ -87,7 +87,7 @@ class ZArrayDefinition {
 
     /* TODO array required validator */
     required(message = DEFAULT_VALIDATION_ERRORS.REQUIRED) {
-        this.config.requiredValidator = Validators.required(message);
+        this.config.requiredValidator = ZoriaValidators.required(message);
         return this;
     }
 }
@@ -105,31 +105,31 @@ class ZControlDefinition {
     }
 
     required(message = DEFAULT_VALIDATION_ERRORS.REQUIRED) {
-        this.config.requiredValidator = Validators.required(message);
+        this.config.requiredValidator = ZoriaValidators.required(message);
         return this;
     }
 }
 
 class ZStringDefinition extends ZControlDefinition {
     minLength(length: number, message: string = DEFAULT_VALIDATION_ERRORS.MIN_LENGTH) {
-        this.config.validators.push(Validators.minLength(length, message));
+        this.config.validators.push(ZoriaValidators.minLength(length, message));
         return this;
     }
 
     maxLength(length: number, message: string = DEFAULT_VALIDATION_ERRORS.MAX_LENGTH) {
-        this.config.validators.push(Validators.maxLength(length, message));
+        this.config.validators.push(ZoriaValidators.maxLength(length, message));
         return this;
     }
 }
 
 class ZNumberDefinition extends ZControlDefinition {
     min(val: number, message: string = DEFAULT_VALIDATION_ERRORS.MIN_VALUE) {
-        this.config.validators.push(Validators.min(val, message));
+        this.config.validators.push(ZoriaValidators.min(val, message));
         return this;
     }
 
     max(val: number, message: string = DEFAULT_VALIDATION_ERRORS.MAX_VALUE) {
-        this.config.validators.push(Validators.max(val, message));
+        this.config.validators.push(ZoriaValidators.max(val, message));
         return this;
     }
 }

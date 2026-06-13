@@ -1,7 +1,6 @@
 import {AbstractZoriaFormElement} from "./AbstractZoriaFormElement.ts";
 import {PATH_DELIMITER} from "../helpers/ZoriaFormTraversal.ts";
-import {type EventConfig, FormElementTypeEnum} from "../types/ZoriaFormTypes.ts";
-import type {ValidatorFunc} from "../types/ZoriaFormElement.ts";
+import {type EventConfig, FormElementTypeEnum, type ValidatorFunc} from "../types/ZoriaFormElement.ts";
 declare const process: { env: { NODE_ENV: string } };
 
 export class FormArray extends AbstractZoriaFormElement<typeof FormElementTypeEnum.FORM_ARRAY, any[]> {

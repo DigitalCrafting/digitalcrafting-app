@@ -1,5 +1,11 @@
-import type {EventConfig, FormElementTypeEnumType} from "../types/ZoriaFormTypes.ts";
-import type {FormElement, ValidationError, ValidatorFunc, ValidatorsComposition} from "../types/ZoriaFormElement.ts";
+import type {
+    EventConfig,
+    FormElement,
+    FormElementTypeEnumType,
+    ValidationError,
+    ValidatorFunc,
+    ValidatorsComposition
+} from "../types/ZoriaFormElement.ts";
 import {EventEmitter, type Observer, type Subscription} from "@zoria-ui/events";
 import {ZoriaFormValidatorsComposition} from "../validators/ZoriaFormValidatorsComposition.ts";
 

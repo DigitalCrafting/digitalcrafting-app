@@ -1,7 +1,7 @@
 import {
     DEFAULT_VALIDATION_ERRORS,
-} from "./ValidatorsTypes.ts";
-import type {ValidationError, ValidatorFunc} from "../internal/types/ZoriaFormElement.ts";
+} from "./ZoriaValidatorsTypes.ts";
+import type {ValidationError, ValidatorFunc} from "../types/ZoriaFormElement.ts";
 
 const requiredValidator = (value: any, message = DEFAULT_VALIDATION_ERRORS.REQUIRED): ValidationError => {
     return !value ? message : null;
@@ -66,9 +66,9 @@ const maxValueValidator = (value: number, max: number, message = DEFAULT_VALIDAT
 }
 
 /* ----------------------------- */
-/* Validators 'namespace' export */
+/* ZoriaValidators 'namespace' export */
 /* ----------------------------- */
-export class Validators {
+export class ZoriaValidators {
     static required(message?: string): ValidatorFunc {
         return (value) => requiredValidator(value, message);
     }

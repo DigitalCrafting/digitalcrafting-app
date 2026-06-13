@@ -1,7 +1,7 @@
 import {describe, expect, it} from 'vitest';
 import {FormControl} from "./ZoriaFormControl.ts";
 import {FormGroup} from "./ZoriaFormGroup.ts";
-import {Validators} from "../../validators/Validators.ts";
+import {ZoriaValidators} from "../validators/ZoriaValidators.ts";
 import {FormArray} from "./ZoriaFormArray.ts";
 
 describe('FormGroup', () => {
@@ -135,7 +135,7 @@ describe('FormGroup', () => {
     it('should correctly validate and emit value', () => {
         // given
         const control = new FormGroup({
-            first: new FormControl('', [Validators.required()]),
+            first: new FormControl('', [ZoriaValidators.required()]),
             second: new FormControl('second value')
         })
         let currentIsValid = control.getIsValid()
@@ -155,7 +155,7 @@ describe('FormGroup', () => {
     describe('getElementFromPath', () => {
         it('should return control 1 level deep', () => {
             // given
-            const expectedControl = new FormControl('', [Validators.required()])
+            const expectedControl = new FormControl('', [ZoriaValidators.required()])
             const formGroup = new FormGroup({
                 first: expectedControl,
                 second: new FormControl('second value')
@@ -170,7 +170,7 @@ describe('FormGroup', () => {
 
         it('should return control 2 levels deep', () => {
             // given
-            const expectedControl = new FormControl('', [Validators.required()])
+            const expectedControl = new FormControl('', [ZoriaValidators.required()])
             const formGroup = new FormGroup({
                 firstLevel: new FormGroup({
                     first: expectedControl
@@ -187,7 +187,7 @@ describe('FormGroup', () => {
 
         it('should return control 2 levels deep from FormArray', () => {
             // given
-            const expectedControl = new FormControl('', [Validators.required()])
+            const expectedControl = new FormControl('', [ZoriaValidators.required()])
             const formGroup = new FormGroup({
                 firstLevel: new FormArray([
                     expectedControl
@@ -204,7 +204,7 @@ describe('FormGroup', () => {
 
         it('should return control 3 levels deep', () => {
             // given
-            const expectedControl = new FormControl('', [Validators.required()])
+            const expectedControl = new FormControl('', [ZoriaValidators.required()])
             const formGroup = new FormGroup({
                 firstLevel: new FormGroup({
                     secondLevel: new FormGroup({
@@ -223,7 +223,7 @@ describe('FormGroup', () => {
 
         it('should return control 3 levels deep, from FormArray in the middle', () => {
             // given
-            const expectedControl = new FormControl('', [Validators.required()])
+            const expectedControl = new FormControl('', [ZoriaValidators.required()])
             const formGroup = new FormGroup({
                 firstLevel: new FormArray([
                     new FormGroup({

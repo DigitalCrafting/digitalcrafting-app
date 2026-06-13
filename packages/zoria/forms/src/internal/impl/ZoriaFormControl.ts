@@ -1,6 +1,5 @@
 import {AbstractZoriaFormElement} from "./AbstractZoriaFormElement.ts";
-import {type EventConfig, FormElementTypeEnum} from "../types/ZoriaFormTypes.ts";
-import type {ValidatorFunc} from "../types/ZoriaFormElement.ts";
+import {type EventConfig, FormElementTypeEnum, type ValidatorFunc} from "../types/ZoriaFormElement.ts";
 
 export class FormControl extends AbstractZoriaFormElement<typeof FormElementTypeEnum.FORM_CONTROL> {
     private _value: any | null;

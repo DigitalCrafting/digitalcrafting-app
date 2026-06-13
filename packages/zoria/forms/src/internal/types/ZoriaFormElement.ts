@@ -1,4 +1,3 @@
-import type {EventConfig, FormElementTypeEnumType} from "./ZoriaFormTypes.ts";
 import type {Observer, Subscription} from "@zoria-ui/events";
 
 export type ValidationError = string | null
@@ -17,6 +16,18 @@ export interface ValidatorsComposition<T = any> {
     clear(): void;
 }
 
+export type EventConfig = {
+    emit?: boolean,
+    bubbleUp?: boolean
+}
+
+export const FormElementTypeEnum = {
+    FORM_GROUP: 'FORM_GROUP',
+    FORM_ARRAY: 'FORM_ARRAY',
+    FORM_CONTROL: 'FORM_CONTROL'
+}
+export type FormElementTypeEnumType = (typeof FormElementTypeEnum)[keyof typeof FormElementTypeEnum] | unknown;
+
 export interface FormElement<T extends FormElementTypeEnumType, V = unknown> {
     /* === Type === */
     getType(): T;
@@ -33,7 +44,7 @@ export interface FormElement<T extends FormElementTypeEnumType, V = unknown> {
     getIsValid(): boolean;
     onValidityChanges(callback: Observer<boolean>): Subscription;
 
-    /* === Validators === */
+    /* === ZoriaValidators === */
     addValidator(validator: ValidatorFunc): void;
     removeValidator(validator: ValidatorFunc): void;
     setValidators(validators: ValidatorFunc[]): void;
