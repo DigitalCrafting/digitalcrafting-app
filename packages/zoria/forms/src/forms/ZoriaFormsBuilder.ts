@@ -1,5 +1,5 @@
 //@ts-nocheck
-import {FormGroup} from "./ZoriaForms.ts";
+import {FormGroup} from "../internal/impl/ZoriaFormGroup.ts";
 import {DEFAULT_VALIDATION_ERRORS, type ValidatorFunc} from "../validators/ValidatorsTypes.ts";
 import {Validators} from "../validators/Validators.ts";
 import {FormElementTypeEnumType} from "../internal/types/ZoriaFormTypes.ts";

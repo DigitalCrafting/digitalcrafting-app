@@ -12,7 +12,8 @@ export abstract class AbstractZoriaFormElement<T extends FormElementTypeEnumType
     protected _isDisabled: boolean;
     protected _validityChangeEventPending: boolean;
     protected _validators: ValidatorsComposition;
-    protected _validityChangesEventEmitter: EventEmitter<ValidationError>;
+    protected _errorChangesEventEmitter: EventEmitter<ValidationError>;
+    protected _validityChangesEventEmitter: EventEmitter<boolean>;
     protected _valueChangesEventEmitter: EventEmitter<any>;
     protected _visibilityChangesEventEmitter: EventEmitter<boolean>;
     protected _disabledChangesEventEmitter: EventEmitter<boolean>;
@@ -25,6 +26,7 @@ export abstract class AbstractZoriaFormElement<T extends FormElementTypeEnumType
         this._isVisible = true;
         this._isDisabled = false;
         this._validityChangeEventPending = false;
+        this._errorChangesEventEmitter = new EventEmitter();
         this._validityChangesEventEmitter = new EventEmitter();
         this._valueChangesEventEmitter = new EventEmitter();
         this._visibilityChangesEventEmitter = new EventEmitter();
@@ -42,6 +44,8 @@ export abstract class AbstractZoriaFormElement<T extends FormElementTypeEnumType
     setError(error: ValidationError): void {
         this._error = error;
         this._isValid = !this._error;
+        this._errorChangesEventEmitter.emit(this._error);
+        this._validityChangesEventEmitter.emit(this._isValid);
     }
 
     getError(): ValidationError {
@@ -52,7 +56,11 @@ export abstract class AbstractZoriaFormElement<T extends FormElementTypeEnumType
         return this._error;
     }
 
-    onValidityChanges(callback: Observer<ValidationError>): Subscription {
+    onErrorChanges(callback: Observer<ValidationError>): Subscription {
+        return this._errorChangesEventEmitter.subscribe(callback);
+    }
+
+    onValidityChanges(callback: Observer<boolean>): Subscription {
         return this._validityChangesEventEmitter.subscribe(callback);
     }
 
@@ -123,7 +131,7 @@ export abstract class AbstractZoriaFormElement<T extends FormElementTypeEnumType
 
     protected _emitValidityChanges(overridePending: boolean = false) {
         if (this._validityChangeEventPending || overridePending) {
-            this._validityChangesEventEmitter.emit(this._error)
+            this._validityChangesEventEmitter.emit(this._isValid)
 
             if (this._parent) {
                 this._parent._emitValidityChanges(true);

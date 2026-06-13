@@ -26,10 +26,12 @@ export interface FormElement<T extends FormElementTypeEnumType, V = unknown> {
     setError(error: ValidationError): void;
     getError(): ValidationError;
     getErrorsTree(): ValidationError | Record<string, ValidationError>;
+    onErrorChanges(callback: Observer<ValidationError>): Subscription;
 
     /* === Validity === */
+    /* validation is implicitly triggered on setValue */
     getIsValid(): boolean;
-    onValidityChanges(callback: Observer<any>): Subscription;
+    onValidityChanges(callback: Observer<boolean>): Subscription;
 
     /* === Validators === */
     addValidator(validator: ValidatorFunc): void;

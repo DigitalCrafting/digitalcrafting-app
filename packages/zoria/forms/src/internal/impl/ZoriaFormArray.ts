@@ -5,7 +5,7 @@ import type {ValidatorFunc} from "../types/ZoriaFormElement.ts";
 declare const process: { env: { NODE_ENV: string } };
 
 export class FormArray extends AbstractZoriaFormElement<typeof FormElementTypeEnum.FORM_ARRAY, any[]> {
-    private _formArray: AbstractZoriaFormElement[]
+    private readonly _formArray: AbstractZoriaFormElement[]
 
     constructor(array?: AbstractZoriaFormElement[], validators?: ValidatorFunc[]) {
         super(FormElementTypeEnum.FORM_ARRAY, validators);

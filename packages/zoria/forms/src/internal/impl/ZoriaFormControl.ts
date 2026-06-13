@@ -26,7 +26,7 @@ export class FormControl extends AbstractZoriaFormElement<typeof FormElementType
 
     getElement(path?: string): AbstractZoriaFormElement<typeof FormElementTypeEnum.FORM_CONTROL> {
         if (path?.length) {
-            throw new Error(`ZoriaFormContro::getElement::'path' ${path} does not match actual form structure`)
+            throw new Error(`ZoriaFormControl::getElement::'path' ${path} does not match actual form structure`)
         }
         return this;
     }
