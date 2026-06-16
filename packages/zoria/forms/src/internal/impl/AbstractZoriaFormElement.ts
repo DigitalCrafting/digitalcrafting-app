@@ -74,7 +74,7 @@ export abstract class AbstractZoriaFormElement<T extends FormElementTypeEnumType
         return this._valueChangesEventEmitter.subscribe(callback);
     }
 
-    getIsVisible(): boolean {
+    isVisible(): boolean {
         return this._isVisible;
     }
 
@@ -161,7 +161,7 @@ export abstract class AbstractZoriaFormElement<T extends FormElementTypeEnumType
 
     abstract _updateValidity(): void;
 
-    abstract getValue(): V;
+    abstract getValue(raw?: boolean): V;
 
     abstract setValue(newValue: V, eventConfig?: EventConfig): void;
 

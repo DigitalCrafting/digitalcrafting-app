@@ -104,7 +104,7 @@ describe('FormArray', () => {
         expect(emittedValid).eq(true);
     })
 
-    describe('removeElement', () => {
+    describe('remove', () => {
         it('should correctly remove element', () => {
             // given
             const controlArray = new FormArray([
@@ -113,7 +113,7 @@ describe('FormArray', () => {
             ])
 
             // when
-            controlArray.removeElement(0)
+            controlArray.remove(0)
 
             // then
             expect(controlArray.length).eq(1)
@@ -134,7 +134,7 @@ describe('FormArray', () => {
             const expectedValue = ['second value'];
 
             // when
-            controlArray.removeElement(0)
+            controlArray.remove(0)
 
             // then
             expect(oldValue.sort()).not.toEqual(expectedValue)
@@ -158,7 +158,7 @@ describe('FormArray', () => {
             })
 
             // when
-            controlArray.removeElement(0)
+            controlArray.remove(0)
 
             // then
             expect(currentValidity).toBe(false);

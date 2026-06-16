@@ -3,6 +3,9 @@ import {FormGroup} from "../internal/impl/ZoriaFormGroup.ts";
 import {ZoriaValidators} from "../internal/validators/ZoriaValidators.ts";
 import {FormElementTypeEnum, type ValidatorFunc} from "../internal/types/ZoriaFormElement.ts";
 import {DEFAULT_VALIDATION_ERRORS} from "../internal/validators/ZoriaValidatorsTypes.ts";
+import type {AbstractZoriaFormElement} from "../internal/impl/AbstractZoriaFormElement.ts";
+import {FormControl} from "../internal/impl/ZoriaFormControl.ts";
+import {FormArray} from "../internal/impl/ZoriaFormArray.ts";
 
 type ZoriaFormElementBaseType = {
     /* required is separate, because requirement is rather useful information to have at hand */
@@ -11,26 +14,30 @@ type ZoriaFormElementBaseType = {
 }
 
 interface ZoriaFormGroupType extends ZoriaFormElementBaseType {
-    type: typeof FormElementTypeEnum.FORM_GROUP,
-    fields: ZoriaFormSchemaType
+    type: FormElementTypeEnum.FORM_GROUP;
+    fields: ZoriaFormSchemaType;
 }
 
 interface ZoriaFormArrayType extends ZoriaFormElementBaseType {
-    type: typeof FormElementTypeEnum.FORM_ARRAY
+    type: FormElementTypeEnum.FORM_ARRAY
     template: ZoriaFormElementType
 }
 
 interface ZoriaFormControlType extends ZoriaFormElementBaseType {
-    type: typeof FormElementTypeEnum.FORM_CONTROL
+    type: FormElementTypeEnum.FORM_CONTROL
 }
 
-type ZoriaFormElementType = ZoriaFormGroupType | ZoriaFormArrayType | ZoriaFormControlType;
+interface ZoriaFormElementType {
+    config: {
+        type: ZoriaFormElementType
+    }
+}
 
 type ZoriaFormSchemaType = {
     [key: string]: ZoriaFormElementType
 }
 
-class ZObjectDefinition {
+class ZObjectDefinition implements ZoriaFormElementType {
     config: ZoriaFormGroupType = {
         type: FormElementTypeEnum.FORM_GROUP,
         requiredValidator: undefined,
@@ -63,8 +70,8 @@ class ZObjectDefinition {
     }
 }
 
-class ZArrayDefinition {
-    private config: ZoriaFormArrayType = {
+class ZArrayDefinition implements ZoriaFormElementType {
+    config: ZoriaFormArrayType = {
         type: FormElementTypeEnum.FORM_ARRAY,
         template: undefined as ZoriaFormElementType,
         requiredValidator: undefined,
@@ -72,10 +79,6 @@ class ZArrayDefinition {
     }
 
     of(template: ZoriaFormElementType) {
-        if (template != undefined) {
-            throw new Error('[ZArray] "of" method can only be called once.')
-        }
-
         this.config.template = template;
         return this;
     }
@@ -92,7 +95,7 @@ class ZArrayDefinition {
     }
 }
 
-class ZControlDefinition {
+class ZControlDefinition implements ZoriaFormElementType {
     config: ZoriaFormControlType = {
         type: FormElementTypeEnum.FORM_CONTROL,
         requiredValidator: undefined,
@@ -134,31 +137,51 @@ class ZNumberDefinition extends ZControlDefinition {
     }
 }
 
-const ZObject = () => new ZObjectDefinition();
+export const ZObject = () => new ZObjectDefinition();
 
-const ZArray = () => new ZArrayDefinition();
+export const ZArray = () => new ZArrayDefinition();
 
-const ZString = () => new ZStringDefinition();
+export const ZString = () => new ZStringDefinition();
 
-const ZNumber = () => new ZNumberDefinition();
+export const ZNumber = () => new ZNumberDefinition();
 
-const createForm = (schema: ZoriaFormSchemaType): FormGroup => {
+const createFormGroup = (def: ZObjectDefinition) => {
+    const formGroupElements: {[key: string]: AbstractZoriaFormElement} = {};
 
+    const fields = def.config.fields;
+    for (const element in fields) {
+        /* TODO Validators */
+        formGroupElements[element] = createForm(fields[element]);
+    }
+
+    return new FormGroup(formGroupElements);
 }
 
-const customerValidator = (value, control) => {
-    return 'error'
+const createFormArray = (def: ZArrayDefinition) => {
+    /* TODO Validators */
+    const formArray = new FormArray();
+    formArray.setElementsFactory(() => createFormGroup(def.config.template));
+    return formArray;
 }
 
-const form = createForm({
-    customer: ZObject().required().withValidator(customerValidator).withFields({
-        firstName: ZString().required().maxLength(20),
-        lastName: ZString().required().minLength(3)
-    }),
-    addresses: ZArray().of(
-        ZObject().withFields({
-            street: ZString().required().maxLength(),
-            homeNbr: ZNumber().required().max(1000).min(0),
-        })
-    )
-})
+const createFormControl = (def: ZControlDefinition) => {
+    /* TODO Validators */
+    return new FormControl();
+}
+
+export const createForm = (schema: ZoriaFormElementType): FormGroup => {
+    switch (schema.config.type) {
+        case FormElementTypeEnum.FORM_GROUP: {
+            return createFormGroup(schema);
+        }
+        case FormElementTypeEnum.FORM_ARRAY: {
+            return createFormArray(schema);
+        }
+        case FormElementTypeEnum.FORM_CONTROL: {
+            return createFormControl(schema);
+        }
+        default: {
+            throw new Error(`createForm::Incorrect form element type ${schema}`)
+        }
+    }
+}

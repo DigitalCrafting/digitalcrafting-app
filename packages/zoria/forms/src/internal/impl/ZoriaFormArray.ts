@@ -3,8 +3,11 @@ import {PATH_DELIMITER} from "../helpers/ZoriaFormTraversal.ts";
 import {type EventConfig, FormElementTypeEnum, type ValidatorFunc} from "../types/ZoriaFormElement.ts";
 declare const process: { env: { NODE_ENV: string } };
 
+export type FormArrayElementFactoryFunction = () => AbstractZoriaFormElement;
+
 export class FormArray extends AbstractZoriaFormElement<typeof FormElementTypeEnum.FORM_ARRAY, any[]> {
     private readonly _formArray: AbstractZoriaFormElement[]
+    private _formElementFactory!: FormArrayElementFactoryFunction;
 
     constructor(array?: AbstractZoriaFormElement[], validators?: ValidatorFunc[]) {
         super(FormElementTypeEnum.FORM_ARRAY, validators);
@@ -13,11 +16,17 @@ export class FormArray extends AbstractZoriaFormElement<typeof FormElementTypeEn
         this._updateValidity();
     }
 
-    getValue(): any[] {
+    setElementsFactory(factory: FormArrayElementFactoryFunction): void {
+        this._formElementFactory = factory;
+    }
+
+    getValue(raw?: boolean): any[] {
         const valueArray = [] as any[]
 
         for (const el of this._formArray) {
-            valueArray.push(el.getValue())
+            if (el.isVisible() || raw) {
+                valueArray.push(el.getValue())
+            }
         }
 
         return valueArray;
@@ -27,13 +36,31 @@ export class FormArray extends AbstractZoriaFormElement<typeof FormElementTypeEn
         emit: true,
         bubbleUp: true
     }): void {
-        if (newValue.length != this._formArray.length) {
-            throw new Error("Arrays lengths don't match")
+        if (process.env.NODE_ENV !== 'production') {
+            if (!newValue?.length) {
+                throw new Error(`ZoriaFormArray::setValue::newValue empty`);
+            }
         }
 
-        for (let i = 0; i < newValue.length; i++) {
-            // We don't want to 'bubbleUp' the event, since this control we emit change after the loop
-            this._formArray[i].setValue(newValue[i], {emit: eventConfig.emit, bubbleUp: false});
+        /* The idea is that if the lengths are the same, we replace just the values,
+        *  and we skip whole object creation and garbage collection of old ones,
+        *  but if the lengths are different, we would have to calculate if we should add or remove objects,
+        *  so at lest for now, we simply clear the whole array and create new one.
+        *  */
+        if (this._formArray.length === newValue.length) {
+            for (let i = 0; i < newValue.length; i++) {
+                // We don't want to 'bubbleUp' the event, since this control we emit change after the loop
+                this._formArray[i].setValue(newValue[i], {emit: eventConfig.emit, bubbleUp: false});
+            }
+        } else {
+            this.clear();
+        }
+
+        if (this._formArray.length === 0) {
+            for (const value of newValue) {
+                this.push(value)
+            }
+            return;
         }
 
         this._emitValueChanges(eventConfig)
@@ -76,10 +103,12 @@ export class FormArray extends AbstractZoriaFormElement<typeof FormElementTypeEn
         return element.getElement(restOfPath);
     }
 
-    removeElement(index: number) {
-        if (index < 0 || index >= this._formArray.length) {
-            console.log(`Index out of bounds: ${index}`)
-            return
+    remove(index: number) {
+        if (process.env.NODE_ENV !== 'production') {
+            if (index < 0 || index >= this._formArray.length) {
+                console.log(`ZoriaFormArray:remove::Index out of bounds: ${index}`)
+                return
+            }
         }
 
         if (this._formArray[index]) {
@@ -88,6 +117,34 @@ export class FormArray extends AbstractZoriaFormElement<typeof FormElementTypeEn
             this._updateValidityAndEmitEvent()
             this._emitValueChanges()
         }
+    }
+
+    removeLast() {
+        if (!this._formArray.length) {
+            return;
+        }
+
+        const lastIdx = this._formArray.length - 1;
+        this.remove(lastIdx);
+    }
+
+
+    clear() {
+        for (let i = 0; i < this._formArray.length - 1; i++) {
+            this.removeLast();
+        }
+    }
+
+    push(value?: any) {
+        if (process.env.NODE_ENV !== 'production') {
+            if (!this._formElementFactory) {
+                throw new Error(`ZoriaFormArray::push::elementFactory is not set`);
+            }
+        }
+
+        const newElement = this._formElementFactory();
+        newElement.setValue(value);
+        this.pushElement(newElement);
     }
 
     pushElement(element: (AbstractZoriaFormElement)) {

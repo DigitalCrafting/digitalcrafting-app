@@ -25,15 +25,13 @@ export class FormGroup extends AbstractZoriaFormElement<typeof FormElementTypeEn
         return valid;
     }
 
-    getValue(): Record<string, any> {
+    getValue(raw?: boolean): Record<string, any> {
         const valueObject = {};
 
         this._forEachChild((control, key) => {
-            const controlValue = control.getValue()
             // @ts-ignore
-            valueObject[key] = controlValue
-
-        })
+            valueObject[key] = control.getValue()
+        }, raw)
 
         return valueObject;
     }
@@ -126,13 +124,13 @@ export class FormGroup extends AbstractZoriaFormElement<typeof FormElementTypeEn
     }
 
     // Internal
-    private _forEachChild(cb: (v: any, k: string) => void): void {
+    private _forEachChild(cb: (v: any, k: string) => void, raw?: boolean): void {
         Object.keys(this._formElements).forEach((key) => {
             // The list of controls can change (for ex. controls might be removed) while the loop
             // is running (as a result of invoking Forms API in `valueChanges` subscription), so we
             // have to null check before invoking the callback.
-            const control = (this._formElements as any)[key];
-            if (control) {
+            const control = this.getElement(key);
+            if (control && (control.isVisible() || raw)) {
                 cb(control, key);
             }
         });

@@ -51,13 +51,13 @@ export interface FormElement<T extends FormElementTypeEnumType, V = unknown> {
     clearValidator(): void;
 
     /* === Value === */
-    getValue(): V;
+    getValue(raw?: boolean): V;
     setValue(newValue: V, config?: EventConfig): void;
     onValueChanges(callback: Observer<V>): Subscription;
 
     /* === Auxiliaries === */
     setIsVisible(visible: boolean): void;
-    getIsVisible(): boolean;
+    isVisible(): boolean;
     onVisibilityChanges(callback: Observer<boolean>): Subscription;
 
     disable(): void;
