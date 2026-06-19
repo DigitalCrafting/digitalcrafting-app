@@ -5,12 +5,10 @@ type TableContextType = {
     dataTestId: string
 }
 
-const TableContext = React.createContext<TableContextType>({
-    dataTestId: 'qa-table'
-});
+const TableContext = React.createContext<TableContextType | null>(null);
 
 const useTableContext = () => {
-    return useContext(TableContext);
+    return useContext(TableContext)!;
 }
 
 type TableChildrenType = |

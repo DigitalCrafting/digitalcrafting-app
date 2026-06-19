@@ -71,6 +71,7 @@
     "@zoria-ui/react": "workspace:*",
     "@zoria-ui/events": "workspace:*",
     "@zoria-ui/forms": "workspace:*",
+    "@zoria-ui/utils": "workspace:*",
     "@zoria-ui/forms-react": "workspace:*"
   }
 }

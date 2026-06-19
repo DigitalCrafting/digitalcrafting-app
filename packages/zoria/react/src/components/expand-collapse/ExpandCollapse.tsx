@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {createContext, type PropsWithChildren, useContext, useState} from "react";
-import {noop} from "../../utils/Utils";
 import {ChevronDownIcon, ChevronUpIcon} from "../icons/Icons";
 import {IconButton} from "../buttons/IconButton";
 
@@ -9,10 +8,7 @@ type ExpandCollapseContextType = {
     isExpanded: boolean;
 }
 
-const ExpandCollapseContext = createContext<ExpandCollapseContextType>({
-    isExpanded: false,
-    toggle: noop
-})
+const ExpandCollapseContext = createContext<ExpandCollapseContextType | null>(null)
 
 const useExpandCollapseContext = () => {
     const ctx = useContext(ExpandCollapseContext);

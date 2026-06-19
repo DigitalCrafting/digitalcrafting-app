@@ -1,11 +1,11 @@
 //@ts-nocheck
-import {FormGroup} from "../internal/impl/ZoriaFormGroup.ts";
+import {ZoriaFormGroup} from "../internal/impl/ZoriaFormGroup.ts";
 import {ZoriaValidators} from "../internal/validators/ZoriaValidators.ts";
 import {FormElementTypeEnum, type ValidatorFunc} from "../internal/types/ZoriaFormElement.ts";
 import {DEFAULT_VALIDATION_ERRORS} from "../internal/validators/ZoriaValidatorsTypes.ts";
 import type {AbstractZoriaFormElement} from "../internal/impl/AbstractZoriaFormElement.ts";
-import {FormControl} from "../internal/impl/ZoriaFormControl.ts";
-import {FormArray} from "../internal/impl/ZoriaFormArray.ts";
+import {ZoriaFormControl} from "../internal/impl/ZoriaFormControl.ts";
+import {ZoriaFormArray} from "../internal/impl/ZoriaFormArray.ts";
 
 type ZoriaFormElementBaseType = {
     /* required is separate, because requirement is rather useful information to have at hand */
@@ -154,22 +154,22 @@ const createFormGroup = (def: ZObjectDefinition) => {
         formGroupElements[element] = createForm(fields[element]);
     }
 
-    return new FormGroup(formGroupElements);
+    return new ZoriaFormGroup(formGroupElements);
 }
 
 const createFormArray = (def: ZArrayDefinition) => {
     /* TODO Validators */
-    const formArray = new FormArray();
+    const formArray = new ZoriaFormArray();
     formArray.setElementsFactory(() => createFormGroup(def.config.template));
     return formArray;
 }
 
 const createFormControl = (def: ZControlDefinition) => {
     /* TODO Validators */
-    return new FormControl();
+    return new ZoriaFormControl();
 }
 
-export const createForm = (schema: ZoriaFormElementType): FormGroup => {
+export const createForm = (schema: ZoriaFormElementType): ZoriaFormGroup => {
     switch (schema.config.type) {
         case FormElementTypeEnum.FORM_GROUP: {
             return createFormGroup(schema);

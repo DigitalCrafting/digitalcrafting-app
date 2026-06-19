@@ -5,7 +5,7 @@ declare const process: { env: { NODE_ENV: string } };
 
 export type FormArrayElementFactoryFunction = () => AbstractZoriaFormElement;
 
-export class FormArray extends AbstractZoriaFormElement<typeof FormElementTypeEnum.FORM_ARRAY, any[]> {
+export class ZoriaFormArray extends AbstractZoriaFormElement<typeof FormElementTypeEnum.FORM_ARRAY, any[]> {
     private readonly _formArray: AbstractZoriaFormElement[]
     private _formElementFactory!: FormArrayElementFactoryFunction;
 

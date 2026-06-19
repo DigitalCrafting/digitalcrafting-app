@@ -1,14 +1,14 @@
 import {describe, expect, it} from 'vitest';
-import {FormArray} from "./ZoriaFormArray.ts";
-import {FormControl} from "./ZoriaFormControl.ts";
+import {ZoriaFormArray} from "./ZoriaFormArray.ts";
+import {ZoriaFormControl} from "./ZoriaFormControl.ts";
 import {ZoriaValidators} from "../validators/ZoriaValidators.ts";
 
 describe('FormArray', () => {
     it('should correctly store value', () => {
         // given
-        const control = new FormArray([
-            new FormControl('first value', [ZoriaValidators.required()]),
-            new FormControl('second value')
+        const control = new ZoriaFormArray([
+            new ZoriaFormControl('first value', [ZoriaValidators.required()]),
+            new ZoriaFormControl('second value')
         ])
         const expectedValue = ['first value', 'second value'];
 
@@ -21,9 +21,9 @@ describe('FormArray', () => {
 
     it('should correctly set value in all sub-elements', () => {
         // given
-        const control = new FormArray([
-            new FormControl('first value', [ZoriaValidators.required()]),
-            new FormControl('second value')
+        const control = new ZoriaFormArray([
+            new ZoriaFormControl('first value', [ZoriaValidators.required()]),
+            new ZoriaFormControl('second value')
         ])
         const expectedValue = ['new first value', 'new second value'];
 
@@ -37,10 +37,10 @@ describe('FormArray', () => {
 
     it('should correctly emit and bubble-up value change event', () => {
         // given
-        const control = new FormControl('first value', [ZoriaValidators.required()]);
-        const controlArray = new FormArray([
+        const control = new ZoriaFormControl('first value', [ZoriaValidators.required()]);
+        const controlArray = new ZoriaFormArray([
             control,
-            new FormControl('second value')
+            new ZoriaFormControl('second value')
         ])
         let actualValue: string[] | null = null
         controlArray.onValueChanges((value) => {
@@ -59,10 +59,10 @@ describe('FormArray', () => {
 
     it('should emit but NOT bubble-up value change event', () => {
         // given
-        const control = new FormControl('first value', [ZoriaValidators.required()]);
-        const controlArray = new FormArray([
+        const control = new ZoriaFormControl('first value', [ZoriaValidators.required()]);
+        const controlArray = new ZoriaFormArray([
             control,
-            new FormControl('second value')
+            new ZoriaFormControl('second value')
         ])
         let controlEmitted = false
         let arrayEmitted = false
@@ -83,9 +83,9 @@ describe('FormArray', () => {
 
     it('should correctly validate and emit value', () => {
         // given
-        const controlArray = new FormArray([
-            new FormControl('', [ZoriaValidators.required()]),
-            new FormControl('second value')
+        const controlArray = new ZoriaFormArray([
+            new ZoriaFormControl('', [ZoriaValidators.required()]),
+            new ZoriaFormControl('second value')
         ])
         const initialValid = controlArray.getIsValid()
 
@@ -107,9 +107,9 @@ describe('FormArray', () => {
     describe('remove', () => {
         it('should correctly remove element', () => {
             // given
-            const controlArray = new FormArray([
-                new FormControl('', [ZoriaValidators.required()]),
-                new FormControl('second value')
+            const controlArray = new ZoriaFormArray([
+                new ZoriaFormControl('', [ZoriaValidators.required()]),
+                new ZoriaFormControl('second value')
             ])
 
             // when
@@ -121,9 +121,9 @@ describe('FormArray', () => {
 
         it('should correctly update and emit value change', () => {
             // given
-            const controlArray = new FormArray([
-                new FormControl('', [ZoriaValidators.required()]),
-                new FormControl('second value')
+            const controlArray = new ZoriaFormArray([
+                new ZoriaFormControl('', [ZoriaValidators.required()]),
+                new ZoriaFormControl('second value')
             ])
             const oldValue = controlArray.getValue()
             let emittedValue: any[] | null = null
@@ -146,9 +146,9 @@ describe('FormArray', () => {
 
         it('should correctly update and emit validity change', () => {
             // given
-            const controlArray = new FormArray([
-                new FormControl('', [ZoriaValidators.required()]),
-                new FormControl('second value')
+            const controlArray = new ZoriaFormArray([
+                new ZoriaFormControl('', [ZoriaValidators.required()]),
+                new ZoriaFormControl('second value')
             ])
 
             const currentValidity = controlArray.getIsValid()
@@ -170,12 +170,12 @@ describe('FormArray', () => {
     describe('pushElement', () => {
         it('should correctly add element', () => {
             // given
-            const controlArray = new FormArray([
-                new FormControl('', [ZoriaValidators.required()]),
+            const controlArray = new ZoriaFormArray([
+                new ZoriaFormControl('', [ZoriaValidators.required()]),
             ])
 
             // when
-            controlArray.pushElement(new FormControl('second value'))
+            controlArray.pushElement(new ZoriaFormControl('second value'))
 
             // then
             expect(controlArray.length).eq(2)
@@ -183,8 +183,8 @@ describe('FormArray', () => {
 
         it('should correctly update and emit value change', () => {
             // given
-            const controlArray = new FormArray([
-                new FormControl('first value', [ZoriaValidators.required()])
+            const controlArray = new ZoriaFormArray([
+                new ZoriaFormControl('first value', [ZoriaValidators.required()])
             ])
             const oldValue = controlArray.getValue()
             let emittedValue: any[] | null = null
@@ -195,7 +195,7 @@ describe('FormArray', () => {
             const expectedValue = ['first value', 'second value'];
 
             // when
-            controlArray.pushElement(new FormControl('second value'))
+            controlArray.pushElement(new ZoriaFormControl('second value'))
 
             // then
             expect(oldValue.sort()).not.toEqual(expectedValue)
@@ -207,9 +207,9 @@ describe('FormArray', () => {
 
         it('should correctly update and emit validity change', () => {
             // given
-            const controlArray = new FormArray([
-                new FormControl('first value'),
-                new FormControl('second value')
+            const controlArray = new ZoriaFormArray([
+                new ZoriaFormControl('first value'),
+                new ZoriaFormControl('second value')
             ])
 
             const currentValidity = controlArray.getIsValid()
@@ -219,7 +219,7 @@ describe('FormArray', () => {
             })
 
             // when
-            controlArray.pushElement(new FormControl('', [ZoriaValidators.required()]))
+            controlArray.pushElement(new ZoriaFormControl('', [ZoriaValidators.required()]))
 
             // then
             expect(currentValidity).toBe(true);

@@ -12,7 +12,6 @@ function cleanUpNewLines(code: string): string {
         lines[i] = line.trim();
     }
 
-    console.log(lines)
     return lines.filter(line => !!line).join('\n');
 }
 

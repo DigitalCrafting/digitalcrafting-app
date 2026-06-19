@@ -14,10 +14,10 @@ interface TooltipContextType {
     content?: React.ReactElement<any> | null
 }
 
-const TooltipContext = React.createContext<TooltipContextType>({} as TooltipContextType);
+const TooltipContext = React.createContext<TooltipContextType | null>(null);
 
 function useTooltipContext() {
-    return useContext(TooltipContext);
+    return useContext(TooltipContext)!;
 }
 
 interface TooltipTriggerProps {

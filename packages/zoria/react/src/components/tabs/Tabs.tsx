@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {memo, useMemo, useState} from 'react';
-import {noop} from "../../utils/Utils";
 import {useKeyboardClick} from "../../hooks/useKeyboardClick";
 
 /* Internal */
@@ -10,14 +9,10 @@ interface TabsContextType {
     dataTestId: string;
 }
 
-const TabsContext = React.createContext<TabsContextType>({
-    currentlyOpen: '',
-    setCurrentlyOpen: noop,
-    dataTestId: ''
-});
+const TabsContext = React.createContext<TabsContextType | null>(null);
 
 const useTabsContext = () => {
-    return React.useContext(TabsContext);
+    return React.useContext(TabsContext)!;
 }
 
 interface InternalTabTrigger {

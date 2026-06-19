@@ -75,10 +75,10 @@ interface ModalContextType {
     dataTestId: string
 }
 
-const ModalContext = React.createContext<ModalContextType>({} as ModalContextType);
+const ModalContext = React.createContext<ModalContextType | null>(null);
 
 function useModalContext() {
-    return useContext(ModalContext);
+    return useContext(ModalContext)!;
 }
 
 interface ModalContextProviderProps {

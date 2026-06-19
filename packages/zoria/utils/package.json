@@ -1,0 +1,46 @@
+{
+  "name": "@zoria-ui/utils",
+  "private": false,
+  "version": "0.1.4",
+  "description": "A from scratch utils library for personal projects (Work in Progress).",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "vite",
+    "barrels": "barrelsby --noHeader --location top -c ./barrelsby.json",
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "require": "./dist/index.cjs"
+      }
+    }
+  },
+  "devDependencies": {
+    "barrelsby": "^2.8.1",
+    "tsup": "^8.5.1",
+    "typescript": "~5.9.3",
+    "vite": "^7.3.1",
+    "vitest": "^4.0.18"
+  },
+  "keywords": [
+    "zoria",
+    "zoria-ui",
+    "utils",
+    "typescript"
+  ],
+  "author": "Kamil Kasprzyk (DigitalCrafting) (https://digitalcrafting.dev)",
+  "license": "ISC",
+  "packageManager": "pnpm@10.17.1"
+}

@@ -8,7 +8,7 @@ interface NavSectionContextType {
     isOpen: boolean
 }
 
-const NavSectionContext = React.createContext<NavSectionContextType>({isOpen: false});
+const NavSectionContext = React.createContext<NavSectionContextType | null>(null);
 
 const useNavSectionContext = () => React.useContext(NavSectionContext);
 

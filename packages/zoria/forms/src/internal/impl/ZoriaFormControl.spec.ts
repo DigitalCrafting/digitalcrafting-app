@@ -1,11 +1,11 @@
 import {describe, expect, it} from "vitest";
-import {FormControl} from "./ZoriaFormControl.ts";
+import {ZoriaFormControl} from "./ZoriaFormControl.ts";
 import {ZoriaValidators} from "../validators/ZoriaValidators.ts";
 
 describe('FormControl', () => {
     it('should correctly store value', () => {
         // given
-        const control = new FormControl('test')
+        const control = new ZoriaFormControl('test')
 
         // when
         const actual = control.getValue()
@@ -16,7 +16,7 @@ describe('FormControl', () => {
 
     it('should correctly set value and emit event', () => {
         // given
-        const control = new FormControl('test');
+        const control = new ZoriaFormControl('test');
         let emittedValue = null;
         control.onValueChanges((value) => {
             emittedValue = value
@@ -33,7 +33,7 @@ describe('FormControl', () => {
 
     it('should correctly set value and NOT emit event', () => {
         // given
-        const control = new FormControl('test');
+        const control = new ZoriaFormControl('test');
         let emittedValue = null;
         control.onValueChanges((value) => {
             emittedValue = value
@@ -50,7 +50,7 @@ describe('FormControl', () => {
 
     it('should validate field and emit event', () => {
         // given
-        const control = new FormControl('', [ZoriaValidators.required()])
+        const control = new ZoriaFormControl('', [ZoriaValidators.required()])
         let currentIsValid = control.getIsValid()
         control.onValidityChanges((valid) => {
             currentIsValid = valid

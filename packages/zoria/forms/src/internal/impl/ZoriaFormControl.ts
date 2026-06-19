@@ -1,7 +1,7 @@
 import {AbstractZoriaFormElement} from "./AbstractZoriaFormElement.ts";
 import {type EventConfig, FormElementTypeEnum, type ValidatorFunc} from "../types/ZoriaFormElement.ts";
 
-export class FormControl extends AbstractZoriaFormElement<typeof FormElementTypeEnum.FORM_CONTROL> {
+export class ZoriaFormControl extends AbstractZoriaFormElement<typeof FormElementTypeEnum.FORM_CONTROL> {
     private _value: any | null;
 
     constructor(value: any | null = null, validators?: ValidatorFunc[]) {

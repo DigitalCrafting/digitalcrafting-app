@@ -20,10 +20,10 @@ interface PopoverContextType {
     triggerRef: React.RefObject<HTMLDivElement | HTMLButtonElement | null> | undefined
 }
 
-const PopoverContext = React.createContext<PopoverContextType>({} as PopoverContextType);
+const PopoverContext = React.createContext<PopoverContextType | null>(null);
 
 function usePopoverContext() {
-    return useContext(PopoverContext);
+    return useContext(PopoverContext)!;
 }
 
 interface PopoverTriggerProps {

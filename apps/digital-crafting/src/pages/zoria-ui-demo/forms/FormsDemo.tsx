@@ -1,14 +1,14 @@
 import {Button, Col, H2, Panel, Row} from "@zoria-ui/react";
 import {useEffect, useMemo} from "react";
-import {FormControl, FormGroup} from "@zoria-ui/forms";
+import {ZoriaFormControl, ZoriaFormGroup} from "@zoria-ui/forms";
 import {Form} from "@zoria-ui/forms-react";
 import {TextFormInput} from "@zoria-ui/forms-inputs-react";
 
 export const FormsDemo = () => {
-    const form: FormGroup = useMemo(() => {
-        const control = new FormGroup({
-            firstName: new FormControl(),
-            lastName: new FormControl()
+    const form: ZoriaFormGroup = useMemo(() => {
+        const control = new ZoriaFormGroup({
+            firstName: new ZoriaFormControl(),
+            lastName: new ZoriaFormControl()
         });
 
         return control;

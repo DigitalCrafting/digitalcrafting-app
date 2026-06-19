@@ -5,13 +5,9 @@ interface RadioGroupContextType {
     onChange: (value: any) => void
 }
 
-const RadioGroupContext = React.createContext({
-    name: '',
-    onChange: () => {
-    }
-} as RadioGroupContextType);
+const RadioGroupContext = React.createContext<RadioGroupContextType | null>(null);
 
-const useRadioGroupContext = () => React.useContext(RadioGroupContext);
+const useRadioGroupContext = () => React.useContext(RadioGroupContext)!;
 
 interface RadioGroupItemProps {
     children: string

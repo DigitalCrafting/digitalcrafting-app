@@ -1,6 +1,6 @@
 import {describe, expect, it} from "vitest";
 import {createForm, ZArray, ZNumber, ZObject, ZString} from "./ZoriaFormsBuilder.ts";
-import type {FormGroup} from "../internal/impl/ZoriaFormGroup.ts";
+import type {ZoriaFormGroup} from "../internal/impl/ZoriaFormGroup.ts";
 
 describe('ZoriaFormsBuilder', () => {
     it('should build form', () => {
@@ -35,7 +35,7 @@ describe('ZoriaFormsBuilder', () => {
         };
 
         // when
-        const form: FormGroup = createForm(formDefinition);
+        const form: ZoriaFormGroup = createForm(formDefinition);
         form.setValue(formValue);
 
         // then

@@ -1,54 +1,116 @@
-import {FormArray, FormControl, FormGroup, isFormArray, isFormControl, isFormGroup} from "@zoria-ui/forms";
+import {
+    ZoriaFormArray,
+    ZoriaFormControl,
+    ZoriaFormGroup,
+    isFormArray,
+    isFormControl,
+    isFormGroup,
+    type ValidationError, AbstractZoriaFormElement
+} from "@zoria-ui/forms";
 import {useFormContext} from "./FormContext";
 import {useCallback, useEffect, useMemo, useState} from "react";
+import {useFormPath} from "./internal/FormPathContext";
+import type {ObjectPaths} from "@zoria-ui/utils";
 
-const useFormGroup = (path: string): FormGroup => {
+declare const process: { env: { NODE_ENV: string } };
+
+/**
+ * @param path - optional, period separated absolute path down the Form structure
+ *
+ * @return {@link AbstractZoriaFormElement}
+ *
+ * If {@link path} is provided, returns the element down the path from the root form element.
+ * If {@link path} is not provided, takes the nearest path from {@link FormPathContext} using {@link useFormPath} hook,
+ * and returns that element. Which basically means it returns the form element of current context.
+ * If there is no path or context, it returns the root element.
+ * */
+const useFormElement = <T = any>(path?: ObjectPaths<T>): AbstractZoriaFormElement => {
     const {formGroup} = useFormContext();
-    const element = formGroup.getElement(path);
+    const contextPath = useFormPath();
 
-    if (!isFormGroup(element)) {
-        throw new Error(`useFormGroup::element at ${path} is not a FormGroup`)
-    }
+    return useMemo(() => {
+        const currentPath = !path ? contextPath : path;
 
-    return element;
+        if (!currentPath) {
+            return formGroup;
+        }
+
+        return formGroup.getElement(currentPath);
+    }, [path, formGroup, contextPath])
 }
 
-const useFormArray = (path: string): FormArray => {
-    const {formGroup} = useFormContext();
-    const element = formGroup.getElement(path);
+const useFormGroup = <T = any>(path?: ObjectPaths<T>): ZoriaFormGroup => {
+    const element = useFormElement(path);
 
-    if (!isFormArray(element)) {
-        throw new Error(`useFormArray::element at ${path} is not a FormArray`)
+    if (process.env.NODE_ENV !== 'production') {
+        if (!isFormGroup(element)) {
+            throw new Error(`useFormGroup::element at ${path} is not a FormGroup`)
+        }
     }
 
-    return element;
+    return element as ZoriaFormGroup;
+}
+
+type UseFormArrayReturn<T = any> = {
+    value: T[],
+    error?: ValidationError,
+    arrayControl: ZoriaFormArray
+}
+
+const useFormArray = <T = any>(path?: ObjectPaths<T>): UseFormArrayReturn<T> => {
+    const element = useFormElement(path) as ZoriaFormArray;
+
+    if (process.env.NODE_ENV !== 'production') {
+        if (!isFormArray(element)) {
+            throw new Error(`useFormArray::element at ${path} is not a FormArray`)
+        }
+    }
+
+    const [value, setValue] = useState<T[]>(element.getValue());
+    const [error, setError] = useState<ValidationError>(element.getError());
+
+    useEffect(() => {
+        const valueSub = element.onValueChanges((newValue) => {
+            setValue(newValue);
+        })
+
+        const errorSub = element.onErrorChanges((newError) => {
+            setError(newError);
+        })
+
+        return () => {
+            valueSub.unsubscribe();
+            errorSub.unsubscribe();
+        }
+    }, [element]);
+
+    return {
+        value,
+        error,
+        arrayControl: element
+    };
 }
 
 type UseFormControlReturn<T = any> = {
     value: T,
-    error?: string,
+    error?: ValidationError,
     onChange: (value: T) => void
 }
 
-const useFormControl = <T = any>(path: string): UseFormControlReturn<T> => {
-    const {formGroup} = useFormContext();
-    const control: FormControl = useMemo(() => {
-        const element = formGroup.getElement(path);
+const useFormControl = <T = any>(path?: ObjectPaths<T>): UseFormControlReturn<T> => {
+    const element = useFormElement(path) as ZoriaFormControl;
 
-        if (process.env.NODE_ENV !== 'production') {
-            if (!isFormControl(element)) {
-                throw new Error(`useFormControl::element at ${path} is not a FormControl`)
-            }
+    if (process.env.NODE_ENV !== 'production') {
+        if (!isFormControl(element)) {
+            throw new Error(`useFormControl::element at ${path} is not a FormControl`)
         }
+    }
 
-        return element as FormControl;
-    }, [path]);
-
-    const [value, setValue] = useState<T>(control.getValue());
-    const [error, setError] = useState<string | undefined>();
+    const [value, setValue] = useState<T>(element.getValue());
+    const [error, setError] = useState<ValidationError>();
 
     useEffect(() => {
-        const sub = control.onValidityChanges((error) => {
+        const sub = element.onErrorChanges((error) => {
             setError(error);
         });
 
@@ -59,7 +121,7 @@ const useFormControl = <T = any>(path: string): UseFormControlReturn<T> => {
 
     const onChange = useCallback((value: T) => {
         setValue(value);
-        control.setValue(value);
+        element.setValue(value);
     }, [])
 
     return {
@@ -69,5 +131,5 @@ const useFormControl = <T = any>(path: string): UseFormControlReturn<T> => {
     };
 }
 
-export {useFormGroup, useFormArray, useFormControl};
+export {useFormElement, useFormGroup, useFormArray, useFormControl};
 

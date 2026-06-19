@@ -41,6 +41,7 @@
   "packageManager": "pnpm@10.17.1",
   "dependencies": {
     "@zoria-ui/events": "workspace:*",
+    "@zoria-ui/utils": "workspace:*",
     "@zoria-ui/forms": "workspace:*"
   },
   "devDependencies": {

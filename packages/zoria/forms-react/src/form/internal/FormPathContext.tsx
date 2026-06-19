@@ -4,15 +4,17 @@ interface FormPathContextType {
     currentPath: string
 }
 
-const FormPathContext = createContext<FormPathContextType>({
-    currentPath: ''
-})
+const FormPathContext = createContext<FormPathContextType | null>(null);
 
-const useFormPath = (path: string): string => {
+const useFormPath = (path: string = ''): string => {
     const ctx = useContext(FormPathContext);
 
     if (!ctx) {
-        return '';
+        return path;
+    }
+
+    if (!path) {
+        return ctx.currentPath;
     }
 
     return ctx.currentPath + '.' + path;

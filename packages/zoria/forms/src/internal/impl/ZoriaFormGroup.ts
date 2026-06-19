@@ -4,7 +4,7 @@ import {PATH_DELIMITER} from "../helpers/ZoriaFormTraversal.ts";
 
 declare const process: { env: { NODE_ENV: string } };
 
-export class FormGroup extends AbstractZoriaFormElement<typeof FormElementTypeEnum.FORM_GROUP, Record<string, any>> {
+export class ZoriaFormGroup extends AbstractZoriaFormElement<typeof FormElementTypeEnum.FORM_GROUP, Record<string, any>> {
     private readonly _formElements: { [key: string]: AbstractZoriaFormElement }
 
     constructor(formElements?: {

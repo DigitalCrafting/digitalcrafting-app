@@ -1,15 +1,15 @@
 import {describe, expect, it} from 'vitest';
-import {FormControl} from "./ZoriaFormControl.ts";
-import {FormGroup} from "./ZoriaFormGroup.ts";
+import {ZoriaFormControl} from "./ZoriaFormControl.ts";
+import {ZoriaFormGroup} from "./ZoriaFormGroup.ts";
 import {ZoriaValidators} from "../validators/ZoriaValidators.ts";
-import {FormArray} from "./ZoriaFormArray.ts";
+import {ZoriaFormArray} from "./ZoriaFormArray.ts";
 
 describe('FormGroup', () => {
     it('should correctly store value', () => {
         // given
-        const control = new FormGroup({
-            first: new FormControl('first value'),
-            second: new FormControl('second value')
+        const control = new ZoriaFormGroup({
+            first: new ZoriaFormControl('first value'),
+            second: new ZoriaFormControl('second value')
         })
 
         // when
@@ -24,9 +24,9 @@ describe('FormGroup', () => {
 
     it('should correctly set value in all sub-elements', () => {
         // given
-        const control = new FormGroup({
-            first: new FormControl('first value'),
-            second: new FormControl('second value')
+        const control = new ZoriaFormGroup({
+            first: new ZoriaFormControl('first value'),
+            second: new ZoriaFormControl('second value')
         })
 
         // when
@@ -45,9 +45,9 @@ describe('FormGroup', () => {
 
     it('should correctly set value in specified sub-elements', () => {
         // given
-        const control = new FormGroup({
-            first: new FormControl('first value'),
-            second: new FormControl('second value')
+        const control = new ZoriaFormGroup({
+            first: new ZoriaFormControl('first value'),
+            second: new ZoriaFormControl('second value')
         })
 
         // when
@@ -65,9 +65,9 @@ describe('FormGroup', () => {
 
     it('should correctly emit value change event', () => {
         // given
-        const control = new FormGroup({
-            first: new FormControl('first value'),
-            second: new FormControl('second value')
+        const control = new ZoriaFormGroup({
+            first: new ZoriaFormControl('first value'),
+            second: new ZoriaFormControl('second value')
         })
         let emittedValue = null
         control.onValueChanges((value) => {
@@ -88,9 +88,9 @@ describe('FormGroup', () => {
 
     it('should correctly emit and bubble-up value change event', () => {
         // given
-        const control = new FormGroup({
-            first: new FormControl('first value'),
-            second: new FormControl('second value')
+        const control = new ZoriaFormGroup({
+            first: new ZoriaFormControl('first value'),
+            second: new ZoriaFormControl('second value')
         })
         let emittedValue = null
         control.onValueChanges((value) => {
@@ -98,7 +98,7 @@ describe('FormGroup', () => {
         })
 
         // when
-        const secondControl = control.getElement('second') as FormControl
+        const secondControl = control.getElement('second') as ZoriaFormControl
         secondControl.setValue('new second value')
 
         // then
@@ -110,11 +110,11 @@ describe('FormGroup', () => {
 
     it('should emit but NOT bubble-up value change event', () => {
         // given
-        const control = new FormGroup({
-            first: new FormControl('first value'),
-            second: new FormControl('second value')
+        const control = new ZoriaFormGroup({
+            first: new ZoriaFormControl('first value'),
+            second: new ZoriaFormControl('second value')
         })
-        const secondControl = control.getElement('second') as FormControl
+        const secondControl = control.getElement('second') as ZoriaFormControl
         let emittedValue = null
         secondControl.onValueChanges((value) => {
             emittedValue = value
@@ -134,9 +134,9 @@ describe('FormGroup', () => {
 
     it('should correctly validate and emit value', () => {
         // given
-        const control = new FormGroup({
-            first: new FormControl('', [ZoriaValidators.required()]),
-            second: new FormControl('second value')
+        const control = new ZoriaFormGroup({
+            first: new ZoriaFormControl('', [ZoriaValidators.required()]),
+            second: new ZoriaFormControl('second value')
         })
         let currentIsValid = control.getIsValid()
         control.onValidityChanges((isValid) => {
@@ -155,10 +155,10 @@ describe('FormGroup', () => {
     describe('getElementFromPath', () => {
         it('should return control 1 level deep', () => {
             // given
-            const expectedControl = new FormControl('', [ZoriaValidators.required()])
-            const formGroup = new FormGroup({
+            const expectedControl = new ZoriaFormControl('', [ZoriaValidators.required()])
+            const formGroup = new ZoriaFormGroup({
                 first: expectedControl,
-                second: new FormControl('second value')
+                second: new ZoriaFormControl('second value')
             })
 
             // when
@@ -170,12 +170,12 @@ describe('FormGroup', () => {
 
         it('should return control 2 levels deep', () => {
             // given
-            const expectedControl = new FormControl('', [ZoriaValidators.required()])
-            const formGroup = new FormGroup({
-                firstLevel: new FormGroup({
+            const expectedControl = new ZoriaFormControl('', [ZoriaValidators.required()])
+            const formGroup = new ZoriaFormGroup({
+                firstLevel: new ZoriaFormGroup({
                     first: expectedControl
                 }),
-                second: new FormControl('second value')
+                second: new ZoriaFormControl('second value')
             })
 
             // when
@@ -187,12 +187,12 @@ describe('FormGroup', () => {
 
         it('should return control 2 levels deep from FormArray', () => {
             // given
-            const expectedControl = new FormControl('', [ZoriaValidators.required()])
-            const formGroup = new FormGroup({
-                firstLevel: new FormArray([
+            const expectedControl = new ZoriaFormControl('', [ZoriaValidators.required()])
+            const formGroup = new ZoriaFormGroup({
+                firstLevel: new ZoriaFormArray([
                     expectedControl
                 ]),
-                second: new FormControl('second value')
+                second: new ZoriaFormControl('second value')
             })
 
             // when
@@ -204,14 +204,14 @@ describe('FormGroup', () => {
 
         it('should return control 3 levels deep', () => {
             // given
-            const expectedControl = new FormControl('', [ZoriaValidators.required()])
-            const formGroup = new FormGroup({
-                firstLevel: new FormGroup({
-                    secondLevel: new FormGroup({
+            const expectedControl = new ZoriaFormControl('', [ZoriaValidators.required()])
+            const formGroup = new ZoriaFormGroup({
+                firstLevel: new ZoriaFormGroup({
+                    secondLevel: new ZoriaFormGroup({
                         first: expectedControl
                     })
                 }),
-                second: new FormControl('second value')
+                second: new ZoriaFormControl('second value')
             })
 
             // when
@@ -223,14 +223,14 @@ describe('FormGroup', () => {
 
         it('should return control 3 levels deep, from FormArray in the middle', () => {
             // given
-            const expectedControl = new FormControl('', [ZoriaValidators.required()])
-            const formGroup = new FormGroup({
-                firstLevel: new FormArray([
-                    new FormGroup({
+            const expectedControl = new ZoriaFormControl('', [ZoriaValidators.required()])
+            const formGroup = new ZoriaFormGroup({
+                firstLevel: new ZoriaFormArray([
+                    new ZoriaFormGroup({
                         first: expectedControl
                     })
                 ]),
-                second: new FormControl('second value')
+                second: new ZoriaFormControl('second value')
             })
 
             // when
