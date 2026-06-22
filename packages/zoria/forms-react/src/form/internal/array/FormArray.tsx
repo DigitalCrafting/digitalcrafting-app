@@ -1,10 +1,18 @@
 import {FormPathContextProvider, useFormPath} from "../FormPathContext";
-import {createContext, type PropsWithChildren, type ReactElement, useContext} from "react";
+import {createContext, type PropsWithChildren, useContext} from "react";
 import './FormArray.scss';
-import {useFormArray} from "../../FormHooks";
-import {CircleMinusIcon, CirclePlusIcon, Col, Grid, IconButton, noop, Row, Text, TextButton} from "@zoria-ui/react";
-import {ValidationError, ZoriaFormArray} from "@zoria-ui/forms";
-import * as React from "react";
+import {useFormArray, useFormElement} from "../../FormHooks";
+import {
+    CircleMinusIcon,
+    CirclePlusIcon,
+    Col,
+    Grid,
+    IconButton,
+    Row,
+    Text,
+    TextButton
+} from "@zoria-ui/react";
+import {type ValidationError, ZoriaFormArray} from "@zoria-ui/forms";
 
 declare const process: { env: { NODE_ENV: string } };
 
@@ -112,6 +120,10 @@ interface _FormArrayElementProps {
 }
 
 const _FormArrayElement = ({children, index}: PropsWithChildren<_FormArrayElementProps>) => {
+    const currentPath = useFormPath(index.toString());
+    const element = useFormElement(currentPath);
+    const error = element.getError();
+
     return <FormPathContextProvider path={index.toString()}>
         <Col span={12}>
             <Row gap='sm'>
@@ -122,9 +134,12 @@ const _FormArrayElement = ({children, index}: PropsWithChildren<_FormArrayElemen
                     <_FormArrayButtons index={index}/>
                 </div>
             </Row>
-            <Row gap='sm'>
-                <_FormArrayError></_FormArrayError>
-            </Row>
+            {
+                error ?
+                    <Row gap='sm'>
+                        <_FormArrayError></_FormArrayError>
+                    </Row> : null
+            }
         </Col>
     </FormPathContextProvider>
 }
@@ -156,7 +171,7 @@ const _FormArrayWrapper = ({children}: PropsWithChildren) => {
             {
                 value.map((_, index) => {
                     return (
-                        <Row key={`form-array-`} gap='lg'>
+                        <Row key={`form-array-${index}-${value.length}`} gap='lg'>
                             <_FormArrayElement index={index}>
                                 {children}
                             </_FormArrayElement>

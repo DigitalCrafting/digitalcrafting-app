@@ -1,8 +1,8 @@
 .form-array {
-  display: contents;
+  //display: contents;
 
   &-no-elements {
-    height: 300px;
+    height: 150px;
   }
 
   &-element {
@@ -42,6 +42,16 @@
         button {
           margin-top: calc(var(--space-y-1) + var(--font-size-sm) + 6px);
           justify-self: center;
+
+          svg {
+            stroke-width: 1px;
+          }
+
+          &:hover {
+            svg {
+              stroke-width: 2px;
+            }
+          }
         }
       }
     }

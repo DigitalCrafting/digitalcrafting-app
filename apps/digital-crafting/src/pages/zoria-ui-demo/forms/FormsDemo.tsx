@@ -23,6 +23,7 @@ export const FormsDemo = () => {
 
         const control = new ZoriaFormGroup({
             firstName: new ZoriaFormControl(),
+            middleName: new ZoriaFormControl(),
             lastName: new ZoriaFormControl(),
             testArray: formArray
         });
@@ -49,10 +50,13 @@ export const FormsDemo = () => {
                 <Form formGroup={form}>
                     <Row gap='lg' className={'justify-center content-center'}>
                         <Grid cols={12} gap='sm'>
-                            <Grid.Col span={5} className={'justify-center align-items-center content-center'}>
+                            <Grid.Col span={4} className={'justify-center align-items-center content-center'}>
                                 <TextFormInput path='firstName' label='First name'/>
                             </Grid.Col>
-                            <Grid.Col span={5} className={'justify-center align-items-center content-center'}>
+                            <Grid.Col span={4} className={'justify-center align-items-center content-center'}>
+                                <TextFormInput path='middleName' label='Middle name'/>
+                            </Grid.Col>
+                            <Grid.Col span={4} className={'justify-center align-items-center content-center'}>
                                 <TextFormInput path='lastName' label='Last name'/>
                             </Grid.Col>
                         </Grid>
@@ -71,7 +75,7 @@ export const FormsDemo = () => {
                         </Form.Array>
                     </Row>
                     <Row gap='lg' className={'justify-center content-center'}>
-                        <Col span={8}>
+                        <Col span={10}>
                         </Col>
                         <Col span={2}>
                             <Button onClick={() => console.log(form.getValue())}>Submit</Button>
