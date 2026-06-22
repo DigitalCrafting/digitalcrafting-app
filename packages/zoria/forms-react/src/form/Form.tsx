@@ -11,7 +11,7 @@ interface FormProps {
 
 const InternalForm = ({children, formGroup}: PropsWithChildren<FormProps>) => {
     return <FormContextProvider formGroup={formGroup}>
-        <form>
+        <form className='z-form'>
             {children}
         </form>
     </FormContextProvider>

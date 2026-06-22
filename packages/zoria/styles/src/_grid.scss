@@ -44,6 +44,7 @@
 }
 
 .z-grid {
+  width: 100%;
   display: inline-grid;
 
   @for $i from 1 through 12 {

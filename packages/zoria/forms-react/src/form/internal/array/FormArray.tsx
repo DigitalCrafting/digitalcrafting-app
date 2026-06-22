@@ -2,25 +2,15 @@ import {FormPathContextProvider, useFormPath} from "../FormPathContext";
 import {createContext, type PropsWithChildren, type ReactElement, useContext} from "react";
 import './FormArray.scss';
 import {useFormArray} from "../../FormHooks";
-import {Col, noop, Row} from "@zoria-ui/react";
-import type {ValidationError} from "@zoria-ui/forms";
+import {CircleMinusIcon, CirclePlusIcon, Col, Grid, IconButton, noop, Row, Text, TextButton} from "@zoria-ui/react";
+import {ValidationError, ZoriaFormArray} from "@zoria-ui/forms";
+import * as React from "react";
 
 declare const process: { env: { NODE_ENV: string } };
 
-// <FormArray>
-//     <FormArray.Element>
-//         <FormArray.Inputs></FormArray.Inputs>
-//         <FormArray.Buttons>
-//             <FormArray.RemoveButton />
-//             <FormArray.AddButton />
-//         </FormArray.Buttons>
-//     </FormArray.Element> || <FormArray.NoElementMessage />
-//     <FormArray.Error></FormArray.Error>
-// </FormArray>
-
 type _FormArrayInternalContextType = {
-    index: number;
-    add: (value: any) => void;
+    control: ZoriaFormArray;
+    add: (value?: any) => void;
     remove: (index: number) => void;
 }
 
@@ -38,35 +28,84 @@ const _useFormArrayInternalContext = () => {
     return ctx;
 }
 
-const _FormArrayInputs = ({children}: PropsWithChildren) => {
-    return <div className='form-array-inputs'>{children}</div>;
+
+const _FormArrayInternalContextProvider = ({children}: PropsWithChildren) => {
+    const {arrayControl} = useFormArray();
+
+    const add = (value?: any) => {
+        arrayControl.push(value);
+    }
+
+    const remove = (index: number) => {
+        arrayControl.remove(index);
+    }
+
+    return <_FormArrayInternalContext.Provider value={{
+        add,
+        remove,
+        control: arrayControl
+    }}>
+        {children}
+    </_FormArrayInternalContext.Provider>
 }
 
-type _FormArrayInputsType = ReactElement<typeof _FormArrayInputs>;
+const _FormArrayInputs = ({children}: PropsWithChildren) => {
+    return <div className='form-array-element-inputs'>{children}</div>;
+}
 
 const _FormArrayNoElementMessage = () => {
+    const {add} = _useFormArrayInternalContext()!;
 
+
+    const onAdd = () => {
+        add();
+    }
+
+    return <Col span={12} className='form-array-no-elements justify-center align-items-center'>
+        <Row gap='sm' className={'justify-center content-center'}>
+            <Text>No elements have been added</Text>
+        </Row>
+        <Row gap='sm' className={'justify-center content-center'}>
+            <TextButton onClick={onAdd}>Add element</TextButton>
+        </Row>
+    </Col>
 }
 
-type _FormArrayNoElementMessageType = ReactElement<typeof _FormArrayNoElementMessage>;
-
-const _FormArrayAddButton = () => {
-
+interface _FormArrayButtonsProps {
+    index: number
 }
 
-type _FormArrayAddButtonType = ReactElement<typeof _FormArrayAddButton>;
+const _FormArrayButtons = ({index}: _FormArrayButtonsProps) => {
+    const {add, remove, control} = _useFormArrayInternalContext()!;
 
-const _FormArrayRemoveButton = () => {
+    const addVisible = index === control.length - 1;
 
+    const onAdd = () => {
+        if (addVisible) {
+            add();
+        }
+    }
+
+    const onRemove = () => {
+        remove(index);
+    }
+
+    return <div className='form-array-element-buttons'>
+        <Grid.Col className='form-array-element-buttons-button' span={1}>
+            <IconButton onClick={onRemove}>
+                <CircleMinusIcon/>
+            </IconButton>
+        </Grid.Col>
+        <Grid.Col className='form-array-element-buttons-button' span={1}>
+            {
+                addVisible ?
+                    <IconButton onClick={onAdd}>
+                        <CirclePlusIcon/>
+                    </IconButton> : null
+            }
+        </Grid.Col>
+    </div>
 }
-
-type _FormArrayRemoveButtonType = ReactElement<typeof _FormArrayRemoveButton>;
-
-const _FormArrayButtons = () => {
-    return <div className='form-array-element-buttons'></div>
-}
-
-type _FormArrayButtonsType = ReactElement<typeof _FormArrayButtons>;
 
 interface _FormArrayElementProps {
     index: number
@@ -80,7 +119,7 @@ const _FormArrayElement = ({children, index}: PropsWithChildren<_FormArrayElemen
                     <_FormArrayInputs>
                         {children}
                     </_FormArrayInputs>
-                    <_FormArrayButtons/>
+                    <_FormArrayButtons index={index}/>
                 </div>
             </Row>
             <Row gap='sm'>
@@ -90,8 +129,6 @@ const _FormArrayElement = ({children, index}: PropsWithChildren<_FormArrayElemen
     </FormPathContextProvider>
 }
 
-type _FormArrayElementType = ReactElement<typeof _FormArrayElement>;
-
 interface _FormArrayErrorProps {
     children?: ValidationError
 }
@@ -100,31 +137,40 @@ const _FormArrayError = ({children}: _FormArrayErrorProps) => {
     return <span className='z-input-error'>{children}</span>
 }
 
-type _FormArrayErrorType = ReactElement<typeof _FormArrayError>;
-
 const _FormArrayWrapper = ({children}: PropsWithChildren) => {
-    const currentPath = useFormPath();
     const {
         value,
         error
-    } = useFormArray(currentPath);
+    } = useFormArray();
 
-    return <div className='form-array'>
-        {
-            value.map((_, index) => {
-                return (
-                    <Row key={`form-array-`} gap='lg'>
-                        <_FormArrayElement index={index}>
-                            {children}
-                        </_FormArrayElement>
-                    </Row>
-                )
-            })
-        }
-        {
-            error ? <Row gap='lg'><_FormArrayError>{error}</_FormArrayError></Row> : null
-        }
-    </div>
+    if (!value || !value.length) {
+        return <Col span={12} className='form-array'>
+            <_FormArrayInternalContextProvider>
+                <_FormArrayNoElementMessage/>
+            </_FormArrayInternalContextProvider>
+        </Col>
+    }
+
+    return <Col span={12} className='form-array'>
+        <_FormArrayInternalContextProvider>
+            {
+                value.map((_, index) => {
+                    return (
+                        <Row key={`form-array-`} gap='lg'>
+                            <_FormArrayElement index={index}>
+                                {children}
+                            </_FormArrayElement>
+                        </Row>
+                    )
+                })
+            }
+            {
+                error ? <Row gap='lg'>
+                    <_FormArrayError>{error}</_FormArrayError>
+                </Row> : null
+            }
+        </_FormArrayInternalContextProvider>
+    </Col>
 }
 
 export interface _FormArrayComponentProps {

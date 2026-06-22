@@ -28,6 +28,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+form {
+  display: contents;
+}
+
 #root {
   height: 100%;
   display: flex;

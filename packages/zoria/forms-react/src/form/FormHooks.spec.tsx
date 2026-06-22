@@ -1,6 +1,6 @@
-import {describe, expect, it} from "vitest";
+import {describe, expect, it, vi} from "vitest";
 import {renderHook} from "@testing-library/react";
-import {useFormElement} from "./FormHooks";
+import {useFormArray, useFormControl, useFormElement, useFormGroup} from "./FormHooks";
 import {FormPathContextProvider} from "./internal/FormPathContext";
 import {ZoriaFormArray, ZoriaFormControl, ZoriaFormGroup} from "@zoria-ui/forms";
 import {Form} from "./Form";
@@ -11,13 +11,13 @@ const MOCK_FIRST = new ZoriaFormGroup({
 })
 const MOCK_FIRST_ARRAY_ELEMENT = new ZoriaFormControl();
 const MOCK_SECOND_ARRAY_ELEMENT = new ZoriaFormControl();
-
+const MOCK_SECOND = new ZoriaFormArray([
+    MOCK_FIRST_ARRAY_ELEMENT,
+    MOCK_SECOND_ARRAY_ELEMENT
+])
 const MOCK_FORM_GROUP = new ZoriaFormGroup({
     'first': MOCK_FIRST,
-    'second': new ZoriaFormArray([
-        MOCK_FIRST_ARRAY_ELEMENT,
-        MOCK_SECOND_ARRAY_ELEMENT
-    ])
+    'second': MOCK_SECOND
 });
 
 describe('FormHooks', () => {
@@ -161,5 +161,110 @@ describe('FormHooks', () => {
             // then
             expect(actualElement).toBe(MOCK_NESTED_FIRST);
         })
+    })
+
+    describe('useFormGroup', () => {
+        it('should return element', () => {
+            // given
+            const wrapper = ({children}) => (
+                <Form formGroup={MOCK_FORM_GROUP}>
+                    {children}
+                </Form>
+            )
+
+            // when
+            const {result} = renderHook(() => useFormGroup('first'), {
+                wrapper
+            });
+            const actualElement = result.current;
+
+            // then
+            expect(actualElement).toBe(MOCK_FIRST);
+        });
+
+        it('should throw an error', () => {
+            // given
+            const wrapper = ({children}) => (
+                <Form formGroup={MOCK_FORM_GROUP}>
+                    {children}
+                </Form>
+            )
+
+            // when
+            // then
+            expect(() => {
+                renderHook(() => useFormGroup('second'), {wrapper})
+            }).toThrow('useFormGroup::element at second is not a FormGroup');
+        });
+    })
+
+    describe('useFormArray', () => {
+        it('should return element', () => {
+            // given
+            const wrapper = ({children}) => (
+                <Form formGroup={MOCK_FORM_GROUP}>
+                    {children}
+                </Form>
+            )
+
+            // when
+            const {result} = renderHook(() => useFormArray('second'), {
+                wrapper
+            });
+            const actualElement = result.current.arrayControl;
+
+            // then
+            expect(actualElement).toBe(MOCK_SECOND);
+        });
+
+        it('should throw an error', () => {
+            // given
+            const wrapper = ({children}) => (
+                <Form formGroup={MOCK_FORM_GROUP}>
+                    {children}
+                </Form>
+            )
+
+            // when
+            // then
+            expect(() => {
+                renderHook(() => useFormArray('first'), {wrapper})
+            }).toThrow('useFormArray::element at first is not a FormArray');
+        });
+    })
+
+    describe('useFormControl', () => {
+        it('should return element', () => {
+            // given
+            const wrapper = ({children}) => (
+                <Form formGroup={MOCK_FORM_GROUP}>
+                    {children}
+                </Form>
+            )
+
+            // when
+            const {result} = renderHook(() => useFormControl('first.nestedFirst'), {
+                wrapper
+            });
+            const actualElement = result.current.control;
+
+            // then
+            expect(actualElement).toBe(MOCK_NESTED_FIRST);
+        });
+
+        it('should throw an error', () => {
+            // given
+            const wrapper = ({children}) => (
+                <Form formGroup={MOCK_FORM_GROUP}>
+                    {children}
+                </Form>
+            )
+
+            // when
+            // then
+            expect(() => {
+                renderHook(() => useFormControl('second'), {wrapper})
+            }).toThrow('useFormControl::element at second is not a FormControl');
+        });
     })
 })

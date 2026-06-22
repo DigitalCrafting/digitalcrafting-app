@@ -1,5 +1,49 @@
 .form-array {
+  display: contents;
 
+  &-no-elements {
+    height: 300px;
+  }
 
+  &-element {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    width: 100%;
+    gap: var(--space-x-1);
 
+    &-inputs {
+      grid-column: span 10;
+
+      display: grid;
+      grid-template-columns: subgrid;
+      align-items: start;
+      row-gap: var(--space-y-1);
+
+      .z-grid-span-11 {
+        grid-column: span 10;
+      }
+
+      .z-grid-span-12 {
+        grid-column: span 10;
+      }
+    }
+
+    &-buttons {
+      grid-column: span 2;
+
+      display: grid;
+      grid-template-columns: subgrid;
+      grid-template-rows: auto;
+      grid-auto-rows: 0;
+
+      &-button {
+        display: contents;
+
+        button {
+          margin-top: calc(var(--space-y-1) + var(--font-size-sm) + 6px);
+          justify-self: center;
+        }
+      }
+    }
+  }
 }

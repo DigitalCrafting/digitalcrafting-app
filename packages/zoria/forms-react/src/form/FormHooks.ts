@@ -94,11 +94,13 @@ const useFormArray = <T = any>(path?: ObjectPaths<T>): UseFormArrayReturn<T> => 
 type UseFormControlReturn<T = any> = {
     value: T,
     error?: ValidationError,
-    onChange: (value: T) => void
+    onChange: (value: T) => void,
+    control: ZoriaFormControl
 }
 
 const useFormControl = <T = any>(path?: ObjectPaths<T>): UseFormControlReturn<T> => {
-    const element = useFormElement(path) as ZoriaFormControl;
+    const currentPath = useFormPath(path);
+    const element = useFormElement(currentPath) as ZoriaFormControl;
 
     if (process.env.NODE_ENV !== 'production') {
         if (!isFormControl(element)) {
@@ -127,7 +129,8 @@ const useFormControl = <T = any>(path?: ObjectPaths<T>): UseFormControlReturn<T>
     return {
         value,
         error,
-        onChange
+        onChange,
+        control: element
     };
 }
 
