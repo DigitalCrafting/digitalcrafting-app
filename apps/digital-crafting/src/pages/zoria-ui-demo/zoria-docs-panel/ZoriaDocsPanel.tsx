@@ -1,5 +1,5 @@
 import {Children, type PropsWithChildren, type ReactElement} from "react";
-import {Col, Container, ExpandCollapse, H2, Panel, Tabs} from "@zoria-ui/react";
+import {Col, Container, ExpandCollapsePanel, H2, Tabs} from "@zoria-ui/react";
 import "./ZoriaDocsPanel.scss";
 
 const Demo = ({children}: PropsWithChildren) => {
@@ -68,22 +68,16 @@ interface DocsPanelProps {
 const DocsPanel = ({children, expandByDefault = false}: DocsPanelProps) => {
     const [TitleComponent, BodyComponent] = Children.toArray(children);
 
-    return <Panel className='zoria-docs-panel'>
-        <ExpandCollapse expandByDefault={expandByDefault}>
-            <ExpandCollapse.Trigger>
-                <Panel.Header>
-                    {TitleComponent}
-                </Panel.Header>
-            </ExpandCollapse.Trigger>
-            <ExpandCollapse.Body>
-                <Panel.Body>
-                    <Col gap='sm'>
-                        {BodyComponent}
-                    </Col>
-                </Panel.Body>
-            </ExpandCollapse.Body>
-        </ExpandCollapse>
-    </Panel>
+    return <ExpandCollapsePanel expandByDefault={expandByDefault} className='zoria-docs-panel'>
+        <ExpandCollapsePanel.Header>
+            {TitleComponent}
+        </ExpandCollapsePanel.Header>
+        <ExpandCollapsePanel.Body>
+            <Col gap='sm'>
+                {BodyComponent}
+            </Col>
+        </ExpandCollapsePanel.Body>
+    </ExpandCollapsePanel>
 }
 
 const ZoriaDocsPanel = Object.assign(DocsPanel, {
