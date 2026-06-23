@@ -11,10 +11,8 @@ export const LandingPage = () => {
     return (
         <Row className='align-items-center justify-center'>
             <Col>
-                <Col className='align-items-center'>
-                    <H1>DigitalCrafting</H1>
-                    <H2>Where passion meets software</H2>
-                </Col>
+                <H1 className='align-self-center'>DigitalCrafting</H1>
+                <H2 className='align-self-center'>Where passion meets software</H2>
                 <LPArchitectureAnimation/>
             </Col>
         </Row>

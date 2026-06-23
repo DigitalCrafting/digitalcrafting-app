@@ -93,7 +93,7 @@ const useFormArray = <T = any>(path?: ObjectPaths<T>): UseFormArrayReturn<T> => 
 
 type UseFormControlReturn<T = any> = {
     value: T,
-    error?: ValidationError,
+    error?: string,
     onChange: (value: T) => void,
     control: ZoriaFormControl
 }
@@ -128,6 +128,7 @@ const useFormControl = <T = any>(path?: ObjectPaths<T>): UseFormControlReturn<T>
 
     return {
         value,
+        // @ts-ignore
         error,
         onChange,
         control: element
