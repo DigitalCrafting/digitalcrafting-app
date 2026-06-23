@@ -27,11 +27,15 @@ interface TableProps extends Omit<React.TableHTMLAttributes<HTMLTableElement>, '
 }
 
 const TableInternal = ({children, className = '', 'data-testid': dataTestId = 'qa-table', ...props}: TableProps) => {
-    return <div data-testid={`${dataTestId}-wrapper`} className='z-table-wrapper'>
-        <table data-testid={dataTestId} className={`z-table ${className}`.trim()} {...props}>
-            {children}
-        </table>
-    </div>
+    return <TableContext.Provider value={{
+        dataTestId
+    }}>
+        <div data-testid={`${dataTestId}-wrapper`} className='z-table-wrapper'>
+            <table data-testid={dataTestId} className={`z-table ${className}`.trim()} {...props}>
+                {children}
+            </table>
+        </div>
+    </TableContext.Provider>
 }
 
 interface TableHeadProps extends Omit<React.TableHTMLAttributes<HTMLTableSectionElement>, 'className'> {

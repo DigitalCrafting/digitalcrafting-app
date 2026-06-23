@@ -122,7 +122,7 @@ interface _FormArrayElementProps {
 const _FormArrayElement = ({children, index}: PropsWithChildren<_FormArrayElementProps>) => {
     const currentPath = useFormPath(index.toString());
     const element = useFormElement(currentPath);
-    const error = element.getError();
+    const error = element?.getError();
 
     return <FormPathContextProvider path={index.toString()}>
         <Col span={12}>
