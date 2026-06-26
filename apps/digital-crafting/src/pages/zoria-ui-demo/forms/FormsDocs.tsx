@@ -1,6 +1,14 @@
 import {Button, Col, Grid, H2, Panel, Row} from "@zoria-ui/react";
 import {useEffect, useMemo} from "react";
-import {createForm, ZObject, ZoriaFormArray, ZoriaFormControl, ZoriaFormGroup, ZString} from "@zoria-ui/forms";
+import {
+    createForm,
+    ZObject,
+    ZoriaFormArray,
+    ZoriaFormControl,
+    ZoriaFormGroup,
+    ZoriaValidators,
+    ZString
+} from "@zoria-ui/forms";
 import {Form} from "@zoria-ui/forms-react";
 import {TextFormInput} from "@zoria-ui/forms-inputs-react";
 
@@ -10,7 +18,7 @@ const formArrayElementSchema = ZObject().withFields({
     field3: ZString(),
 })
 
-export const FormsDemo = () => {
+export const FormsDocs = () => {
     const formArray: ZoriaFormArray = useMemo(() => {
         const control = new ZoriaFormArray();
 
@@ -25,7 +33,12 @@ export const FormsDemo = () => {
             firstName: new ZoriaFormControl(),
             middleName: new ZoriaFormControl(),
             lastName: new ZoriaFormControl(),
-            testArray: formArray
+            testArray: formArray,
+            testGroup: new ZoriaFormGroup({
+                groupField1: new ZoriaFormControl(null, [ZoriaValidators.required()]),
+                groupField2: new ZoriaFormControl(),
+                groupField3: new ZoriaFormControl(),
+            })
         });
 
         return control;
@@ -36,8 +49,14 @@ export const FormsDemo = () => {
             console.log(value);
         })
 
+        const validitySub = form.onValidityChanges((valid) => {
+            console.log(valid)
+            console.log(form.getErrorsTree())
+        })
+
         return () => {
             sub.unsubscribe();
+            validitySub.unsubscribe();
         }
     }, [form])
 
@@ -50,13 +69,13 @@ export const FormsDemo = () => {
                 <Form formGroup={form}>
                     <Row gap='lg' className={'justify-center content-center'}>
                         <Grid cols={12} gap='sm'>
-                            <Grid.Col span={4} className={'justify-center align-items-center content-center'}>
+                            <Grid.Col className={'justify-center align-items-center content-center'}>
                                 <TextFormInput path='firstName' label='First name'/>
                             </Grid.Col>
-                            <Grid.Col span={4} className={'justify-center align-items-center content-center'}>
+                            <Grid.Col className={'justify-center align-items-center content-center'}>
                                 <TextFormInput path='middleName' label='Middle name'/>
                             </Grid.Col>
-                            <Grid.Col span={4} className={'justify-center align-items-center content-center'}>
+                            <Grid.Col className={'justify-center align-items-center content-center'}>
                                 <TextFormInput path='lastName' label='Last name'/>
                             </Grid.Col>
                         </Grid>
@@ -73,6 +92,22 @@ export const FormsDemo = () => {
                                 <TextFormInput path='field3' label='Field 3'/>
                             </Grid.Col>
                         </Form.Array>
+                    </Row>
+                    <Row gap='lg' className={'justify-center content-center'}>
+                        <Form.Group path='testGroup'>
+                            <Form.Group.Title>Test form group</Form.Group.Title>
+                            <Form.Group.Body>
+                                <Grid.Col>
+                                    <TextFormInput path='groupField1' label='Group Field 1'/>
+                                </Grid.Col>
+                                <Grid.Col>
+                                    <TextFormInput path='groupField2' label='Group Field 2'/>
+                                </Grid.Col>
+                                <Grid.Col>
+                                    <TextFormInput path='groupField3' label='Group Field 3'/>
+                                </Grid.Col>
+                            </Form.Group.Body>
+                        </Form.Group>
                     </Row>
                     <Row gap='lg' className={'justify-center content-center'}>
                         <Col span={10}>

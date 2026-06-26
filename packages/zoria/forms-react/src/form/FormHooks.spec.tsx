@@ -176,7 +176,7 @@ describe('FormHooks', () => {
             const {result} = renderHook(() => useFormGroup('first'), {
                 wrapper
             });
-            const actualElement = result.current;
+            const actualElement = result.current.formGroupControl;
 
             // then
             expect(actualElement).toBe(MOCK_FIRST);
@@ -211,7 +211,7 @@ describe('FormHooks', () => {
             const {result} = renderHook(() => useFormArray('second'), {
                 wrapper
             });
-            const actualElement = result.current.arrayControl;
+            const actualElement = result.current.formArrayControl;
 
             // then
             expect(actualElement).toBe(MOCK_SECOND);

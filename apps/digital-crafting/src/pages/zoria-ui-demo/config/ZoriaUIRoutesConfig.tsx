@@ -19,8 +19,8 @@ export const ZoriaUIRoutesConfig: RouteObject[] = [
     {
         path: 'forms',
         lazy: async () => {
-            const {FormsDemo} = await import('../forms/FormsDemo.tsx')
-            return {element: <FormsDemo />}
+            const {FormsDocs} = await import('../forms/FormsDocs.tsx')
+            return {element: <FormsDocs />}
         }
     }
 ]

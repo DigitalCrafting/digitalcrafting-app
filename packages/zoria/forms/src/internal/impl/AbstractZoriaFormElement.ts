@@ -138,6 +138,7 @@ export abstract class AbstractZoriaFormElement<T extends FormElementTypeEnumType
     protected _emitValidityChanges(overridePending: boolean = false) {
         if (this._validityChangeEventPending || overridePending) {
             this._validityChangesEventEmitter.emit(this._isValid)
+            this._errorChangesEventEmitter.emit(this._error);
 
             if (this._parent) {
                 this._parent._emitValidityChanges(true);

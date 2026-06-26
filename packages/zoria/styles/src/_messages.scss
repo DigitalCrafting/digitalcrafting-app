@@ -1,0 +1,20 @@
+.z-message {
+  &-info {
+
+  }
+
+  &-success {
+
+  }
+
+  &-warning {
+
+  }
+
+  &-error {
+    color: var(--z-color-error);
+    font-size: var(--font-size-md);
+    line-height: var(--line-height-normal);
+    min-height: var(--line-height-normal);
+  }
+}

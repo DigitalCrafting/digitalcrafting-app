@@ -39,8 +39,14 @@ const useFormElement = <T = any>(path?: ObjectPaths<T>): AbstractZoriaFormElemen
     }, [path, formGroup, contextPath])
 }
 
-const useFormGroup = <T = any>(path?: ObjectPaths<T>): ZoriaFormGroup => {
-    const element = useFormElement(path);
+type UseFormGroupReturnType = {
+    value: Record<string, any>,
+    error?: ValidationError,
+    formGroupControl: ZoriaFormGroup
+}
+
+const useFormGroup = <T extends Record<string, any>>(path?: ObjectPaths<T>): UseFormGroupReturnType => {
+    const element = useFormElement(path) as ZoriaFormGroup;
 
     if (process.env.NODE_ENV !== 'production') {
         if (!isFormGroup(element)) {
@@ -48,13 +54,36 @@ const useFormGroup = <T = any>(path?: ObjectPaths<T>): ZoriaFormGroup => {
         }
     }
 
-    return element as ZoriaFormGroup;
+
+    const [value, setValue] = useState<Record<string, any>>(element.getValue());
+    const [error, setError] = useState<ValidationError>(element.getError());
+
+    useEffect(() => {
+        const valueSub = element.onValueChanges((newValue) => {
+            setValue(newValue);
+        })
+
+        const errorSub = element.onErrorChanges((newError) => {
+            setError(newError);
+        })
+
+        return () => {
+            valueSub.unsubscribe();
+            errorSub.unsubscribe();
+        }
+    }, [element]);
+
+    return {
+        value,
+        error,
+        formGroupControl: element
+    };
 }
 
 type UseFormArrayReturn<T = any> = {
     value: T[],
     error?: ValidationError,
-    arrayControl: ZoriaFormArray
+    formArrayControl: ZoriaFormArray
 }
 
 const useFormArray = <T = any>(path?: ObjectPaths<T>): UseFormArrayReturn<T> => {
@@ -87,7 +116,7 @@ const useFormArray = <T = any>(path?: ObjectPaths<T>): UseFormArrayReturn<T> => 
     return {
         value,
         error,
-        arrayControl: element
+        formArrayControl: element
     };
 }
 

@@ -1,7 +1,7 @@
 import {ZoriaFormGroup} from "@zoria-ui/forms";
 import type {PropsWithChildren} from "react";
 import {FormContextProvider} from "./FormContext";
-import {_FormGroupComponent} from "./internal/group/FormGroup";
+import {FormGroup} from "./internal/group/FormGroup";
 import {_FormArrayComponent} from "./internal/array/FormArray";
 import { useFormPath } from "./internal/FormPathContext";
 
@@ -18,7 +18,7 @@ const InternalForm = ({children, formGroup}: PropsWithChildren<FormProps>) => {
 }
 
 const Form = Object.assign(InternalForm, {
-    Group: _FormGroupComponent,
+    Group: FormGroup,
     Array: _FormArrayComponent
 })
 

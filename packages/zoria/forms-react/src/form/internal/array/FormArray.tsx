@@ -38,27 +38,27 @@ const _useFormArrayInternalContext = () => {
 
 
 const _FormArrayInternalContextProvider = ({children}: PropsWithChildren) => {
-    const {arrayControl} = useFormArray();
+    const {formArrayControl} = useFormArray();
 
     const add = (value?: any) => {
-        arrayControl.push(value);
+        formArrayControl.push(value);
     }
 
     const remove = (index: number) => {
-        arrayControl.remove(index);
+        formArrayControl.remove(index);
     }
 
     return <_FormArrayInternalContext.Provider value={{
         add,
         remove,
-        control: arrayControl
+        control: formArrayControl
     }}>
         {children}
     </_FormArrayInternalContext.Provider>
 }
 
 const _FormArrayInputs = ({children}: PropsWithChildren) => {
-    return <div className='form-array-element-inputs'>{children}</div>;
+    return <div className='z-form-array-element-inputs'>{children}</div>;
 }
 
 const _FormArrayNoElementMessage = () => {
@@ -69,7 +69,7 @@ const _FormArrayNoElementMessage = () => {
         add();
     }
 
-    return <Col span={12} className='form-array-no-elements justify-center align-items-center'>
+    return <Col span={12} className='z-form-array-no-elements justify-center align-items-center'>
         <Row gap='sm' className={'justify-center content-center'}>
             <Text>No elements have been added</Text>
         </Row>
@@ -98,13 +98,13 @@ const _FormArrayButtons = ({index}: _FormArrayButtonsProps) => {
         remove(index);
     }
 
-    return <div className='form-array-element-buttons'>
-        <Grid.Col className='form-array-element-buttons-button' span={1}>
+    return <div className='z-form-array-element-buttons'>
+        <Grid.Col className='z-form-array-element-buttons-button' span={1}>
             <IconButton onClick={onRemove}>
                 <CircleMinusIcon/>
             </IconButton>
         </Grid.Col>
-        <Grid.Col className='form-array-element-buttons-button' span={1}>
+        <Grid.Col className='z-form-array-element-buttons-button' span={1}>
             {
                 addVisible ?
                     <IconButton onClick={onAdd}>
@@ -127,7 +127,7 @@ const _FormArrayElement = ({children, index}: PropsWithChildren<_FormArrayElemen
     return <FormPathContextProvider path={index.toString()}>
         <Col span={12}>
             <Row gap='sm'>
-                <div className='form-array-element'>
+                <div className='z-form-array-element'>
                     <_FormArrayInputs>
                         {children}
                     </_FormArrayInputs>
@@ -159,19 +159,19 @@ const _FormArrayWrapper = ({children}: PropsWithChildren) => {
     } = useFormArray();
 
     if (!value || !value.length) {
-        return <Col span={12} className='form-array'>
+        return <Col span={12} className='z-form-array'>
             <_FormArrayInternalContextProvider>
                 <_FormArrayNoElementMessage/>
             </_FormArrayInternalContextProvider>
         </Col>
     }
 
-    return <Col span={12} className='form-array'>
+    return <Col span={12} className='z-form-array'>
         <_FormArrayInternalContextProvider>
             {
                 value.map((_, index) => {
                     return (
-                        <Row key={`form-array-${index}-${value.length}`} gap='lg'>
+                        <Row key={`z-form-array-${index}-${value.length}`} gap='lg'>
                             <_FormArrayElement index={index}>
                                 {children}
                             </_FormArrayElement>
