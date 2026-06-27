@@ -3,7 +3,7 @@ import {FormPathContextProvider} from "../FormPathContext";
 import {useFormGroup} from "../../FormHooks";
 import {Col, Grid, H2, Row} from "@zoria-ui/react";
 
-interface _FormGroupTitleProps {
+export interface _FormGroupTitleProps {
     as?: ElementType
 }
 
