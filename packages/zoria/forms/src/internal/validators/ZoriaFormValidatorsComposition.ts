@@ -1,4 +1,4 @@
-import type {ValidationError, ValidatorFunc, ValidatorsComposition} from "../types/ZoriaFormElement.ts";
+import type {FormElement, ValidationError, ValidatorFunc, ValidatorsComposition} from "../types/ZoriaFormElement.ts";
 
 export class ZoriaFormValidatorsComposition<T = any> implements ValidatorsComposition<T> {
     private _validators: ValidatorFunc[]
@@ -7,9 +7,9 @@ export class ZoriaFormValidatorsComposition<T = any> implements ValidatorsCompos
         this._validators = validators;
     }
 
-    validate(value: T): ValidationError {
+    validate(value: T, control: FormElement<any, any>): ValidationError {
         for (const validator of this._validators) {
-            const validationError = validator(value)
+            const validationError = validator(value, control);
             if (validationError) {
                 return validationError;
             }

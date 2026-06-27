@@ -33,7 +33,7 @@ export class ZoriaFormControl extends AbstractZoriaFormElement<typeof FormElemen
     _updateValidity(): void {
         let newValid = true;
         if (this._validators) {
-            const newError = this._validators.validate(this._value)
+            const newError = this._validators.validate(this._value, this);
             if (this._error !== newError) {
                 this._error = newError;
                 newValid = newError === null;

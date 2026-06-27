@@ -162,7 +162,7 @@ export class ZoriaFormArray extends AbstractZoriaFormElement<typeof FormElementT
         return this._isValid;
     }
 
-    getErrorsTree(): any[] {
+    getErrorsTree(): any {
         return this._formArray.map(control => {
             return control.getErrorsTree();
         })
@@ -172,7 +172,7 @@ export class ZoriaFormArray extends AbstractZoriaFormElement<typeof FormElementT
         let newValid = true;
 
         if (this._validators) {
-            const newError = this._validators.validate(this.getValue())
+            const newError = this._validators.validate(this.getValue(), this);
             if (newError !== this._error) {
                 this._error = newError;
                 newValid = newError === null;

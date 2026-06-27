@@ -1,4 +1,4 @@
-import {describe, expect, it, test} from 'vitest';
+import {describe, expect, it} from 'vitest';
 import {ZoriaValidators} from "./ZoriaValidators.ts";
 import {DEFAULT_VALIDATION_ERRORS} from "./ZoriaValidatorsTypes.ts";
 

@@ -2,10 +2,10 @@ import type {Observer, Subscription} from "@zoria-ui/events";
 
 export type ValidationError = string | null
 
-export type ValidatorFunc = (value: any, message?: string, control?: FormElement<any, any>) => ValidationError
+export type ValidatorFunc = (value: any, control?: FormElement<any, any>) => ValidationError
 
 export interface ValidatorsComposition<T = any> {
-    validate(value: T): ValidationError;
+    validate(value: T, control: FormElement<any, any>): ValidationError;
 
     add(validator: ValidatorFunc): void;
 
