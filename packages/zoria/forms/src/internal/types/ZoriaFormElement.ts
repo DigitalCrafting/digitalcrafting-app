@@ -19,7 +19,8 @@ export interface ValidatorsComposition<T = any> {
 }
 
 export type FormUpdateOptions = {
-    emitEvent?: boolean
+    emitEvent?: boolean;
+    onlySelf?: boolean;
 }
 
 export const FormElementTypeEnum = {

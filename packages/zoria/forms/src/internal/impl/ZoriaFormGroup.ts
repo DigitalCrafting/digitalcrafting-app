@@ -13,6 +13,7 @@ export class ZoriaFormGroup extends AbstractZoriaFormElement<typeof FormElementT
         super(FormElementTypeEnum.FORM_GROUP, validators);
         this._formElements = formElements || {};
         this._setUpElements();
+        this._updateValidity();
     }
 
     getIsValid(): boolean {
@@ -37,14 +38,18 @@ export class ZoriaFormGroup extends AbstractZoriaFormElement<typeof FormElementT
     }
 
     setValue(newValue: any, options: FormUpdateOptions = {
-        emitEvent: true
+        emitEvent: true,
+        onlySelf: false
     }): void {
         for (const prop in newValue) {
-            if (!Object.hasOwn(this._formElements, prop)) {
-                throw new Error("Value does not match FormGroup configuration")
+            if (process.env.NODE_ENV !== 'production') {
+                if (!Object.hasOwn(this._formElements, prop)) {
+                    throw new Error("ZoriaFormGroup::setValue::Value does not match FormGroup configuration")
+                }
             }
-            this._formElements[prop].setValue(newValue[prop], {emitEvent: true});
+            this._formElements[prop].setValue(newValue[prop], {emitEvent: options.emitEvent, onlySelf: true});
         }
+
         this._updateValidityAndEmitLocalEvents(options);
     }
 
@@ -107,28 +112,10 @@ export class ZoriaFormGroup extends AbstractZoriaFormElement<typeof FormElementT
         return errorTree
     }
 
-    _updateValidity(): void {
-        let newValid = true;
-        if (this._validators) {
-            const newError = this._validators.validate(this.getValue(), this);
-            if (newError !== this._error) {
-                this._error = newError;
-                newValid = newError === null;
-            }
-        }
 
-        let childrenValid = true
-        this._forEachChild((control) => {
-            childrenValid = childrenValid && control.getIsValid()
-        })
-
-        if (this._isValid !== (childrenValid && newValid)) {
-            this._isValid = childrenValid && newValid;
-        }
-    }
 
     // Internal
-    private _forEachChild(cb: (v: any, k: string) => void, raw?: boolean): void {
+    protected _forEachChild(cb: (v: any, k: string) => void, raw?: boolean): void {
         Object.keys(this._formElements).forEach((key) => {
             // The list of controls can change (for ex. controls might be removed) while the loop
             // is running (as a result of invoking Forms API in `valueChanges` subscription), so we

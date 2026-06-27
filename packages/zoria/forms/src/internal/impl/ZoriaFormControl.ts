@@ -17,7 +17,8 @@ export class ZoriaFormControl extends AbstractZoriaFormElement<typeof FormElemen
     }
 
     setValue(newValue: any, options: FormUpdateOptions = {
-        emitEvent: true
+        emitEvent: true,
+        onlySelf: false
     }): void {
         if (this._value === newValue) {
             return;
@@ -51,9 +52,10 @@ export class ZoriaFormControl extends AbstractZoriaFormElement<typeof FormElemen
                 newValid = newError === null;
             }
         }
+        this._isValid = newValid;
+    }
 
-        if (this._isValid !== newValid) {
-            this._isValid = newValid;
-        }
+    protected _forEachChild(): void {
+        throw new Error(`ZoriaFormControl::_forEachChild::should never be called`);
     }
 }

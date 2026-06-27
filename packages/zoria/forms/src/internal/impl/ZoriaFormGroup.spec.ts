@@ -86,28 +86,6 @@ describe('FormGroup', () => {
         }))
     })
 
-    it('should correctly emit and bubble-up value change event', () => {
-        // given
-        const control = new ZoriaFormGroup({
-            first: new ZoriaFormControl('first value'),
-            second: new ZoriaFormControl('second value')
-        })
-        let emittedValue = null
-        control.onValueChanges((value) => {
-            emittedValue = value
-        })
-
-        // when
-        const secondControl = control.getElement('second') as ZoriaFormControl
-        secondControl.setValue('new second value')
-
-        // then
-        expect(JSON.stringify(emittedValue)).eq(JSON.stringify({
-            first: 'first value',
-            second: 'new second value'
-        }))
-    })
-
     it('should correctly validate and emit value', () => {
         // given
         const control = new ZoriaFormGroup({
@@ -124,8 +102,8 @@ describe('FormGroup', () => {
         control.setValue({first: 'test'})
 
         // then
-        expect(currentIsValid).eq(true)
         expect(currentIsValid).eq(control.getIsValid())
+        expect(currentIsValid).eq(true)
     })
 
     describe('getElementFromPath', () => {

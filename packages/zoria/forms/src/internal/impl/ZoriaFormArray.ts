@@ -34,7 +34,8 @@ export class ZoriaFormArray extends AbstractZoriaFormElement<typeof FormElementT
     }
 
     setValue(newValue: any[], options: FormUpdateOptions = {
-        emitEvent: true
+        emitEvent: true,
+        onlySelf: false
     }): void {
         if (process.env.NODE_ENV !== 'production') {
             if (!newValue?.length) {
@@ -50,10 +51,10 @@ export class ZoriaFormArray extends AbstractZoriaFormElement<typeof FormElementT
         if (this._formArray.length === newValue.length) {
             for (let i = 0; i < newValue.length; i++) {
                 // We don't want to 'bubbleUp' the event, since this control we emit change after the loop
-                this._formArray[i].setValue(newValue[i], {emitEvent: false});
+                this._formArray[i].setValue(newValue[i], {emitEvent: options.emitEvent, onlySelf: true});
             }
         } else {
-            this.clear();
+            this.clear(options);
         }
 
         if (this._formArray.length === 0) {
@@ -131,14 +132,12 @@ export class ZoriaFormArray extends AbstractZoriaFormElement<typeof FormElementT
         this._formArray.forEach((element) => {
             element.reset(options);
         })
-        this._updateValidityAndEmitLocalEvents(options);
     }
 
     clear(options?: FormUpdateOptions) {
         this._formArray.forEach((element) => {
             element.clear(options);
         })
-        this._updateValidityAndEmitLocalEvents(options);
     }
 
     push(value?: any) {
@@ -173,27 +172,7 @@ export class ZoriaFormArray extends AbstractZoriaFormElement<typeof FormElementT
         })
     }
 
-    _updateValidity(): void {
-        let newValid = true;
-
-        if (this._validators) {
-            const newError = this._validators.validate(this.getValue(), this);
-            if (newError !== this._error) {
-                this._error = newError;
-                newValid = newError === null;
-            }
-        }
-
-        this._forEachChild((control) => {
-            newValid = newValid && control.getIsValid()
-        })
-
-        if (this._isValid !== newValid) {
-            this._isValid = newValid;
-        }
-    }
-
-    private _forEachChild(cb: (control: (AbstractZoriaFormElement), index: number) => void): void {
+    protected _forEachChild(cb: (control: (AbstractZoriaFormElement), index: number) => void): void {
         this._formArray.forEach((control, index) => {
             cb(control, index);
         });

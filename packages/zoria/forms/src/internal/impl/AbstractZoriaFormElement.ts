@@ -132,34 +132,46 @@ export abstract class AbstractZoriaFormElement<T extends FormElementTypeEnumType
         this._parent = parent;
     }
 
-    _handleChildChange(): void {
-        this._updateValidity();
-        this._emitLocalEvents();
-
-        if (this._parent) {
-            this._parent._handleChildChange();
-        }
+    _handleChildChange(options: FormUpdateOptions = {emitEvent: true, onlySelf: false}): void {
+        this._updateValidityAndEmitLocalEvents(options);
     }
 
-    protected _updateValidityAndEmitLocalEvents(options: FormUpdateOptions = {emitEvent: true}) {
+    protected _updateValidityAndEmitLocalEvents(options: FormUpdateOptions = {emitEvent: true, onlySelf: false}) {
         if (options.emitEvent) {
-            this._updateValidity();
-            this._emitLocalEvents();
+            const previousValidity = this._isValid;
 
-            if (this._parent) {
-                this._parent._handleChildChange();
+            this._updateValidity();
+
+            this._valueChangesEventEmitter.emit(this.getValue());
+            if (previousValidity !== this._isValid) {
+                this._validityChangesEventEmitter.emit(this._isValid);
+                this._errorChangesEventEmitter.emit(this._error);
             }
         } else {
             this._updateValidity();
         }
+
+        if (!options.onlySelf && this._parent) {
+            this._parent._handleChildChange(options);
+        }
     }
 
-    abstract _updateValidity(): void;
+    protected _updateValidity(): void {
+        if (this._validators) {
+            const newError = this._validators.validate(this.getValue(), this);
+            if (this._error !== newError) {
+                this._error = newError;
+            }
+        }
+        let newValid = this._error === null;
 
-    protected _emitLocalEvents(): void {
-        this._validityChangesEventEmitter.emit(this._isValid);
-        this._errorChangesEventEmitter.emit(this._error);
-        this._valueChangesEventEmitter.emit(this.getValue());
+        if (newValid) {
+            this._forEachChild((control) => {
+                newValid = newValid && control.getIsValid()
+            })
+        }
+
+        this._isValid = newValid;
     }
 
     abstract getValue(raw?: boolean): V;
@@ -169,4 +181,6 @@ export abstract class AbstractZoriaFormElement<T extends FormElementTypeEnumType
     abstract reset(config?: FormUpdateOptions): void;
 
     abstract getElement(path?: string): AbstractZoriaFormElement;
+
+    protected abstract _forEachChild(cb: (control: (AbstractZoriaFormElement), key: number | string) => void): void;
 }
