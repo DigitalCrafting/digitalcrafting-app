@@ -38,4 +38,8 @@ export class ZoriaFormValidatorsComposition<T = any> implements ValidatorsCompos
     set(validators: ValidatorFunc[]): void {
         this._validators = validators;
     }
+
+    size(): number {
+        return this._validators.length;
+    }
 }

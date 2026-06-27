@@ -1,6 +1,6 @@
 import {AbstractZoriaFormElement} from "./AbstractZoriaFormElement.ts";
 import {PATH_DELIMITER} from "../helpers/ZoriaFormTraversal.ts";
-import {type EventConfig, FormElementTypeEnum, type ValidatorFunc} from "../types/ZoriaFormElement.ts";
+import {type FormUpdateOptions, FormElementTypeEnum, type ValidatorFunc} from "../types/ZoriaFormElement.ts";
 
 declare const process: { env: { NODE_ENV: string } };
 
@@ -33,9 +33,8 @@ export class ZoriaFormArray extends AbstractZoriaFormElement<typeof FormElementT
         return valueArray;
     }
 
-    setValue(newValue: any[], eventConfig: EventConfig = {
-        emit: true,
-        bubbleUp: true
+    setValue(newValue: any[], options: FormUpdateOptions = {
+        emitEvent: true
     }): void {
         if (process.env.NODE_ENV !== 'production') {
             if (!newValue?.length) {
@@ -51,7 +50,7 @@ export class ZoriaFormArray extends AbstractZoriaFormElement<typeof FormElementT
         if (this._formArray.length === newValue.length) {
             for (let i = 0; i < newValue.length; i++) {
                 // We don't want to 'bubbleUp' the event, since this control we emit change after the loop
-                this._formArray[i].setValue(newValue[i], {emit: false, bubbleUp: false});
+                this._formArray[i].setValue(newValue[i], {emitEvent: false});
             }
         } else {
             this.clear();
@@ -64,7 +63,7 @@ export class ZoriaFormArray extends AbstractZoriaFormElement<typeof FormElementT
             return;
         }
 
-        this._emitValueChanges(eventConfig)
+        this._updateValidityAndEmitLocalEvents(options);
     }
 
     getElement(path?: string): AbstractZoriaFormElement {
@@ -84,7 +83,7 @@ export class ZoriaFormArray extends AbstractZoriaFormElement<typeof FormElementT
         if (firstDotIndex < 0) {
             const elementIndex = Number(path);
             if (process.env.NODE_ENV !== 'production') {
-                if (Number.isNaN(elementIndex) || !this._formArray[elementIndex]){
+                if (Number.isNaN(elementIndex) || !this._formArray[elementIndex]) {
                     throw new Error(`ZoriaFormArray::getElement::'path' incorrect: ${path}`)
                 }
                 return this._formArray[elementIndex];
@@ -104,7 +103,7 @@ export class ZoriaFormArray extends AbstractZoriaFormElement<typeof FormElementT
         return element.getElement(restOfPath);
     }
 
-    remove(index: number) {
+    remove(index: number, options: FormUpdateOptions = {emitEvent: true}) {
         if (process.env.NODE_ENV !== 'production') {
             if (index < 0 || index >= this._formArray.length) {
                 console.log(`ZoriaFormArray:remove::Index out of bounds: ${index}`)
@@ -115,30 +114,31 @@ export class ZoriaFormArray extends AbstractZoriaFormElement<typeof FormElementT
         if (this._formArray[index]) {
             this._formArray[index]._setParent(null)
             this._formArray.splice(index, 1)
-            this._updateValidityAndEmitEvent()
-            this._emitValueChanges()
         }
+        this._updateValidityAndEmitLocalEvents(options);
     }
 
-    removeLast(config?: EventConfig) {
+    removeLast(options?: FormUpdateOptions) {
         if (!this._formArray.length) {
             return;
         }
 
         const lastIdx = this._formArray.length - 1;
-        this.remove(lastIdx);
+        this.remove(lastIdx, options);
     }
 
-    reset(config?: EventConfig) {
+    reset(options?: FormUpdateOptions) {
         this._formArray.forEach((element) => {
-            element.reset(config);
+            element.reset(options);
         })
+        this._updateValidityAndEmitLocalEvents(options);
     }
 
-    clear(config?: EventConfig) {
+    clear(options?: FormUpdateOptions) {
         this._formArray.forEach((element) => {
-            element.clear(config);
+            element.clear(options);
         })
+        this._updateValidityAndEmitLocalEvents(options);
     }
 
     push(value?: any) {
@@ -153,11 +153,10 @@ export class ZoriaFormArray extends AbstractZoriaFormElement<typeof FormElementT
         this.pushElement(newElement);
     }
 
-    pushElement(element: (AbstractZoriaFormElement)) {
+    pushElement(element: (AbstractZoriaFormElement), options?: FormUpdateOptions) {
         this._formArray.push(element);
         element._setParent(this);
-        this._updateValidityAndEmitEvent()
-        this._emitValueChanges();
+        this._updateValidityAndEmitLocalEvents(options);
     }
 
     get length(): number {
@@ -185,18 +184,12 @@ export class ZoriaFormArray extends AbstractZoriaFormElement<typeof FormElementT
             }
         }
 
-        let childrenValid = true
         this._forEachChild((control) => {
-            childrenValid = childrenValid && control.getIsValid()
+            newValid = newValid && control.getIsValid()
         })
 
-        if (this._isValid !== (childrenValid && newValid)) {
-            this._isValid = childrenValid && newValid;
-            this._validityChangeEventPending = true;
-        }
-
-        if (this._parent && this._validityChangeEventPending) {
-            this._parent._updateValidity();
+        if (this._isValid !== newValid) {
+            this._isValid = newValid;
         }
     }
 

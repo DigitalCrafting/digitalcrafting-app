@@ -1,5 +1,5 @@
 import {AbstractZoriaFormElement} from "./AbstractZoriaFormElement.ts";
-import {type EventConfig, FormElementTypeEnum, type ValidatorFunc} from "../types/ZoriaFormElement.ts";
+import {type FormUpdateOptions, FormElementTypeEnum, type ValidatorFunc} from "../types/ZoriaFormElement.ts";
 
 export class ZoriaFormControl extends AbstractZoriaFormElement<typeof FormElementTypeEnum.FORM_CONTROL> {
     private _defaultValue: any | null;
@@ -16,16 +16,18 @@ export class ZoriaFormControl extends AbstractZoriaFormElement<typeof FormElemen
         return this._value;
     }
 
-    setValue(newValue: any, eventConfig: EventConfig = {
-        emit: true,
-        bubbleUp: true
+    setValue(newValue: any, options: FormUpdateOptions = {
+        emitEvent: true
     }): void {
+        if (this._value === newValue) {
+            return;
+        }
         this._value = newValue;
-        this._emitValueChanges(eventConfig)
-        this._updateValidityAndEmitEvent()
+
+        this._updateValidityAndEmitLocalEvents(options);
     }
 
-    reset(config: EventConfig | undefined): void {
+    reset(config: FormUpdateOptions | undefined): void {
         this.setValue(this._defaultValue, config);
     }
 
@@ -34,6 +36,10 @@ export class ZoriaFormControl extends AbstractZoriaFormElement<typeof FormElemen
             throw new Error(`ZoriaFormControl::getElement::'path' ${path} does not match actual form structure`)
         }
         return this;
+    }
+
+    _handleChildChange(): void {
+        throw new Error(`ZoriaFormControl::_handleChildChange::should never be called`);
     }
 
     _updateValidity(): void {
@@ -48,11 +54,6 @@ export class ZoriaFormControl extends AbstractZoriaFormElement<typeof FormElemen
 
         if (this._isValid !== newValid) {
             this._isValid = newValid;
-            this._validityChangeEventPending = true;
-        }
-
-        if (this._parent && this._validityChangeEventPending) {
-            this._parent._updateValidity();
         }
     }
 }

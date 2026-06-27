@@ -1,5 +1,5 @@
 import {AbstractZoriaFormElement} from "./AbstractZoriaFormElement.ts";
-import {type EventConfig, FormElementTypeEnum, type ValidatorFunc} from "../types/ZoriaFormElement.ts";
+import {FormElementTypeEnum, type FormUpdateOptions, type ValidatorFunc} from "../types/ZoriaFormElement.ts";
 import {PATH_DELIMITER} from "../helpers/ZoriaFormTraversal.ts";
 
 declare const process: { env: { NODE_ENV: string } };
@@ -36,28 +36,25 @@ export class ZoriaFormGroup extends AbstractZoriaFormElement<typeof FormElementT
         return valueObject;
     }
 
-    setValue(newValue: any, eventConfig: EventConfig = {
-        emit: true,
-        bubbleUp: true
+    setValue(newValue: any, options: FormUpdateOptions = {
+        emitEvent: true
     }): void {
         for (const prop in newValue) {
             if (!Object.hasOwn(this._formElements, prop)) {
                 throw new Error("Value does not match FormGroup configuration")
             }
-            this._formElements[prop].setValue(newValue[prop], {emit: true, bubbleUp: false});
+            this._formElements[prop].setValue(newValue[prop], {emitEvent: true});
         }
-        this._updateValidity()
-        this._emitValueChanges(eventConfig)
-        this._emitValidityChanges()
+        this._updateValidityAndEmitLocalEvents(options);
     }
 
-    reset(config: EventConfig | undefined): void {
+    reset(config: FormUpdateOptions | undefined): void {
         this._forEachChild((element) => {
             element.reset(config);
         })
     }
 
-    clear(config?: EventConfig) {
+    clear(config?: FormUpdateOptions) {
         this._forEachChild((element) => {
             element.clear(config);
         })
@@ -127,11 +124,6 @@ export class ZoriaFormGroup extends AbstractZoriaFormElement<typeof FormElementT
 
         if (this._isValid !== (childrenValid && newValid)) {
             this._isValid = childrenValid && newValid;
-            this._validityChangeEventPending = true;
-        }
-
-        if (this._parent && this._validityChangeEventPending) {
-            this._parent._updateValidity();
         }
     }
 

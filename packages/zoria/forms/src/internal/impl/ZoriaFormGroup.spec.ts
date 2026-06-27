@@ -108,30 +108,6 @@ describe('FormGroup', () => {
         }))
     })
 
-    it('should emit but NOT bubble-up value change event', () => {
-        // given
-        const control = new ZoriaFormGroup({
-            first: new ZoriaFormControl('first value'),
-            second: new ZoriaFormControl('second value')
-        })
-        const secondControl = control.getElement('second') as ZoriaFormControl
-        let emittedValue = null
-        secondControl.onValueChanges((value) => {
-            emittedValue = value
-        })
-        let bubbledUpValue = null
-        control.onValueChanges((value) => {
-            bubbledUpValue = value
-        })
-
-        // when
-        secondControl.setValue('new second value', {emit: true, bubbleUp: false})
-
-        // then
-        expect(emittedValue).eq('new second value')
-        expect(bubbledUpValue).eq(null)
-    })
-
     it('should correctly validate and emit value', () => {
         // given
         const control = new ZoriaFormGroup({

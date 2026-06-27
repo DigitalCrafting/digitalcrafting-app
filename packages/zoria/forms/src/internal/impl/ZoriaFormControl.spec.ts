@@ -40,7 +40,7 @@ describe('FormControl', () => {
         })
 
         // when
-        control.setValue('test 2', {emit: false})
+        control.setValue('test 2', {emitEvent: false})
         const actual = control.getValue();
 
         // then

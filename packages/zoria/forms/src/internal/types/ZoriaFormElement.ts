@@ -14,11 +14,12 @@ export interface ValidatorsComposition<T = any> {
     set(validators: ValidatorFunc[]): void;
 
     clear(): void;
+
+    size(): number;
 }
 
-export type EventConfig = {
-    emit?: boolean,
-    bubbleUp?: boolean
+export type FormUpdateOptions = {
+    emitEvent?: boolean
 }
 
 export const FormElementTypeEnum = {
@@ -51,10 +52,10 @@ export interface FormElement<T extends FormElementTypeEnumType, V = unknown> {
     clearValidator(): void;
 
     /* === Value === */
-    reset(config?: EventConfig): void;
-    clear(config?: EventConfig): void;
+    reset(config?: FormUpdateOptions): void;
+    clear(config?: FormUpdateOptions): void;
     getValue(raw?: boolean): V;
-    setValue(newValue: V | null | undefined, config?: EventConfig): void;
+    setValue(newValue: V | null | undefined, config?: FormUpdateOptions): void;
     onValueChanges(callback: Observer<V>): Subscription;
 
     /* === Auxiliaries === */

@@ -57,30 +57,6 @@ describe('FormArray', () => {
         expect(actualValue.sort()).toEqual(expectedValue.sort())
     })
 
-    it('should emit but NOT bubble-up value change event', () => {
-        // given
-        const control = new ZoriaFormControl('first value', [ZoriaValidators.required()]);
-        const controlArray = new ZoriaFormArray([
-            control,
-            new ZoriaFormControl('second value')
-        ])
-        let controlEmitted = false
-        let arrayEmitted = false
-        control.onValueChanges(() => {
-            controlEmitted = true
-        })
-        controlArray.onValueChanges(() => {
-            arrayEmitted = true
-        })
-
-        // when
-        control.setValue('new first value', {emit: true, bubbleUp: false})
-
-        // then
-        expect(controlEmitted).eq(true)
-        expect(arrayEmitted).eq(false)
-    })
-
     it('should correctly validate and emit value', () => {
         // given
         const controlArray = new ZoriaFormArray([
@@ -95,7 +71,7 @@ describe('FormArray', () => {
         })
 
         // when
-        controlArray.getElement('0').setValue('new first value', {emit: true, bubbleUp: false})
+        controlArray.getElement('0').setValue('new first value')
         const currentValid = controlArray.getIsValid()
 
         // then

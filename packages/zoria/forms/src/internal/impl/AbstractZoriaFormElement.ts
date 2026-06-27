@@ -1,5 +1,5 @@
 import type {
-    EventConfig,
+    FormUpdateOptions,
     FormElement,
     FormElementTypeEnumType,
     ValidationError,
@@ -16,7 +16,6 @@ export abstract class AbstractZoriaFormElement<T extends FormElementTypeEnumType
     protected _isValid: boolean;
     protected _isVisible: boolean;
     protected _isDisabled: boolean;
-    protected _validityChangeEventPending: boolean;
     protected _validators: ValidatorsComposition;
     protected _errorChangesEventEmitter: EventEmitter<ValidationError>;
     protected _validityChangesEventEmitter: EventEmitter<boolean>;
@@ -31,7 +30,6 @@ export abstract class AbstractZoriaFormElement<T extends FormElementTypeEnumType
         this._isValid = true;
         this._isVisible = true;
         this._isDisabled = false;
-        this._validityChangeEventPending = false;
         this._errorChangesEventEmitter = new EventEmitter();
         this._validityChangesEventEmitter = new EventEmitter();
         this._valueChangesEventEmitter = new EventEmitter();
@@ -126,7 +124,7 @@ export abstract class AbstractZoriaFormElement<T extends FormElementTypeEnumType
         return this._disabledChangesEventEmitter.subscribe(callback);
     }
 
-    clear(config?: EventConfig): void {
+    clear(config?: FormUpdateOptions): void {
         this.setValue(null, config);
     }
 
@@ -134,43 +132,41 @@ export abstract class AbstractZoriaFormElement<T extends FormElementTypeEnumType
         this._parent = parent;
     }
 
-    protected _updateValidityAndEmitEvent(): void {
-        this._updateValidity()
-        this._emitValidityChanges()
-    }
+    _handleChildChange(): void {
+        this._updateValidity();
+        this._emitLocalEvents();
 
-    protected _emitValidityChanges(overridePending: boolean = false) {
-        if (this._validityChangeEventPending || overridePending) {
-            this._validityChangesEventEmitter.emit(this._isValid)
-            this._errorChangesEventEmitter.emit(this._error);
-
-            if (this._parent) {
-                this._parent._emitValidityChanges(true);
-            }
-
-            this._validityChangeEventPending = false;
+        if (this._parent) {
+            this._parent._handleChildChange();
         }
     }
 
-    protected _emitValueChanges(eventConfig: EventConfig = {
-        emit: true,
-        bubbleUp: true
-    }) {
-        if (eventConfig.emit) {
-            this._valueChangesEventEmitter.emit(this.getValue())
-            if (eventConfig.bubbleUp && this._parent) {
-                this._parent._emitValueChanges(eventConfig)
+    protected _updateValidityAndEmitLocalEvents(options: FormUpdateOptions = {emitEvent: true}) {
+        if (options.emitEvent) {
+            this._updateValidity();
+            this._emitLocalEvents();
+
+            if (this._parent) {
+                this._parent._handleChildChange();
             }
+        } else {
+            this._updateValidity();
         }
     }
 
     abstract _updateValidity(): void;
 
+    protected _emitLocalEvents(): void {
+        this._validityChangesEventEmitter.emit(this._isValid);
+        this._errorChangesEventEmitter.emit(this._error);
+        this._valueChangesEventEmitter.emit(this.getValue());
+    }
+
     abstract getValue(raw?: boolean): V;
 
-    abstract setValue(newValue: V | null | undefined, eventConfig?: EventConfig): void;
+    abstract setValue(newValue: V | null | undefined, eventConfig?: FormUpdateOptions): void;
 
-    abstract reset(config?: EventConfig): void;
+    abstract reset(config?: FormUpdateOptions): void;
 
     abstract getElement(path?: string): AbstractZoriaFormElement;
 }
