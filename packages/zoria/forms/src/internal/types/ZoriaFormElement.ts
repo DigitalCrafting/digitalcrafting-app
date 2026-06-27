@@ -51,8 +51,10 @@ export interface FormElement<T extends FormElementTypeEnumType, V = unknown> {
     clearValidator(): void;
 
     /* === Value === */
+    reset(config?: EventConfig): void;
+    clear(config?: EventConfig): void;
     getValue(raw?: boolean): V;
-    setValue(newValue: V, config?: EventConfig): void;
+    setValue(newValue: V | null | undefined, config?: EventConfig): void;
     onValueChanges(callback: Observer<V>): Subscription;
 
     /* === Auxiliaries === */

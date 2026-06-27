@@ -126,6 +126,10 @@ export abstract class AbstractZoriaFormElement<T extends FormElementTypeEnumType
         return this._disabledChangesEventEmitter.subscribe(callback);
     }
 
+    clear(config?: EventConfig): void {
+        this.setValue(null, config);
+    }
+
     _setParent(parent: AbstractZoriaFormElement | null): void {
         this._parent = parent;
     }
@@ -164,7 +168,9 @@ export abstract class AbstractZoriaFormElement<T extends FormElementTypeEnumType
 
     abstract getValue(raw?: boolean): V;
 
-    abstract setValue(newValue: V, eventConfig?: EventConfig): void;
+    abstract setValue(newValue: V | null | undefined, eventConfig?: EventConfig): void;
+
+    abstract reset(config?: EventConfig): void;
 
     abstract getElement(path?: string): AbstractZoriaFormElement;
 }

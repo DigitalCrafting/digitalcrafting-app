@@ -1,12 +1,13 @@
 import {AbstractZoriaFormElement} from "./AbstractZoriaFormElement.ts";
 import {PATH_DELIMITER} from "../helpers/ZoriaFormTraversal.ts";
 import {type EventConfig, FormElementTypeEnum, type ValidatorFunc} from "../types/ZoriaFormElement.ts";
+
 declare const process: { env: { NODE_ENV: string } };
 
 export type FormArrayElementFactoryFunction = () => AbstractZoriaFormElement;
 
 export class ZoriaFormArray extends AbstractZoriaFormElement<typeof FormElementTypeEnum.FORM_ARRAY, any[]> {
-    private readonly _formArray: AbstractZoriaFormElement[]
+    private _formArray: AbstractZoriaFormElement[]
     private _formElementFactory!: FormArrayElementFactoryFunction;
 
     constructor(array?: AbstractZoriaFormElement[], validators?: ValidatorFunc[]) {
@@ -50,7 +51,7 @@ export class ZoriaFormArray extends AbstractZoriaFormElement<typeof FormElementT
         if (this._formArray.length === newValue.length) {
             for (let i = 0; i < newValue.length; i++) {
                 // We don't want to 'bubbleUp' the event, since this control we emit change after the loop
-                this._formArray[i].setValue(newValue[i], {emit: eventConfig.emit, bubbleUp: false});
+                this._formArray[i].setValue(newValue[i], {emit: false, bubbleUp: false});
             }
         } else {
             this.clear();
@@ -119,7 +120,7 @@ export class ZoriaFormArray extends AbstractZoriaFormElement<typeof FormElementT
         }
     }
 
-    removeLast() {
+    removeLast(config?: EventConfig) {
         if (!this._formArray.length) {
             return;
         }
@@ -128,11 +129,16 @@ export class ZoriaFormArray extends AbstractZoriaFormElement<typeof FormElementT
         this.remove(lastIdx);
     }
 
+    reset(config?: EventConfig) {
+        this._formArray.forEach((element) => {
+            element.reset(config);
+        })
+    }
 
-    clear() {
-        for (let i = 0; i < this._formArray.length - 1; i++) {
-            this.removeLast();
-        }
+    clear(config?: EventConfig) {
+        this._formArray.forEach((element) => {
+            element.clear(config);
+        })
     }
 
     push(value?: any) {

@@ -2,11 +2,13 @@ import {AbstractZoriaFormElement} from "./AbstractZoriaFormElement.ts";
 import {type EventConfig, FormElementTypeEnum, type ValidatorFunc} from "../types/ZoriaFormElement.ts";
 
 export class ZoriaFormControl extends AbstractZoriaFormElement<typeof FormElementTypeEnum.FORM_CONTROL> {
+    private _defaultValue: any | null;
     private _value: any | null;
 
     constructor(value: any | null = null, validators?: ValidatorFunc[]) {
         super(FormElementTypeEnum.FORM_CONTROL, validators);
-        this._value = value
+        this._value = value;
+        this._defaultValue = value;
         this._updateValidity()
     }
 
@@ -21,6 +23,10 @@ export class ZoriaFormControl extends AbstractZoriaFormElement<typeof FormElemen
         this._value = newValue;
         this._emitValueChanges(eventConfig)
         this._updateValidityAndEmitEvent()
+    }
+
+    reset(config: EventConfig | undefined): void {
+        this.setValue(this._defaultValue, config);
     }
 
     getElement(path?: string): AbstractZoriaFormElement<typeof FormElementTypeEnum.FORM_CONTROL> {

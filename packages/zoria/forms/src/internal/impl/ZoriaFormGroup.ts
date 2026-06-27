@@ -51,6 +51,18 @@ export class ZoriaFormGroup extends AbstractZoriaFormElement<typeof FormElementT
         this._emitValidityChanges()
     }
 
+    reset(config: EventConfig | undefined): void {
+        this._forEachChild((element) => {
+            element.reset(config);
+        })
+    }
+
+    clear(config?: EventConfig) {
+        this._forEachChild((element) => {
+            element.clear(config);
+        })
+    }
+
     getElement(path?: string): AbstractZoriaFormElement<any, any> {
         if (process.env.NODE_ENV !== 'production') {
             if (!path?.length) {
