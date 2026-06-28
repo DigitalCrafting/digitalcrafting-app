@@ -5,12 +5,13 @@ import {FormElementTypeEnum, type ValidatorFunc} from "../internal/types/ZoriaFo
 import {DEFAULT_VALIDATION_ERRORS} from "../internal/validators/ZoriaValidatorsTypes.ts";
 import type {AbstractZoriaFormElement} from "../internal/impl/AbstractZoriaFormElement.ts";
 import {ZoriaFormControl} from "../internal/impl/ZoriaFormControl.ts";
-import {ZoriaFormArray} from "../internal/impl/ZoriaFormArray.ts";
+import {type FormArrayMetadata, ZoriaFormArray} from "../internal/impl/ZoriaFormArray.ts";
 
 type ZoriaFormElementBaseType = {
     /* required is separate, because requirement is rather useful information to have at hand */
     requiredValidator?: ValidatorFunc,
     validators: ValidatorFunc[]
+    defaultValue: any
 }
 
 interface ZoriaFormGroupType extends ZoriaFormElementBaseType {
@@ -19,8 +20,9 @@ interface ZoriaFormGroupType extends ZoriaFormElementBaseType {
 }
 
 interface ZoriaFormArrayType extends ZoriaFormElementBaseType {
-    type: FormElementTypeEnum.FORM_ARRAY
-    template: ZoriaFormElementType
+    type: FormElementTypeEnum.FORM_ARRAY;
+    template: ZoriaFormElementType;
+    metadata: FormArrayMetadata;
 }
 
 interface ZoriaFormControlType extends ZoriaFormElementBaseType {
@@ -39,6 +41,7 @@ type ZoriaFormSchemaType = {
 
 class ZObjectDefinition implements ZoriaFormElementType {
     config: ZoriaFormGroupType = {
+        defaultValue: null,
         type: FormElementTypeEnum.FORM_GROUP,
         requiredValidator: undefined,
         fields: {},
@@ -63,7 +66,11 @@ class ZObjectDefinition implements ZoriaFormElementType {
         return this;
     }
 
-    /* TODO object required validator */
+    withDefaultValue(value?: any = null) {
+        this.config.defaultValue = value;
+        return this;
+    }
+
     required(message = DEFAULT_VALIDATION_ERRORS.REQUIRED) {
         this.config.requiredValidator = ZoriaValidators.required(message);
         return this;
@@ -72,10 +79,12 @@ class ZObjectDefinition implements ZoriaFormElementType {
 
 class ZArrayDefinition implements ZoriaFormElementType {
     config: ZoriaFormArrayType = {
+        defaultValue: null,
         type: FormElementTypeEnum.FORM_ARRAY,
         template: undefined as ZoriaFormElementType,
         requiredValidator: undefined,
-        validators: []
+        validators: [],
+        metadata: {}
     }
 
     of(template: ZoriaFormElementType) {
@@ -88,15 +97,30 @@ class ZArrayDefinition implements ZoriaFormElementType {
         return this;
     }
 
-    /* TODO array required validator */
+    withDefaultValue(value?: any[] = null) {
+        this.config.defaultValue = value;
+        return this;
+    }
+
     required(message = DEFAULT_VALIDATION_ERRORS.REQUIRED) {
-        this.config.requiredValidator = ZoriaValidators.required(message);
+        this.config.metadata.required = {value: true, message, validator: ZoriaValidators.arrayRequired(message)};
+        return this;
+    }
+
+    minLength(value: number, message = DEFAULT_VALIDATION_ERRORS.MIN_LENGTH) {
+        this.config.metadata.minLength = {value, message, validator: ZoriaValidators.minLength(value, message)};
+        return this;
+    }
+
+    maxLength(value: number, message = DEFAULT_VALIDATION_ERRORS.MAX_LENGTH) {
+        this.config.metadata.maxLength = {value, message, validator: ZoriaValidators.maxLength(value, message)};
         return this;
     }
 }
 
 class ZControlDefinition implements ZoriaFormElementType {
     config: ZoriaFormControlType = {
+        defaultValue: null,
         type: FormElementTypeEnum.FORM_CONTROL,
         requiredValidator: undefined,
         validators: []
@@ -104,6 +128,11 @@ class ZControlDefinition implements ZoriaFormElementType {
 
     withValidator(validator: ValidatorFunc) {
         this.config.validators.push(validator);
+        return this;
+    }
+
+    withDefaultValue(value?: any = null) {
+        this.config.defaultValue = value;
         return this;
     }
 
@@ -160,7 +189,9 @@ const createFormGroup = (def: ZObjectDefinition) => {
 const createFormArray = (def: ZArrayDefinition) => {
     /* TODO Validators */
     const formArray = new ZoriaFormArray();
-    formArray.setElementsFactory(() => createFormGroup(def.config.template));
+    formArray.setElementsFactory(() => createForm(def.config.template));
+    formArray.setMetadata(def.config.metadata);
+    formArray.setDefaultValue(def.config.defaultValue);
     return formArray;
 }
 
@@ -169,16 +200,16 @@ const createFormControl = (def: ZControlDefinition) => {
     return new ZoriaFormControl();
 }
 
-export const createForm = (schema: ZoriaFormElementType): ZoriaFormGroup => {
+export const createForm = (schema: ZoriaFormElementType): AbstractZoriaFormElement => {
     switch (schema.config.type) {
         case FormElementTypeEnum.FORM_GROUP: {
-            return createFormGroup(schema);
+            return createFormGroup(schema) as ZoriaFormGroup;
         }
         case FormElementTypeEnum.FORM_ARRAY: {
-            return createFormArray(schema);
+            return createFormArray(schema) as ZoriaFormArray;
         }
         case FormElementTypeEnum.FORM_CONTROL: {
-            return createFormControl(schema);
+            return createFormControl(schema) as ZoriaFormControl;
         }
         default: {
             throw new Error(`createForm::Incorrect form element type ${schema}`)

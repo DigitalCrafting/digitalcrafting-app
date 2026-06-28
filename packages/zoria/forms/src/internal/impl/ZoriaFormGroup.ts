@@ -53,6 +53,16 @@ export class ZoriaFormGroup extends AbstractZoriaFormElement<typeof FormElementT
         this._updateValidityAndEmitLocalEvents(options);
     }
 
+    setDefaultValue(newValue: any = {}, updateValue = true, options: FormUpdateOptions = {
+        emitEvent: true,
+        onlySelf: false
+    }): void {
+        this._defaultValue = newValue;
+        if (updateValue) {
+            this.setValue(this._defaultValue, options);
+        }
+    }
+
     reset(config: FormUpdateOptions | undefined): void {
         this._forEachChild((element) => {
             element.reset(config);

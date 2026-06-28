@@ -73,6 +73,10 @@ export class ZoriaValidators {
         return (value) => requiredValidator(value, message);
     }
 
+    static arrayRequired(message?: string): ValidatorFunc {
+        return (value) => minLengthValidator(value, 1, message);
+    }
+
     static minLength(minLength: number, message?: string): ValidatorFunc {
         return (value) => minLengthValidator(value, minLength, message);
     }

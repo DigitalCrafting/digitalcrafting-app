@@ -10,6 +10,7 @@ import {EventEmitter, type Observer, type Subscription} from "@zoria-ui/events";
 import {ZoriaFormValidatorsComposition} from "../validators/ZoriaFormValidatorsComposition.ts";
 
 export abstract class AbstractZoriaFormElement<T extends FormElementTypeEnumType = unknown, V = unknown> implements FormElement<T, V> {
+    protected _defaultValue?: V | null;
     protected _type: T;
     protected _parent: AbstractZoriaFormElement | null = null;
     protected _error: ValidationError;
@@ -24,6 +25,7 @@ export abstract class AbstractZoriaFormElement<T extends FormElementTypeEnumType
     protected _disabledChangesEventEmitter: EventEmitter<boolean>;
 
     protected constructor(_type: T, validators?: ValidatorFunc[]) {
+        this._defaultValue = null;
         this._type = _type;
         this._validators = new ZoriaFormValidatorsComposition(validators);
         this._error = null;
@@ -175,6 +177,8 @@ export abstract class AbstractZoriaFormElement<T extends FormElementTypeEnumType
     }
 
     abstract getValue(raw?: boolean): V;
+
+    abstract setDefaultValue(newValue: V | null | undefined, updateValue?: boolean, config?: FormUpdateOptions): void;
 
     abstract setValue(newValue: V | null | undefined, eventConfig?: FormUpdateOptions): void;
 

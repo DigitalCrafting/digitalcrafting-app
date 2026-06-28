@@ -57,6 +57,7 @@ export interface FormElement<T extends FormElementTypeEnumType, V = unknown> {
     clear(config?: FormUpdateOptions): void;
     getValue(raw?: boolean): V;
     setValue(newValue: V | null | undefined, config?: FormUpdateOptions): void;
+    setDefaultValue(newValue: V | null | undefined, updateValue?: boolean, config?: FormUpdateOptions): void;
     onValueChanges(callback: Observer<V>): Subscription;
 
     /* === Auxiliaries === */

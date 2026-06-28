@@ -1,9 +1,17 @@
-import {describe, expect, it, vi} from 'vitest';
-import {ZoriaFormArray} from "./ZoriaFormArray.ts";
+import {afterAll, beforeEach, describe, expect, it, vi} from 'vitest';
+import {type FormArrayMetadata, ZoriaFormArray} from "./ZoriaFormArray.ts";
 import {ZoriaFormControl} from "./ZoriaFormControl.ts";
 import {ZoriaValidators} from "../validators/ZoriaValidators.ts";
 
 describe('FormArray', () => {
+    beforeEach(() => {
+        vi.resetAllMocks();
+    })
+
+    afterAll(() => {
+        vi.clearAllMocks();
+    })
+
     it('should correctly store value', () => {
         // given
         const control = new ZoriaFormArray([
@@ -514,4 +522,269 @@ describe('FormArray', () => {
             })
         })
     })
+
+    describe('metadata', () => {
+        it('should not add any metadata', () => {
+            // given
+            const control = new ZoriaFormArray([
+                new ZoriaFormControl('first value'),
+                new ZoriaFormControl('second value')
+            ])
+            const metadataSpy = vi.spyOn(control, 'setMetadata');
+
+            // when
+            const canAdd = control.canAdd();
+            const canRemove = control.canRemove();
+
+            // then
+            expect(metadataSpy).not.toHaveBeenCalled();
+            expect(canAdd).toBe(true);
+            expect(canRemove).toBe(true);
+        });
+
+        describe('minLength', () => {
+            it('should not add metadata nor validator', () => {
+                // given
+                const control = new ZoriaFormArray([
+                    new ZoriaFormControl('first value'),
+                    new ZoriaFormControl('second value')
+                ])
+                const metadata = {
+                    maxLength: {
+                        value: 5,
+                        message: 'Max length message',
+                        validator: vi.fn()
+                    }
+                }
+
+                // when
+                control.setMetadata(metadata);
+                control.removeLast();
+                control.removeLast();
+
+                // then
+                expect(control.canRemove()).toBe(true);
+            });
+
+            it('should add metadata and validator via setMetadata', () => {
+                // given
+                const control = new ZoriaFormArray([
+                    new ZoriaFormControl('first value'),
+                    new ZoriaFormControl('second value')
+                ])
+                const metadata: FormArrayMetadata = {
+                    minLength: {
+                        value: 2,
+                        message: 'Min length message',
+                        validator: ZoriaValidators.minLength(2, 'Min length message')
+                    }
+                }
+
+                // when
+                control.setMetadata(metadata);
+
+                // then
+                expect(control.canRemove()).toBe(false);
+            });
+
+            it('should add metadata and validator via setMinLength', () => {
+                // given
+                const control = new ZoriaFormArray([
+                    new ZoriaFormControl('first value'),
+                    new ZoriaFormControl('second value')
+                ])
+                const metadataChangesSpy = vi.fn();
+
+                // when
+                control.onMetadataChanges(metadataChangesSpy);
+                control.setMinLength(2, 'Min length message');
+
+                // then
+                expect(metadataChangesSpy).toHaveBeenCalledOnce();
+                expect(control.canRemove()).toBe(false);
+            });
+
+            it('should update metadata and validator', () => {
+                // given
+                const control = new ZoriaFormArray([
+                    new ZoriaFormControl('first value'),
+                    new ZoriaFormControl('second value')
+                ])
+                const metadataChangesSpy = vi.fn();
+
+                // when
+                control.onMetadataChanges(metadataChangesSpy);
+                control.setMinLength(2, 'Min length message');
+                const initialCanRemove = control.canRemove();
+
+                control.setMinLength(1, 'Min length message');
+                const currentCanRemove = control.canRemove();
+
+                // then
+                expect(metadataChangesSpy).toHaveBeenCalledTimes(2);
+                expect(initialCanRemove).toBe(false);
+                expect(currentCanRemove).toBe(true);
+            });
+
+            it('should remove metadata and validator', () => {
+                // given
+                // given
+                const control = new ZoriaFormArray([
+                    new ZoriaFormControl('first value'),
+                    new ZoriaFormControl('second value')
+                ])
+                const metadataChangesSpy = vi.fn();
+
+                // when
+                control.onMetadataChanges(metadataChangesSpy);
+                control.setMinLength(2, 'Min length message');
+                const initialCanRemove = control.canRemove();
+
+                // when
+                control.setMinLength(-1);
+                const currentCanRemove = control.canRemove();
+
+                // then
+                expect(metadataChangesSpy).toHaveBeenCalledTimes(2);
+                expect(initialCanRemove).toBe(false);
+                expect(currentCanRemove).toBe(true);
+            });
+        })
+
+        describe('maxLength', () => {
+            it('should not add metadata', () => {
+                // given
+                const control = new ZoriaFormArray([
+                    new ZoriaFormControl('first value'),
+                    new ZoriaFormControl('second value')
+                ])
+                const metadata = {
+                    minLength: {
+                        value: 2,
+                        message: 'Min length message',
+                        validator: vi.fn()
+                    }
+                }
+
+                // when
+                control.setMetadata(metadata);
+
+                // then
+                expect(control.canAdd()).toBe(true);
+                expect(control.canRemove()).toBe(false);
+            });
+
+            it('should add metadata and validator via setMetadata', () => {
+                // given
+                const control = new ZoriaFormArray([
+                    new ZoriaFormControl('first value'),
+                    new ZoriaFormControl('second value')
+                ])
+                const metadata = {
+                    maxLength: {
+                        value: 2,
+                        message: 'Max length message',
+                        validator: ZoriaValidators.maxLength(2, 'Max length message')
+                    }
+                }
+
+                // when
+                control.setMetadata(metadata);
+
+                // then
+                expect(control.canAdd()).toBe(false);
+            });
+
+            it('should add metadata and validator via setMaxLength', () => {
+                // given
+                const control = new ZoriaFormArray([
+                    new ZoriaFormControl('first value'),
+                    new ZoriaFormControl('second value')
+                ])
+                const metadataChangesSpy = vi.fn();
+
+                // when
+                control.onMetadataChanges(metadataChangesSpy);
+                control.setMaxLength(2, 'Max length message');
+
+                // then
+                expect(metadataChangesSpy).toHaveBeenCalledOnce();
+                expect(control.canAdd()).toBe(false);
+            });
+
+            it('should update metadata and validator', () => {
+                // given
+                const control = new ZoriaFormArray([
+                    new ZoriaFormControl('first value'),
+                    new ZoriaFormControl('second value')
+                ])
+                const metadataChangesSpy = vi.fn();
+
+                // when
+                control.onMetadataChanges(metadataChangesSpy);
+                control.setMaxLength(2, 'Max length message');
+                const initialCanAdd = control.canAdd();
+                control.setMaxLength(3, 'Max length message');
+                const currentCanAdd = control.canAdd();
+
+                // then
+                expect(metadataChangesSpy).toHaveBeenCalledTimes(2);
+                expect(initialCanAdd).toBe(false);
+                expect(currentCanAdd).toBe(true);
+            });
+
+            it('should remove metadata and validator', () => {
+                // given
+                const control = new ZoriaFormArray([
+                    new ZoriaFormControl('first value'),
+                    new ZoriaFormControl('second value')
+                ])
+                const metadataChangesSpy = vi.fn();
+
+                // when
+                control.onMetadataChanges(metadataChangesSpy);
+                control.setMaxLength(2, 'Max length message');
+                const initialCanAdd = control.canAdd();
+                control.setMaxLength(-1);
+                const currentCanAdd = control.canAdd();
+
+                // then
+                expect(metadataChangesSpy).toHaveBeenCalledTimes(2);
+                expect(initialCanAdd).toBe(false);
+                expect(currentCanAdd).toBe(true);
+            });
+        })
+
+        describe('required', () => {
+            it('should not add metadata', () => {
+                // given
+                // when
+                // then
+            });
+
+            it('should add metadata and validator via setMetadata', () => {
+                // given
+                // when
+                // then
+            });
+
+            it('should add metadata and validator via setRequired', () => {
+                // given
+                // when
+                // then
+            });
+
+            it('should update metadata and validator', () => {
+                // given
+                // when
+                // then
+            });
+
+            it('should remove metadata and validator', () => {
+                // given
+                // when
+                // then
+            });
+        })
+    });
 })

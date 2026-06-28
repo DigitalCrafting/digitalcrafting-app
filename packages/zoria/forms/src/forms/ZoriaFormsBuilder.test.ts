@@ -1,6 +1,7 @@
 import {describe, expect, it} from "vitest";
 import {createForm, ZArray, ZNumber, ZObject, ZString} from "./ZoriaFormsBuilder.ts";
 import type {ZoriaFormGroup} from "../internal/impl/ZoriaFormGroup.ts";
+import type {ZoriaFormArray} from "../internal/impl/ZoriaFormArray.ts";
 
 describe('ZoriaFormsBuilder', () => {
     it('should build form', () => {
@@ -35,11 +36,44 @@ describe('ZoriaFormsBuilder', () => {
         };
 
         // when
-        const form: ZoriaFormGroup = createForm(formDefinition);
+        const form = createForm(formDefinition);
         form.setValue(formValue);
 
         // then
         expect(form).toBeTruthy();
         expect(JSON.stringify(form.getValue())).toEqual(JSON.stringify(formValue));
     });
+
+    describe('ZArray', () => {
+        it('should build form array', () => {
+            // given
+            const def = ZArray().of(ZString());
+
+            // when
+            const formArray = createForm(def);
+
+            // then
+            expect(formArray).toBeTruthy();
+            expect(formArray.getType()).toEqual('FORM_ARRAY');
+        });
+
+        it('should build form array with default value', () => {
+            // given
+            const defaultValue = ['Value 1', 'Value 2'];
+            const def = ZArray().of(ZString()).withDefaultValue(defaultValue);
+
+            // when
+            const formArray = createForm(def);
+            const value = formArray.getValue();
+
+            // then
+            expect(value).toEqual(defaultValue);
+        });
+
+        it('should build form array with minLength and maxLength', () => {
+            // given
+            // when
+            // then
+        });
+    })
 })

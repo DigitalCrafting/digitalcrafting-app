@@ -2,7 +2,6 @@ import {AbstractZoriaFormElement} from "./AbstractZoriaFormElement.ts";
 import {type FormUpdateOptions, FormElementTypeEnum, type ValidatorFunc} from "../types/ZoriaFormElement.ts";
 
 export class ZoriaFormControl extends AbstractZoriaFormElement<typeof FormElementTypeEnum.FORM_CONTROL> {
-    private _defaultValue: any | null;
     private _value: any | null;
 
     constructor(value: any | null = null, validators?: ValidatorFunc[]) {
@@ -26,6 +25,16 @@ export class ZoriaFormControl extends AbstractZoriaFormElement<typeof FormElemen
         this._value = newValue;
 
         this._updateValidityAndEmitLocalEvents(options);
+    }
+
+    setDefaultValue(newValue: any = null, updateValue = true, options: FormUpdateOptions = {
+        emitEvent: true,
+        onlySelf: false
+    }): void {
+        this._defaultValue = newValue;
+        if (updateValue) {
+            this.setValue(this._defaultValue, options);
+        }
     }
 
     reset(config: FormUpdateOptions | undefined): void {
