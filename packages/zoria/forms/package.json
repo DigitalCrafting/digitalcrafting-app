@@ -1,7 +1,7 @@
 {
   "name": "@zoria-ui/forms",
   "private": false,
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "An Angular-inspired forms library for personal projects (Work in Progress).",
   "type": "module",
   "main": "src/index.ts",
@@ -27,7 +27,7 @@
       }
     }
   },
-  "dependencies": {
+  "peerDependencies": {
     "@zoria-ui/events": "workspace:*"
   },
   "devDependencies": {

@@ -16,7 +16,9 @@
     "@zoria-ui/forms-react": "workspace:*",
     "@zoria-ui/forms-inputs-react": "workspace:*",
     "@zoria-ui/react": "workspace:*",
+    "@zoria-ui/forms": "workspace:*",
     "@zoria-ui/styles": "workspace:*",
+    "@zoria-ui/events": "workspace:*",
     "@digital-crafting/afd": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
@@ -24,9 +26,6 @@
     "three": "^0.183.2",
     "three-stdlib": "^2.36.1",
     "tslib": "^2.8.1"
-  },
-  "peerDependencies": {
-    "@zoria-ui/forms": "workspace:*"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

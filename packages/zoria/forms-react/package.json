@@ -1,6 +1,6 @@
 {
   "name": "@zoria-ui/forms-react",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "A React wrapper for an Angular-inspired forms library for personal projects (Work in Progress).",
   "main": "src/index.ts",
   "type": "module",

@@ -17,7 +17,6 @@
 
       display: grid;
       grid-template-columns: subgrid;
-      //grid-template-rows: subgrid;
       row-gap: var(--space-y-1);
 
       .z-grid-span-11 {
@@ -42,6 +41,16 @@
       &-button {
         align-self: start;
         justify-self: center;
+
+        svg {
+          stroke-width: 1;
+        }
+
+        button:hover:not(:disabled) {
+          svg {
+            stroke-width: 2;
+          }
+        }
       }
     }
   }
