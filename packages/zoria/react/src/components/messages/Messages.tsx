@@ -1,34 +1,36 @@
-const MessageSeverity = {
+import type {PropsWithChildren} from "react";
+
+export const MessageSeverity = {
     INFO: 'info',
     SUCCESS: 'success',
     WARNINGS: 'warnings',
     ERROR: 'error'
 } as const;
-type MessageSeverity = (typeof MessageSeverity)[keyof typeof MessageSeverity];
+export type MessageSeverity = (typeof MessageSeverity)[keyof typeof MessageSeverity];
 
-interface Message {
+export interface Message {
     text: string
     severity: MessageSeverity
 }
 
-interface SingleMessageProps extends Message {
+export interface SingleMessageProps extends Message {
 }
 
-const SingleMessage = ({text, severity}: SingleMessageProps) => {
-    return <span className={`z-message-${severity}`}>{text}</span>
+export const SingleMessage = ({children, severity}: PropsWithChildren<Omit<SingleMessageProps, 'text'>>) => {
+    return <span className={`z-message-${severity}`}>{children}</span>
 }
 
-interface Messages {
+export interface Messages {
     info: string[];
     success: string[];
     warnings: string[];
     error: string[];
 }
 
-interface MessagesListProps {
+export interface MessagesListProps {
     messages: Messages | Message[]
 }
 
-const MessagesList = ()=> {
+export const MessagesList = ()=> {
     return <></>
 }

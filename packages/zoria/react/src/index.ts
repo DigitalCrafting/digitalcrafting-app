@@ -34,6 +34,7 @@ export * from "./components/inputs/time/DateRangePickerInput";
 export * from "./components/inputs/time/DateTimePickerInput";
 export * from "./components/inputs/time/TimePickerInput";
 export * from "./components/layout/Layout";
+export * from "./components/messages/Messages";
 export * from "./components/modal/Modal";
 export * from "./components/nav/Navigation";
 export * from "./components/panel/ExpandCollapsePanel";

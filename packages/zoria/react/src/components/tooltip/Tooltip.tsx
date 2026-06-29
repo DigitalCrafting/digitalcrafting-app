@@ -23,9 +23,10 @@ function useTooltipContext() {
 interface TooltipTriggerProps {
     children: React.ReactElement,
     content?: React.ReactElement<typeof TooltipBody>
+    className?: string
 }
 
-function TooltipTrigger({children, content}: TooltipTriggerProps) {
+function TooltipTrigger({children, content, className: externalClassName = ''}: TooltipTriggerProps) {
     const triggerRef = useRef<HTMLDivElement>(null);
     const {subject} = useTooltipContext();
 
@@ -41,7 +42,7 @@ function TooltipTrigger({children, content}: TooltipTriggerProps) {
     }, []);
 
     return <div
-        className={`z-tooltip-wrapper`}
+        className={`z-tooltip-wrapper ${externalClassName}`}
         ref={onRefChange}
         onMouseEnter={() => {
             subject.emit({
@@ -58,8 +59,12 @@ function TooltipTrigger({children, content}: TooltipTriggerProps) {
     >{children}</div>;
 }
 
-function TooltipBody({children}: React.PropsWithChildren<any>) {
-    return <div className="z-tooltip-body">
+interface TooltipBodyPros {
+    className?: string
+}
+
+function TooltipBody({children, className}: React.PropsWithChildren<TooltipBodyPros>) {
+    return <div className={`z-tooltip-body ${className}`}>
         {children}
     </div>;
 }
@@ -71,7 +76,6 @@ interface TooltipProps {
 function InternalTooltip({children}: TooltipProps) {
     const childrenArray = React.Children.toArray(children)
 
-    // TODO: detect which is which
     const trigger = childrenArray[0] as React.ReactElement<TooltipTriggerProps>;
     const content = childrenArray[1] as React.ReactElement<typeof TooltipBody>;
 

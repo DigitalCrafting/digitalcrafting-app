@@ -1,6 +1,5 @@
 import {describe, expect, it} from "vitest";
 import {createForm, ZArray, ZNumber, ZObject, ZString} from "./ZoriaFormsBuilder.ts";
-import type {ZoriaFormGroup} from "../internal/impl/ZoriaFormGroup.ts";
 import type {ZoriaFormArray} from "../internal/impl/ZoriaFormArray.ts";
 
 describe('ZoriaFormsBuilder', () => {
@@ -60,7 +59,7 @@ describe('ZoriaFormsBuilder', () => {
         it('should build form array with default value', () => {
             // given
             const defaultValue = ['Value 1', 'Value 2'];
-            const def = ZArray().of(ZString()).withDefaultValue(defaultValue);
+            const def = ZArray().of(ZString()).defaultValue(defaultValue);
 
             // when
             const formArray = createForm(def);
@@ -72,8 +71,19 @@ describe('ZoriaFormsBuilder', () => {
 
         it('should build form array with minLength and maxLength', () => {
             // given
+            const defaultValue = ['Value 1', 'Value 2'];
+            const def = ZArray()
+                .of(ZString())
+                .defaultValue(defaultValue)
+                .minLength(2)
+                .maxLength(2);
+
             // when
+            const formArray = createForm(def) as ZoriaFormArray;
+
             // then
+            expect(formArray.canAdd()).toBe(false);
+            expect(formArray.canRemove()).toBe(false);
         });
     })
 })

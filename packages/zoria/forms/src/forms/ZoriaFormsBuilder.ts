@@ -97,7 +97,7 @@ class ZArrayDefinition implements ZoriaFormElementType {
         return this;
     }
 
-    withDefaultValue(value?: any[] = null) {
+    defaultValue(value?: any[] = null) {
         this.config.defaultValue = value;
         return this;
     }

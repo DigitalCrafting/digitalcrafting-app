@@ -23,6 +23,8 @@ export const FormsDocs = () => {
         const control = new ZoriaFormArray();
 
         control.setElementsFactory(() => createForm(formArrayElementSchema))
+        control.setMinLength(2);
+        control.setMaxLength(3);
 
         return control;
     }, [])

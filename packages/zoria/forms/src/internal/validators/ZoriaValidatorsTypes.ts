@@ -9,8 +9,8 @@ export type BuiltInValidators = (typeof BuiltInValidators)[keyof typeof BuiltInV
 
 export const DEFAULT_VALIDATION_ERRORS: Record<BuiltInValidators, string> = {
     REQUIRED: 'Field is required',
-    MIN_LENGTH: "Field's value is too short",
-    MAX_LENGTH: "Field's value is too long",
-    MIN_VALUE: "Field's value is too small",
-    MAX_VALUE: "Field's value is too big",
+    MIN_LENGTH: "Field value is too short",
+    MAX_LENGTH: "Field value is too long",
+    MIN_VALUE: "Field value is too small",
+    MAX_VALUE: "Field value is too big",
 }
