@@ -3,6 +3,9 @@
   "private": false,
   "version": "0.2.0",
   "description": "An Angular-inspired forms library for personal projects (Work in Progress).",
+  "repository": {
+    "url": "https://github.com/DigitalCrafting/digitalcrafting-app/tree/master/packages/zoria/forms"
+  },
   "type": "module",
   "main": "src/index.ts",
   "scripts": {

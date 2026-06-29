@@ -3,6 +3,9 @@
   "private": false,
   "version": "0.2.0",
   "description": "A from scratch utils library for personal projects (Work in Progress).",
+  "repository": {
+    "url": "https://github.com/DigitalCrafting/digitalcrafting-app/tree/master/packages/zoria/utils"
+  },
   "type": "module",
   "main": "src/index.ts",
   "scripts": {

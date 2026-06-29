@@ -6,7 +6,8 @@
     "dev": "pnpm --filter digital-crafting dev",
     "build": "pnpm -r build",
     "build-libs": "pnpm -r --filter \"@zoria-ui/*\" run build",
-    "release": "pnpm run build-libs && pnpm publish -r --filter \"@zoria-ui/*\" --access public --no-git-checks",
+    "build-release": "pnpm run build-libs && pnpm publish -r --filter \"@zoria-ui/*\" --access public --no-git-checks",
+    "release": "pnpm publish -r --filter \"@zoria-ui/*\" --access public --no-git-checks",
     "test": "pnpm vitest"
   },
   "keywords": [],
