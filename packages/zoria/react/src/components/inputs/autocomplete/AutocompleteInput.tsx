@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {type ChangeEvent, useCallback, useEffect, useRef, useState} from 'react';
+import {type ChangeEvent, useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {SearchIcon, XIcon} from "../../icons/Icons";
 import {Card} from "../../card/Card";
 import {IconButton} from "../../buttons/IconButton";
@@ -79,10 +79,12 @@ interface AutocompleteInputProps<T = unknown> {
     id?: string,
     disabled?: boolean,
     value?: T,
+    defaultValue?: T,
     valueDecoration?: string,
     onChange?: (value?: any) => void,
     placeholder?: string,
 
+    controlled?: boolean;
     onQueryChange?: (value: string) => void
     options?: AutocompleteDropdownOption[],
     queryOptions?: (query: string) => Promise<AutocompleteDropdownOption[]>,
@@ -98,6 +100,8 @@ const AutocompleteInput = ({
     error,
     disabled,
     value = undefined,
+    defaultValue = undefined,
+    controlled = false,
     onChange,
     placeholder,
     onQueryChange,
@@ -107,7 +111,27 @@ const AutocompleteInput = ({
     noResultsMessage = 'No results'
 }: AutocompleteInputProps) => {
     const [options, setOptions] = useState<AutocompleteDropdownOption[]>(externalOptions || []);
-    const [currentlySelected, setCurrentlySelected] = useState<AutocompleteDropdownOption<any, any> | undefined>(options?.find(option => option.value === value));
+    const defaultSelectedValue = useMemo(() => {
+        if (defaultValue) {
+            return options?.find(option => option.value === defaultValue);
+        }
+        return undefined;
+    }, [])
+
+    const [internalCurrentlySelected, setCurrentlySelected] = useState<AutocompleteDropdownOption<any, any> | undefined>(defaultSelectedValue);
+
+    let currentlySelected: AutocompleteDropdownOption<any, any> | undefined = undefined;
+    if (controlled) {
+        currentlySelected = useMemo(() => {
+            if (value) {
+                return options?.find(option => option.value === value);
+            }
+            return undefined;
+        }, [value, options]);
+    } else {
+        currentlySelected = internalCurrentlySelected;
+    }
+
     const [width, setWidth] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [isDropDownOpen, setIsDropDownOpen] = useState<boolean>(false);

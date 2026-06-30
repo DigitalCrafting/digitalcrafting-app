@@ -3,7 +3,7 @@ import {ZoriaDocsPanel} from "../../zoria-docs-panel/ZoriaDocsPanel.tsx";
 
 export function ChipDocs() {
     return <ZoriaDocsPanel>
-        <ZoriaDocsPanel.Title>Date Time Picker Input</ZoriaDocsPanel.Title>
+        <ZoriaDocsPanel.Title>Chip</ZoriaDocsPanel.Title>
         <ZoriaDocsPanel.Body>
             <ZoriaDocsPanel.Demo>
                 <Col span={12}>

@@ -45,4 +45,4 @@ const RadioGroup = Object.assign(RadioGroupInternal, {
     Item: RadioGroupItem
 })
 
-export {RadioGroup};
+export {RadioGroup, type RadioGroupProps};
