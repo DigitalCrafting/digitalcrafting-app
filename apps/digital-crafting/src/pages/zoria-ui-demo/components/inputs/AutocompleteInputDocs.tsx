@@ -1,5 +1,6 @@
 import {type AutocompleteDropdownOption, AutocompleteInput, CodeBlock, Col, Row, StringUtils} from "@zoria-ui/react";
 import {ZoriaDocsPanel} from "../../zoria-docs-panel/ZoriaDocsPanel.tsx";
+import {useState} from "react";
 
 const ALL_OPTIONS = [
     {
@@ -34,6 +35,20 @@ const ALL_OPTIONS = [
     },
 ]
 
+const ControlledAutocomplete = ({queryOptions}: {queryOptions?: (query: string) => Promise<AutocompleteDropdownOption[]>}) => {
+    const [value, setValue] = useState();
+
+    // @ts-ignore
+    const onChange = (value) => {
+        setValue(value);
+        console.log(value);
+    }
+
+    return <AutocompleteInput placeholder='Type to search' value={value} onChange={onChange}
+                              controlled
+                              queryOptions={queryOptions} label='Controlled autocomplete with query'/>
+}
+
 export const AutocompleteInputDocs = () => {
     const queryOptions = (value: string): Promise<AutocompleteDropdownOption[]> => {
         return new Promise((res) => {
@@ -51,20 +66,31 @@ export const AutocompleteInputDocs = () => {
         <ZoriaDocsPanel.Title>Autocomplete Input</ZoriaDocsPanel.Title>
         <ZoriaDocsPanel.Body>
             <ZoriaDocsPanel.Demo>
-                <Row>
-                    <Col span={1}/>
-                    <Col span={4}>
-                        <AutocompleteInput placeholder='Type to search' onChange={(value) => console.log(value)}
-                                           queryOptions={queryOptions} label='Autocomplete with query'/>
-                    </Col>
-                    <Col span={2}/>
-                    <Col span={4}>
+                <Col>
+                    <Row>
+                        <Col span={1}/>
+                        <Col span={4}>
+                            <AutocompleteInput placeholder='Type to search' onChange={(value) => console.log(value)}
+                                               queryOptions={queryOptions} label='Autocomplete with query'/>
+                        </Col>
+                        <Col span={2}/>
+                        <Col span={4}>
 
-                        <AutocompleteInput placeholder='Type to filter' onChange={(value) => console.log(value)}
-                                           options={ALL_OPTIONS} label='Autocomplete with static options'/>
-                    </Col>
-                    <Col span={1}/>
-                </Row>
+                            <AutocompleteInput placeholder='Type to filter' onChange={(value) => console.log(value)}
+                                               options={ALL_OPTIONS} isStatic label='Autocomplete with static options'/>
+                        </Col>
+                        <Col span={1}/>
+                    </Row>
+                    <Row>
+                        <Col span={1}/>
+                        <Col span={4}>
+                            <ControlledAutocomplete queryOptions={queryOptions}/>
+                        </Col>
+                        <Col span={2}/>
+                        <Col span={4}/>
+                        <Col span={1}/>
+                    </Row>
+                </Col>
             </ZoriaDocsPanel.Demo>
             <ZoriaDocsPanel.Code>
                 <Col span={12}>
