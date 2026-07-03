@@ -21,7 +21,8 @@ interface AutocompleteDropdownProps {
     currentlyFocusedIdx: number;
     noResultsMessage: string;
     onOptionSelected: (event: React.MouseEvent | MouseEvent | React.KeyboardEvent | KeyboardEvent, option: AutocompleteDropdownOption<any, any>) => void;
-    isLoading?: boolean
+    isLoading?: boolean;
+    'data-testid': string;
 }
 
 const AutocompleteDropdown = ({
@@ -31,18 +32,21 @@ const AutocompleteDropdown = ({
     currentlyFocusedIdx,
     noResultsMessage,
     onOptionSelected,
-    isLoading = false
+    isLoading = false,
+    "data-testid": dataTestId
 }: AutocompleteDropdownProps) => {
 
     if (isLoading) {
-        return <Card className='flex align-items-center justify-center' style={width ? {minWidth: width} : {}}>
-            <SpinnerCircle size='sm'/>
+        return <Card className='flex align-items-center justify-center'
+                     style={width ? {minWidth: width} : {}}>
+            <SpinnerCircle data-testid={`${dataTestId}-dropdown-spinner`} size='sm'/>
         </Card>
     }
 
     if (!options?.length) {
-        return <Card className='align-items-center justify-center' style={width ? {minWidth: width} : {}}>
-            <Text>{noResultsMessage}</Text>
+        return <Card className='align-items-center justify-center'
+                     style={width ? {minWidth: width} : {}}>
+            <Text data-testid={`${dataTestId}-dropdown-no-results`}>{noResultsMessage}</Text>
         </Card>
     }
 
@@ -51,6 +55,7 @@ const AutocompleteDropdown = ({
             style={width ? {minWidth: width} : {}}
             aria-autocomplete='list'
             tabIndex={-1}
+            data-testid={`${dataTestId}-dropdown-ul`}
         >
             {
                 options.map((option, idx) => {
@@ -65,6 +70,7 @@ const AutocompleteDropdown = ({
                             key={option.value}
                             onClick={(event) => onOptionSelected(event, option)}
                             data-value={option.value}
+                            data-testid={`${dataTestId}-dropdown-li`}
                         >
                             {option.display}
                         </li>
@@ -155,7 +161,10 @@ const BaseAutocompleteInput = ({
              data-testid={dataTestId}
         >
             {
-                label ? <label className='z-input-label' htmlFor={id}>{label}</label> : null
+                label ? <label
+                    className='z-input-label'
+                    data-testid={`${dataTestId}-label`}
+                    htmlFor={id}>{label}</label> : null
             }
             <div ref={containerRef} className='z-input-container'>
                 <input className='z-input' ref={inputRef} id={id} disabled={disabled}
@@ -170,10 +179,12 @@ const BaseAutocompleteInput = ({
                        aria-activedescendant={currentlyFocusedIdx >= 0 && options?.[currentlyFocusedIdx]
                            ? `z-opt-${currentlyFocusedIdx}`
                            : undefined}
+                       data-testid={`${dataTestId}-input`}
                 />
                 {
                     inputValue?.length ?
-                        <IconButton><XIcon onClick={() => clear()}/></IconButton> : <SearchIcon/>
+                        <IconButton data-testid={`${dataTestId}-clear-button`}><XIcon
+                            onClick={() => clear()}/></IconButton> : <SearchIcon/>
                 }
             </div>
             {
@@ -188,10 +199,15 @@ const BaseAutocompleteInput = ({
                  aria-expanded={isDropdownOpen}
                  onMouseDown={event => event.preventDefault()}
             >
-                <AutocompleteDropdown width={width} options={options} currentlySelected={currentlySelected}
-                                      currentlyFocusedIdx={currentlyFocusedIdx}
-                                      isLoading={isLoading}
-                                      noResultsMessage={noResultsMessage} onOptionSelected={onOptionSelected}/>
+                {
+                    isDropdownOpen ?
+                        <AutocompleteDropdown width={width} options={options} currentlySelected={currentlySelected}
+                                              currentlyFocusedIdx={currentlyFocusedIdx}
+                                              isLoading={isLoading}
+                                              data-testid={dataTestId}
+                                              noResultsMessage={noResultsMessage}
+                                              onOptionSelected={onOptionSelected}/> : null
+                }
             </div>,
             document.body
         )}
@@ -255,7 +271,7 @@ const StaticAutocompleteInput = ({
     const [currentlyFocusedIdx, setCurrentlyFocusedIdx] = useState(-1);
     const [inputValue, setInputValue] = useState<string>('');
 
-     const inputRef = useRef<HTMLInputElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const queryStaticOptions = useCallback((searchValue?: string, options: AutocompleteDropdownOption[] = []) => {
         if (!searchValue) {
@@ -426,20 +442,20 @@ const DynamicAutocompleteInput = ({
         onChange?.(undefined);
     }
 
-     return <BaseAutocompleteInput
-         isDropdownOpen={isDropdownOpen}
-         setIsDropdownOpen={setIsDropdownOpen}
-         currentlyFocusedIdx={currentlyFocusedIdx}
-         setCurrentlyFocusedIdx={setCurrentlyFocusedIdx}
-         options={options}
-         onOptionSelected={onOptionSelected}
-         inputRef={inputRef}
-         inputValue={inputValue}
-         currentlySelected={currentlySelected}
-         clear={clear}
-         handleInputChange={handleInputChange}
-         isLoading={isLoading}
-         {...baseProps}/>
+    return <BaseAutocompleteInput
+        isDropdownOpen={isDropdownOpen}
+        setIsDropdownOpen={setIsDropdownOpen}
+        currentlyFocusedIdx={currentlyFocusedIdx}
+        setCurrentlyFocusedIdx={setCurrentlyFocusedIdx}
+        options={options}
+        onOptionSelected={onOptionSelected}
+        inputRef={inputRef}
+        inputValue={inputValue}
+        currentlySelected={currentlySelected}
+        clear={clear}
+        handleInputChange={handleInputChange}
+        isLoading={isLoading}
+        {...baseProps}/>
 }
 
 type AutocompleteInputProps<T = unknown> = |
