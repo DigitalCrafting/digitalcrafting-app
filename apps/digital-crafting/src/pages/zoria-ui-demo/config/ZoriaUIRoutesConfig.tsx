@@ -1,38 +1,56 @@
 import {ZoriaUIRoutePathsEnum, ZoriaUISubroutesPathsEnum} from "./ZoriaUIRoutesTypes.ts";
 import type {RouteObject} from "react-router-dom";
+import {TextDocs} from "../components/typography/TextDocs.tsx";
+import {ZoriaUiReactAbout} from "../components/ZoriaUiReactAbout.tsx";
+import {ModalDocs} from "../components/display/ModalDocs.tsx";
+import {PopoverDocs} from "../components/display/PopoverDocs.tsx";
+import {TooltipDocs} from "../components/display/TooltipDocs.tsx";
+import {TabsDocs} from "../components/display/TabsDocs.tsx";
+import {TableDocs} from "../components/display/TableDocs.tsx";
+import {SpinnerDocs} from "../components/display/SpinnerDocs.tsx";
+import {ChipDocs} from "../components/display/ChipDocs.tsx";
+import {RadioGroupDocs} from "../components/inputs/RadioGroupDocs.tsx";
+import {ToggleDocs} from "../components/inputs/ToggleDocs.tsx";
+import {CheckboxDocs} from "../components/inputs/CheckboxDocs.tsx";
+import {CalendarDocs} from "../components/inputs/CalendarDocs.tsx";
+import {DateTimePickerInputDocs} from "../components/inputs/DateTimePickerInputDocs.tsx";
+import {TimePickerInputDocs} from "../components/inputs/TimePickerInputDocs.tsx";
+import {DatePickerInputDocs} from "../components/inputs/DatePickerInputDocs.tsx";
+import {PasswordInputDocs} from "../components/inputs/PasswordInputDocs.tsx";
+import {EmailInputDocs} from "../components/inputs/EmailInputDocs.tsx";
+import {AutocompleteInputDocs} from "../components/inputs/AutocompleteInputDocs.tsx";
+import {SelectInputDocs} from "../components/inputs/SelectInputDocs.tsx";
+import {NumberInputDocs} from "../components/inputs/NumberInputDocs.tsx";
+import {TextareaInputDocs} from "../components/inputs/TextareaInputDocs.tsx";
+import {TextInputDocs} from "../components/inputs/TextInputDocs.tsx";
+import {InputDocs} from "../components/inputs/InputDocs.tsx";
+import {IconButtonDocs} from "../components/buttons/IconButtonDocs.tsx";
+import {ButtonDocs} from "../components/buttons/ButtonDocs.tsx";
+import {IconsDocs} from "../components/typography/IconsDocs.tsx";
+import {HeadersDocs} from "../components/typography/HeadersDocs.tsx";
+import {FormsDocs} from "../forms/FormsDocs.tsx";
+import {ZoriaUiFormsAbout} from "../forms/ZoriaUiFormsAbout.tsx";
 
 export const ZoriaUIRoutesConfig: RouteObject[] = [
     {
         path: `about`,
         index: true,
-        lazy: async () => {
-            const {ZoriaUiReactAbout} = await import('../components/ZoriaUiReactAbout.tsx');
-            return {element: <ZoriaUiReactAbout/>};
-        },
+        Component: ZoriaUiReactAbout
     },
     {
         path: `${ZoriaUIRoutePathsEnum.TYPOGRAPHY}`,
         children: [
             {
                 path: `${ZoriaUISubroutesPathsEnum.TEXT}`,
-                lazy: async () => {
-                    const {TextDocs} = await import('../components/typography/TextDocs');
-                    return {element: <TextDocs/>}
-                }
+                Component: TextDocs
             },
             {
                 path: `${ZoriaUISubroutesPathsEnum.HEADERS}`,
-                lazy: async () => {
-                    const {HeadersDocs} = await import('../components/typography/HeadersDocs');
-                    return {element: <HeadersDocs/>}
-                }
+                Component: HeadersDocs
             },
             {
                 path: `${ZoriaUISubroutesPathsEnum.ICONS}`,
-                lazy: async () => {
-                    const {IconsDocs} = await import('../components/typography/IconsDocs');
-                    return {element: <IconsDocs/>}
-                }
+                Component: IconsDocs
             }
         ]
     },
@@ -41,17 +59,11 @@ export const ZoriaUIRoutesConfig: RouteObject[] = [
         children: [
             {
                 path: `${ZoriaUISubroutesPathsEnum.BUTTON}`,
-                lazy: async () => {
-                    const {ButtonDocs} = await import('../components/buttons/ButtonDocs.tsx');
-                    return {element: <ButtonDocs/>}
-                }
+                Component: ButtonDocs
             },
             {
                 path: `${ZoriaUISubroutesPathsEnum.ICON_BUTTON}`,
-                lazy: async () => {
-                    const {IconButtonDocs} = await import('../components/buttons/IconButtonDocs.tsx');
-                    return {element: <IconButtonDocs/>}
-                }
+                Component: IconButtonDocs
             }
         ]
     }, {
@@ -59,108 +71,63 @@ export const ZoriaUIRoutesConfig: RouteObject[] = [
         children: [
             {
                 path: `${ZoriaUISubroutesPathsEnum.INPUT}`,
-                lazy: async () => {
-                    const {InputDocs} = await import('../components/inputs/InputDocs');
-                    return {element: <InputDocs/>}
-                }
+                Component: InputDocs
             },
             {
                 path: `${ZoriaUISubroutesPathsEnum.TEXT_INPUT}`,
-                lazy: async () => {
-                    const {TextInputDocs} = await import('../components/inputs/TextInputDocs');
-                    return {element: <TextInputDocs/>}
-                }
+                Component: TextInputDocs
             },
             {
                 path: `${ZoriaUISubroutesPathsEnum.TEXTAREA_INPUT}`,
-                lazy: async () => {
-                    const {TextareaInputDocs} = await import('../components/inputs/TextareaInputDocs');
-                    return {element: <TextareaInputDocs/>}
-                }
+                Component: TextareaInputDocs
             },
             {
                 path: `${ZoriaUISubroutesPathsEnum.NUMBER_INPUT}`,
-                lazy: async () => {
-                    const {NumberInputDocs} = await import('../components/inputs/NumberInputDocs');
-                    return {element: <NumberInputDocs/>}
-                }
+                Component: NumberInputDocs
             },
             {
                 path: `${ZoriaUISubroutesPathsEnum.SELECT_INPUT}`,
-                lazy: async () => {
-                    const {SelectInputDocs} = await import('../components/inputs/SelectInputDocs');
-                    return {element: <SelectInputDocs/>}
-                }
+                Component: SelectInputDocs
             },
             {
                 path: `${ZoriaUISubroutesPathsEnum.AUTOCOMPLETE_INPUT}`,
-                lazy: async () => {
-                    const {AutocompleteInputDocs} = await import('../components/inputs/AutocompleteInputDocs');
-                    return {element: <AutocompleteInputDocs/>}
-                }
+                Component: AutocompleteInputDocs
             },
             {
                 path: `${ZoriaUISubroutesPathsEnum.EMAIL_INPUT}`,
-                lazy: async () => {
-                    const {EmailInputDocs} = await import('../components/inputs/EmailInputDocs');
-                    return {element: <EmailInputDocs/>}
-                }
+                Component: EmailInputDocs
             },
             {
                 path: `${ZoriaUISubroutesPathsEnum.PASSWORD_INPUT}`,
-                lazy: async () => {
-                    const {PasswordInputDocs} = await import('../components/inputs/PasswordInputDocs');
-                    return {element: <PasswordInputDocs/>}
-                }
+                Component: PasswordInputDocs
             },
             {
                 path: `${ZoriaUISubroutesPathsEnum.DATE_PICKER_INPUT}`,
-                lazy: async () => {
-                    const {DatePickerInputDocs} = await import('../components/inputs/DatePickerInputDocs');
-                    return {element: <DatePickerInputDocs/>}
-                }
+                Component: DatePickerInputDocs
             },
             {
                 path: `${ZoriaUISubroutesPathsEnum.TIME_PICKER_INPUT}`,
-                lazy: async () => {
-                    const {TimePickerInputDocs} = await import('../components/inputs/TimePickerInputDocs');
-                    return {element: <TimePickerInputDocs/>}
-                }
+                Component: TimePickerInputDocs
             },
             {
                 path: `${ZoriaUISubroutesPathsEnum.DATE_TIME_PICKER_INPUT}`,
-                lazy: async () => {
-                    const {DateTimePickerInputDocs} = await import('../components/inputs/DateTimePickerInputDocs');
-                    return {element: <DateTimePickerInputDocs/>}
-                }
+                Component: DateTimePickerInputDocs
             },
             {
                 path: `${ZoriaUISubroutesPathsEnum.CALENDAR}`,
-                lazy: async () => {
-                    const {CalendarDocs} = await import('../components/inputs/CalendarDocs');
-                    return {element: <CalendarDocs/>}
-                }
+                Component: CalendarDocs
             },
             {
                 path: `${ZoriaUISubroutesPathsEnum.CHECKBOX}`,
-                lazy: async () => {
-                    const {CheckboxDocs} = await import('../components/inputs/CheckboxDocs');
-                    return {element: <CheckboxDocs/>}
-                }
+                Component: CheckboxDocs
             },
             {
                 path: `${ZoriaUISubroutesPathsEnum.TOGGLE}`,
-                lazy: async () => {
-                    const {ToggleDocs} = await import('../components/inputs/ToggleDocs');
-                    return {element: <ToggleDocs/>}
-                }
+                Component: ToggleDocs
             },
             {
                 path: `${ZoriaUISubroutesPathsEnum.RADIO_GROUP}`,
-                lazy: async () => {
-                    const {RadioGroupDocs} = await import('../components/inputs/RadioGroupDocs');
-                    return {element: <RadioGroupDocs/>}
-                }
+                Component: RadioGroupDocs
             },
         ]
     }, {
@@ -168,52 +135,31 @@ export const ZoriaUIRoutesConfig: RouteObject[] = [
         children: [
             {
                 path: `${ZoriaUISubroutesPathsEnum.CHIP}`,
-                lazy: async () => {
-                    const {ChipDocs} = await import('../components/display/ChipDocs');
-                    return {element: <ChipDocs/>}
-                }
+                Component: ChipDocs
             },
             {
                 path: `${ZoriaUISubroutesPathsEnum.SPINNER}`,
-                lazy: async () => {
-                    const {SpinnerDocs} = await import('../components/display/SpinnerDocs');
-                    return {element: <SpinnerDocs/>}
-                }
+                Component: SpinnerDocs
             },
             {
                 path: `${ZoriaUISubroutesPathsEnum.TABLE}`,
-                lazy: async () => {
-                    const {TableDocs} = await import('../components/display/TableDocs');
-                    return {element: <TableDocs/>}
-                }
+                Component: TableDocs
             },
             {
                 path: `${ZoriaUISubroutesPathsEnum.TABS}`,
-                lazy: async () => {
-                    const {TabsDocs} = await import('../components/display/TabsDocs');
-                    return {element: <TabsDocs/>};
-                }
+                Component: TabsDocs
             },
             {
                 path: `${ZoriaUISubroutesPathsEnum.TOOLTIP}`,
-                lazy: async () => {
-                    const {TooltipDocs} = await import('../components/display/TooltipDocs');
-                    return {element: <TooltipDocs/>}
-                }
+                Component: TooltipDocs
             },
             {
                 path: `${ZoriaUISubroutesPathsEnum.POPOVER}`,
-                lazy: async () => {
-                    const {PopoverDocs} = await import('../components/display/PopoverDocs');
-                    return {element: <PopoverDocs/>}
-                }
+                Component: PopoverDocs
             },
             {
                 path: `${ZoriaUISubroutesPathsEnum.MODAL}`,
-                lazy: async () => {
-                    const {ModalDocs} = await import('../components/display/ModalDocs');
-                    return {element: <ModalDocs/>}
-                }
+                Component: ModalDocs
             },
         ]
     },
@@ -223,17 +169,11 @@ export const ZoriaUIRoutesConfig: RouteObject[] = [
             {
                 path: `about`,
                 index: true,
-                lazy: async () => {
-                    const {ZoriaUiFormsAbout} = await import('../forms/ZoriaUiFormsAbout');
-                    return {element: <ZoriaUiFormsAbout/>};
-                },
+                Component: ZoriaUiFormsAbout,
             },
             {
                 path: 'demo',
-                lazy: async () => {
-                    const {FormsDocs} = await import('../forms/FormsDocs.tsx')
-                    return {element: <FormsDocs/>}
-                }
+                Component: FormsDocs
             }
         ]
     }
