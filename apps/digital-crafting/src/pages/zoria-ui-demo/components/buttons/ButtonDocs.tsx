@@ -1,5 +1,5 @@
 import {Button, CodeBlock, Col, LinkButton, Row, TextButton} from "@zoria-ui/react";
-import {type ExpandByDefaultProp, ZoriaDocsPanel} from "../zoria-docs-panel/ZoriaDocsPanel.tsx";
+import {type ExpandByDefaultProp, ZoriaDocsPanel} from "../../zoria-docs-panel/ZoriaDocsPanel.tsx";
 
 export function ButtonDocs({expandByDefault}: ExpandByDefaultProp) {
     return <ZoriaDocsPanel expandByDefault={expandByDefault}>

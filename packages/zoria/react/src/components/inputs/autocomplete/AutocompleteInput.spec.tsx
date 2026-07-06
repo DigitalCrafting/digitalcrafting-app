@@ -101,5 +101,5 @@ describe('AutocompleteInput', () => {
         expect(liElements.length).toBe(3);
     });
 
-    
+
 })

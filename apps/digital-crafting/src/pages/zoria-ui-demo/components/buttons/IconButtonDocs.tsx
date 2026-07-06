@@ -1,5 +1,5 @@
 import {CodeBlock, Col, IconButton, Row, XIcon} from "@zoria-ui/react";
-import {ZoriaDocsPanel} from "../zoria-docs-panel/ZoriaDocsPanel.tsx";
+import {ZoriaDocsPanel} from "../../zoria-docs-panel/ZoriaDocsPanel.tsx";
 
 export function IconButtonDocs() {
     return <ZoriaDocsPanel>

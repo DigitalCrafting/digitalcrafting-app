@@ -95,7 +95,7 @@ const ICONS = [
 ]
 
 export function IconsDocs() {
-    return <ExpandCollapsePanel>
+    return <ExpandCollapsePanel expandByDefault={true}>
         <ExpandCollapsePanel.Header><H2>Icons</H2></ExpandCollapsePanel.Header>
         <ExpandCollapsePanel.Body>
             <Grid cols={12} className='justify-items-anchor-center'>

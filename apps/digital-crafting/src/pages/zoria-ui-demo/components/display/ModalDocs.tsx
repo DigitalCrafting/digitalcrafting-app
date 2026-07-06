@@ -1,5 +1,5 @@
 import {Button, CodeBlock, Col, H3, Modal, ModalService, ModalSize, Row} from "@zoria-ui/react";
-import {type ExpandByDefaultProp, ZoriaDocsPanel} from "../zoria-docs-panel/ZoriaDocsPanel.tsx";
+import {type ExpandByDefaultProp, ZoriaDocsPanel} from "../../zoria-docs-panel/ZoriaDocsPanel.tsx";
 
 function getModal(size: ModalSize) {
     return <Modal size={size}>

@@ -1,5 +1,5 @@
 import {Button, Card, CodeBlock, Col, Popover, Row, Text} from "@zoria-ui/react";
-import {type ExpandByDefaultProp, ZoriaDocsPanel} from "../zoria-docs-panel/ZoriaDocsPanel.tsx";
+import {type ExpandByDefaultProp, ZoriaDocsPanel} from "../../zoria-docs-panel/ZoriaDocsPanel.tsx";
 
 export function PopoverDocs({expandByDefault}: ExpandByDefaultProp) {
     return <ZoriaDocsPanel expandByDefault={expandByDefault}>

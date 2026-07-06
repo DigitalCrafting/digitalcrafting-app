@@ -1,7 +1,7 @@
 import {Col, H1, H2, H3, H4, H5, H6, ExpandCollapsePanel, Row} from "@zoria-ui/react";
 
 export function HeadersDocs() {
-    return <ExpandCollapsePanel>
+    return <ExpandCollapsePanel expandByDefault={true}>
         <ExpandCollapsePanel.Header><H2>Headers</H2></ExpandCollapsePanel.Header>
         <ExpandCollapsePanel.Body>
             <Col gap='sm'>

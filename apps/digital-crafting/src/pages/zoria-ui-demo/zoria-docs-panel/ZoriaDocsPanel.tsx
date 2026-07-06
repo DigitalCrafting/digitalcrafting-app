@@ -65,7 +65,7 @@ interface DocsPanelProps {
     expandByDefault?: boolean;
 }
 
-const DocsPanel = ({children, expandByDefault = false}: DocsPanelProps) => {
+const DocsPanel = ({children, expandByDefault = true}: DocsPanelProps) => {
     const [TitleComponent, BodyComponent] = Children.toArray(children);
 
     return <ExpandCollapsePanel expandByDefault={expandByDefault} className='zoria-docs-panel'>

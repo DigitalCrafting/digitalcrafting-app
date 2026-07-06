@@ -19,6 +19,43 @@ export function Text({ children, className = '', 'data-testid': dataTestId, size
     >{children}</span>
 }
 
+export interface LinkProps {
+    className?: string,
+    'data-testid'?: string
+    size?: UiSize
+    bold?: boolean
+    placeholder?: boolean
+    href: string
+}
+
+export function Link({ children, href, className = '', 'data-testid': dataTestId, size = UiSize.MD, bold = false, placeholder = false}: React.PropsWithChildren<LinkProps>) {
+    const boldClass = bold ? 'z-text-bold' : '';
+    const placeholderClassName = placeholder ? 'z-text-placeholder' : '';
+
+    return <a
+        target='_blank'
+        href={href}
+        className={`z-text z-link z-text-${size} ${boldClass} ${placeholderClassName} ${className}`.trim()}
+        data-testid={dataTestId}
+    >{children}</a>
+}
+
+export interface CodeLineProps {
+    className?: string,
+    'data-testid'?: string
+    size?: UiSize
+    bold?: boolean
+}
+
+export function CodeLine({ children, className = '', 'data-testid': dataTestId, size = UiSize.MD, bold = false}: React.PropsWithChildren<CodeLineProps>) {
+    const boldClass = bold ? 'z-text-bold' : '';
+
+    return <span
+        className={`z-text z-code-line z-text-${size} ${boldClass} ${className}`.trim()}
+        data-testid={dataTestId}
+    >{children}</span>
+}
+
 export interface HeaderProps {
     className?: string,
     'data-testid'?: string
