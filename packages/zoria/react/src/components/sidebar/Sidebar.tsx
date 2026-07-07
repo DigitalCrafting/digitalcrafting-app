@@ -1,14 +1,27 @@
 import type {ZoriaProps} from "../../types/CommonTypes";
 import * as React from "react";
-import {useEffect, useState} from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 import {EventEmitter} from "@zoria-ui/events";
 import {IconButton} from "../buttons/IconButton";
-import {MenuIcon} from "../icons/Icons";
+import {MenuIcon, XIcon} from "../icons/Icons";
 import {H4} from "../typography/Typography";
 
+const SidebarContext = createContext({
+    isOpen: false
+});
+
 const SidebarHeader = ({children}: React.PropsWithChildren) => {
+    const {isOpen} = useContext(SidebarContext);
+
     return <div className='z-sidebar-header'>
-        <H4>{children}</H4>
+        <H4 className='z-sidebar-header-title'>{children}</H4>
+        <IconButton className='z-sidebar-trigger' onClick={() => {
+            SidePanelService.toggle()
+        }}>
+            {
+                isOpen ? <XIcon/> : <MenuIcon/>
+            }
+        </IconButton>
     </div>
 }
 
@@ -36,7 +49,6 @@ export const SidePanelService = new SidePanelServiceImpl();
 const SidebarInternal = ({children, defaultOpen = false}: SidePanelProps) => {
     const [isOpen, setIsOpen] = useState(defaultOpen);
 
-
     useEffect(() => {
         const subscription = SidePanelService.subject.subscribe(() => {
             setIsOpen(prev => !prev);
@@ -47,14 +59,11 @@ const SidebarInternal = ({children, defaultOpen = false}: SidePanelProps) => {
         }
     }, []);
 
-    return <aside className={`z-sidebar ${isOpen ? '' : 'collapsed'}`}>
+    return <SidebarContext.Provider value={{isOpen}}>
+        <aside className={`z-sidebar ${isOpen ? '' : 'collapsed'}`}>
             {children}
-            <IconButton className='z-sidebar-trigger' onClick={() => {
-                SidePanelService.toggle()
-            }}>
-                <MenuIcon/>
-            </IconButton>
         </aside>
+    </SidebarContext.Provider>
 }
 
 const Sidebar = Object.assign(SidebarInternal, {
