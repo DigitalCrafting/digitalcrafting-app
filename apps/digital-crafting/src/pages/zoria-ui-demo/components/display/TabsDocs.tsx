@@ -1,8 +1,18 @@
-import {Container, H2, H3, LaptopIcon, MonitorIcon, ExpandCollapsePanel, Row, SmartphoneIcon, Text} from "@zoria-ui/react";
+import {
+    Container,
+    ExpandCollapsePanel,
+    H2,
+    H3,
+    LaptopIcon,
+    MonitorIcon,
+    Row,
+    SmartphoneIcon,
+    Text
+} from "@zoria-ui/react";
 import {Tabs} from "@zoria-ui/react/src/components/tabs/Tabs.tsx";
 
 export function TabsDocs() {
-    return <ExpandCollapsePanel>
+    return <ExpandCollapsePanel expandByDefault={true}>
         <ExpandCollapsePanel.Header><H2>Tabs</H2></ExpandCollapsePanel.Header>
         <ExpandCollapsePanel.Body>
             <Row>

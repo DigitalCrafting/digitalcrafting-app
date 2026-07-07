@@ -1,7 +1,7 @@
 import {Col, ExpandCollapsePanel, H2, Row, SpinnerCircle, SpinnerLeaves, Text, Tooltip} from "@zoria-ui/react";
 
 export function SpinnerDocs() {
-    return <ExpandCollapsePanel>
+    return <ExpandCollapsePanel expandByDefault={true}>
         <ExpandCollapsePanel.Header><H2>Spinner</H2></ExpandCollapsePanel.Header>
         <ExpandCollapsePanel.Body>
             <Row className={'justify-center content-center'}>
