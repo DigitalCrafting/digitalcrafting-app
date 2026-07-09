@@ -8,11 +8,23 @@ interface DateTimePickerInputProps {
     onChange?: (value?: string) => void;
     min?: string;
     max?: string;
+
     minutesInterval?: number;
+    minHour?: number;
+    maxHour?: number;
+    minMin?: number;
+    maxMin?: number;
+
     className?: string
     label?: string
     error?: string
-    /* TODO Calendar props */
+
+    // Calendar props
+    startingDay?: string
+    yearRangeStart?: number
+    yearRangeEnd?: number
+    weekdays?: string[]
+    months?: string[]
 }
 
 const DateTimePickerInput = ({
@@ -23,7 +35,12 @@ const DateTimePickerInput = ({
     minutesInterval,
     className: externalClassName = '',
     label,
-    error
+    error,
+    minHour,
+    maxHour,
+    minMin,
+    maxMin,
+    ...calendarProps
 }: DateTimePickerInputProps) => {
     const [internalValue, setInternalValue] = useState(value);
     const [splitDateValue, splitTimeValue] = internalValue ? DateTimeUtils.split(internalValue) : ['', ''];
@@ -63,8 +80,9 @@ const DateTimePickerInput = ({
     return <div className={`z-input-wrapper z-date-time-input-wrapper ${externalClassName}`.trim()}>
         <label className='z-input-label'>{label}</label>
         <div className='z-date-time-input-container'>
-            <DatePickerInput value={dateValue} onChange={onDateValueChange} min={min} max={max}/>
-            <TimePickerInput value={timeValue} onChange={onTimeValueChange} minutesInterval={minutesInterval}/>
+            <DatePickerInput value={dateValue} onChange={onDateValueChange} min={min} max={max} {...calendarProps}/>
+            <TimePickerInput value={timeValue} onChange={onTimeValueChange} minutesInterval={minutesInterval}
+                             minHour={minHour} maxHour={maxHour} minMin={minMin} maxMin={maxMin}/>
         </div>
         {
             error ? <span className='z-input-error'>{error}</span> : null
@@ -73,4 +91,4 @@ const DateTimePickerInput = ({
 }
 
 export {DateTimePickerInput};
-export type { DateTimePickerInputProps };
+export type {DateTimePickerInputProps};

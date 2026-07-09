@@ -12,16 +12,24 @@ import {Card} from "../../card/Card";
 // TODO make it common const //, "Enter"
 const FUNCTIONAL_KEYS = ["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab"];
 
+/* TODO leave minimal input props only */
 interface DatePickerInputProps extends Omit<InputProps, 'type' | 'value' | 'onChange' | 'onBlur'> {
     value?: string
     min?: string
     max?: string
     onChange?: (value: string) => void
+
+    // Calendar props
+    startingDay?: string
+    yearRangeStart?: number
+    yearRangeEnd?: number
+    weekdays?: string[]
+    months?: string[]
 }
 
-const DatePickerInput = ({error: externalError, min, max, ...inputProps}: DatePickerInputProps) => {
+const DatePickerInput = ({error: externalError, label, min, max, value, onChange, ...calendarProps}: DatePickerInputProps) => {
     const [error, setError] = useState<string | undefined>(externalError);
-    const [selectedDate, setSelectedDate] = useState<string | undefined>(inputProps.value);
+    const [selectedDate, setSelectedDate] = useState<string | undefined>(value);
 
     const inputRef = useRef<HTMLInputElement>(null);
     const popoverRef = useRef<PopoverHandle>(null);
@@ -31,7 +39,7 @@ const DatePickerInput = ({error: externalError, min, max, ...inputProps}: DatePi
             inputRef.current.value = value;
             setSelectedDate(value);
             popoverRef.current?.close();
-            inputProps?.onChange?.(value);
+            onChange?.(value);
             setError(undefined); // we assume Calendar will ALWAYS return correct date
         } else {
             console.error(`[DatePickerInput]: inputRef is not defined`)
@@ -94,17 +102,19 @@ const DatePickerInput = ({error: externalError, min, max, ...inputProps}: DatePi
 
     const onInputChange = (value: string) => {
         setSelectedDate(value);
-        inputProps?.onChange?.(value);
+        onChange?.(value);
     }
 
-    return <Input {...inputProps}
-                  ref={inputRef}
-                  onBlur={onBlur}
-                  onChange={handleInputChange}
-                  onKeyDown={onKeyDown}
-                  error={error}
-                  type='text'
-                  placeholder='yyyy-MM-dd'
+    return <Input
+        label={label}
+        value={value}
+        ref={inputRef}
+        onBlur={onBlur}
+        onChange={handleInputChange}
+        onKeyDown={onKeyDown}
+        error={error}
+        type='text'
+        placeholder='yyyy-MM-dd'
     >
         <Popover ref={popoverRef}>
             <Popover.Trigger>
@@ -112,7 +122,7 @@ const DatePickerInput = ({error: externalError, min, max, ...inputProps}: DatePi
             </Popover.Trigger>
             <Popover.Body trapFocus>
                 <Card padding='none' shadow='lg'>
-                    <Calendar value={selectedDate} onChange={onCalendarChange} min={min} max={max}/>
+                    <Calendar value={selectedDate} onChange={onCalendarChange} min={min} max={max} {...calendarProps}/>
                 </Card>
             </Popover.Body>
         </Popover>
@@ -120,4 +130,4 @@ const DatePickerInput = ({error: externalError, min, max, ...inputProps}: DatePi
 }
 
 export {DatePickerInput};
-export type { DatePickerInputProps };
+export type {DatePickerInputProps};

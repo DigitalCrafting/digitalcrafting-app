@@ -16,11 +16,15 @@ const FUNCTIONAL_KEYS = ["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab"
 interface TimePickerInputProps extends Omit<InputProps, 'type' | 'value' | 'onChange' | 'onBlur'> {
     value?: string;
     onChange?: (value: string) => void;
-    minutesInterval?: number
+    minutesInterval?: number;
+    minHour?: number;
+    maxHour?: number;
+    minMin?: number;
+    maxMin?: number;
 }
 
 /* TODO all ISO time parts, for now it's only HH:mm */
-const TimePickerInput = ({error: externalError, minutesInterval = 30, ...inputProps}: TimePickerInputProps) => {
+const TimePickerInput = ({error: externalError, minutesInterval = 30, minHour = 0, maxHour = 24, minMin = 0, maxMin = 60, ...inputProps}: TimePickerInputProps) => {
     const [error, setError] = useState<string | undefined>(externalError);
     const [selectedTime, setSelectedTime] = useState<string | undefined>(inputProps.value);
 
@@ -30,8 +34,16 @@ const TimePickerInput = ({error: externalError, minutesInterval = 30, ...inputPr
     const timePickerOptions: ZoriaSelectOption[] = useMemo(() => {
         const options: ZoriaSelectOption[] = [];
 
-        for (let i = 0; i < 24; i++) {
+        for (let i = minHour; i < maxHour; i++) {
             for (let j = 0; j < 60; j += minutesInterval) {
+                if (i === minHour && j < minMin) {
+                    continue;
+                }
+
+                if (i === maxHour - 1 && j > maxMin) {
+                    continue;
+                }
+
                 const hours = leftPad('0', 2, String(i));
                 const minutes = leftPad('0', 2, String(j));
                 const time = hours + ':' + minutes;
@@ -45,7 +57,7 @@ const TimePickerInput = ({error: externalError, minutesInterval = 30, ...inputPr
 
 
         return options;
-    }, [minutesInterval])
+    }, [minutesInterval, minHour, maxHour, minMin, maxMin])
 
     const onTimepickerChange = (selectedOption: ZoriaSelectOption) => {
         const value = selectedOption.value;
@@ -55,7 +67,7 @@ const TimePickerInput = ({error: externalError, minutesInterval = 30, ...inputPr
             setSelectedTime(value);
             inputProps?.onChange?.(value!);
             popoverRef.current?.close();
-            setError(undefined); // we assume Calendar will ALWAYS return correct date
+            setError(undefined);
         } else {
             console.error(`[TimePickerInput]: inputRef is not defined`)
         }
@@ -102,6 +114,7 @@ const TimePickerInput = ({error: externalError, minutesInterval = 30, ...inputPr
         targetElement.value = value.slice(0, 5);
     };
 
+    /* TODO min/max validation */
     const onInputChange = (value: string) => {
         setSelectedTime(value);
         inputProps?.onChange?.(value);

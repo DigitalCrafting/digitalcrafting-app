@@ -11,7 +11,11 @@ export const TimePickerInputDocs = () => {
                     <Col span={4}>
                         <TimePickerInput onChange={(value) => console.log(value)} label='Time Picker'/>
                     </Col>
-                    <Col span={7}/>
+                    <Col span={2}/>
+                    <Col span={4}>
+                        <TimePickerInput minHour={9} maxHour={18} maxMin={0} onChange={(value) => console.log(value)} label='Time Picker 9 - 5'/>
+                    </Col>
+                    <Col span={1}/>
                 </Row>
             </ZoriaDocsPanel.Demo>
             <ZoriaDocsPanel.Code>
@@ -19,6 +23,10 @@ export const TimePickerInputDocs = () => {
                     <CodeBlock>
                         {/* language=text */}
                         {`<TimePickerInput onChange={(value) => console.log(value)} label='Time Picker'/>`}
+                    </CodeBlock>
+                    <CodeBlock>
+                        {/* language=text */}
+                        {`<TimePickerInput minHour={9} maxHour={18} maxMin={0} onChange={(value) => console.log(value)} label='Time Picker 9 - 5'/>`}
                     </CodeBlock>
                 </Col>
             </ZoriaDocsPanel.Code>

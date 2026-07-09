@@ -11,6 +11,22 @@ export const DatePickerInputDocs = () => {
         return [DateUtils.toISODate(minDate), DateUtils.toISODate(maxDate)];
     }, [])
 
+    const weekdaysPl = ['Nd', 'Pn', 'Wt', 'Śr', 'Czw', 'Pt', 'Sb'];
+    const monthsPl = [
+        'Styczeń',
+        'Luty',
+        'Marzec',
+        'Kwiecień',
+        'Maj',
+        'Czerwiec',
+        'Lipiec',
+        'Sierpień',
+        'Wrzesień',
+        'Październik',
+        'Listopad',
+        'Grudzień'
+    ];
+
     return <ZoriaDocsPanel>
         <ZoriaDocsPanel.Title>Date Picker Input</ZoriaDocsPanel.Title>
         <ZoriaDocsPanel.Body>
@@ -22,7 +38,7 @@ export const DatePickerInputDocs = () => {
                     </Col>
                     <Col span={2}/>
                     <Col span={4}>
-                        <DatePickerInput onChange={(value) => console.log(value)} min={min} max={max} label='Date Picker with Min/Max'/>
+                        <DatePickerInput months={monthsPl} weekdays={weekdaysPl} startingDay={'Pn'} onChange={(value) => console.log(value)} min={min} max={max} label='Date Picker PL with Min/Max'/>
                     </Col>
                     <Col span={1}/>
                 </Row>
@@ -35,7 +51,23 @@ export const DatePickerInputDocs = () => {
                     </CodeBlock>
                     <CodeBlock>
                         {/* language=text */}
-                        {`<DatePickerInput onChange={(value) => console.log(value)} min={min} max={max} label='Date Picker with Min/Max'/>`}
+                        {`
+                        const weekdaysPl = ['Nd', 'Pn', 'Wt', 'Śr', 'Czw', 'Pt', 'Sb'];
+                        const monthsPl = [
+                            'Styczeń',
+                            'Luty',
+                            'Marzec',
+                            'Kwiecień',
+                            'Maj',
+                            'Czerwiec',
+                            'Lipiec',
+                            'Sierpień',
+                            'Wrzesień',
+                            'Październik',
+                            'Listopad',
+                            'Grudzień'
+                        ];
+                       <DatePickerInput months={monthsPl} weekdays={weekdaysPl} startingDay={'Pn'} onChange={(value) => console.log(value)} min={min} max={max} label='Date Picker PL with Min/Max'/>`}
                     </CodeBlock>
                 </Col>
             </ZoriaDocsPanel.Code>

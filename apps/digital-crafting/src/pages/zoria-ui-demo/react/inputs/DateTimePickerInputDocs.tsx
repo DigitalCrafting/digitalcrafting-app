@@ -11,7 +11,11 @@ export const DateTimePickerInputDocs = () => {
                     <Col span={4}>
                         <DateTimePickerInput onChange={(value) => console.log(value)} label='Date Time Picker'/>
                     </Col>
-                    <Col span={7}/>
+                    <Col span={2}/>
+                    <Col span={4}>
+                        <DateTimePickerInput minHour={9} maxHour={18} maxMin={0} onChange={(value) => console.log(value)} label='Date Time Picker 9 - 5'/>
+                    </Col>
+                    <Col span={1}/>
                 </Row>
             </ZoriaDocsPanel.Demo>
             <ZoriaDocsPanel.Code>
