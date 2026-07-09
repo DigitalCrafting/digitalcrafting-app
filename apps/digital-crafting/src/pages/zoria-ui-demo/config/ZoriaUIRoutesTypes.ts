@@ -38,6 +38,7 @@ export const ZoriaUISubroutesPathsEnum = {
     TEXT: 'text',
     HEADERS: 'headers',
     ICONS: 'icons',
+    LISTS: 'lists',
 
     // Buttons
     BUTTON: 'button',
@@ -54,8 +55,9 @@ export const ZoriaUIDocsRoutesList = [
 
 export const ZoriaUIDocsRoutes: Partial<Record<ZoriaUIRoutePathsEnum, string[]>> = {
     [ZoriaUIRoutePathsEnum.TYPOGRAPHY]: [
-        ZoriaUISubroutesPathsEnum.TEXT,
         ZoriaUISubroutesPathsEnum.HEADERS,
+        ZoriaUISubroutesPathsEnum.TEXT,
+        ZoriaUISubroutesPathsEnum.LISTS,
         ZoriaUISubroutesPathsEnum.ICONS,
     ],
     [ZoriaUIRoutePathsEnum.BUTTONS]: [

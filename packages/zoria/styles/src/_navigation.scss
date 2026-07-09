@@ -4,7 +4,7 @@
   width: 100%;
 
   &-item {
-    padding: 4px 8px;
+    padding: 4px 16px;
 
     &:focus-visible {
       box-shadow: var(--z-theme-focus-shadow-inset);
@@ -23,6 +23,13 @@
     &.is-selected {
       background-color: var(--z-color-neutral-selected-bg);
     }
+  }
+
+  > .z-navigation-item {
+    font-size: var(--font-size-h4);
+    line-height: var(--line-height-normal);
+    font-weight: var(--font-weight-medium);
+
   }
 
   &-section {

@@ -13,8 +13,10 @@ export const ZoriaUIDemoPage = () => {
             <Sidebar.Header>Zoria UI</Sidebar.Header>
             <Sidebar.Body>
                 <Navigation>
+                    <Navigation.Item as={Link} active={pathname.endsWith('/zoria') || pathname.endsWith('/zoria/')}
+                                     to={`/zoria`}>About</Navigation.Item>
                     <Navigation.Section defaultOpen={pathname.includes('/react')} title={'@zoria-ui/react'}>
-                        <Navigation.Item key={'about'} as={Link} active={pathname.endsWith('react/about')}
+                        <Navigation.Item as={Link} active={pathname.endsWith('react/about')}
                                          to={`/zoria/react/about`}>About</Navigation.Item>
                         {
                             ZoriaUIDocsRoutesList.map(route => {
@@ -37,6 +39,14 @@ export const ZoriaUIDemoPage = () => {
                         <Navigation.Item as={Link} active={pathname.endsWith('forms/demo')}
                                          to='/zoria/forms/demo'>Demo</Navigation.Item>
                     </Navigation.Section>
+                    <Navigation.Section defaultOpen={pathname.includes('/events')} title={'@zoria-ui/events'}>
+                        <Navigation.Item as={Link} active={pathname.endsWith('events/about')}
+                                         to='/zoria/events/about'>About</Navigation.Item>
+                        <Navigation.Item as={Link} active={pathname.endsWith('events/event-emitter')}
+                                         to='/zoria/events/event-emitter'>EventEmitter</Navigation.Item>
+                    </Navigation.Section>
+
+
                 </Navigation>
             </Sidebar.Body>
         </Sidebar>

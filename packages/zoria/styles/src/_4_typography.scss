@@ -158,3 +158,28 @@ h6, .z-h6 {
   border-radius: 6px;
   width: fit-content;
 }
+
+.z-ul {
+  list-style-type: disc;
+  list-style-position: outside;
+
+  &-marker-none {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.z-ol {
+  list-style-position: outside;
+
+  &-marker-none {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.z-li {
+
+}

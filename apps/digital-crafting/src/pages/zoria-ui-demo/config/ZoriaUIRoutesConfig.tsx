@@ -1,5 +1,5 @@
 import {ZoriaUIRoutePathsEnum, ZoriaUISubroutesPathsEnum} from "./ZoriaUIRoutesTypes.ts";
-import type {RouteObject} from "react-router-dom";
+import {redirect, type RouteObject} from "react-router-dom";
 import {TextDocs} from "../react/typography/TextDocs.tsx";
 import {ZoriaUiReactAbout} from "../react/ZoriaUiReactAbout.tsx";
 import {ModalDocs} from "../react/display/ModalDocs.tsx";
@@ -30,14 +30,27 @@ import {IconsDocs} from "../react/typography/IconsDocs.tsx";
 import {HeadersDocs} from "../react/typography/HeadersDocs.tsx";
 import {FormsDocs} from "../forms/FormsDocs.tsx";
 import {ZoriaUiFormsAbout} from "../forms/ZoriaUiFormsAbout.tsx";
+import {ZoriaUiAbout} from "../ZoriaUiAbout.tsx";
+import {ZoriaUiEventsAbout} from "../events/ZoriaUiEventsAbout.tsx";
+import {EventEmitterDocs} from "../events/EventEmitterDocs.tsx";
+import {ListsDocs} from "../react/typography/ListsDocs.tsx";
 
 export const ZoriaUIRoutesConfig: RouteObject[] = [
+    {
+        path: '',
+        index: true,
+        Component: ZoriaUiAbout
+    },
     {
         path: 'react',
         children: [
             {
-                path: `about`,
+                path: ``,
                 index: true,
+                loader: () => redirect('/zoria/react/about')
+            },
+            {
+                path: `about`,
                 Component: ZoriaUiReactAbout
             },
             {
@@ -54,6 +67,10 @@ export const ZoriaUIRoutesConfig: RouteObject[] = [
                     {
                         path: `${ZoriaUISubroutesPathsEnum.ICONS}`,
                         Component: IconsDocs
+                    },
+                    {
+                        path: `${ZoriaUISubroutesPathsEnum.LISTS}`,
+                        Component: ListsDocs
                     }
                 ]
             },
@@ -172,13 +189,34 @@ export const ZoriaUIRoutesConfig: RouteObject[] = [
         path: 'forms',
         children: [
             {
-                path: `about`,
+                path: '',
                 index: true,
+                loader: () => redirect('/zoria/forms/about')
+            },
+            {
+                path: `about`,
                 Component: ZoriaUiFormsAbout,
             },
             {
                 path: 'demo',
                 Component: FormsDocs
+            }
+        ]
+    },
+    {
+        path: 'events',
+        children: [
+            {
+                path: '',
+                index: true,
+                loader: () => redirect('/zoria/events/about')
+            }, {
+                path: 'about',
+                Component: ZoriaUiEventsAbout
+            },
+            {
+                path: 'event-emitter',
+                Component: EventEmitterDocs
             }
         ]
     }

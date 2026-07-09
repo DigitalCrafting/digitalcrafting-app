@@ -84,3 +84,34 @@ export function H5({children, className = '', 'data-testid': dataTestId}: React.
 export function H6({children, className = '', 'data-testid': dataTestId}: React.PropsWithChildren<HeaderProps>) {
     return <h6 className={`z-h z-h6 ${className}`.trim()} data-testid={dataTestId}>{children}</h6>
 }
+
+export interface LiProps {
+    className?: string,
+    'data-testid'?: string
+}
+
+export function Li({children, className = '', 'data-testid': dataTestId}: React.PropsWithChildren<LiProps>) {
+    return <li className={`z-li ${className}`} data-testid={dataTestId}>{children}</li>
+}
+
+export interface UlProps {
+    className?: string,
+    'data-testid'?: string
+    removeMarkers?: boolean
+    children: React.ReactElement<typeof Li> | React.ReactElement<typeof Li>[]
+}
+
+export function Ul({children, className = '', 'data-testid': dataTestId, removeMarkers = false}: UlProps) {
+    return <ul className={`z-ul ${removeMarkers ? 'z-ul-marker-none' : ''} ${className}`} data-testid={dataTestId}>{children}</ul>
+}
+
+export interface OlProps {
+    className?: string,
+    'data-testid'?: string
+    removeMarkers?: boolean
+    children: React.ReactElement<typeof Li> | React.ReactElement<typeof Li>[]
+}
+
+export function Ol({children, className = '', 'data-testid': dataTestId, removeMarkers = false}: OlProps) {
+    return <ol className={`z-ol ${removeMarkers ? 'z-ol-marker-none' : ''} ${className}`} data-testid={dataTestId}>{children}</ol>
+}
