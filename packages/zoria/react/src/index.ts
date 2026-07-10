@@ -63,3 +63,9 @@ export * from "./utils/FocusableElementsObserver";
 export * from "./utils/StringUtils";
 export * from "./utils/TimeUtils";
 export * from "./utils/Utils";
+
+declare const process: { env: { NODE_ENV: string } };
+
+if (process.env.NODE_ENV === 'development') {
+    console.log('Thank you for using this library! If it saved you time, consider supporting: https://buymeacoffee.com/digitalcrafting');
+}

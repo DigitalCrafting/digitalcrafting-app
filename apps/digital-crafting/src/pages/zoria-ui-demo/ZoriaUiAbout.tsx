@@ -48,15 +48,23 @@ export const ZoriaUiAbout = () => {
                     </Text>
                 </Col>
                 <Col gap='sm'>
-                    <H2>Features & Update</H2>
+                    <H2>Future Features & Updates</H2>
                     <Text>
                         The libraries are supposed to solve problems or implement requirements I encountered during my 12+ years of experience.
-                        I will update them for as long I need or feel like it, and I will not accept any contributions.
-                        You are free to look at the source code as an inspiration if you're solo developer.
                     </Text>
                     <Text>
                         For additional features, I plan to create <CodeLine>@zoria-ui/rest-client</CodeLine> and <CodeLine>@zoria-ui/store</CodeLine>.
                     </Text>
+                </Col>
+                <Col gap='sm'>
+                    <H2>Disclaimer</H2>
+                    <Text>
+                        I will update them for as long I need or feel like it, and, for now at least, I will not accept any contributions,
+                        because the "shape" of the libraries is still work in progress, I learn new things all the time, better or simpler ways of doing something,
+                        and I need to understand everything about my code until the general style and conventions are stable and unified.
+                        You are free to look at the source code as an inspiration if you're solo developer.
+                    </Text>
+                    <Text>If you find it useful, you can <Link href='https://buymeacoffee.com/digitalcrafting'>buy me a coffee</Link>.</Text>
                 </Col>
             </Col>
         </Panel.Body>
