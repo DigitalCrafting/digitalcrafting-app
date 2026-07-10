@@ -14,6 +14,7 @@ export const ZoriaUiAbout = () => {
                     </Text>
                     <Ul>
                         <Li><Link href='https://www.npmjs.com/package/@zoria-ui/styles'>@zoria-ui/styles</Link></Li>
+                        <Li><Link href='https://www.npmjs.com/package/@zoria-ui/react'>@zoria-ui/react</Link></Li>
                         <Li><Link href='https://www.npmjs.com/package/@zoria-ui/react'>@zoria-ui/forms</Link></Li>
                         <Li><Link
                             href='https://www.npmjs.com/package/@zoria-ui/forms-react'>@zoria-ui/forms-react</Link></Li>
