@@ -1,7 +1,7 @@
 {
   "name": "@zoria-ui/utils",
   "private": false,
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A from scratch utils library for personal projects (Work in Progress).",
   "repository": {
     "url": "https://github.com/DigitalCrafting/digitalcrafting-app/tree/master/packages/zoria/utils"
