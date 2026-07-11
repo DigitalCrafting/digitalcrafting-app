@@ -1,10 +1,12 @@
 import * as React from "react";
-import {ExpandCollapse} from "../expand-collapse/ExpandCollapse";
+import {ExpandCollapse, useExpandCollapseContext} from "../expand-collapse/ExpandCollapse";
 
 /* TODO chevron is aligned differently than in *DocsPanel components */
 function PanelHeader({children, ...rest}: React.PropsWithChildren) {
+    const {isExpanded} = useExpandCollapseContext();
+
     return <ExpandCollapse.Trigger asChild>
-        <div {...rest} className={`z-panel-header z-expand-collapse-trigger`}>
+        <div {...rest} className={`z-panel-header z-expand-collapse-trigger`} data-expanded={isExpanded}>
             {children}
             <ExpandCollapse.Chevron />
         </div>

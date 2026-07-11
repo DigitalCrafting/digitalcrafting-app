@@ -23,6 +23,7 @@ export const ZoriaUiReactAbout = () => {
                     </Ul>
                 </Col>
                 <Text>You can see the code at <Link href='https://github.com/DigitalCrafting/digitalcrafting-app/tree/master/packages/zoria/react'>https://github.com/DigitalCrafting</Link></Text>
+                <Text>If you find it useful, you can <Link href='https://buymeacoffee.com/digitalcrafting'>buy me a coffee</Link>.</Text>
             </Col>
         </Panel.Body>
     </Panel>

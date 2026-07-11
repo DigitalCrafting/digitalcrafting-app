@@ -3,7 +3,6 @@ import {useRef, useState} from 'react';
 import type {PolymorphicComponentProps} from "../../types/PolimorphicType";
 import {ChevronDownIcon, ChevronUpIcon} from "../icons/Icons";
 import {useKeyboardClick} from "../../hooks/useKeyboardClick";
-import {H4, H5} from "../typography/Typography";
 
 interface NavSectionContextType {
     isOpen: boolean
@@ -58,7 +57,7 @@ const NavSubsection = ({title, defaultOpen = false, children}: NavSubSectionProp
     return <section className={`z-navigation-subsection ${isOpen ? 'z-navigation-subsection-open' : ''}`}>
         <div className={`z-navigation-subsection-header ${isOpen ? 'z-navigation-subsection-open' : ''}`}
              onClick={toggleOpen} onKeyDown={onKeyDown} tabIndex={parentOpen ? 0 : -1}>
-            <H5>{title}</H5> {isOpen ? <ChevronUpIcon size='md'/> : <ChevronDownIcon size='md'/>}
+            {title} {isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
         </div>
         <div className={`z-navigation-subsection-animate-wrapper ${isOpen ? 'z-open' : ''}`}>
             <NavSectionContext.Provider value={{isOpen}}>
@@ -91,7 +90,7 @@ const NavSection = ({children, defaultOpen = false, title}: NavSectionProps) => 
     return <section className={`z-navigation-section ${isOpen ? 'z-navigation-section-open' : ''}`}>
         <div tabIndex={0} className={`z-navigation-section-header ${isOpen ? 'z-navigation-section-open' : ''}`}
              onClick={toggleOpen} onKeyDown={onKeyDown}>
-            <H4>{title}</H4> {isOpen ? <ChevronUpIcon size='md'/> : <ChevronDownIcon size='md'/>}
+            {title} {isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
         </div>
         <div className={`z-navigation-section-animate-wrapper ${isOpen ? 'z-open' : ''}`}>
             <NavSectionContext.Provider value={{isOpen}}>

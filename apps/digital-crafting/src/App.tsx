@@ -4,6 +4,7 @@ import {DCHeader} from "./components/DCHeader.tsx";
 import {DCBody} from "./components/DCBody.tsx";
 import {useEffect} from "react";
 import {useIsRootRoute} from "./routes/useIsRootRoute.tsx";
+import {useIsZoriaRoute} from "./routes/useIsZoriaRoute.tsx";
 
 function App() {
     useEffect(() => {
@@ -12,10 +13,18 @@ function App() {
     }, []);
 
     const isRoot = useIsRootRoute();
+    const isZoria = useIsZoriaRoute();
+
+    let className = '';
+    if (isZoria) {
+        className = 'dc-zoria-page';
+    } else if (isRoot) {
+        className = 'dc-landing-page'
+    }
 
     return (
         <ZoriaProvider>
-            <Layout className={`dc ${isRoot ? 'dc-landing-page' : ''}`}>
+            <Layout className={`dc ${className}`}>
                 <DCHeader/>
                 <DCBody/>
             </Layout>

@@ -1,3 +1,8 @@
+:root {
+  --z-sidebar-backgroud: var(--z-color-surface);
+  --z-sidebar-shadow: var(--shadow-2);
+}
+
 .z-sidebar {
   height: 100%;
   width: 260px;
@@ -7,9 +12,8 @@
   gap: 12px;
   padding: 12px 0;
 
-  //oklch(0.2199 0.0511 260.5)
-  background: var(--z-color-surface);
-  box-shadow: var(--shadow-2);
+  background: var(--z-sidebar-backgroud);
+  box-shadow: var(--z-sidebar-shadow);
 
   will-change: transform;
 
@@ -29,26 +33,55 @@
     flex: 1;
     flex-wrap: nowrap;
     overflow-y: auto;
-    //scrollbar-gutter: stable;
-    scrollbar-width: thin;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    --mask-top: black 0%;
+    --mask-bottom: black 100%;
+
+    mask-image: linear-gradient(
+            to bottom,
+            transparent 0%,
+            var(--mask-top),
+            var(--mask-bottom),
+            transparent 100%
+    );
+    -webkit-mask-image: mask-image;
+
+    transition: mask-image 0.15s ease;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    &[data-scroll-top="true"] {
+      --mask-top: black 8%;
+    }
+
+    &[data-scroll-bottom="true"] {
+      --mask-bottom: black 92%;
+    }
   }
 
   &-trigger {
     position: absolute;
     top: 8px;
     right: 4px;
+    background-color: var(--z-sidebar-backgroud);
+
+    &:hover {
+      background-color: var(--z-navigation-background-hover);
+    }
   }
 
   &.collapsed {
     width: 44px;
 
     .z-sidebar-header-title {
-      //transition: opacity 0.2s ease 0.1s;
       opacity: 0;
     }
 
     .z-sidebar-body {
-      //transition: opacity 0.2s ease 0.1s;
       opacity: 0;
     }
   }

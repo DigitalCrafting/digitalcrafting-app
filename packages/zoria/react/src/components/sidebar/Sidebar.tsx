@@ -1,6 +1,6 @@
 import type {ZoriaProps} from "../../types/CommonTypes";
 import * as React from "react";
-import {createContext, useContext, useEffect, useState} from "react";
+import {createContext, useContext, useEffect, useRef, useState} from "react";
 import {EventEmitter} from "@zoria-ui/events";
 import {IconButton} from "../buttons/IconButton";
 import {MenuIcon, XIcon} from "../icons/Icons";
@@ -26,8 +26,44 @@ const SidebarHeader = ({children}: React.PropsWithChildren) => {
 }
 
 const SidebarBody = ({children}: React.PropsWithChildren) => {
-    return <div className='z-sidebar-body'>
-        {children}
+    const scrollRef = useRef<HTMLDivElement>(null);
+    const wrapperRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const scrollable = scrollRef.current;
+        const wrapper = wrapperRef.current;
+        if (!scrollable || !wrapper) return;
+
+        const updateMasks = () => {
+            const isTopFaded = scrollable.scrollTop > 5;
+            const isBottomFaded = scrollable.scrollTop + scrollable.clientHeight < scrollable.scrollHeight - 1;
+
+            scrollable.setAttribute('data-scroll-top', isTopFaded.toString());
+            scrollable.setAttribute('data-scroll-bottom', isBottomFaded.toString());
+        };
+
+        updateMasks();
+
+        scrollable.addEventListener('scroll', updateMasks, { passive: true });
+
+        const observer = new ResizeObserver(() => {
+            requestAnimationFrame(updateMasks);
+        });
+
+        observer.observe(wrapper);
+
+        return () => {
+            scrollable.removeEventListener('scroll', updateMasks);
+            observer.disconnect();
+        };
+    }, []);
+
+    return <div
+        ref={scrollRef}
+        className={`z-sidebar-body`}>
+        <div ref={wrapperRef} className={`z-sidebar-children-wrapper`}>
+            {children}
+        </div>
     </div>
 }
 
