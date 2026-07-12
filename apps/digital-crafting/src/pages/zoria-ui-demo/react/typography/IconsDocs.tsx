@@ -41,7 +41,7 @@ import {
     Tooltip,
     TriangleAlertIcon,
     WifiIcon,
-    XIcon, CirclePlusIcon, CircleMinusIcon
+    XIcon, CirclePlusIcon, CircleMinusIcon, PaletteIcon
 } from "@zoria-ui/react";
 
 const ICONS = [
@@ -91,7 +91,8 @@ const ICONS = [
     EyeOffIcon,
     SearchIcon,
     CirclePlusIcon,
-    CircleMinusIcon
+    CircleMinusIcon,
+    PaletteIcon
 ]
 
 export function IconsDocs() {

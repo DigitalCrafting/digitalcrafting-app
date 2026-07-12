@@ -19,6 +19,7 @@ interface SelectInputInternalProps<T = string> {
     disabled?: boolean;
     compact?: boolean;
     value?: T;
+    defaultValue?: T;
     valueDecoration?: string;
     placeholder?: string;
     onChange?: (value: any) => void;
@@ -39,9 +40,9 @@ const NativeSelectInput = ({
     onChange,
     native,
     options,
+    defaultValue,
     ...props
 }: NativeSelectInputProps) => {
-
     const internalOnChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const value = event.target.value;
         onChange?.(value);
@@ -59,7 +60,7 @@ const NativeSelectInput = ({
             hideLabel ? null : <label className='z-input-label' htmlFor={id}>{label}</label>
         }
         <div className='z-input-container'>
-            <select className='z-input z-select' value={value} {...props} onChange={internalOnChange} id={id}
+            <select className='z-input z-select' defaultValue={defaultValue} value={value} {...props} onChange={internalOnChange} id={id}
                     disabled={disabled}>
                 {
                     options.map(option => (
@@ -155,13 +156,14 @@ const ZoriaSelectInput = ({
     disabled,
     compact = false,
     value = undefined,
+    defaultValue,
     valueDecoration = '',
     placeholder,
     onChange,
     options,
     ...props
 }: ZoriaSelectInputProps) => {
-    const [currentlySelected, setCurrentlySelected] = useState<ZoriaSelectOption<any, any> | undefined>(options.find(option => option.value === value));
+    const [currentlySelected, setCurrentlySelected] = useState<ZoriaSelectOption<any, any> | undefined>(options.find(option => option.value === defaultValue));
     const [width, setWidth] = useState(0);
     const popoverRef = useRef<PopoverHandle>(null);
     const containerRef = useRef<HTMLDivElement>(null);

@@ -1,28 +1,43 @@
-import {Col, Container, Layout, Row, Text, Toggle, TopBar} from "@zoria-ui/react";
+import {
+    Card,
+    Col,
+    Container,
+    IconButton,
+    Layout,
+    PaletteIcon,
+    Popover,
+    RadioGroup,
+    Row,
+    Text,
+    TopBar
+} from "@zoria-ui/react";
 import {Link} from "react-router-dom";
-import {useEffect, useState} from "react";
 import {useIsRootRoute} from "../routes/useIsRootRoute.tsx";
+import {useEffect, useState} from "react";
 
 export const DCHeader = () => {
-    const [darkThemeEnabled, setDarkThemeEnabled] = useState(false);
+    const defaultTheme = localStorage.getItem('zoria-default-theme') || 'zoria';
+    const [currentTheme, setCurrentTheme] = useState(defaultTheme);
     const isRoot = useIsRootRoute();
 
-    useEffect(() => {
-        if (darkThemeEnabled && !isRoot) {
-            document.documentElement.setAttribute('data-theme', 'dark');
+    const toggleTheme = (theme: string) => {
+        if (!isRoot) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('zoria-default-theme', theme);
+            setCurrentTheme(theme);
         } else {
             document.documentElement.removeAttribute('data-theme');
         }
-    }, [darkThemeEnabled, isRoot]);
-
-    const toggleDartTheme = () => {
-        setDarkThemeEnabled(prev => !prev);
     }
+
+    useEffect(() => {
+        toggleTheme(currentTheme);
+    }, []);
 
     return (<Layout.Header>
         <TopBar className='w-100'>
-            <Container className='w-100'>
-                <Row className='justify-space-between'>
+            <Container className='dc-header w-100'>
+                <Row className='justify-space-between align-items-center'>
                     <Col>
                         <Row>
                             <Link className='nav-link' to="/"><Text>Home</Text></Link>
@@ -32,9 +47,25 @@ export const DCHeader = () => {
                     </Col>
                     {
                         isRoot ? null :
-                        <Col>
-                            <Toggle checked={darkThemeEnabled} onChange={toggleDartTheme}/>
-                        </Col>
+                            <Col span={1} className='justify-items-end'>
+                                <Popover>
+                                    <Popover.Trigger className='align-self-end'>
+                                        <IconButton>
+                                            <PaletteIcon size='md'/>
+                                        </IconButton>
+                                    </Popover.Trigger>
+                                    <Popover.Body trapFocus>
+                                        <Card>
+                                            <RadioGroup defaultValue={currentTheme} name='theme-group'
+                                                        onChange={toggleTheme}>
+                                                <RadioGroup.Item value='zoria'>zoria</RadioGroup.Item>
+                                                <RadioGroup.Item value='ligth'>light</RadioGroup.Item>
+                                                <RadioGroup.Item value='dark'>dark</RadioGroup.Item>
+                                            </RadioGroup>
+                                        </Card>
+                                    </Popover.Body>
+                                </Popover>
+                            </Col>
                     }
                 </Row>
             </Container>

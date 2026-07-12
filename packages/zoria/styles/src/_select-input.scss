@@ -1,3 +1,11 @@
+:root {
+  --z-select-options-focused-text-color: var(--z-color-text-inverse);
+
+  &[data-theme='dark'] {
+    --z-select-options-focused-text-color: var(--z-color-text);
+  }
+}
+
 .z-select-wrapper {
   .z-select {
     appearance: none;
@@ -117,12 +125,12 @@
     }
 
     &:hover {
-      color: var(--z-color-text-inverse);
+      color: var(--z-select-options-focused-text-color);
       background-color: var(--z-color-accent-hover);
     }
 
     &.is-selected {
-      color: var(--z-color-text-inverse);
+      color: var(--z-select-options-focused-text-color);
       background-color: var(--z-color-accent-selected-bg);
     }
 
@@ -130,7 +138,7 @@
     &:focus-visible,
     &.is-focused {
       outline: 0;
-      color: var(--z-color-text-inverse);
+      color: var(--z-select-options-focused-text-color);
       background-color: var(--z-color-accent-hover);
     }
   }

@@ -4,21 +4,29 @@
     text-decoration: none;
   }
 
-  &.dc-landing-page {
-    color: var(--z-color-text-inverse);
+  &-header {
+    .z-icon-button {
+      background-color: unset;
+    }
+  }
+
+  &.dc-landing-page,
+  {
+    color: var(--color-white);
 
     .nav-link {
-      color: var(--z-color-text-inverse);
+      color: var(--color-white);
     }
 
     .z-text {
-      color: var(--z-color-text-inverse);
+      color: var(--color-white);
       text-decoration: none;
     }
 
     .z-top-bar {
       background-color: var(--zoria-blue-95);
       box-shadow: unset;
+      border: none;
     }
 
     .z-layout-body {
@@ -27,38 +35,25 @@
   }
 }
 
-:root:not([data-theme='dark']) {
-  --zoria-blue-95: oklch(21.19% 0.07 243.93);
-  --zoria-blue-90: oklch(24.19% 0.09 243.93);
-  --zoria-blue-80: oklch(27.50% 0.10 243.93);
-  --zoria-blue-70: oklch(30.19% 0.12 243.93);
-  --zoria-blue-60: oklch(33.19% 0.13 243.93);
-  --zoria-blue-50: oklch(36.19% 0.14 243.93);
-  --zoria-blue-40: oklch(39.19% 0.16 243.93);
-  --zoria-blue-30: oklch(42.19% 0.16 243.93);
-  --zoria-blue-20: oklch(45.19% 0.16 243.93);
-  --zoria-blue-10: oklch(55.19% 0.16 243.93);
+:root[data-theme='zoria'] {
+  .dc:not(.dc-landing-page) {
+    .z-top-bar {
+      color: var(--z-color-text-inverse);
+      background-color: var(--zoria-blue-95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 
-  .dc {
-    &.dc-zoria-page {
-      .z-top-bar {
+      .z-text {
         color: var(--z-color-text-inverse);
-        background-color: var(--zoria-blue-95);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-
-        .z-text {
-          color: var(--z-color-text-inverse);
-          text-decoration: none;
-        }
+        text-decoration: none;
       }
+    }
 
-      .z-sidebar {
-        color: var(--z-color-text-inverse);
-      }
+    .z-sidebar {
+      color: var(--z-color-text-inverse);
+    }
 
-      .z-navigation {
-        color: var(--z-color-text-inverse);
-      }
+    .z-navigation {
+      color: var(--z-color-text-inverse);
     }
   }
 
@@ -67,7 +62,7 @@
 
   --z-navigation-focus-shadow: var(--z-theme-focus-shadow-inset);
   --z-navigation-background-hover: var(--zoria-blue-50);
-  --z-navigation-background-selected: var(--zoria-blue-70);
+  --z-navigation-background-selected: var(--zoria-blue-60);
   --z-navigation-background-active: var(--zoria-blue-60);
 
   --z-sidebar-backgroud: var(--zoria-blue-80);

@@ -4,6 +4,11 @@
   /* TODO fix not being hidden by modal if the popover is always open */
   z-index: var(--z-popover);
 
+  &-trigger {
+    display: flex;
+    width: fit-content;
+  }
+
   &-body {
     border: none;
     display: flex;

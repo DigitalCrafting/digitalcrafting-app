@@ -28,11 +28,11 @@ function usePopoverContext() {
 
 interface PopoverTriggerProps {
     children: React.ReactElement<any>,
-    content?: React.ReactElement<typeof PopoverBody>,
     disabled?: boolean,
+    className?: string
 }
 
-function PopoverTrigger({children, disabled = false}: PopoverTriggerProps) {
+function PopoverTrigger({children, disabled = false, className: externalClassName = ''}: PopoverTriggerProps) {
     const {open, setOpen, triggerRef} = usePopoverContext();
 
     const onClick = () => {
@@ -46,6 +46,7 @@ function PopoverTrigger({children, disabled = false}: PopoverTriggerProps) {
     return <div
         // @ts-ignore
         ref={triggerRef}
+        className={`z-popover-trigger ${externalClassName}`.trim()}
         aria-expanded={open}
         aria-haspopup='dialog'
         data-state={open ? 'open' : 'closed'}

@@ -1,7 +1,9 @@
 import * as React from "react";
+import {useState} from "react";
 
 interface RadioGroupContextType {
     name: string,
+    value: any,
     onChange: (value: any) => void
 }
 
@@ -15,26 +17,39 @@ interface RadioGroupItemProps {
     value: any
 }
 
-const RadioGroupItem = ({children, className: externalClassName = '', value}: RadioGroupItemProps) => {
-    const {name, onChange} = useRadioGroupContext();
+const RadioGroupItem = ({children, className: externalClassName = '', value: radioValue}: RadioGroupItemProps) => {
+    const {name, onChange, value} = useRadioGroupContext();
 
     return <label className={`z-radio ${externalClassName}`.trim()}>
-        <input type='radio' name={name} value={value} onChange={(e) => onChange(e.target.value)}/>
+        {/* @ts-ignore */}
+        <input readOnly type='radio' checked={radioValue === value} name={name} value={radioValue} onClick={() => onChange(radioValue)}/>
         <span className="z-radio-box" />
         <span className="z-radio-label">{children}</span>
     </label>
 }
 
 interface RadioGroupProps {
-    name: string
-    className?: string
-    children: React.ReactElement<typeof RadioGroupItem>[]
-    onChange?: (value: any) => void
+    name: string;
+    className?: string;
+    children: React.ReactElement<typeof RadioGroupItem>[];
+    value?: any;
+    defaultValue?: any;
+    onChange?: (value: any) => void;
+    isControlled?: boolean;
 }
 
-const RadioGroupInternal = ({children, name, onChange = () => {}, className: externalClassName = ''}: RadioGroupProps) => {
+const RadioGroupInternal = ({children, name, value: externalValue, defaultValue, isControlled = false, onChange: externalOnChange = () => {}, className: externalClassName = ''}: RadioGroupProps) => {
+    const [internalValue, setInternalValue] = useState(defaultValue);
+    const internalOnChange = (value: any) => {
+        setInternalValue(value);
+        externalOnChange?.(value);
+    }
 
-    return <RadioGroupContext.Provider value={{name, onChange}}>
+    const value = isControlled ? externalValue : internalValue;
+
+    const onChange = isControlled ? externalOnChange : internalOnChange;
+
+    return <RadioGroupContext.Provider value={{name, onChange, value}}>
         <div className={`z-radio-group ${externalClassName}`.trim()}>
             {children}
         </div>

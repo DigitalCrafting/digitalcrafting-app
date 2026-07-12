@@ -36,6 +36,7 @@
     &.is-selected {
       background-color: var(--z-navigation-background-selected);
       border-right: var(--z-navigation-border-selected);
+      font-weight: var(--font-weight-semibold);
     }
 
     &:hover {
@@ -48,6 +49,10 @@
     font-size: var(--font-size-h5);
     line-height: var(--line-height-normal);
     font-weight: var(--font-weight-normal);
+
+    &.is-selected {
+      font-weight: var(--font-weight-semibold);
+    }
   }
 
   &-section {
@@ -123,7 +128,7 @@
 
     .z-navigation-item {
       padding-left: 48px;
-      font-size: var(--font-size-sm);
+      font-size: var(--font-size-md);
       line-height: var(--line-height-normal);
     }
 
