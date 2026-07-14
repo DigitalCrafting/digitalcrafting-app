@@ -16,22 +16,21 @@ import {useIsRootRoute} from "../routes/useIsRootRoute.tsx";
 import {useEffect, useState} from "react";
 
 export const DCHeader = () => {
-    const defaultTheme = localStorage.getItem('zoria-default-theme') || 'zoria';
-    const [currentTheme, setCurrentTheme] = useState(defaultTheme);
+    const [currentTheme, setCurrentTheme] = useState('zoria');
     const isRoot = useIsRootRoute();
 
     const toggleTheme = (theme: string) => {
-        if (!isRoot) {
-            document.documentElement.setAttribute('data-theme', theme);
-            localStorage.setItem('zoria-default-theme', theme);
-            setCurrentTheme(theme);
-        } else {
-            document.documentElement.removeAttribute('data-theme');
-        }
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('zoria-default-theme', theme);
+        setCurrentTheme(theme);
     }
 
     useEffect(() => {
-        toggleTheme(currentTheme);
+        const defaultTheme = localStorage.getItem('zoria-default-theme');
+        if (!defaultTheme || !defaultTheme.trim().length) {
+            toggleTheme(defaultTheme!);
+        }
+        toggleTheme('zoria');
     }, []);
 
     return (<Layout.Header>
