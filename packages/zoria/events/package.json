@@ -1,7 +1,7 @@
 {
   "name": "@zoria-ui/events",
   "private": false,
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "A from scratch events library for personal projects (Work in Progress).",
   "repository": {
     "url": "https://github.com/DigitalCrafting/digitalcrafting-app/tree/master/packages/zoria/events"

@@ -1,6 +1,6 @@
 {
   "name": "@zoria-ui/forms-inputs-react",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "An Input controllers for an Angular-inspired forms library for personal projects (Work in Progress).",
   "repository": {
     "url": "https://github.com/DigitalCrafting/digitalcrafting-app/tree/master/packages/zoria/forms-inputs-react"
