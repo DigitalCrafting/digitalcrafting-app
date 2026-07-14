@@ -34,6 +34,9 @@ import {ZoriaUiAbout} from "../ZoriaUiAbout.tsx";
 import {ZoriaUiEventsAbout} from "../events/ZoriaUiEventsAbout.tsx";
 import {EventEmitterDocs} from "../events/EventEmitterDocs.tsx";
 import {ListsDocs} from "../react/typography/ListsDocs.tsx";
+import {FlexDocs} from "../react/layout/FlexDocs.tsx";
+import {GridDocs} from "../react/layout/grid/GridDocs.tsx";
+import {SpacingDocs} from "../react/layout/SpacingDocs.tsx";
 
 export const ZoriaUIRoutesConfig: RouteObject[] = [
     {
@@ -52,6 +55,23 @@ export const ZoriaUIRoutesConfig: RouteObject[] = [
             {
                 path: `about`,
                 Component: ZoriaUiReactAbout
+            },
+            {
+                path: `${ZoriaUIRoutePathsEnum.LAYOUT}`,
+                children: [
+                    {
+                        path: `${ZoriaUISubroutesPathsEnum.FLEX}`,
+                        Component: FlexDocs
+                    },
+                    {
+                        path: `${ZoriaUISubroutesPathsEnum.GRID}`,
+                        Component: GridDocs
+                    },
+                    {
+                        path: `${ZoriaUISubroutesPathsEnum.SPACING}`,
+                        Component: SpacingDocs
+                    },
+                ]
             },
             {
                 path: `${ZoriaUIRoutePathsEnum.TYPOGRAPHY}`,

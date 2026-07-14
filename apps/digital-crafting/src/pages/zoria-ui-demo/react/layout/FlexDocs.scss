@@ -1,0 +1,15 @@
+.flex-docs {
+  &-flex {
+    width: fit-content;
+    background-position: 0 0;
+    background-size: 8px 8px;
+    background-image: repeating-linear-gradient(315deg, currentColor 0 1px, #0000 0 50%);
+  }
+
+  &-item {
+    padding: var(--space-y-1) var(--space-x-1);
+    border-radius: var(--radius-md);
+    background-color: var(--zoria-blue-50);
+    color: var(--z-color-text-inverse);
+  }
+}

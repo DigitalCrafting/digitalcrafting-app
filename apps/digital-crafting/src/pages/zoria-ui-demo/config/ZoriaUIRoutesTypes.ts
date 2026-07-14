@@ -1,5 +1,6 @@
 export const ZoriaUIRoutePathsEnum = {
     ABOUT: 'about',
+    LAYOUT: 'layout',
     TYPOGRAPHY: 'typography',
     BUTTONS: 'buttons',
     INPUTS: 'inputs',
@@ -8,6 +9,11 @@ export const ZoriaUIRoutePathsEnum = {
 export type ZoriaUIRoutePathsEnum = (typeof ZoriaUIRoutePathsEnum)[keyof typeof ZoriaUIRoutePathsEnum];
 
 export const ZoriaUISubroutesPathsEnum = {
+    // Layout
+    FLEX: 'flex',
+    GRID: 'grid',
+    SPACING: 'spacing',
+
     // Inputs
     AUTOCOMPLETE_INPUT: 'autocomplete',
     CALENDAR: 'calendar',
@@ -47,6 +53,7 @@ export const ZoriaUISubroutesPathsEnum = {
 export type ZoriaUISubroutesPathsEnum = (typeof ZoriaUISubroutesPathsEnum)[keyof typeof ZoriaUISubroutesPathsEnum];
 
 export const ZoriaUIDocsRoutesList = [
+    ZoriaUIRoutePathsEnum.LAYOUT,
     ZoriaUIRoutePathsEnum.TYPOGRAPHY,
     ZoriaUIRoutePathsEnum.BUTTONS,
     ZoriaUIRoutePathsEnum.INPUTS,
@@ -54,6 +61,11 @@ export const ZoriaUIDocsRoutesList = [
 ]
 
 export const ZoriaUIDocsRoutes: Partial<Record<ZoriaUIRoutePathsEnum, string[]>> = {
+    [ZoriaUIRoutePathsEnum.LAYOUT]: [
+        ZoriaUISubroutesPathsEnum.FLEX,
+        ZoriaUISubroutesPathsEnum.GRID,
+        ZoriaUISubroutesPathsEnum.SPACING
+    ],
     [ZoriaUIRoutePathsEnum.TYPOGRAPHY]: [
         ZoriaUISubroutesPathsEnum.HEADERS,
         ZoriaUISubroutesPathsEnum.TEXT,

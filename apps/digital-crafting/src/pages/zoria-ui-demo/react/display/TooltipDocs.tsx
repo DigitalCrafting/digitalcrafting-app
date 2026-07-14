@@ -59,11 +59,7 @@ export function TooltipDocs() {
                     </CodeBlock>
                 </Col>
             </ZoriaDocsPanel.Code>
-            <ZoriaDocsPanel.Docs>
-                <Row className='justify-center'>
-                    WIP
-                </Row>
-            </ZoriaDocsPanel.Docs>
+                        <ZoriaDocsPanel.Docs/>
         </ZoriaDocsPanel.Body>
     </ZoriaDocsPanel>
 }

@@ -127,11 +127,7 @@ export const SelectInputDocs = () => {
                     </CodeBlock>
                 </Col>
             </ZoriaDocsPanel.Code>
-            <ZoriaDocsPanel.Docs>
-                <Row className='justify-center'>
-                    WIP
-                </Row>
-            </ZoriaDocsPanel.Docs>
+                        <ZoriaDocsPanel.Docs/>
         </ZoriaDocsPanel.Body>
     </ZoriaDocsPanel>;
 }

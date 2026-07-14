@@ -1,5 +1,5 @@
 import {Children, type PropsWithChildren, type ReactElement} from "react";
-import {Col, Container, ExpandCollapsePanel, H2, Tabs} from "@zoria-ui/react";
+import {Col, Container, ExpandCollapsePanel, H2, Row, Tabs} from "@zoria-ui/react";
 import "./ZoriaDocsPanel.scss";
 
 const Demo = ({children}: PropsWithChildren) => {
@@ -17,7 +17,9 @@ const Code = ({children}: PropsWithChildren) => {
 
 const Docs = ({children}: PropsWithChildren) => {
     return <Container>
-        {children ?? 'WIP'}
+        {children ?? <Row className='justify-center'>
+            WIP
+        </Row>}
     </Container>;
 }
 

@@ -22,11 +22,7 @@ export const EmailInputDocs = () => {
                     </CodeBlock>
                 </Col>
             </ZoriaDocsPanel.Code>
-            <ZoriaDocsPanel.Docs>
-                <Row className='justify-center'>
-                    WIP
-                </Row>
-            </ZoriaDocsPanel.Docs>
+            <ZoriaDocsPanel.Docs/>
         </ZoriaDocsPanel.Body>
     </ZoriaDocsPanel>;
 }

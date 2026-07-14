@@ -1,4 +1,4 @@
-import {CodeBlock, Col, Row, Table} from "@zoria-ui/react";
+import {CodeBlock, Col, Table} from "@zoria-ui/react";
 import {type ExpandByDefaultProp, ZoriaDocsPanel} from "../../zoria-docs-panel/ZoriaDocsPanel.tsx";
 
 export function TableDocs({expandByDefault = true}: ExpandByDefaultProp) {
@@ -66,11 +66,7 @@ export function TableDocs({expandByDefault = true}: ExpandByDefaultProp) {
                     </CodeBlock>
                 </Col>
             </ZoriaDocsPanel.Code>
-            <ZoriaDocsPanel.Docs>
-                <Row className='justify-center'>
-                    WIP
-                </Row>
-            </ZoriaDocsPanel.Docs>
+                        <ZoriaDocsPanel.Docs/>
         </ZoriaDocsPanel.Body>
     </ZoriaDocsPanel>
 }

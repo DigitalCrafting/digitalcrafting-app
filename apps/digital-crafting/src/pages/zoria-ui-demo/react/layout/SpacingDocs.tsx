@@ -1,12 +1,19 @@
-import {Col, H2, Panel} from "@zoria-ui/react";
+import {Col} from "@zoria-ui/react";
+import {ZoriaDocsPanel} from "../../zoria-docs-panel/ZoriaDocsPanel.tsx";
 
 export const SpacingDocs = () => {
-    return <Panel>
-        <Panel.Header><H2>Spacing</H2></Panel.Header>
-        <Panel.Body>
-            <Col span={12}>
-                Spacing
-            </Col>
-        </Panel.Body>
-    </Panel>
+    return <ZoriaDocsPanel>
+        <ZoriaDocsPanel.Title>Spacing</ZoriaDocsPanel.Title>
+        <ZoriaDocsPanel.Body>
+            <ZoriaDocsPanel.Demo>
+                <Col span={12}>
+                    Spacing
+                </Col>
+            </ZoriaDocsPanel.Demo>
+            <ZoriaDocsPanel.Code>
+
+            </ZoriaDocsPanel.Code>
+            <ZoriaDocsPanel.Docs />
+        </ZoriaDocsPanel.Body>
+    </ZoriaDocsPanel>
 }
