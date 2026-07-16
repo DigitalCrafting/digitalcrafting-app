@@ -7,6 +7,10 @@
 }
 
 .z-select-wrapper {
+  .z-popover-trigger {
+    width: 100%;
+  }
+
   .z-select {
     appearance: none;
     -webkit-appearance: none;
@@ -30,6 +34,10 @@
         background-color: transparent;
         border: none;
         padding: 0;
+
+        &:disabled {
+          cursor: not-allowed;
+        }
       }
     }
 
@@ -51,7 +59,17 @@
     }
 
     &:has(input:disabled) {
+      border-color: var(--z-color-disabled-bg);
+      background-color: var(--z-color-disabled-bg);
       cursor: not-allowed;
+
+      svg {
+        color: var(--z-color-disabled-text);
+      }
+
+      .z-select {
+        cursor: not-allowed;
+      }
     }
 
     button:focus-visible,

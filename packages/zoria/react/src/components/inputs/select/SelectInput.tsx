@@ -203,11 +203,12 @@ const ZoriaSelectInput = ({
             hideLabel ? null : <label className='z-input-label' htmlFor={id}>{label}</label>
         }
         <Popover ref={popoverRef}>
-            <Popover.Trigger>
-                <div className='z-input-container' ref={containerRef}>
+            <Popover.Trigger disabled={disabled}>
+                <div className={`z-input-container ${disabled ? 'disabled' : ''}`} ref={containerRef}>
                     <div className='z-input z-select z-select-custom'>
                         <input tabIndex={-1} type='hidden' {...props} id={id} disabled={disabled}/>
                         <button onKeyDown={onKeyDown}
+                                disabled={disabled}
                                 type='button'
                                 ref={sentinelRef}>
                             {

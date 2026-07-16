@@ -105,6 +105,16 @@ export const SelectInputDocs = () => {
                         </Col>
                         <Col span={1}/>
                     </Row>
+                    <Row>
+                        <Col span={1}/>
+                        <Col span={4}>
+                            <SelectInput disabled placeholder='Select one' options={DemoSelectOptionWithEmpty}
+                             onChange={(value) => console.log(value)} label='Select disabled'/>
+                        </Col>
+                        <Col span={2}/>
+                        <Col span={4}/>
+                        <Col span={1}/>
+                    </Row>
                 </Col>
             </ZoriaDocsPanel.Demo>
             <ZoriaDocsPanel.Code>
@@ -124,6 +134,12 @@ export const SelectInputDocs = () => {
                     <CodeBlock>
                         {/* language=text */}
                         {`<SelectInput native options={DemoSelectOptionWithEmpty} onChange={(value) => console.log(value)} label='Native select input'/>`}
+                    </CodeBlock>
+                    <CodeBlock>
+                        {/* language=text */}
+                        {`<SelectInput disabled placeholder='Select one' options={DemoSelectOptionWithEmpty}
+                             onChange={(value) => console.log(value)} label='Select disabled'/>
+                        `}
                     </CodeBlock>
                 </Col>
             </ZoriaDocsPanel.Code>
