@@ -9,15 +9,14 @@ import {DateUtils} from "../../../utils/DateUtils";
 import {StringUtils} from "../../../utils/StringUtils";
 import {Card} from "../../card/Card";
 
-// TODO make it common const //, "Enter"
 const FUNCTIONAL_KEYS = ["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab"];
 
 /* TODO leave minimal input props only */
 interface DatePickerInputProps extends Omit<InputProps, 'type' | 'value' | 'onChange' | 'onBlur'> {
     value?: string
+    onChange?: (value: string) => void
     min?: string
     max?: string
-    onChange?: (value: string) => void
 
     // Calendar props
     startingDay?: string
@@ -71,6 +70,8 @@ const DatePickerInput = ({error: externalError, label, min, max, value, onChange
     const onKeyDown: KeyboardEventHandler<HTMLInputElement> = (event: React.KeyboardEvent | KeyboardEvent) => {
         if (FUNCTIONAL_KEYS.includes(event.key)) return;
 
+        if (event.ctrlKey || event.shiftKey) return;
+
         const isNumber = /^[0-9]$/.test(event.key);
 
         const isDash = event.key === '-';
@@ -121,7 +122,7 @@ const DatePickerInput = ({error: externalError, label, min, max, value, onChange
                 <IconButton><CalendarIcon/></IconButton>
             </Popover.Trigger>
             <Popover.Body trapFocus>
-                <Card padding='none' shadow='lg'>
+                <Card padding='md' shadow='lg'>
                     <Calendar value={selectedDate} onChange={onCalendarChange} min={min} max={max} {...calendarProps}/>
                 </Card>
             </Popover.Body>

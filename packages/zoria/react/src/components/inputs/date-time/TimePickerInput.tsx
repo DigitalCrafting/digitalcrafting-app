@@ -3,13 +3,13 @@ import {Popover, type PopoverHandle} from "../../popover/Popover";
 import {IconButton} from "../../buttons/IconButton";
 import {ClockIcon} from "../../icons/Icons";
 import * as React from "react";
-import {type ChangeEvent, type KeyboardEventHandler, useMemo, useRef, useState} from "react";
+import {type ChangeEvent, type KeyboardEventHandler, useRef, useState} from "react";
 import {StringUtils} from "../../../utils/StringUtils";
 import {ZoriaSelectDropdown} from "../select/SelectInput";
 import {TimeUtils} from "../../../utils/TimeUtils";
-import {leftPad} from "../../../utils/Utils";
 import {Card} from "../../card/Card";
 import {type ZoriaSelectOption} from "../select/SelectInputTypes";
+import {useTimePickerSelectOptions} from "./internal/time/useTimePickerSelectOptions";
 
 const FUNCTIONAL_KEYS = ["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab"];
 
@@ -31,33 +31,13 @@ const TimePickerInput = ({error: externalError, minutesInterval = 30, minHour = 
     const inputRef = useRef<HTMLInputElement>(null);
     const popoverRef = useRef<PopoverHandle>(null);
 
-    const timePickerOptions: ZoriaSelectOption[] = useMemo(() => {
-        const options: ZoriaSelectOption[] = [];
-
-        for (let i = minHour; i < maxHour; i++) {
-            for (let j = 0; j < 60; j += minutesInterval) {
-                if (i === minHour && j < minMin) {
-                    continue;
-                }
-
-                if (i === maxHour - 1 && j > maxMin) {
-                    continue;
-                }
-
-                const hours = leftPad('0', 2, String(i));
-                const minutes = leftPad('0', 2, String(j));
-                const time = hours + ':' + minutes;
-                options.push({
-                    value: time,
-                    searchValue: time,
-                    display: time
-                })
-            }
-        }
-
-
-        return options;
-    }, [minutesInterval, minHour, maxHour, minMin, maxMin])
+    const timePickerOptions = useTimePickerSelectOptions(
+        minutesInterval,
+        minHour,
+        maxHour,
+        minMin,
+        maxMin
+    )
 
     const onTimepickerChange = (selectedOption: ZoriaSelectOption) => {
         const value = selectedOption.value;
@@ -87,6 +67,7 @@ const TimePickerInput = ({error: externalError, minutesInterval = 30, minHour = 
 
     const onKeyDown: KeyboardEventHandler<HTMLInputElement> = (event: React.KeyboardEvent | KeyboardEvent) => {
         if (FUNCTIONAL_KEYS.includes(event.key)) return;
+        if (event.ctrlKey || event.shiftKey) return;
 
         const isNumber = /^[0-9]$/.test(event.key);
 

@@ -53,4 +53,12 @@ export class CircularArray<T> {
         this.currentPointer = (this.currentPointer + 1) % this.items.length;
         return this.items[this.currentPointer];
     }
+
+    public isFirst(): boolean {
+        return this.currentPointer === 0;
+    }
+
+    public isLast(): boolean {
+        return this.currentPointer === this.items.length - 1;
+    }
 }

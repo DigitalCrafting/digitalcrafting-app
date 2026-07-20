@@ -17,6 +17,7 @@ const EmailInput = ({children, onKeyDown: externalOnKeyDown = noop, onChange = n
 
     const onKeyDown: KeyboardEventHandler<HTMLInputElement> = (event: React.KeyboardEvent | KeyboardEvent) => {
         const functionalKeys = ["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab", "Enter"];
+        if (event.ctrlKey || event.shiftKey) return;
 
         if (functionalKeys.includes(event.key)) return;
 

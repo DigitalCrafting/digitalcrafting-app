@@ -7,6 +7,10 @@ export const DateTimeUtils = {
 
     /* For now only yyyy-MM-ddTHH:mm:00 */
     join: (date: string, time: string): string => {
-        return `${date}T${time}:00`
+        if (time.split(':').length < 3) {
+            time += ':00';
+        }
+
+        return `${date}T${time}`
     }
 }

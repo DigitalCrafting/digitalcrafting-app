@@ -15,6 +15,7 @@ const NumberInput = ({children, onKeyDown: externalOnKeyDown = noop, onChange = 
         const {key, target: inputEl} = event;
 
         if (functionalKeys.includes(event.key)) return;
+        if (event.ctrlKey || event.shiftKey) return;
 
         const isNumber = /^[0-9]$/.test(event.key);
 

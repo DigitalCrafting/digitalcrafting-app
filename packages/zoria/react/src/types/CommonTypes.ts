@@ -9,3 +9,7 @@ export type UniversalInteractionEvent =
     | MouseEvent
     | React.KeyboardEvent
     | KeyboardEvent;
+
+export type KeyDownHandlerType = (event: React.KeyboardEvent | KeyboardEvent) => void;
+
+export type OnClickHandlerType = (event: React.MouseEvent | MouseEvent) => void;

@@ -41,7 +41,7 @@ import {
     Tooltip,
     TriangleAlertIcon,
     WifiIcon,
-    XIcon, CirclePlusIcon, CircleMinusIcon, PaletteIcon
+    XIcon, CirclePlusIcon, CircleMinusIcon, PaletteIcon, CalendarClockIcon
 } from "@zoria-ui/react";
 
 const ICONS = [
@@ -52,6 +52,7 @@ const ICONS = [
     ChevronUpIcon,
     CalendarIcon,
     CalendarCheckIcon,
+    CalendarClockIcon,
     ClockIcon,
     ClockCheckIcon,
     CheckIcon,

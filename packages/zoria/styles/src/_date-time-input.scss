@@ -1,3 +1,59 @@
+.z-date-time-input {
+  &-dropdown {
+    display: flex;
+    flex-direction: column;
+
+    &-wrapper {
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+    }
+
+    &-actions {
+      border-top: var(--z-theme-border-thin-neutral);
+      padding: var(--space-y-1);
+      display: flex;
+      align-items: center;
+      justify-content: end;
+
+      .z-button {
+        line-height: var(--line-height-tight);
+        padding: var(--space-y-1) var(--space-x-2);
+        height: fit-content;
+      }
+    }
+
+    &-calendar-column {
+      flex: 0 0 auto;
+      padding: var(--space-y-1);
+    }
+
+    &-time-column {
+      flex: 1 1 auto;
+      border-left: var(--z-theme-border-thin-neutral);
+
+      display: flex;
+      flex-direction: column;
+    }
+
+    .z-options-box {
+      max-height: unset;
+      flex: 1 1 0;
+      width: 75px;
+      scrollbar-gutter: auto;
+      scrollbar-width: thin;
+
+      li.is-selected {
+        background-color: var(--z-color-accent);
+      }
+
+      li:hover {
+        background-color: var(--z-color-accent-hover);
+      }
+    }
+  }
+}
+
 .z-date-time-input-wrapper {
   .z-date-time-input-container {
     display: flex;
