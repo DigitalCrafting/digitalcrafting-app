@@ -3,7 +3,7 @@ import * as React from "react";
 import {useMemo, useRef, useState} from "react";
 import {IconButton} from "../buttons/IconButton";
 import {ChevronLeftIcon, ChevronRightIcon} from "../icons/Icons";
-import {CalendarUtils} from "./CalendarUtils";
+import {type CalendarDayRangeStatusType, CalendarUtils} from "./CalendarUtils";
 import {SelectInput} from "../inputs/select/SelectInput";
 import {type ZoriaSelectOption} from "../inputs/select/SelectInputTypes";
 
@@ -11,8 +11,8 @@ interface DayProps {
     day: number
     disabled?: boolean
     isSelected?: boolean
-    isInRange?: boolean
     isToday?: boolean
+    rangeStatus?: CalendarDayRangeStatusType
     'data-testid'?: string
     onSelect?: (day: number) => void
 }
@@ -21,37 +21,55 @@ const Day = React.memo(({
     day,
     disabled = false,
     isSelected = false,
-    isInRange = false,
     isToday = false,
+    rangeStatus = 0,
     'data-testid': dataTestId,
     onSelect = () => {
     }
 }: DayProps) => {
     let classNames = 'day';
-    if (isSelected) {
+    if (isSelected || rangeStatus === 1 || rangeStatus === 3) {
         classNames += ' is-selected';
     }
     if (isToday) {
         classNames += ' day-today';
     }
-    if (isInRange) {
-        classNames += ' is-in-range';
-    }
     if (!disabled && !dataTestId) {
         dataTestId = `calendar-day-${day}`
     }
 
-    return <button
-        type='button'
-        onClick={() => onSelect(day)}
-        className={classNames}
-        disabled={disabled}
-        data-testid={dataTestId}
-        role='gridcell'>
-        <span className='day-inner'>
+    let wrapperClassNames = 'day-wrapper'
+    switch (rangeStatus) {
+        case 0:
+            break;
+        case 1: {
+            wrapperClassNames += ' is-range-start';
+            break;
+        }
+        case 2: {
+            wrapperClassNames += ' is-in-range';
+            break;
+        }
+        case 3: {
+            wrapperClassNames += ' is-range-end';
+            break;
+        }
+
+    }
+
+    return <span
+        className={wrapperClassNames}
+        role='gridcell'
+    >
+        <button
+            type='button'
+            onClick={() => onSelect(day)}
+            className={classNames}
+            disabled={disabled}
+            data-testid={dataTestId}>
             {day}
-        </span>
-    </button>
+        </button>
+    </span>
 });
 
 export interface CalendarProps {
@@ -66,6 +84,9 @@ export interface CalendarProps {
     yearRangeEnd?: number
     weekdays?: string[]
     months?: string[]
+
+    rangeStart?: string
+    rangeEnd?: string
 }
 
 export const Calendar = React.memo((
@@ -79,7 +100,10 @@ export const Calendar = React.memo((
         yearRangeStart = 1990,
         yearRangeEnd = 2050,
         weekdays = CalendarUtils.WEEKDAYS,
-        months = CalendarUtils.MONTHS
+        months = CalendarUtils.MONTHS,
+
+        rangeStart,
+        rangeEnd
     }: CalendarProps) => {
     const todayDate = useRef<Date>(new Date());
     const [selectedDate, setSelectedDate] = useState(value ? DateUtils.fromISODate(value) : undefined);
@@ -141,6 +165,7 @@ export const Calendar = React.memo((
             disabled={CalendarUtils.isDayDisabled(visibleDate, day, min, max)}
             isSelected={DateUtils.isTheSameDate(selectedDate, visibleDate) && selectedDate?.getDate() === day}
             isToday={CalendarUtils.isToday(todayDate, visibleDate, day, 'current')}
+            rangeStatus={CalendarUtils.getDayRangeStatus(visibleDate, day, rangeStart, rangeEnd)}
             day={day}/>
         );
     }
@@ -171,7 +196,8 @@ export const Calendar = React.memo((
     return <div className={`z-calendar ${externalClassName}`.trim()}>
         <div className='z-calendar-header'>
             <div className='year-picker'>
-                <SelectInput hideLabel valueDecoration={monthLabel} onChange={onYearSelected} options={yearOptions} defaultValue={visibleDate.getFullYear()} compact />
+                <SelectInput hideLabel valueDecoration={monthLabel} onChange={onYearSelected} options={yearOptions}
+                             defaultValue={visibleDate.getFullYear()} compact/>
             </div>
             <div className='month-picker'>
                 <IconButton onClick={onPrevMonth}><ChevronLeftIcon/></IconButton>

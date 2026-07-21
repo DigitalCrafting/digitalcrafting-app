@@ -2,7 +2,7 @@ import {Input, type InputProps} from "../Input";
 import {Popover, type PopoverHandle} from "../../popover/Popover";
 import {IconButton} from "../../buttons/IconButton";
 import {CalendarClockIcon} from "../../icons/Icons";
-import {Calendar} from "../../date/Calendar";
+import {Calendar} from "../../calendar/Calendar";
 import * as React from "react";
 import {type ChangeEvent, type KeyboardEventHandler, useRef, useState} from "react";
 import {DateUtils} from "../../../utils/DateUtils";
@@ -14,6 +14,7 @@ import {TimePickerSelect} from "./internal/time/TimePickerSelect";
 import {Button} from "../../buttons/Button";
 import {useTimePickerSelectOptions} from "./internal/time/useTimePickerSelectOptions";
 import {DateTimeInputUtils} from "./internal/DateTimeInputUtils";
+import {TimeUtils} from "../../../utils/TimeUtils";
 
 const FUNCTIONAL_KEYS = ["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab", "Ctrl"];
 
@@ -144,10 +145,10 @@ const DateTimePickerInput = ({error: externalError, label, min, max, value, defa
     const currentlySelectedTime = timePickerOptions.find(option => option.value === selectedTime);
 
     const onOkClicked = () => {
-        const pendingDate = pendingSelectedDate.current || selectedDate;
+        const pendingDate = pendingSelectedDate.current || selectedDate || DateUtils.toISODate(new Date());
         pendingSelectedDate.current = null;
 
-        const pendingTime = pendingSelectedTime.current || selectedTime;
+        const pendingTime = pendingSelectedTime.current || selectedTime || TimeUtils.toISOTime(new Date());
         pendingSelectedTime.current = null;
 
         setSelectedDate(pendingDate);

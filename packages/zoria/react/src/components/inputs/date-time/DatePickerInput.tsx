@@ -2,7 +2,7 @@ import {Input, type InputProps} from "../Input";
 import {Popover, type PopoverHandle} from "../../popover/Popover";
 import {IconButton} from "../../buttons/IconButton";
 import {CalendarIcon} from "../../icons/Icons";
-import {Calendar} from "../../date/Calendar";
+import {Calendar} from "../../calendar/Calendar";
 import * as React from "react";
 import {type ChangeEvent, type KeyboardEventHandler, useRef, useState} from "react";
 import {DateUtils} from "../../../utils/DateUtils";

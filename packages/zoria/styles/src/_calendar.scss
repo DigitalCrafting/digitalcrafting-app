@@ -1,10 +1,17 @@
 :root {
   --z-calendar-color-weekday: var(--color-grey-60);
   --z-calendar-color-day-disabled: var(--color-grey-40);
+  --z-calendar-color-text: var(--z-color-text);
+  --z-calendar-color-text-invers: var(--z-color-text-inverse);
+
+  --z-calendar-color-day-text: var(--z-calendar-color-text);
+  --z-calendar-color-day-bg: var(--z-color-surface);
+  --z-calendar-color-day-today: var(--color-grey-40);
 
   &[data-theme='dark'] {
     --z-calendar-color-weekday: var(--color-grey-30);
     --z-calendar-color-day-disabled: var(--color-grey-60);
+    --z-calendar-color-text-invers: var(--z-color-text);
   }
 }
 
@@ -72,8 +79,9 @@
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     overflow: visible;
+    row-gap: 1px;
 
-    > button {
+    > .day-wrapper {
       aspect-ratio: 1;
     }
 
@@ -87,25 +95,24 @@
     }
 
     .day {
-      color: var(--z-color-text);
+      color: var(--z-calendar-color-day-text);
       border-radius: 50%;
       border-width: 0;
       border-style: none;
-      margin: var(--calendar-day-margin);
       position: relative;
       z-index: 1;
+      width: 100%;
+      height: 100%;
 
-      background-color: var(--z-color-surface);
+      background-color: inherit;
       cursor: pointer;
       transition: var(--z-theme-focus-transition);
       text-align: center;
+      vertical-align: center;
 
       &-today:not(.is-selected) {
-        box-shadow: 0 0 0 2px var(--color-grey-40);
-      }
-
-      &-inner {
-
+        border: 2px solid var(--z-calendar-color-day-today);
+        border-radius: 50%;
       }
 
       &:hover:not(:disabled) {
@@ -135,16 +142,50 @@
       }
     }
 
-    .day::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background-color: transparent;
-    }
+    .day-wrapper {
+      display: flex;
+      text-align: center;
+      justify-content: center;
+      width: 35px;
+      height: 35px;
 
-    .day.is-in-range::before {
-      background-color: hsl(from var(--z-color-accent) h s 70%);
+      &.is-in-range {
+        background-color: var(--z-color-accent-selected-bg);
+        --z-calendar-color-day-text: var(--z-calendar-color-text-invers);
+        --z-calendar-color-day-today: var(--z-calendar-color-text-invers);
+      }
+
+      &:nth-child(7n - 6) {
+        &.is-in-range {
+          border-top-left-radius: 50%;
+          border-bottom-left-radius: 50%;
+        }
+      }
+
+      &:nth-child(7n) {
+        &.is-in-range {
+          border-top-right-radius: 50%;
+          border-bottom-right-radius: 50%;
+        }
+      }
+
+      &.is-range-start {
+        background-color: var(--z-color-accent-selected-bg);
+        --z-calendar-color-day-text: var(--z-calendar-color-text-invers);
+        --z-calendar-color-day-today: var(--z-calendar-color-text-invers);
+
+        border-top-left-radius: 50%;
+        border-bottom-left-radius: 50%;
+      }
+
+      &.is-range-end {
+        background-color: var(--z-color-accent-selected-bg);
+        --z-calendar-color-day-text: var(--z-calendar-color-text-invers);
+        --z-calendar-color-day-today: var(--z-calendar-color-text-invers);
+
+        border-top-right-radius: 50%;
+        border-bottom-right-radius: 50%;
+      }
     }
   }
 }

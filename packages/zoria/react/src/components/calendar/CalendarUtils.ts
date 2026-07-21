@@ -3,6 +3,8 @@ import type {RefObject} from "react";
 
 type MonthView = 'prev' | 'current' | 'next';
 
+export type CalendarDayRangeStatusType = 0 | 1 | 2 | 3;
+
 export class CalendarUtils {
     // TODO i18n
     static readonly WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -87,5 +89,42 @@ export class CalendarUtils {
         const currentDateStr = DateUtils.toISODate(currentDate);
 
         return DateUtils.isBefore(currentDateStr, min) || DateUtils.isAfter(currentDateStr, max);
+    }
+
+    /**
+     * @returns
+     * - 0 -> not in range
+     * - 1 -> rangeStart
+     * - 2 -> in range
+     * - 3 -> rangeEnd
+     * */
+    static getDayRangeStatus = (visibleDate: Date, currentDay: number, rangeStart?: string, rangeEnd?: string): CalendarDayRangeStatusType => {
+        if (!rangeStart && !rangeEnd) {
+            return 0;
+        }
+
+        const currentDate = DateUtils.atMidnight(visibleDate);
+        currentDate.setDate(currentDay);
+        const currentDateStr = DateUtils.toISODate(currentDate);
+        const rangeStartAsDate = rangeStart ? DateUtils.fromISODate(rangeStart) : undefined;
+        const rangeEndAsDate = rangeEnd ? DateUtils.fromISODate(rangeEnd) : undefined;
+
+        if (rangeStart === rangeEnd) {
+            return 0;
+        }
+
+        if (rangeStart && DateUtils.isTheSameDate(currentDate, rangeStartAsDate)) {
+            return 1;
+        }
+
+        if (rangeEnd && DateUtils.isTheSameDate(currentDate, rangeEndAsDate)) {
+            return 3;
+        }
+
+        if (DateUtils.isBefore(currentDateStr, rangeStart) || DateUtils.isAfter(currentDateStr, rangeEnd)) {
+            return 0;
+        }
+
+        return 2;
     }
 }
