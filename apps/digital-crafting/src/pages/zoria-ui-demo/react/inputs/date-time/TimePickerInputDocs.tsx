@@ -1,5 +1,5 @@
 import {CodeBlock, Col, Row, TimePickerInput} from "@zoria-ui/react";
-import {ZoriaDocsPanel} from "../../zoria-docs-panel/ZoriaDocsPanel.tsx";
+import {ZoriaDocsPanel} from "../../../zoria-docs-panel/ZoriaDocsPanel.tsx";
 
 export const TimePickerInputDocs = () => {
     return <ZoriaDocsPanel>

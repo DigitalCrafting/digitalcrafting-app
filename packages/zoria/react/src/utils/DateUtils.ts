@@ -3,8 +3,12 @@ export const DateUtils = {
         return new Date(d.getFullYear(), d.getMonth(), d.getDate());
     },
 
-    addDays: (d: Date, days: number) => {
+    addDays: (d: Date, days: number): Date => {
         return new Date(d.getFullYear(), d.getMonth(), d.getDate() + days);
+    },
+
+    addMonths: (d: Date, months: number): Date => {
+        return new Date(d.getFullYear(), d.getMonth() + months, d.getDate());
     },
 
     subtractDays: (d: Date, days: number) => {
@@ -41,11 +45,11 @@ export const DateUtils = {
         return dateAsStr > max;
     },
 
-    toISODate: (d: Date): string => {
+    dateToIsoString: (d: Date): string => {
         return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
     },
 
-    fromISODate: (value: string): Date => {
+    isoStringToDate: (value: string): Date => {
         const [y, m, d] = value.split('-').map(Number)
         return new Date(y, m - 1, d)
     },
@@ -55,6 +59,10 @@ export const DateUtils = {
             return undefined;
         }
         return new Date(year, month, day);
+    },
+
+    isoStringToParts: (dateString?: string) => {
+        return dateString ? dateString.split('-') : [];
     },
 
     isValidIsoFormat: (str: string) => /^\d{4}-\d{2}-\d{2}$/.test(str),

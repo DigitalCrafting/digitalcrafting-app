@@ -1,11 +1,12 @@
-import {DateUtils} from "../../utils/DateUtils";
+import {DateUtils} from "../../../../utils/DateUtils";
 import * as React from "react";
 import {useMemo, useRef, useState} from "react";
-import {IconButton} from "../buttons/IconButton";
-import {ChevronLeftIcon, ChevronRightIcon} from "../icons/Icons";
-import {type CalendarDayRangeStatusType, CalendarUtils} from "./CalendarUtils";
-import {SelectInput} from "../inputs/select/SelectInput";
-import {type ZoriaSelectOption} from "../inputs/select/SelectInputTypes";
+import {IconButton} from "../../../buttons/IconButton";
+import {ChevronLeftIcon, ChevronRightIcon} from "../../../icons/Icons";
+import {type CalendarDayRangeStatusType, CalendarUtils} from "../internal/calendar/CalendarUtils";
+import {SelectInput} from "../../select/SelectInput";
+import {type ZoriaSelectOption} from "../../select/SelectInputTypes";
+import {useVisibleDate} from "../internal/calendar/useVisibleDate";
 
 interface DayProps {
     day: number
@@ -73,20 +74,27 @@ const Day = React.memo(({
 });
 
 export interface CalendarProps {
-    id?: string
-    value?: string
-    onChange?: (value: string) => void
-    min?: string
-    max?: string
-    className?: string
-    startingDay?: string
-    yearRangeStart?: number
-    yearRangeEnd?: number
-    weekdays?: string[]
-    months?: string[]
+    id?: string;
+    value?: string;
+    defaultValue?: string;
+    onChange?: (value: string) => void;
+    isControlled?: boolean;
+    minDate?: string;
+    maxDate?: string;
+    className?: string;
 
-    rangeStart?: string
-    rangeEnd?: string
+    visibleDate?: string;
+    onVisibleDateChange?: (value: string) => void;
+
+    startingDay?: string;
+    weekdays?: string[];
+    months?: string[];
+
+    yearRangeStart?: number;
+    yearRangeEnd?: number;
+
+    rangeStart?: string;
+    rangeEnd?: string;
 }
 
 export const Calendar = React.memo((
@@ -94,9 +102,15 @@ export const Calendar = React.memo((
         startingDay = 'Sun',
         value,
         onChange,
-        min,
-        max,
+        isControlled = false,
+        defaultValue,
+        minDate,
+        maxDate,
         className: externalClassName = '',
+
+        visibleDate: externalVisibleDate = undefined,
+        onVisibleDateChange: externalOnVisibleDateChange,
+
         yearRangeStart = 1990,
         yearRangeEnd = 2050,
         weekdays = CalendarUtils.WEEKDAYS,
@@ -106,8 +120,33 @@ export const Calendar = React.memo((
         rangeEnd
     }: CalendarProps) => {
     const todayDate = useRef<Date>(new Date());
-    const [selectedDate, setSelectedDate] = useState(value ? DateUtils.fromISODate(value) : undefined);
-    const [visibleDate, setVisibleDate] = useState(value ? DateUtils.fromISODate(value) : new Date());
+
+    const [internalValue, setInternalValue] = useState<Date | undefined>(defaultValue ? DateUtils.isoStringToDate(defaultValue) : undefined);
+
+    let selectedDate: Date | undefined;
+    let setSelectedDate: (value: Date) => void;
+
+    if (isControlled) {
+        selectedDate = value ? DateUtils.isoStringToDate(value) : undefined;
+        setSelectedDate = (date: Date) => {
+            onChange?.(DateUtils.dateToIsoString(date));
+        };
+    } else {
+        selectedDate = internalValue;
+        setSelectedDate = (date: Date) => {
+            setInternalValue(date);
+            onChange?.(DateUtils.dateToIsoString(date))
+        };
+    }
+
+    const {
+        visibleDate,
+        setVisibleDate,
+        minYear,
+        maxYear,
+        prevMonthDisabled,
+        nextMonthDisabled
+    } = useVisibleDate(value, externalVisibleDate, externalOnVisibleDateChange, minDate, maxDate);
 
     const onYearSelected = (inputValue: string) => {
         const year = Number(inputValue);
@@ -118,7 +157,7 @@ export const Calendar = React.memo((
 
     const onNextMonth = () => {
         const currentMonth = visibleDate.getMonth();
-        const newMonth = (currentMonth + 1) % 12;
+        const newMonth = currentMonth + 1;
         const newDate = DateUtils.atMidnight(visibleDate);
         newDate.setMonth(newMonth);
         setVisibleDate(newDate);
@@ -126,7 +165,7 @@ export const Calendar = React.memo((
 
     const onPrevMonth = () => {
         const currentMonth = visibleDate.getMonth();
-        const newMonth = currentMonth === 0 ? 11 : currentMonth - 1;
+        const newMonth = currentMonth - 1;
         const newDate = DateUtils.atMidnight(visibleDate);
         newDate.setMonth(newMonth);
         setVisibleDate(newDate);
@@ -137,7 +176,7 @@ export const Calendar = React.memo((
         newDate.setDate(day);
         setSelectedDate(newDate);
         setVisibleDate(newDate);
-        onChange?.(DateUtils.toISODate(newDate));
+        onChange?.(DateUtils.dateToIsoString(newDate));
     }
 
     const dayOffset = weekdays.indexOf(startingDay);
@@ -162,7 +201,7 @@ export const Calendar = React.memo((
         days.push(<Day
             key={`curr-month-${day}`}
             onSelect={onDaySelected}
-            disabled={CalendarUtils.isDayDisabled(visibleDate, day, min, max)}
+            disabled={CalendarUtils.isDayDisabled(visibleDate, day, minDate, maxDate)}
             isSelected={DateUtils.isTheSameDate(selectedDate, visibleDate) && selectedDate?.getDate() === day}
             isToday={CalendarUtils.isToday(todayDate, visibleDate, day, 'current')}
             rangeStatus={CalendarUtils.getDayRangeStatus(visibleDate, day, rangeStart, rangeEnd)}
@@ -179,11 +218,14 @@ export const Calendar = React.memo((
 
     const yearsRange = React.useMemo(() => {
         const years = [];
-        for (let i = yearRangeStart; i <= yearRangeEnd; i++) {
+        const startYear = minYear ? Math.max(yearRangeStart, Number(minYear)) : yearRangeStart;
+        const endYear = maxYear ? Math.min(yearRangeEnd, Number(maxYear)) : yearRangeEnd;
+
+        for (let i = startYear; i <= endYear; i++) {
             years.push(i);
         }
         return years;
-    }, [yearRangeStart, yearRangeEnd]);
+    }, [yearRangeStart, yearRangeEnd, minYear, maxYear]);
 
     const yearOptions: ZoriaSelectOption<number, number>[] = useMemo(() => {
         return yearsRange.map(year => ({
@@ -191,17 +233,21 @@ export const Calendar = React.memo((
             display: year,
             searchValue: String(year)
         }))
-    }, [])
+    }, [yearsRange])
 
     return <div className={`z-calendar ${externalClassName}`.trim()}>
         <div className='z-calendar-header'>
             <div className='year-picker'>
-                <SelectInput hideLabel valueDecoration={monthLabel} onChange={onYearSelected} options={yearOptions}
-                             defaultValue={visibleDate.getFullYear()} compact/>
+                <SelectInput hideLabel valueDecoration={monthLabel}
+                             value={visibleDate.getFullYear()}
+                             onChange={onYearSelected} options={yearOptions}
+                             defaultValue={visibleDate.getFullYear()}
+                             isControlled
+                             compact/>
             </div>
             <div className='month-picker'>
-                <IconButton onClick={onPrevMonth}><ChevronLeftIcon/></IconButton>
-                <IconButton onClick={onNextMonth}><ChevronRightIcon/></IconButton>
+                <IconButton disabled={prevMonthDisabled} onClick={onPrevMonth}><ChevronLeftIcon/></IconButton>
+                <IconButton disabled={nextMonthDisabled} onClick={onNextMonth}><ChevronRightIcon/></IconButton>
             </div>
         </div>
         <div className={`z-calendar-page`} role='grid'>

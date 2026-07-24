@@ -23,6 +23,7 @@ interface SelectInputInternalProps<T = string> {
     valueDecoration?: string;
     placeholder?: string;
     onChange?: (value: any) => void;
+    isControlled?: boolean
 }
 
 type NativeSelectInputProps = SelectInputInternalProps & { native: true, options: NativeSelectOption[] }
@@ -161,17 +162,30 @@ const ZoriaSelectInput = ({
     placeholder,
     onChange,
     options,
+    isControlled = false,
     ...props
 }: ZoriaSelectInputProps) => {
-    const [currentlySelected, setCurrentlySelected] = useState<ZoriaSelectOption<any, any> | undefined>(options.find(option => option.value === defaultValue));
+    const [internalCurrentlySelected, setInternalCurrentlySelected] = useState<ZoriaSelectOption<any, any> | undefined>(options.find(option => option.value === defaultValue));
     const [width, setWidth] = useState(0);
     const popoverRef = useRef<PopoverHandle>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const sentinelRef = useRef<HTMLButtonElement>(null);
 
+    let currentlySelected: ZoriaSelectOption<any, any> | undefined;
+    let setCurrentlySelected: (value: any) => void;
+    if (isControlled) {
+        currentlySelected = options.find(option => option.value === value);
+        setCurrentlySelected = (option) => onChange?.(option.value);
+    } else {
+        currentlySelected = internalCurrentlySelected;
+        setCurrentlySelected = setInternalCurrentlySelected;
+    }
+
     const onSelected = (option: ZoriaSelectOption<any, any>) => {
         setCurrentlySelected(option);
-        onChange?.(option.value);
+        if (!isControlled) {
+            onChange?.(option.value);
+        }
         popoverRef?.current?.close();
     }
 

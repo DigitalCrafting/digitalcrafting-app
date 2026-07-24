@@ -132,6 +132,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   box-sizing: border-box;
+  scrollbar-width: thin;
 
   li {
     padding: var(--space-y-1) var(--space-x-1);

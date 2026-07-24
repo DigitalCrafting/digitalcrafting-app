@@ -1,4 +1,4 @@
-import {DateUtils} from "../../utils/DateUtils";
+import {DateUtils} from "../../../../../utils/DateUtils";
 import type {RefObject} from "react";
 
 type MonthView = 'prev' | 'current' | 'next';
@@ -86,7 +86,7 @@ export class CalendarUtils {
 
         const currentDate = DateUtils.atMidnight(visibleDate);
         currentDate.setDate(currentDay);
-        const currentDateStr = DateUtils.toISODate(currentDate);
+        const currentDateStr = DateUtils.dateToIsoString(currentDate);
 
         return DateUtils.isBefore(currentDateStr, min) || DateUtils.isAfter(currentDateStr, max);
     }
@@ -99,15 +99,15 @@ export class CalendarUtils {
      * - 3 -> rangeEnd
      * */
     static getDayRangeStatus = (visibleDate: Date, currentDay: number, rangeStart?: string, rangeEnd?: string): CalendarDayRangeStatusType => {
-        if (!rangeStart && !rangeEnd) {
+        if (!rangeStart || !rangeEnd) {
             return 0;
         }
 
         const currentDate = DateUtils.atMidnight(visibleDate);
         currentDate.setDate(currentDay);
-        const currentDateStr = DateUtils.toISODate(currentDate);
-        const rangeStartAsDate = rangeStart ? DateUtils.fromISODate(rangeStart) : undefined;
-        const rangeEndAsDate = rangeEnd ? DateUtils.fromISODate(rangeEnd) : undefined;
+        const currentDateStr = DateUtils.dateToIsoString(currentDate);
+        const rangeStartAsDate = rangeStart ? DateUtils.isoStringToDate(rangeStart) : undefined;
+        const rangeEndAsDate = rangeEnd ? DateUtils.isoStringToDate(rangeEnd) : undefined;
 
         if (rangeStart === rangeEnd) {
             return 0;

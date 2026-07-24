@@ -13,9 +13,9 @@ export function CalendarDocs() {
         rangeEndNextMonthAsDate.setDate(25);
         rangeEndNextMonthAsDate.setMonth(today.getMonth() + 1);
 
-        const rangeStart = DateUtils.toISODate(rangeStartAsDate);
-        const rangeEnd = DateUtils.toISODate(rangeEndAsDate);
-        const rangeEndNextMonth = DateUtils.toISODate(rangeEndNextMonthAsDate);
+        const rangeStart = DateUtils.dateToIsoString(rangeStartAsDate);
+        const rangeEnd = DateUtils.dateToIsoString(rangeEndAsDate);
+        const rangeEndNextMonth = DateUtils.dateToIsoString(rangeEndNextMonthAsDate);
 
         return [rangeStart, rangeEnd, rangeEndNextMonth];
     }, [])

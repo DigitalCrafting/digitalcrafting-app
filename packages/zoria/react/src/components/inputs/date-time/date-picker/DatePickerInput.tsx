@@ -1,18 +1,17 @@
-import {Input, type InputProps} from "../Input";
-import {Popover, type PopoverHandle} from "../../popover/Popover";
-import {IconButton} from "../../buttons/IconButton";
-import {CalendarIcon} from "../../icons/Icons";
-import {Calendar} from "../../calendar/Calendar";
+import {Input, type InputProps} from "../../Input";
+import {Popover, type PopoverHandle} from "../../../popover/Popover";
+import {IconButton} from "../../../buttons/IconButton";
+import {CalendarIcon} from "../../../icons/Icons";
+import {Calendar} from "../calendar/Calendar";
 import * as React from "react";
 import {type ChangeEvent, type KeyboardEventHandler, useRef, useState} from "react";
-import {DateUtils} from "../../../utils/DateUtils";
-import {StringUtils} from "../../../utils/StringUtils";
-import {Card} from "../../card/Card";
-
-const FUNCTIONAL_KEYS = ["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab"];
+import {DateUtils} from "../../../../utils/DateUtils";
+import {StringUtils} from "../../../../utils/StringUtils";
+import {Card} from "../../../card/Card";
+import {FUNCTIONAL_KEYS} from "../internal/Utils";
 
 /* TODO leave minimal input props only */
-interface DatePickerInputProps extends Omit<InputProps, 'type' | 'value' | 'onChange' | 'onBlur'> {
+interface DatePickerInputProps extends Omit<InputProps, 'type' | 'value' | 'onChange' | 'onBlur' | 'defaultValue'> {
     value?: string
     onChange?: (value: string) => void
     min?: string
@@ -123,7 +122,7 @@ const DatePickerInput = ({error: externalError, label, min, max, value, onChange
             </Popover.Trigger>
             <Popover.Body trapFocus>
                 <Card padding='md' shadow='lg'>
-                    <Calendar value={selectedDate} onChange={onCalendarChange} min={min} max={max} {...calendarProps}/>
+                    <Calendar isControlled value={selectedDate} onChange={onCalendarChange} minDate={min} maxDate={max} {...calendarProps}/>
                 </Card>
             </Popover.Body>
         </Popover>

@@ -158,13 +158,23 @@ interface PopoverProps {
     ref?: Ref<PopoverHandle>,
     children: [React.ReactElement<typeof PopoverTrigger>, React.ReactElement<typeof PopoverBody>],
     persistent?: boolean,
-    onStatusChanged?: (open: boolean) => void
+    onClose?: (open: boolean) => void
 }
 
-function InternalPopover({children, ref, persistent = false}: PopoverProps) {
+function InternalPopover({children, ref, persistent = false, onClose}: PopoverProps) {
     const [open, setOpen] = React.useState(false);
     // @ts-ignore
     const triggerRef = React.useRef<HTMLDivElement | HTMLButtonElement>(null);
+    const isSetup = React.useRef<boolean>(true);
+
+    useEffect(() => {
+        if (isSetup.current) {
+            isSetup.current = false;
+            return;
+        }
+
+        onClose?.(open);
+    }, [open]);
 
     useImperativeHandle(ref, () => ({
         close: () => setOpen(false)

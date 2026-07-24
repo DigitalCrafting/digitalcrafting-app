@@ -1,4 +1,8 @@
-.z-date-time-input {
+.z-date-range-input {
+  &-calendar-label {
+    padding: var(--space-y-1) var(--space-y-2) 0 var(--space-y-2);
+  }
+
   &-dropdown {
     display: flex;
     flex-direction: column;
@@ -26,29 +30,9 @@
     &-calendar-column {
       flex: 0 0 auto;
       padding: var(--space-y-1);
-    }
 
-    &-time-column {
-      flex: 1 1 auto;
-      border-left: var(--z-theme-border-thin-neutral);
-
-      display: flex;
-      flex-direction: column;
-    }
-
-    .z-options-box {
-      max-height: unset;
-      flex: 1 1 0;
-      width: 75px;
-      scrollbar-gutter: auto;
-      scrollbar-width: thin;
-
-      li.is-selected {
-        background-color: var(--z-color-accent);
-      }
-
-      li:hover {
-        background-color: var(--z-color-accent-hover);
+      &:first-of-type {
+        border-right: var(--z-theme-border-thin-neutral);
       }
     }
   }

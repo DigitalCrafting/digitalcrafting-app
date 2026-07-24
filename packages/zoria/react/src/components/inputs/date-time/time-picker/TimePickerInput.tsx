@@ -1,17 +1,16 @@
-import {Input, type InputProps} from "../Input";
-import {Popover, type PopoverHandle} from "../../popover/Popover";
-import {IconButton} from "../../buttons/IconButton";
-import {ClockIcon} from "../../icons/Icons";
+import {Input, type InputProps} from "../../Input";
+import {Popover, type PopoverHandle} from "../../../popover/Popover";
+import {IconButton} from "../../../buttons/IconButton";
+import {ClockIcon} from "../../../icons/Icons";
 import * as React from "react";
 import {type ChangeEvent, type KeyboardEventHandler, useRef, useState} from "react";
-import {StringUtils} from "../../../utils/StringUtils";
-import {ZoriaSelectDropdown} from "../select/SelectInput";
-import {TimeUtils} from "../../../utils/TimeUtils";
-import {Card} from "../../card/Card";
-import {type ZoriaSelectOption} from "../select/SelectInputTypes";
-import {useTimePickerSelectOptions} from "./internal/time/useTimePickerSelectOptions";
-
-const FUNCTIONAL_KEYS = ["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab"];
+import {StringUtils} from "../../../../utils/StringUtils";
+import {ZoriaSelectDropdown} from "../../select/SelectInput";
+import {TimeUtils} from "../../../../utils/TimeUtils";
+import {Card} from "../../../card/Card";
+import {type ZoriaSelectOption} from "../../select/SelectInputTypes";
+import {useTimePickerSelectOptions} from "../internal/time/useTimePickerSelectOptions";
+import {FUNCTIONAL_KEYS} from "../internal/Utils";
 
 interface TimePickerInputProps extends Omit<InputProps, 'type' | 'value' | 'onChange' | 'onBlur'> {
     value?: string;
@@ -121,7 +120,7 @@ const TimePickerInput = ({error: externalError, minutesInterval = 30, minHour = 
                                          options={timePickerOptions}
                                          onSelected={onTimepickerChange}
                                          sentinelRef={inputRef}
-                                         width={100}
+                                         width={75}
                                          close={() => popoverRef?.current?.close()}/>
                 </Card>
             </Popover.Body>

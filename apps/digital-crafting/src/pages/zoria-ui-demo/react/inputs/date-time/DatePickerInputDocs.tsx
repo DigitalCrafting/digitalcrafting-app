@@ -1,6 +1,6 @@
 import {CodeBlock, Col, DatePickerInput, DateUtils, Row} from "@zoria-ui/react";
 import {useMemo} from "react";
-import {ZoriaDocsPanel} from "../../zoria-docs-panel/ZoriaDocsPanel.tsx";
+import {ZoriaDocsPanel} from "../../../zoria-docs-panel/ZoriaDocsPanel.tsx";
 
 export const DatePickerInputDocs = () => {
     const [min, max] = useMemo(() => {
@@ -8,7 +8,7 @@ export const DatePickerInputDocs = () => {
         const minDate = DateUtils.subtractDays(DateUtils.atMidnight(today), 10);
         const maxDate = DateUtils.addDays(DateUtils.atMidnight(today), 10);
 
-        return [DateUtils.toISODate(minDate), DateUtils.toISODate(maxDate)];
+        return [DateUtils.dateToIsoString(minDate), DateUtils.dateToIsoString(maxDate)];
     }, [])
 
     const weekdaysPl = ['Nd', 'Pn', 'Wt', 'Śr', 'Czw', 'Pt', 'Sb'];

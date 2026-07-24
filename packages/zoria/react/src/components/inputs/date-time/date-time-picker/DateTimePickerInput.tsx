@@ -1,22 +1,23 @@
-import {Input, type InputProps} from "../Input";
-import {Popover, type PopoverHandle} from "../../popover/Popover";
-import {IconButton} from "../../buttons/IconButton";
-import {CalendarClockIcon} from "../../icons/Icons";
-import {Calendar} from "../../calendar/Calendar";
+import {Input, type InputProps} from "../../Input";
+import {Popover, type PopoverHandle} from "../../../popover/Popover";
+import {IconButton} from "../../../buttons/IconButton";
+import {CalendarClockIcon} from "../../../icons/Icons";
+import {Calendar} from "../calendar/Calendar";
 import * as React from "react";
 import {type ChangeEvent, type KeyboardEventHandler, useRef, useState} from "react";
-import {DateUtils} from "../../../utils/DateUtils";
-import {StringUtils} from "../../../utils/StringUtils";
-import {Card} from "../../card/Card";
-import type {ZoriaSelectOption} from "../select/SelectInputTypes";
-import {DateTimeUtils} from "../../../utils/DateTimeUtils";
-import {TimePickerSelect} from "./internal/time/TimePickerSelect";
-import {Button} from "../../buttons/Button";
-import {useTimePickerSelectOptions} from "./internal/time/useTimePickerSelectOptions";
-import {DateTimeInputUtils} from "./internal/DateTimeInputUtils";
-import {TimeUtils} from "../../../utils/TimeUtils";
+import {DateUtils} from "../../../../utils/DateUtils";
+import {StringUtils} from "../../../../utils/StringUtils";
+import {Card} from "../../../card/Card";
+import type {ZoriaSelectOption} from "../../select/SelectInputTypes";
+import {DateTimeUtils} from "../../../../utils/DateTimeUtils";
+import {TimePickerSelect} from "../internal/time/TimePickerSelect";
+import {Button} from "../../../buttons/Button";
+import {useTimePickerSelectOptions} from "../internal/time/useTimePickerSelectOptions";
+import {DateTimeInputUtils} from "../internal/DateTimeInputUtils";
+import {TimeUtils} from "../../../../utils/TimeUtils";
+import {FUNCTIONAL_KEYS} from "../internal/Utils";
 
-const FUNCTIONAL_KEYS = ["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab", "Ctrl"];
+
 
 /* TODO leave minimal input props only */
 interface NewDateTimePickerInputProps extends Omit<InputProps, 'type' | 'value' | 'onChange' | 'onBlur'> {
@@ -145,7 +146,7 @@ const DateTimePickerInput = ({error: externalError, label, min, max, value, defa
     const currentlySelectedTime = timePickerOptions.find(option => option.value === selectedTime);
 
     const onOkClicked = () => {
-        const pendingDate = pendingSelectedDate.current || selectedDate || DateUtils.toISODate(new Date());
+        const pendingDate = pendingSelectedDate.current || selectedDate || DateUtils.dateToIsoString(new Date());
         pendingSelectedDate.current = null;
 
         const pendingTime = pendingSelectedTime.current || selectedTime || TimeUtils.toISOTime(new Date());
@@ -183,7 +184,7 @@ const DateTimePickerInput = ({error: externalError, label, min, max, value, defa
                     <div className='z-date-time-input-dropdown'>
                         <div className='z-date-time-input-dropdown-wrapper'>
                             <div className='z-date-time-input-dropdown-calendar-column'>
-                                <Calendar value={selectedDate} onChange={onCalendarChange} min={min} max={max} {...calendarProps}/>
+                                <Calendar value={selectedDate} onChange={onCalendarChange} minDate={min} maxDate={max} {...calendarProps}/>
                             </div>
                             <div className='z-date-time-input-dropdown-time-column'>
                                 <TimePickerSelect currentlySelected={currentlySelectedTime} onSelected={onTimepickerChange} options={timePickerOptions} />

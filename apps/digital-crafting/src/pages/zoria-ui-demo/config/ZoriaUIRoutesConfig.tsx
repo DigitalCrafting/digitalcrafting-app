@@ -13,9 +13,9 @@ import {RadioGroupDocs} from "../react/inputs/RadioGroupDocs.tsx";
 import {ToggleDocs} from "../react/inputs/ToggleDocs.tsx";
 import {CheckboxDocs} from "../react/inputs/CheckboxDocs.tsx";
 import {CalendarDocs} from "../react/inputs/CalendarDocs.tsx";
-import {DateTimePickerInputDocs} from "../react/inputs/DateTimePickerInputDocs.tsx";
-import {TimePickerInputDocs} from "../react/inputs/TimePickerInputDocs.tsx";
-import {DatePickerInputDocs} from "../react/inputs/DatePickerInputDocs.tsx";
+import {DateTimePickerInputDocs} from "../react/inputs/date-time/DateTimePickerInputDocs.tsx";
+import {TimePickerInputDocs} from "../react/inputs/date-time/TimePickerInputDocs.tsx";
+import {DatePickerInputDocs} from "../react/inputs/date-time/DatePickerInputDocs.tsx";
 import {PasswordInputDocs} from "../react/inputs/PasswordInputDocs.tsx";
 import {EmailInputDocs} from "../react/inputs/EmailInputDocs.tsx";
 import {AutocompleteInputDocs} from "../react/inputs/AutocompleteInputDocs.tsx";
@@ -37,6 +37,9 @@ import {ListsDocs} from "../react/typography/ListsDocs.tsx";
 import {FlexDocs} from "../react/layout/FlexDocs.tsx";
 import {GridDocs} from "../react/layout/grid/GridDocs.tsx";
 import {SpacingDocs} from "../react/layout/SpacingDocs.tsx";
+import {DateRangePickerInputDocs} from "../react/inputs/date-time/DateRangePickerInputDocs.tsx";
+import {TimeRangePickerInputDocs} from "../react/inputs/date-time/TimeRangePickerInputDocs.tsx";
+import {DateTimeRangePickerInputDocs} from "../react/inputs/date-time/DateTimeRangePickerInputDocs.tsx";
 
 export const ZoriaUIRoutesConfig: RouteObject[] = [
     {
@@ -146,12 +149,24 @@ export const ZoriaUIRoutesConfig: RouteObject[] = [
                         Component: DatePickerInputDocs
                     },
                     {
+                        path: `${ZoriaUISubroutesPathsEnum.DATE_RANGE_PICKER_INPUT}`,
+                        Component: DateRangePickerInputDocs
+                    },
+                    {
                         path: `${ZoriaUISubroutesPathsEnum.TIME_PICKER_INPUT}`,
                         Component: TimePickerInputDocs
                     },
                     {
+                        path: `${ZoriaUISubroutesPathsEnum.TIME_RANGE_PICKER_INPUT}`,
+                        Component: TimeRangePickerInputDocs
+                    },
+                    {
                         path: `${ZoriaUISubroutesPathsEnum.DATE_TIME_PICKER_INPUT}`,
                         Component: DateTimePickerInputDocs
+                    },
+                    {
+                        path: `${ZoriaUISubroutesPathsEnum.DATE_TIME_RANGE_PICKER_INPUT}`,
+                        Component: DateTimeRangePickerInputDocs
                     },
                     {
                         path: `${ZoriaUISubroutesPathsEnum.CALENDAR}`,

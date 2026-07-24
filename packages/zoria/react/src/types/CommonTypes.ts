@@ -13,3 +13,5 @@ export type UniversalInteractionEvent =
 export type KeyDownHandlerType = (event: React.KeyboardEvent | KeyboardEvent) => void;
 
 export type OnClickHandlerType = (event: React.MouseEvent | MouseEvent) => void;
+
+export const EN_DASH = "\u2013";

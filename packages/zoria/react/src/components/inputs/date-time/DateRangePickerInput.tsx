@@ -1,5 +1,0 @@
-const DateRangePickerInput = () => {
-
-}
-
-export {DateRangePickerInput}
