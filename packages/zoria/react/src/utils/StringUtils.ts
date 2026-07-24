@@ -1,5 +1,5 @@
 export const StringUtils = {
-    isEmpty: (value: string) => {
+    isEmpty: (value?: string) => {
         return !value || !value.trim();
     },
 

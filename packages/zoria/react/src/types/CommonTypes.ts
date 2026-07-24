@@ -15,3 +15,4 @@ export type KeyDownHandlerType = (event: React.KeyboardEvent | KeyboardEvent) =>
 export type OnClickHandlerType = (event: React.MouseEvent | MouseEvent) => void;
 
 export const EN_DASH = "\u2013";
+export const HYPHEN = "-";

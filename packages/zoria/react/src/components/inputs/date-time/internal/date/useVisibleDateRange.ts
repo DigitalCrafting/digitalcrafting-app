@@ -1,9 +1,11 @@
-import {useState} from "react";
+import {type Dispatch, type SetStateAction, useState} from "react";
 import {DateUtils} from "../../../../../utils/DateUtils";
 
 export type UseVisibleDateRangeReturnType = {
     visibleStartDate: string,
     visibleEndDate: string,
+    setVisibleStartDate: Dispatch<SetStateAction<string>>,
+    setVisibleEndDate: Dispatch<SetStateAction<string>>,
     onVisibleStartDateChange: (newDate: string) => void,
     onVisibleEndDateChange: (newDate: string) => void,
     minStartDate?: string,
@@ -51,10 +53,11 @@ export function useVisibleDateRange(startDate?: string, endDate?: string, minDat
     const minEndDate = DateUtils.dateToIsoString(minEndDateAsDate);
     const maxEndDate = undefined;
 
-    /* TODO disable month and year options */
     return {
         visibleStartDate,
         visibleEndDate,
+        setVisibleStartDate,
+        setVisibleEndDate,
         onVisibleStartDateChange,
         onVisibleEndDateChange,
         minStartDate,

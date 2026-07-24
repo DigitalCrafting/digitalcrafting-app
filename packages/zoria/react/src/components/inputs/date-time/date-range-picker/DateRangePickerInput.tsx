@@ -9,11 +9,12 @@ import {StringUtils} from "../../../../utils/StringUtils";
 import {Card} from "../../../card/Card";
 import {FUNCTIONAL_KEYS} from "../internal/Utils";
 import {type DateRangeValue} from "../types/DateTimeTypes";
-import {DateRangeUtils} from "../internal/date/DateTimeUtils";
-import {EN_DASH} from "../../../../types/CommonTypes";
+import {DateRangeUtils} from "../internal/date/DateRangeUtils";
+import {EN_DASH, HYPHEN} from "../../../../types/CommonTypes";
 import {Button} from "../../../buttons/Button";
 import {H4} from "../../../typography/Typography";
 import {useVisibleDateRange} from "../internal/date/useVisibleDateRange";
+import {DateUtils} from "../../../../utils/DateUtils";
 
 const DatePickingStageEnum = {
     START: 'START',
@@ -68,56 +69,55 @@ const DateRangePickerInput = ({
 
     const {
         visibleStartDate,
+        setVisibleStartDate,
         onVisibleStartDateChange,
         minStartDate,
         maxStartDate,
         visibleEndDate,
+        setVisibleEndDate,
         onVisibleEndDateChange,
         minEndDate,
         maxEndDate
     } = useVisibleDateRange(startDate, endDate, minDate, maxDate);
 
-    // const onCalendarChange = (value: string) => {
-    //     if (inputRef.current) {
-    //         inputRef.current.value = value;
-    //         setSelectedDate(value);
-    //         popoverRef.current?.close();
-    //         onChange?.(value);
-    //         setError(undefined); // we assume Calendar will ALWAYS return correct date
-    //     } else {
-    //         console.error(`[DateRangePickerInput]: inputRef is not defined`)
-    //     }
-    // }
+    const onFocus = () => {
+        if (!displayValue || StringUtils.isEmpty(displayValue)) {
+            return;
+        }
+        const normalizedValue = displayValue.replace(
+            /(\d{4}-\d{2}-\d{2})\s*[–—\-]\s*(\d{4}-\d{2}-\d{2})/,
+            `$1 ${HYPHEN} $2`
+        );
+        setDisplayValue(normalizedValue);
+    }
 
     const onBlur = () => {
-        if (inputRef.current) {
-            const value = inputRef.current.value;
-            if (StringUtils.isEmpty(value)) {
-                setError(undefined);
-                // onInputChange(value);
-                return;
-            }
-            const formattedValue = value.replace(
+        // TS does not understand what isEmpty does
+        if (!displayValue || StringUtils.isEmpty(displayValue)) {
+            setError(undefined);
+            return;
+        }
+
+        const range = DateRangeUtils.parseDateRange(displayValue);
+        if (range) {
+            const formattedValue = displayValue.replace(
                 /(\d{4}-\d{2}-\d{2})\s+-\s+(\d{4}-\d{2}-\d{2})/,
                 `$1 ${EN_DASH} $2`
             );
+            const startDateIsoString = DateUtils.dateToIsoString(range.startDate);
+            const endDateIsoString = DateUtils.dateToIsoString(range.endDate);
+            setStartDate(startDateIsoString);
+            setVisibleStartDate(startDateIsoString);
+            setEndDate(endDateIsoString);
+            setVisibleEndDate(endDateIsoString);
             setDisplayValue(formattedValue);
-            //
-            // if (!DateUtils.validateDate(value)) {
-            //     setError("Incorrect date");
-            // } else if (!!min && DateUtils.isBefore(value, min)) {
-            //     setError(`Date must be no earlier than ${min}`);
-            // } else if (!!max && DateUtils.isAfter(value, max)) {
-            //     setError(`Date must be no later than ${max}`);
-            // } else {
-            //     setError(undefined);
-            //     onInputChange(value);
-            // }
+        } else {
+            setDisplayValue('');
+            setError(`Incorrect date range ${displayValue}`);
         }
     }
 
     const onKeyDown: KeyboardEventHandler<HTMLInputElement> = (event: React.KeyboardEvent | KeyboardEvent) => {
-        console.log(event.key)
         if (FUNCTIONAL_KEYS.includes(event.key)) return;
 
         if (event.ctrlKey || event.shiftKey) return;
@@ -134,27 +134,8 @@ const DateRangePickerInput = ({
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const targetElement = event.target;
         let value = targetElement.value;
-        //
-        // const isDeleting = (event.nativeEvent as InputEvent).inputType?.includes('delete');
-        // if (isDeleting) {
-        //     targetElement.value = value;
-        //     return;
-        // }
-        //
-        // if (value.length === 4 && !value.includes('-')) {
-        //     value = value + '-';
-        // }
-        // if (value.length === 7 && value.split('-').length === 2) {
-        //     value = value + '-';
-        // }
-        //
         setDisplayValue(value)
     };
-    //
-    // const onInputChange = (value: string) => {
-    //     setSelectedDate(value);
-    //     onChange?.(value);
-    // }
 
     const onOkClicked = () => {
         if (startDate && endDate) {
@@ -204,6 +185,7 @@ const DateRangePickerInput = ({
         value={displayValue}
         defaultValue={displayDefaultValue}
         ref={inputRef}
+        onFocus={onFocus}
         onBlur={onBlur}
         onChange={handleInputChange}
         onKeyDown={onKeyDown}
