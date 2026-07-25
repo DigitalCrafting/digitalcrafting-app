@@ -14,7 +14,7 @@ import {EN_DASH, HYPHEN} from "../../../../types/CommonTypes";
 import {Button} from "../../../buttons/Button";
 import {H4} from "../../../typography/Typography";
 import {useVisibleDateRange} from "../internal/date/useVisibleDateRange";
-import {DateUtils} from "../../../../utils/DateUtils";
+import {DateUtils} from "../internal/date/DateUtils";
 
 const DatePickingStageEnum = {
     START: 'START',
@@ -42,6 +42,7 @@ interface DateRangePickerInputProps extends Omit<InputProps, 'type' | 'value' | 
     isControlled?: boolean;
 }
 
+/* TODO controlled */
 const DateRangePickerInput = ({
     error: externalError,
     label,
@@ -52,7 +53,7 @@ const DateRangePickerInput = ({
     onChange,
     startDateLabel = 'Start',
     endDateLabel = 'End',
-    isControlled = false,
+    // isControlled = false,
     ...calendarProps
 }: DateRangePickerInputProps) => {
     const [error, setError] = useState<string | undefined>(externalError);
@@ -62,7 +63,6 @@ const DateRangePickerInput = ({
     const [displayDefaultValue] = useState(DateRangeUtils.toDisplay(defaultValue))
     const [datePickingStage, setDatePickingStage] = useState<DatePickingStageEnumType>(DatePickingStageEnum.START)
 
-    const inputRef = useRef<HTMLInputElement>(null);
     const popoverRef = useRef<PopoverHandle>(null);
 
     const displayLabels = false; // TODO visible on smaller screens, 1 calendar at a time
@@ -111,9 +111,13 @@ const DateRangePickerInput = ({
             setEndDate(endDateIsoString);
             setVisibleEndDate(endDateIsoString);
             setDisplayValue(formattedValue);
+            onChange?.({
+                start: startDateIsoString,
+                end: endDateIsoString
+            });
         } else {
-            setDisplayValue('');
             setError(`Incorrect date range ${displayValue}`);
+            setDisplayValue('');
         }
     }
 
@@ -139,10 +143,12 @@ const DateRangePickerInput = ({
 
     const onOkClicked = () => {
         if (startDate && endDate) {
-            setDisplayValue(DateRangeUtils.toDisplay({
+            const newValue = {
                 start: startDate,
                 end: endDate
-            }))
+            };
+            setDisplayValue(DateRangeUtils.toDisplay(newValue));
+            onChange?.(newValue);
             popoverRef.current?.close();
         }
     }
@@ -184,7 +190,6 @@ const DateRangePickerInput = ({
         label={label}
         value={displayValue}
         defaultValue={displayDefaultValue}
-        ref={inputRef}
         onFocus={onFocus}
         onBlur={onBlur}
         onChange={handleInputChange}

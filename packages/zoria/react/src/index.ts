@@ -56,12 +56,12 @@ export * from "./types/CommonTypes";
 export * from "./types/PolimorphicType";
 export * from "./types/UiActionTypes";
 export * from "./types/UiSizes";
-export * from "./utils/DateTimeUtils";
-export * from "./utils/DateUtils";
+export * from "./components/inputs/date-time/internal/DateTimeUtils";
+export * from "./components/inputs/date-time/internal/date/DateUtils";
 export * from "./utils/FocusTrap";
 export * from "./utils/FocusableElementsObserver";
 export * from "./utils/StringUtils";
-export * from "./utils/TimeUtils";
+export * from "./components/inputs/date-time/internal/time/TimeUtils";
 export * from "./utils/Utils";
 
 declare const process: { env: { NODE_ENV: string } };

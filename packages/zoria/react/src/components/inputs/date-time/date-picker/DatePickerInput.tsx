@@ -5,7 +5,7 @@ import {CalendarIcon} from "../../../icons/Icons";
 import {Calendar} from "../calendar/Calendar";
 import * as React from "react";
 import {type ChangeEvent, type KeyboardEventHandler, useRef, useState} from "react";
-import {DateUtils} from "../../../../utils/DateUtils";
+import {DateUtils} from "../internal/date/DateUtils";
 import {StringUtils} from "../../../../utils/StringUtils";
 import {Card} from "../../../card/Card";
 import {FUNCTIONAL_KEYS} from "../internal/Utils";

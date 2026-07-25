@@ -1,0 +1,39 @@
+.z-time-range-input {
+  &-time-label {
+    padding: var(--space-y-1) var(--space-y-2) 0 var(--space-y-2);
+  }
+
+  &-dropdown {
+    display: flex;
+    flex-direction: column;
+
+    &-wrapper {
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+    }
+
+    &-actions {
+      border-top: var(--z-theme-border-thin-neutral);
+      padding: var(--space-y-1);
+      display: flex;
+      align-items: center;
+      justify-content: end;
+
+      .z-button {
+        line-height: var(--line-height-tight);
+        padding: var(--space-y-1) var(--space-x-2);
+        height: fit-content;
+      }
+    }
+
+    &-time-column {
+      flex: 0 0 auto;
+      padding: var(--space-y-1);
+
+      &:first-of-type {
+        border-right: var(--z-theme-border-thin-neutral);
+      }
+    }
+  }
+}

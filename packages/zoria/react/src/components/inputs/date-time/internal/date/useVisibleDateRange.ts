@@ -1,5 +1,5 @@
 import {type Dispatch, type SetStateAction, useState} from "react";
-import {DateUtils} from "../../../../../utils/DateUtils";
+import {DateUtils} from "./DateUtils";
 
 export type UseVisibleDateRangeReturnType = {
     visibleStartDate: string,

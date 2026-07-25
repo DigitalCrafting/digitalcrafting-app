@@ -9,7 +9,7 @@ export const DateRangePickerInputDocs = () => {
                 <Row>
                     <Col span={1}/>
                     <Col span={4}>
-                        <DateRangePickerInput onChange={console.log} />
+                        <DateRangePickerInput onChange={console.log} label='Date Range Picker'/>
                     </Col>
                     <Col span={2}/>
                     <Col span={4}>

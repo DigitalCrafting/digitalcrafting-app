@@ -6,13 +6,13 @@ import * as React from "react";
 import {type ChangeEvent, type KeyboardEventHandler, useRef, useState} from "react";
 import {StringUtils} from "../../../../utils/StringUtils";
 import {ZoriaSelectDropdown} from "../../select/SelectInput";
-import {TimeUtils} from "../../../../utils/TimeUtils";
+import {TimeUtils} from "../internal/time/TimeUtils";
 import {Card} from "../../../card/Card";
 import {type ZoriaSelectOption} from "../../select/SelectInputTypes";
 import {useTimePickerSelectOptions} from "../internal/time/useTimePickerSelectOptions";
 import {FUNCTIONAL_KEYS} from "../internal/Utils";
 
-interface TimePickerInputProps extends Omit<InputProps, 'type' | 'value' | 'onChange' | 'onBlur'> {
+interface TimePickerInputProps extends Omit<InputProps, 'type' | 'value' | 'defaultValue' | 'onChange' | 'onBlur'> {
     value?: string;
     onChange?: (value: string) => void;
     minutesInterval?: number;

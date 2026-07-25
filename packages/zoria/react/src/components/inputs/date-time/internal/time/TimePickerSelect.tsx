@@ -1,25 +1,30 @@
-import {useRef, useState} from "react";
+import {useRef} from "react";
 import type {ZoriaSelectOption} from "../../../select/SelectInputTypes";
 import {useTimePickerSelectKeyDownController} from "./useTimePickerSelectKeyDownController";
+import {useInputValue} from "../../../internal/useInputValue";
 
 interface TimePickerSelectProps {
-    currentlySelected: any;
+    value?: string;
+    defaultValue?: string;
     options: ZoriaSelectOption<any, any>[];
-    onSelected: (option: ZoriaSelectOption<any, any>) => void;
+    onSelected: (value?: string) => void;
+    isControlled?: boolean;
 }
 
 export const TimePickerSelect = ({
-    currentlySelected,
+    value: externalValue,
+    defaultValue: externalDefaultValue,
     options,
-    onSelected
+    onSelected: externalOnSelected,
+    isControlled = false
 }: TimePickerSelectProps) => {
-    const [visiblySelected, setVisiblySelected] = useState(currentlySelected);
     const listRef = useRef<HTMLUListElement>(null);
     const onKeyDown = useTimePickerSelectKeyDownController(listRef);
 
+    const [selected, onSelected] = useInputValue<string>(externalValue, externalOnSelected, externalDefaultValue, isControlled);
+
     const onOptionSelected = (option: ZoriaSelectOption) => {
-        setVisiblySelected(option);
-        onSelected(option);
+        onSelected(option.value);
     }
 
     return <ul className='z-options-box'
@@ -30,7 +35,7 @@ export const TimePickerSelect = ({
     >
         {
             options.map(option => {
-                const isSelected = option.value !== undefined && option.value === visiblySelected?.value;
+                const isSelected = option.value !== undefined && option.value === selected;
                 return <li
                     tabIndex={0}
                     className={isSelected ? 'is-selected' : ''}

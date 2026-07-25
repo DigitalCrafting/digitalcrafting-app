@@ -1,5 +1,5 @@
-import {DateTimeUtils} from "../../../../utils/DateTimeUtils";
-import {DateUtils} from "../../../../utils/DateUtils";
+import {DateTimeUtils} from "./DateTimeUtils";
+import {DateUtils} from "./date/DateUtils";
 
 export interface DateTimeParts {
     year: string;

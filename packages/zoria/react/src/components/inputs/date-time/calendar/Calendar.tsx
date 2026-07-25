@@ -1,4 +1,4 @@
-import {DateUtils} from "../../../../utils/DateUtils";
+import {DateUtils} from "../internal/date/DateUtils";
 import * as React from "react";
 import {useMemo, useRef, useState} from "react";
 import {IconButton} from "../../../buttons/IconButton";

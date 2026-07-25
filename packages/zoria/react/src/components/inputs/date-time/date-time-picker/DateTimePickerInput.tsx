@@ -5,19 +5,15 @@ import {CalendarClockIcon} from "../../../icons/Icons";
 import {Calendar} from "../calendar/Calendar";
 import * as React from "react";
 import {type ChangeEvent, type KeyboardEventHandler, useRef, useState} from "react";
-import {DateUtils} from "../../../../utils/DateUtils";
+import {DateUtils} from "../internal/date/DateUtils";
 import {StringUtils} from "../../../../utils/StringUtils";
 import {Card} from "../../../card/Card";
-import type {ZoriaSelectOption} from "../../select/SelectInputTypes";
-import {DateTimeUtils} from "../../../../utils/DateTimeUtils";
+import {DateTimeUtils} from "../internal/DateTimeUtils";
 import {TimePickerSelect} from "../internal/time/TimePickerSelect";
 import {Button} from "../../../buttons/Button";
 import {useTimePickerSelectOptions} from "../internal/time/useTimePickerSelectOptions";
 import {DateTimeInputUtils} from "../internal/DateTimeInputUtils";
-import {TimeUtils} from "../../../../utils/TimeUtils";
 import {FUNCTIONAL_KEYS} from "../internal/Utils";
-
-
 
 /* TODO leave minimal input props only */
 interface NewDateTimePickerInputProps extends Omit<InputProps, 'type' | 'value' | 'onChange' | 'onBlur'> {
@@ -48,17 +44,15 @@ interface NewDateTimePickerInputProps extends Omit<InputProps, 'type' | 'value' 
 const DateTimePickerInput = ({error: externalError, label, min, max, value, defaultValue, onChange, minutesInterval = 30, minHour = 0, maxHour = 24, minMin = 0, maxMin = 60, ...calendarProps}: NewDateTimePickerInputProps) => {
     const [error, setError] = useState<string | undefined>(externalError);
     const [defaultDate, defaultTime] = DateTimeUtils.split(defaultValue || '');
+    const [displayValue, setDisplayValue] = useState<string | undefined>(DateTimeUtils.join(defaultDate, defaultTime));
     const [selectedDate, setSelectedDate] = useState<string | undefined>(defaultDate);
     const [selectedTime, setSelectedTime] = useState<string | undefined>(defaultTime);
-
-    const pendingSelectedDate = useRef<string | null>(null);
-    const pendingSelectedTime = useRef<string | null>(null);
 
     const inputRef = useRef<HTMLInputElement>(null);
     const popoverRef = useRef<PopoverHandle>(null);
 
     const onCalendarChange = (value: string) => {
-        pendingSelectedDate.current = value;
+        setSelectedDate(value);
     }
 
     const onBlur = () => {
@@ -107,32 +101,12 @@ const DateTimePickerInput = ({error: externalError, label, min, max, value, defa
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const targetElement = event.target;
         let value = targetElement.value;
-
-        const isDeleting = (event.nativeEvent as InputEvent).inputType?.includes('delete');
-        if (isDeleting) {
-            targetElement.value = value;
-            return;
-        }
-
-        if (value.length === 4 && !value.includes('-')) {
-            value = value + '-';
-        }
-        if (value.length === 7 && value.split('-').length === 2) {
-            value = value + '-';
-        }
-        if (value.length === 10 && !value.includes(':') && !value.includes(' ')) {
-            value = value + ' ';
-        }
-        if (value.length === 13 && !value.includes(':')) {
-            value = value + ':';
-        }
-
-        targetElement.value = value.slice(0, 17);
+        /* TODO validate */
+        setDisplayValue(value);
     };
 
-    const onTimepickerChange = (selectedOption: ZoriaSelectOption) => {
-        const value = selectedOption.value;
-        pendingSelectedTime.current = value!;
+    const onTimepickerChange = (value: string = '') => {
+        setSelectedTime(value);
     }
 
     const timePickerOptions = useTimePickerSelectOptions(
@@ -143,30 +117,17 @@ const DateTimePickerInput = ({error: externalError, label, min, max, value, defa
         maxMin
     )
 
-    const currentlySelectedTime = timePickerOptions.find(option => option.value === selectedTime);
-
     const onOkClicked = () => {
-        const pendingDate = pendingSelectedDate.current || selectedDate || DateUtils.dateToIsoString(new Date());
-        pendingSelectedDate.current = null;
-
-        const pendingTime = pendingSelectedTime.current || selectedTime || TimeUtils.toISOTime(new Date());
-        pendingSelectedTime.current = null;
-
-        setSelectedDate(pendingDate);
-        setSelectedTime(pendingTime);
-
-        const inputValue = `${pendingDate} ${pendingTime}`;
-        if (inputRef.current) {
-            inputRef.current.value = inputValue;
-            onChange?.(DateTimeUtils.join(pendingDate!, pendingTime!));
+        if (selectedDate && selectedTime) {
+            setDisplayValue(`${selectedDate} ${selectedTime}`);
+            onChange?.(DateTimeUtils.join(selectedDate, selectedTime));
+            popoverRef.current?.close();
         }
-
-        popoverRef.current?.close();
     }
 
     return <Input
         label={label}
-        value={value}
+        value={displayValue}
         ref={inputRef}
         onBlur={onBlur}
         onChange={handleInputChange}
@@ -184,10 +145,10 @@ const DateTimePickerInput = ({error: externalError, label, min, max, value, defa
                     <div className='z-date-time-input-dropdown'>
                         <div className='z-date-time-input-dropdown-wrapper'>
                             <div className='z-date-time-input-dropdown-calendar-column'>
-                                <Calendar value={selectedDate} onChange={onCalendarChange} minDate={min} maxDate={max} {...calendarProps}/>
+                                <Calendar isControlled value={selectedDate} onChange={onCalendarChange} minDate={min} maxDate={max} {...calendarProps}/>
                             </div>
                             <div className='z-date-time-input-dropdown-time-column'>
-                                <TimePickerSelect currentlySelected={currentlySelectedTime} onSelected={onTimepickerChange} options={timePickerOptions} />
+                                <TimePickerSelect value={selectedTime} isControlled onSelected={onTimepickerChange} options={timePickerOptions} />
                             </div>
                         </div>
                         <div className='z-date-time-input-dropdown-actions'>

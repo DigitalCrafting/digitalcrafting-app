@@ -158,7 +158,7 @@ interface PopoverProps {
     ref?: Ref<PopoverHandle>,
     children: [React.ReactElement<typeof PopoverTrigger>, React.ReactElement<typeof PopoverBody>],
     persistent?: boolean,
-    onClose?: (open: boolean) => void
+    onClose?: () => void
 }
 
 function InternalPopover({children, ref, persistent = false, onClose}: PopoverProps) {
@@ -173,7 +173,9 @@ function InternalPopover({children, ref, persistent = false, onClose}: PopoverPr
             return;
         }
 
-        onClose?.(open);
+        if (!open) {
+            onClose?.();
+        }
     }, [open]);
 
     useImperativeHandle(ref, () => ({

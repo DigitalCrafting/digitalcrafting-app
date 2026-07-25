@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest';
-import {DateUtils} from "../../../../../utils/DateUtils";
+import {DateUtils} from "../date/DateUtils";
 import {calculateVisibleDateBoundaries} from "./useVisibleDate";
 
 describe('useVisibleDate', () => {

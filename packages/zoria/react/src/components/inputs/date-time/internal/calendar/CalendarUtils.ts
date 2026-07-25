@@ -1,4 +1,4 @@
-import {DateUtils} from "../../../../../utils/DateUtils";
+import {DateUtils} from "../date/DateUtils";
 import type {RefObject} from "react";
 
 type MonthView = 'prev' | 'current' | 'next';

@@ -1,4 +1,4 @@
-import {DateTimeUtils} from "../../../../utils/DateTimeUtils";
+import {DateTimeUtils} from "./DateTimeUtils";
 
 export class DateTimeInputUtils {
     static isoToDisplay(isoString: string): string {
