@@ -1,5 +1,8 @@
 import {CodeBlock, Col, Row} from "@zoria-ui/react";
 import {ZoriaDocsPanel} from "../../../zoria-docs-panel/ZoriaDocsPanel.tsx";
+import {
+    DateTimeRangePickerInput
+} from "@zoria-ui/react/src/components/inputs/date-time/date-time-range-picker/DateTimeRangePickerInput.tsx";
 
 export const DateTimeRangePickerInputDocs = () => {
     return <ZoriaDocsPanel>
@@ -8,13 +11,13 @@ export const DateTimeRangePickerInputDocs = () => {
             <ZoriaDocsPanel.Demo>
                 <Row>
                     <Col span={1}/>
-                    <Col span={4}>
-                        WIP
+                    <Col span={5}>
+                        <DateTimeRangePickerInput
+                            onChange={console.log}
+                            label='Date Time Range Picker'
+                        />
                     </Col>
-                    <Col span={2}/>
-                    <Col span={4}>
-                    </Col>
-                    <Col span={1}/>
+                    <Col span={6}/>
                 </Row>
             </ZoriaDocsPanel.Demo>
             <ZoriaDocsPanel.Code>

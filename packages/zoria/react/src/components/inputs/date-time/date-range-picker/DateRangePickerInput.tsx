@@ -8,7 +8,7 @@ import {type ChangeEvent, type KeyboardEventHandler, useRef, useState} from "rea
 import {StringUtils} from "../../../../utils/StringUtils";
 import {Card} from "../../../card/Card";
 import {FUNCTIONAL_KEYS} from "../internal/Utils";
-import {type DateRangeValue} from "../types/DateTimeTypes";
+import {DatePickingStageEnum, type DatePickingStageEnumType, type DateRangeValue} from "../types/DateTimeTypes";
 import {DateRangeUtils} from "../internal/date/DateRangeUtils";
 import {EN_DASH, HYPHEN} from "../../../../types/CommonTypes";
 import {Button} from "../../../buttons/Button";
@@ -16,11 +16,6 @@ import {H4} from "../../../typography/Typography";
 import {useVisibleDateRange} from "../internal/date/useVisibleDateRange";
 import {DateUtils} from "../internal/date/DateUtils";
 
-const DatePickingStageEnum = {
-    START: 'START',
-    END: 'END'
-} as const;
-type DatePickingStageEnumType = (typeof DatePickingStageEnum)[keyof typeof DatePickingStageEnum];
 
 /* TODO leave minimal input props only */
 interface DateRangePickerInputProps extends Omit<InputProps, 'type' | 'value' | 'defaultValue' | 'onChange' | 'onBlur'> {
@@ -126,16 +121,14 @@ const DateRangePickerInput = ({
 
         if (event.ctrlKey || event.shiftKey) return;
 
-        const isNumber = /^[0-9\s]$/.test(event.key);
+        const isValidKey = /^[0-9\s\-]$/.test(event.key);
 
-        const isDash = event.key === '-';
-
-        if (!isNumber && !isDash) {
+        if (!isValidKey) {
             event.preventDefault();
         }
     }
 
-    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const targetElement = event.target;
         let value = targetElement.value;
         setDisplayValue(value)
@@ -192,7 +185,7 @@ const DateRangePickerInput = ({
         defaultValue={displayDefaultValue}
         onFocus={onFocus}
         onBlur={onBlur}
-        onChange={handleInputChange}
+        onChange={onInputChange}
         onKeyDown={onKeyDown}
         error={error}
         type='text'

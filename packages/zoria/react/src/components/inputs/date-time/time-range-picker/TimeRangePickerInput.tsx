@@ -129,7 +129,7 @@ const TimeRangePickerInput = ({
         }
     }
 
-    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const targetElement = event.target;
         let value = targetElement.value;
         setDisplayValue(value)
@@ -176,7 +176,7 @@ const TimeRangePickerInput = ({
         ref={inputRef}
         onFocus={onFocus}
         onBlur={onBlur}
-        onChange={handleInputChange}
+        onChange={onInputChange}
         onKeyDown={onKeyDown}
         error={error}
         type='text'

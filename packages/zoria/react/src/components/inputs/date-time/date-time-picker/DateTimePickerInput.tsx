@@ -16,7 +16,7 @@ import {DateTimeInputUtils} from "../internal/DateTimeInputUtils";
 import {FUNCTIONAL_KEYS} from "../internal/Utils";
 
 /* TODO leave minimal input props only */
-interface NewDateTimePickerInputProps extends Omit<InputProps, 'type' | 'value' | 'onChange' | 'onBlur'> {
+interface DateTimePickerInputProps extends Omit<InputProps, 'type' | 'value' | 'onChange' | 'onBlur'> {
     value?: string
     defaultValue?: string
     onChange?: (value: string) => void
@@ -41,7 +41,7 @@ interface NewDateTimePickerInputProps extends Omit<InputProps, 'type' | 'value' 
     months?: string[]
 }
 
-const DateTimePickerInput = ({error: externalError, label, min, max, value, defaultValue, onChange, minutesInterval = 30, minHour = 0, maxHour = 24, minMin = 0, maxMin = 60, ...calendarProps}: NewDateTimePickerInputProps) => {
+const DateTimePickerInput = ({error: externalError, label, min, max, value, defaultValue, onChange, minutesInterval = 30, minHour = 0, maxHour = 24, minMin = 0, maxMin = 60, ...calendarProps}: DateTimePickerInputProps) => {
     const [error, setError] = useState<string | undefined>(externalError);
     const [defaultDate, defaultTime] = DateTimeUtils.split(defaultValue || '');
     const [displayValue, setDisplayValue] = useState<string | undefined>(DateTimeUtils.join(defaultDate, defaultTime));
@@ -84,16 +84,11 @@ const DateTimePickerInput = ({error: externalError, label, min, max, value, defa
 
     const onKeyDown: KeyboardEventHandler<HTMLInputElement> = (event: React.KeyboardEvent | KeyboardEvent) => {
         if (FUNCTIONAL_KEYS.includes(event.key)) return;
-
         if (event.ctrlKey || event.shiftKey) return;
 
-        const isNumber = /^[0-9]$/.test(event.key);
+        const isValidKey = /^[0-9\s\-:]$/.test(event.key);
 
-        const isDash = event.key === '-';
-        const isColon = event.key === ':';
-        const isSpace = event.key === ' ';
-
-        if (!isNumber && !isDash && !isColon && !isSpace) {
+        if (!isValidKey) {
             event.preventDefault();
         }
     }
@@ -162,4 +157,4 @@ const DateTimePickerInput = ({error: externalError, label, min, max, value, defa
 }
 
 export {DateTimePickerInput};
-export type {NewDateTimePickerInputProps};
+export type {DateTimePickerInputProps};

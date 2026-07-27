@@ -1,0 +1,47 @@
+.z-date-time-range-input {
+  &-label {
+    padding: var(--space-y-1) var(--space-y-2) 0 var(--space-y-2);
+  }
+
+  &-dropdown {
+    display: flex;
+    flex-direction: column;
+
+    &-wrapper {
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+    }
+
+    &-actions {
+      border-top: var(--z-theme-border-thin-neutral);
+      padding: var(--space-y-1);
+      display: flex;
+      align-items: center;
+      justify-content: end;
+
+      .z-button {
+        line-height: var(--line-height-tight);
+        padding: var(--space-y-1) var(--space-x-2);
+        height: fit-content;
+      }
+    }
+
+    &-calendar-column {
+      flex: 0 0 auto;
+      padding: var(--space-y-1);
+
+      &:not(:first-of-type) {
+        border-left: var(--z-theme-border-thin-neutral);
+      }
+    }
+
+    &-time-column {
+      flex: 1 1 auto;
+      border-left: var(--z-theme-border-thin-neutral);
+
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

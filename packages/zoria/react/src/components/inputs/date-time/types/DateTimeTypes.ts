@@ -20,3 +20,18 @@ export type TimeRangeValue = {
     start: string;
     end: string;
 }
+
+export type DateTimeRangeValue = {
+    startDate: string;
+    endDate: string;
+    startTime: string;
+    endTime: string;
+    /* This one is for DateTimeRange only */
+    isSameDay?: boolean
+}
+
+export const DatePickingStageEnum = {
+    START: 'START',
+    END: 'END'
+} as const;
+export type DatePickingStageEnumType = (typeof DatePickingStageEnum)[keyof typeof DatePickingStageEnum];
