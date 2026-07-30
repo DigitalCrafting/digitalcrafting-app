@@ -1,4 +1,4 @@
-import {Input, type InputProps} from "../../Input";
+import {Input} from "../../Input";
 import {Popover, type PopoverHandle} from "../../../popover/Popover";
 import {IconButton} from "../../../buttons/IconButton";
 import {ClockIcon} from "../../../icons/Icons";
@@ -11,10 +11,9 @@ import {Card} from "../../../card/Card";
 import {type ZoriaSelectOption} from "../../select/SelectInputTypes";
 import {useTimePickerSelectOptions} from "../internal/time/useTimePickerSelectOptions";
 import {FUNCTIONAL_KEYS} from "../internal/Utils";
+import type {ZoriaInputProps} from "../../ZoriaInputProps";
 
-interface TimePickerInputProps extends Omit<InputProps, 'type' | 'value' | 'defaultValue' | 'onChange' | 'onBlur'> {
-    value?: string;
-    onChange?: (value: string) => void;
+interface TimePickerInputProps extends ZoriaInputProps<string> {
     minutesInterval?: number;
     minHour?: number;
     maxHour?: number;

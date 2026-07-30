@@ -1,4 +1,4 @@
-import {Input, type InputProps} from "../../Input";
+import {Input} from "../../Input";
 import {Popover, type PopoverHandle} from "../../../popover/Popover";
 import {IconButton} from "../../../buttons/IconButton";
 import {CalendarIcon} from "../../../icons/Icons";
@@ -9,11 +9,9 @@ import {DateUtils} from "../internal/date/DateUtils";
 import {StringUtils} from "../../../../utils/StringUtils";
 import {Card} from "../../../card/Card";
 import {FUNCTIONAL_KEYS} from "../internal/Utils";
+import {type ZoriaInputProps} from "../../ZoriaInputProps";
 
-/* TODO leave minimal input props only */
-interface DatePickerInputProps extends Omit<InputProps, 'type' | 'value' | 'onChange' | 'onBlur' | 'defaultValue'> {
-    value?: string
-    onChange?: (value: string) => void
+interface DatePickerInputProps extends ZoriaInputProps<string> {
     min?: string
     max?: string
 
@@ -25,43 +23,47 @@ interface DatePickerInputProps extends Omit<InputProps, 'type' | 'value' | 'onCh
     months?: string[]
 }
 
-const DatePickerInput = ({error: externalError, label, min, max, value, onChange, ...calendarProps}: DatePickerInputProps) => {
+const DatePickerInput = ({
+    error: externalError,
+    label,
+    min,
+    max,
+    value,
+    defaultValue,
+    isControlled = false,
+    onChange,
+    ...calendarProps
+}: DatePickerInputProps) => {
     const [error, setError] = useState<string | undefined>(externalError);
-    const [selectedDate, setSelectedDate] = useState<string | undefined>(value);
+    const [displayValue, setDisplayValue] = useState(value);
+    const [displayDefaultValue] = useState(defaultValue)
 
-    const inputRef = useRef<HTMLInputElement>(null);
     const popoverRef = useRef<PopoverHandle>(null);
 
     const onCalendarChange = (value: string) => {
-        if (inputRef.current) {
-            inputRef.current.value = value;
-            setSelectedDate(value);
-            popoverRef.current?.close();
-            onChange?.(value);
-            setError(undefined); // we assume Calendar will ALWAYS return correct date
-        } else {
-            console.error(`[DatePickerInput]: inputRef is not defined`)
-        }
+        setDisplayValue(value);
+        popoverRef.current?.close();
+        onChange?.(value);
+        setError(undefined); // we assume Calendar will ALWAYS return correct date
     }
 
     const onBlur = () => {
-        if (inputRef.current) {
-            const value = inputRef.current.value;
-            if (StringUtils.isEmpty(value)) {
+        if (displayValue) {
+            if (StringUtils.isEmpty(displayValue)) {
                 setError(undefined);
-                onInputChange(value);
+                onInputChange(displayValue);
                 return;
             }
 
-            if (!DateUtils.validateDate(value)) {
+            if (!DateUtils.validateDate(displayValue)) {
                 setError("Incorrect date");
-            } else if (!!min && DateUtils.isBefore(value, min)) {
+            } else if (!!min && DateUtils.isBefore(displayValue, min)) {
                 setError(`Date must be no earlier than ${min}`);
-            } else if (!!max && DateUtils.isAfter(value, max)) {
+            } else if (!!max && DateUtils.isAfter(displayValue, max)) {
                 setError(`Date must be no later than ${max}`);
             } else {
                 setError(undefined);
-                onInputChange(value);
+                onInputChange(displayValue);
             }
         }
     }
@@ -83,32 +85,18 @@ const DatePickerInput = ({error: externalError, label, min, max, value, onChange
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const targetElement = event.target;
         let value = targetElement.value;
-
-        const isDeleting = (event.nativeEvent as InputEvent).inputType?.includes('delete');
-        if (isDeleting) {
-            targetElement.value = value;
-            return;
-        }
-
-        if (value.length === 4 && !value.includes('-')) {
-            value = value + '-';
-        }
-        if (value.length === 7 && value.split('-').length === 2) {
-            value = value + '-';
-        }
-
-        targetElement.value = value.slice(0, 10);
+        setDisplayValue(value);
     };
 
     const onInputChange = (value: string) => {
-        setSelectedDate(value);
+        setDisplayValue(value);
         onChange?.(value);
     }
 
     return <Input
         label={label}
-        value={value}
-        ref={inputRef}
+        value={displayValue}
+        defaultValue={displayDefaultValue}
         onBlur={onBlur}
         onChange={handleInputChange}
         onKeyDown={onKeyDown}
@@ -122,7 +110,8 @@ const DatePickerInput = ({error: externalError, label, min, max, value, onChange
             </Popover.Trigger>
             <Popover.Body trapFocus>
                 <Card padding='md' shadow='lg'>
-                    <Calendar isControlled value={selectedDate} onChange={onCalendarChange} minDate={min} maxDate={max} {...calendarProps}/>
+                    <Calendar isControlled value={displayValue} onChange={onCalendarChange} minDate={min}
+                              maxDate={max} {...calendarProps}/>
                 </Card>
             </Popover.Body>
         </Popover>

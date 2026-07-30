@@ -1,4 +1,4 @@
-import {Input, type InputProps} from "../../Input";
+import {Input} from "../../Input";
 import {Popover, type PopoverHandle} from "../../../popover/Popover";
 import {IconButton} from "../../../buttons/IconButton";
 import {CalendarClockIcon} from "../../../icons/Icons";
@@ -14,12 +14,9 @@ import {Button} from "../../../buttons/Button";
 import {useTimePickerSelectOptions} from "../internal/time/useTimePickerSelectOptions";
 import {DateTimeInputUtils} from "../internal/DateTimeInputUtils";
 import {FUNCTIONAL_KEYS} from "../internal/Utils";
+import type {ZoriaInputProps} from "../../ZoriaInputProps";
 
-/* TODO leave minimal input props only */
-interface DateTimePickerInputProps extends Omit<InputProps, 'type' | 'value' | 'onChange' | 'onBlur'> {
-    value?: string
-    defaultValue?: string
-    onChange?: (value: string) => void
+interface DateTimePickerInputProps extends ZoriaInputProps<string> {
     min?: string
     max?: string
 

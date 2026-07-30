@@ -16,6 +16,6 @@
   "license": "All rights reserved",
   "packageManager": "pnpm@10.17.1",
   "devDependencies": {
-    "vitest": "^4.0.18"
+    "vitest": "^4.1.10"
   }
 }

@@ -10,16 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@digital-crafting/afd": "workspace:*",
     "@floating-ui/core": "^1.7.4",
     "@floating-ui/dom": "^1.7.5",
     "@floating-ui/utils": "^0.2.10",
-    "@zoria-ui/forms-react": "workspace:*",
-    "@zoria-ui/forms-inputs-react": "workspace:*",
-    "@zoria-ui/react": "workspace:*",
-    "@zoria-ui/forms": "workspace:*",
-    "@zoria-ui/styles": "workspace:*",
     "@zoria-ui/events": "workspace:*",
-    "@digital-crafting/afd": "workspace:*",
+    "@zoria-ui/forms": "workspace:*",
+    "@zoria-ui/forms-inputs-react": "workspace:*",
+    "@zoria-ui/forms-react": "workspace:*",
+    "@zoria-ui/react": "workspace:*",
+    "@zoria-ui/styles": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.13.1",
@@ -44,6 +44,6 @@
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.48.0",
     "vite": "^7.3.1",
-    "vitest": "^4.0.18"
+    "vitest": "^4.1.10"
   }
 }

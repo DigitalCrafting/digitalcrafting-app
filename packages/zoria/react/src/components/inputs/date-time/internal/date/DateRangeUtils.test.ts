@@ -41,7 +41,7 @@ describe('DateRangeUtils', () => {
             const display = '2026-12-12';
             const expected: DateRangeValue = {
                 start: '2026-12-12',
-                end: null,
+                end: undefined,
                 isSameDay: true
             }
 

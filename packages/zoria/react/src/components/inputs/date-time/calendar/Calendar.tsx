@@ -7,6 +7,8 @@ import {type CalendarDayRangeStatusType, CalendarUtils} from "../internal/calend
 import {SelectInput} from "../../select/SelectInput";
 import {type ZoriaSelectOption} from "../../select/SelectInputTypes";
 import {useVisibleDate} from "../internal/calendar/useVisibleDate";
+import {type ZoriaInputProps} from "../../ZoriaInputProps";
+import {noop} from "../../../../utils/Utils";
 
 interface DayProps {
     day: number
@@ -25,8 +27,7 @@ const Day = React.memo(({
     isToday = false,
     rangeStatus = 0,
     'data-testid': dataTestId,
-    onSelect = () => {
-    }
+    onSelect = noop
 }: DayProps) => {
     let classNames = 'day';
     if (isSelected || rangeStatus === 1 || rangeStatus === 3) {
@@ -36,7 +37,7 @@ const Day = React.memo(({
         classNames += ' day-today';
     }
     if (!disabled && !dataTestId) {
-        dataTestId = `calendar-day-${day}`
+        dataTestId = `qa-calendar-day-${day}`
     }
 
     let wrapperClassNames = 'day-wrapper'
@@ -73,15 +74,10 @@ const Day = React.memo(({
     </span>
 });
 
-export interface CalendarProps {
+export interface CalendarProps extends ZoriaInputProps<string> {
     id?: string;
-    value?: string;
-    defaultValue?: string;
-    onChange?: (value: string) => void;
-    isControlled?: boolean;
     minDate?: string;
     maxDate?: string;
-    className?: string;
 
     visibleDate?: string;
     onVisibleDateChange?: (value: string) => void;
@@ -107,6 +103,7 @@ export const Calendar = React.memo((
         minDate,
         maxDate,
         className: externalClassName = '',
+        "data-testid": dataTestId = 'qa-calendar',
 
         visibleDate: externalVisibleDate = undefined,
         onVisibleDateChange: externalOnVisibleDateChange,
@@ -192,6 +189,7 @@ export const Calendar = React.memo((
     const days = [];
     for (let i = 0; i < prevMonthDaysArray.length; i++) {
         days.push(<Day isToday={CalendarUtils.isToday(todayDate, visibleDate, prevMonthDaysArray[i], 'prev')}
+                       data-testid={`${dataTestId}-prev-month-day-${i}`}
                        key={`prev-month-${i}`}
                        disabled={true}
                        day={prevMonthDaysArray[i]}
@@ -235,24 +233,25 @@ export const Calendar = React.memo((
         }))
     }, [yearsRange])
 
-    return <div className={`z-calendar ${externalClassName}`.trim()}>
+    return <div data-testid={dataTestId} className={`z-calendar ${externalClassName}`.trim()}>
         <div className='z-calendar-header'>
             <div className='year-picker'>
                 <SelectInput hideLabel valueDecoration={monthLabel}
                              value={visibleDate.getFullYear()}
                              onChange={onYearSelected} options={yearOptions}
                              defaultValue={visibleDate.getFullYear()}
+                             data-testid={`${dataTestId}-year`}
                              isControlled
                              compact/>
             </div>
             <div className='month-picker'>
-                <IconButton disabled={prevMonthDisabled} onClick={onPrevMonth}><ChevronLeftIcon/></IconButton>
-                <IconButton disabled={nextMonthDisabled} onClick={onNextMonth}><ChevronRightIcon/></IconButton>
+                <IconButton data-testid={`${dataTestId}-prev-month`} disabled={prevMonthDisabled} onClick={onPrevMonth}><ChevronLeftIcon/></IconButton>
+                <IconButton data-testid={`${dataTestId}-next-month`} disabled={nextMonthDisabled} onClick={onNextMonth}><ChevronRightIcon/></IconButton>
             </div>
         </div>
         <div className={`z-calendar-page`} role='grid'>
             {weekdaysLabels.map((label, idx) => (
-                <div key={`weekday-${idx}`} role="columnheader" className='weekday'>{label}</div>
+                <div data-testid={`${dataTestId}-weekday`} key={`weekday-${idx}`} role="columnheader" className='weekday'>{label}</div>
             ))}
             {days.map(day => day)}
         </div>

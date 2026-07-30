@@ -1,4 +1,4 @@
-import {Input, type InputProps} from "../../Input";
+import {Input} from "../../Input";
 import {Popover, type PopoverHandle} from "../../../popover/Popover";
 import {IconButton} from "../../../buttons/IconButton";
 import {CalendarIcon} from "../../../icons/Icons";
@@ -15,13 +15,13 @@ import {Button} from "../../../buttons/Button";
 import {H4} from "../../../typography/Typography";
 import {useVisibleDateRange} from "../internal/date/useVisibleDateRange";
 import {DateUtils} from "../internal/date/DateUtils";
+import {ZDateTimeRegex} from "../internal/type-wrapper/ZDateTimeRegex";
+import {type ZoriaInputProps} from "../../ZoriaInputProps";
+import DISPLAY_DATE_RANGE_REGEX = ZDateTimeRegex.DISPLAY_DATE_RANGE_REGEX;
 
 
 /* TODO leave minimal input props only */
-interface DateRangePickerInputProps extends Omit<InputProps, 'type' | 'value' | 'defaultValue' | 'onChange' | 'onBlur'> {
-    value?: DateRangeValue;
-    defaultValue?: DateRangeValue;
-    onChange?: (value: DateRangeValue) => void;
+interface DateRangePickerInputProps extends ZoriaInputProps<DateRangeValue> {
     startDateLabel?: string;
     endDateLabel?: string;
     minDate?: string;
@@ -33,8 +33,6 @@ interface DateRangePickerInputProps extends Omit<InputProps, 'type' | 'value' | 
     yearRangeEnd?: number;
     weekdays?: string[];
     months?: string[];
-
-    isControlled?: boolean;
 }
 
 /* TODO controlled */
@@ -80,7 +78,7 @@ const DateRangePickerInput = ({
             return;
         }
         const normalizedValue = displayValue.replace(
-            /(\d{4}-\d{2}-\d{2})\s*[–—\-]\s*(\d{4}-\d{2}-\d{2})/,
+            DISPLAY_DATE_RANGE_REGEX,
             `$1 ${HYPHEN} $2`
         );
         setDisplayValue(normalizedValue);
@@ -96,7 +94,7 @@ const DateRangePickerInput = ({
         const range = DateRangeUtils.parseDateRange(displayValue);
         if (range) {
             const formattedValue = displayValue.replace(
-                /(\d{4}-\d{2}-\d{2})\s+-\s+(\d{4}-\d{2}-\d{2})/,
+                DISPLAY_DATE_RANGE_REGEX,
                 `$1 ${EN_DASH} $2`
             );
             const startDateIsoString = DateUtils.dateToIsoString(range.startDate);

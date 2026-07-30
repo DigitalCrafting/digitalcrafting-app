@@ -17,7 +17,7 @@ export namespace DateRangeUtils {
     export function toValue(display: string): DateRangeValue {
         const parts = display.split(EN_DASH).map(part => part.trim()).filter(Boolean);
 
-        if (parts.length === 1) {
+        if (parts.length === 1 || parts[0] === parts[1]) {
             return {
                 start: parts[0],
                 end: undefined,
@@ -27,7 +27,7 @@ export namespace DateRangeUtils {
 
         return {
             start: parts[0],
-            end: parts[1],
+            end: parts[1]
         };
     }
 

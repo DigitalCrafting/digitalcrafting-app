@@ -1,5 +1,5 @@
 import {type TimeRangeValue} from "../types/DateTimeTypes";
-import {Input, type InputProps} from "../../Input";
+import {Input} from "../../Input";
 import {EN_DASH, HYPHEN} from "../../../../types/CommonTypes";
 import {Popover, type PopoverHandle} from "../../../popover/Popover";
 import {IconButton} from "../../../buttons/IconButton";
@@ -15,11 +15,9 @@ import {useTimePickerSelectOptions} from "../internal/time/useTimePickerSelectOp
 import {TimeUtils} from "../internal/time/TimeUtils";
 import {FUNCTIONAL_KEYS} from "../internal/Utils";
 import {StringUtils} from "../../../../utils/StringUtils";
+import type {ZoriaInputProps} from "../../ZoriaInputProps";
 
-interface TimeRangePickerInputProps extends Omit<InputProps, 'type' | 'value' | 'defaultValue' | 'onChange' | 'onBlur'> {
-    value?: TimeRangeValue;
-    defaultValue?: TimeRangeValue;
-    onChange?: (value: TimeRangeValue) => void;
+interface TimeRangePickerInputProps extends ZoriaInputProps<TimeRangeValue> {
     startTimeLabel?: string;
     endTimeLabel?: string;
 
@@ -28,8 +26,6 @@ interface TimeRangePickerInputProps extends Omit<InputProps, 'type' | 'value' | 
     maxHour?: number;
     minMin?: number;
     maxMin?: number;
-
-    isControlled?: boolean;
 }
 
 /* TODO controlled */

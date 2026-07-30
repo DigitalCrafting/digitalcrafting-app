@@ -1,4 +1,4 @@
-import {Input, type InputProps} from "../../Input";
+import {Input} from "../../Input";
 import {EN_DASH, HYPHEN} from "../../../../types/CommonTypes";
 import {Popover, type PopoverHandle} from "../../../popover/Popover";
 import {IconButton} from "../../../buttons/IconButton";
@@ -17,12 +17,9 @@ import {useTimePickerSelectOptions} from "../internal/time/useTimePickerSelectOp
 import {TimeUtils} from "../internal/time/TimeUtils";
 import {FUNCTIONAL_KEYS} from "../internal/Utils";
 import {StringUtils} from "../../../../utils/StringUtils";
+import {type ZoriaInputProps} from "../../ZoriaInputProps";
 
-interface DateTimeRangePickerInputProps extends Omit<InputProps, 'type' | 'value' | 'defaultValue' | 'onChange' | 'onBlur'> {
-    value?: DateTimeRangeValue;
-    defaultValue?: DateTimeRangeValue;
-    onChange?: (value: DateTimeRangeValue) => void;
-    isControlled?: boolean;
+interface DateTimeRangePickerInputProps extends ZoriaInputProps<DateTimeRangeValue> {
     startLabel?: string;
     endLabel?: string;
     minDate?: string;
@@ -41,7 +38,6 @@ interface DateTimeRangePickerInputProps extends Omit<InputProps, 'type' | 'value
     maxHour?: number;
     minMin?: number;
     maxMin?: number;
-
 }
 
 const DateTimeRangePickerInput = ({
