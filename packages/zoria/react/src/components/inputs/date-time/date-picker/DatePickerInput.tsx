@@ -23,6 +23,7 @@ interface DatePickerInputProps extends ZoriaInputProps<string> {
     months?: string[]
 }
 
+// TODO controlled
 const DatePickerInput = ({
     error: externalError,
     label,
@@ -40,7 +41,7 @@ const DatePickerInput = ({
 
     const popoverRef = useRef<PopoverHandle>(null);
 
-    const onCalendarChange = (value: string) => {
+    const onCalendarChange = (value?: string) => {
         setDisplayValue(value);
         popoverRef.current?.close();
         onChange?.(value);

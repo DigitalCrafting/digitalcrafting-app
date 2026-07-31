@@ -4,6 +4,7 @@
   "exclude": [
     ".*\\.spec\\.tsx?$",
     ".*\\.test\\.tsx?$",
+    ".*\\.e2d\\.tsx?$",
     "internal"
   ]
 }

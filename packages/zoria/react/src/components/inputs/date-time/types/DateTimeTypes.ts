@@ -1,13 +1,18 @@
+export type RangeValue = {
+    start: string;
+    end: string;
+}
+
 /**
  * Expected format: ISO Date -> yyyy-MM-dd
  * */
 export type DateRangeValue = {
-    start: string;
-    end: string;
+    start?: string;
+    end?: string;
     /* This one is for DateTimeRange only */
     isSameDay?: false | null
 } | {
-    start: string;
+    start?: string;
     end?: string;
     /* This one is for DateTimeRange only */
     isSameDay: true
@@ -21,11 +26,18 @@ export type TimeRangeValue = {
     end: string;
 }
 
-export type DateTimeRangeValue = {
+export type InternalDateTimeRangeValue = {
     startDate: string;
     endDate: string;
     startTime: string;
     endTime: string;
+    /* This one is for DateTimeRange only */
+    isSameDay?: boolean
+}
+
+export type DateTimeRangeValue = {
+    start: string;
+    end: string;
     /* This one is for DateTimeRange only */
     isSameDay?: boolean
 }

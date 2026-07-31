@@ -8,9 +8,14 @@ import {H4} from "../../../typography/Typography";
 import {Calendar} from "../calendar/Calendar";
 import {Button} from "../../../buttons/Button";
 import * as React from "react";
-import {type ChangeEvent, type KeyboardEventHandler, useMemo, useRef, useState} from "react";
+import {type ChangeEvent, type KeyboardEventHandler, useEffect, useMemo, useRef, useState} from "react";
 import {TimePickerSelect} from "../internal/time/TimePickerSelect";
-import {DatePickingStageEnum, type DatePickingStageEnumType, type DateTimeRangeValue} from "../types/DateTimeTypes";
+import {
+    DatePickingStageEnum,
+    type DatePickingStageEnumType,
+    type DateTimeRangeValue,
+    type InternalDateTimeRangeValue
+} from "../types/DateTimeTypes";
 import {DateTimeRangeUtils} from "../internal/DateTimeRangeUtils";
 import {useVisibleDateRange} from "../internal/date/useVisibleDateRange";
 import {useTimePickerSelectOptions} from "../internal/time/useTimePickerSelectOptions";
@@ -18,6 +23,7 @@ import {TimeUtils} from "../internal/time/TimeUtils";
 import {FUNCTIONAL_KEYS} from "../internal/Utils";
 import {StringUtils} from "../../../../utils/StringUtils";
 import {type ZoriaInputProps} from "../../ZoriaInputProps";
+import {useInputValue} from "../../internal/useInputValue";
 
 interface DateTimeRangePickerInputProps extends ZoriaInputProps<DateTimeRangeValue> {
     startLabel?: string;
@@ -47,7 +53,7 @@ const DateTimeRangePickerInput = ({
     value,
     defaultValue,
     onChange,
-    // isControlled = false,
+    isControlled = false,
     startLabel = 'Start',
     endLabel = 'End',
     minDate,
@@ -65,15 +71,36 @@ const DateTimeRangePickerInput = ({
     minMin,
     maxMin,
 }: DateTimeRangePickerInputProps) => {
-    const [error, setError] = useState<string | undefined>(externalError);
-    const [startDate, setStartDate] = useState(defaultValue?.startDate);
-    const [endDate, setEndDate] = useState(defaultValue?.endDate);
-    const [startTime, setStartTime] = useState(defaultValue?.startTime);
-    const [endTime, setEndTime] = useState(defaultValue?.endTime);
+    const [rangeValue, setRangeValue] = useInputValue<DateTimeRangeValue>(value, onChange, defaultValue, isControlled);
 
-    const [displayValue, setDisplayValue] = useState(DateTimeRangeUtils.toDisplay(value));
-    const [displayDefaultValue] = useState(DateTimeRangeUtils.toDisplay(defaultValue))
+    const internalRangeValue = DateTimeRangeUtils.fromExternalValue(rangeValue);
+
+    const [error, setError] = useState<string | undefined>(externalError);
+    const [startDate, setStartDate] = useState(internalRangeValue?.startDate);
+    const [endDate, setEndDate] = useState(internalRangeValue?.endDate);
+    const [startTime, setStartTime] = useState(internalRangeValue?.startTime);
+    const [endTime, setEndTime] = useState(internalRangeValue?.endTime);
+
+    const [displayValue, setDisplayValue] = useState(DateTimeRangeUtils.toDisplay(internalRangeValue));
+    const [displayDefaultValue] = useState(DateTimeRangeUtils.toDisplay(internalRangeValue))
     const [datePickingStage, setDatePickingStage] = useState<DatePickingStageEnumType>(DatePickingStageEnum.START)
+
+    useEffect(() => {
+        if (!rangeValue) {
+            setStartDate(undefined);
+            setStartTime(undefined);
+            setEndDate(undefined);
+            setEndTime(undefined);
+            setDisplayValue(undefined);
+        } else {
+            const internalValue = DateTimeRangeUtils.fromExternalValue(rangeValue);
+            setStartDate(internalValue?.startDate);
+            setStartTime(internalValue?.startTime);
+            setEndDate(internalValue?.endDate);
+            setEndTime(internalValue?.endTime);
+            setDisplayValue(DateTimeRangeUtils.toDisplay(internalValue));
+        }
+    }, [rangeValue]);
 
     const popoverRef = useRef<PopoverHandle>(null);
 
@@ -141,7 +168,7 @@ const DateTimeRangePickerInput = ({
             DateTimeRangeUtils.DATE_TIME_RANGE_REGEX,
             `$1 ${EN_DASH} $2`
         ));
-        const valueFromDisplay = DateTimeRangeUtils.toValue(displayValue!);
+        const valueFromDisplay = DateTimeRangeUtils.toInternalValue(displayValue!);
         if (!valueFromDisplay) {
             setError('Incorrect date time range value');
             return;
@@ -153,7 +180,7 @@ const DateTimeRangePickerInput = ({
         setEndDate(valueFromDisplay.endDate);
         setStartTime(valueFromDisplay.startTime);
         setEndTime(valueFromDisplay.endTime);
-        onChange?.(valueFromDisplay);
+        setRangeValue?.(DateTimeRangeUtils.toExternalValue(valueFromDisplay));
     }
 
     const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -175,7 +202,7 @@ const DateTimeRangePickerInput = ({
 
     const onOkClicked = () => {
         if (startDate && endDate && startTime && endTime) {
-            const newValue: DateTimeRangeValue = {
+            const newValue: InternalDateTimeRangeValue = {
                 startDate,
                 endDate,
                 startTime,
@@ -183,7 +210,7 @@ const DateTimeRangePickerInput = ({
                 isSameDay: startDate === endDate
             };
             setDisplayValue(DateTimeRangeUtils.toDisplay(newValue));
-            onChange?.(newValue);
+            setRangeValue?.(DateTimeRangeUtils.toExternalValue(newValue));
             popoverRef.current?.close();
         }
     }
@@ -195,7 +222,7 @@ const DateTimeRangePickerInput = ({
             setStartTime(undefined);
             setEndTime(undefined);
         } else {
-            const valueFromDisplay = DateTimeRangeUtils.toValue(displayValue!);
+            const valueFromDisplay = DateTimeRangeUtils.toInternalValue(displayValue!);
             if (!valueFromDisplay) {
                 return;
             }

@@ -21,7 +21,7 @@ interface TimePickerInputProps extends ZoriaInputProps<string> {
     maxMin?: number;
 }
 
-/* TODO all ISO time parts, for now it's only HH:mm */
+// TODO controlled
 const TimePickerInput = ({error: externalError, minutesInterval = 30, minHour = 0, maxHour = 24, minMin = 0, maxMin = 60, ...inputProps}: TimePickerInputProps) => {
     const [error, setError] = useState<string | undefined>(externalError);
     const [selectedTime, setSelectedTime] = useState<string | undefined>(inputProps.value);

@@ -4,7 +4,7 @@ import {IconButton} from "../../../buttons/IconButton";
 import {CalendarIcon} from "../../../icons/Icons";
 import {Calendar} from "../calendar/Calendar";
 import * as React from "react";
-import {type ChangeEvent, type KeyboardEventHandler, useRef, useState} from "react";
+import {type ChangeEvent, type KeyboardEventHandler, useEffect, useRef, useState} from "react";
 import {StringUtils} from "../../../../utils/StringUtils";
 import {Card} from "../../../card/Card";
 import {FUNCTIONAL_KEYS} from "../internal/Utils";
@@ -18,9 +18,8 @@ import {DateUtils} from "../internal/date/DateUtils";
 import {ZDateTimeRegex} from "../internal/type-wrapper/ZDateTimeRegex";
 import {type ZoriaInputProps} from "../../ZoriaInputProps";
 import DISPLAY_DATE_RANGE_REGEX = ZDateTimeRegex.DISPLAY_DATE_RANGE_REGEX;
+import {useInputValue} from "../../internal/useInputValue";
 
-
-/* TODO leave minimal input props only */
 interface DateRangePickerInputProps extends ZoriaInputProps<DateRangeValue> {
     startDateLabel?: string;
     endDateLabel?: string;
@@ -35,7 +34,6 @@ interface DateRangePickerInputProps extends ZoriaInputProps<DateRangeValue> {
     months?: string[];
 }
 
-/* TODO controlled */
 const DateRangePickerInput = ({
     error: externalError,
     label,
@@ -46,18 +44,29 @@ const DateRangePickerInput = ({
     onChange,
     startDateLabel = 'Start',
     endDateLabel = 'End',
-    // isControlled = false,
+    isControlled = false,
     ...calendarProps
 }: DateRangePickerInputProps) => {
+    const [rangeValue, setRangeValue] = useInputValue<DateRangeValue>(value, onChange, defaultValue, isControlled);
     const [error, setError] = useState<string | undefined>(externalError);
-    const [startDate, setStartDate] = useState(defaultValue?.start);
-    const [endDate, setEndDate] = useState(defaultValue?.end);
-    const [displayValue, setDisplayValue] = useState(DateRangeUtils.toDisplay(value));
-    const [displayDefaultValue] = useState(DateRangeUtils.toDisplay(defaultValue))
-    const [datePickingStage, setDatePickingStage] = useState<DatePickingStageEnumType>(DatePickingStageEnum.START)
+    const [startDate, setStartDate] = useState(rangeValue?.start);
+    const [endDate, setEndDate] = useState(rangeValue?.end);
+    const [displayValue, setDisplayValue] = useState(DateRangeUtils.toDisplay(rangeValue));
+    const [displayDefaultValue] = useState(DateRangeUtils.toDisplay(rangeValue));
 
+    useEffect(() => {
+        if (!rangeValue) {
+            setStartDate(undefined);
+            setEndDate(undefined);
+        } else {
+            setStartDate(rangeValue.start);
+            setEndDate(rangeValue.end);
+        }
+        setDisplayValue(DateRangeUtils.toDisplay(rangeValue));
+    }, [rangeValue]);
+
+    const [datePickingStage, setDatePickingStage] = useState<DatePickingStageEnumType>(DatePickingStageEnum.START);
     const popoverRef = useRef<PopoverHandle>(null);
-
     const displayLabels = false; // TODO visible on smaller screens, 1 calendar at a time
 
     const {
@@ -104,7 +113,7 @@ const DateRangePickerInput = ({
             setEndDate(endDateIsoString);
             setVisibleEndDate(endDateIsoString);
             setDisplayValue(formattedValue);
-            onChange?.({
+            setRangeValue({
                 start: startDateIsoString,
                 end: endDateIsoString
             });
@@ -139,7 +148,7 @@ const DateRangePickerInput = ({
                 end: endDate
             };
             setDisplayValue(DateRangeUtils.toDisplay(newValue));
-            onChange?.(newValue);
+            setRangeValue(newValue);
             popoverRef.current?.close();
         }
     }

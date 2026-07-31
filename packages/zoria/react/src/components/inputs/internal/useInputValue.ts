@@ -14,7 +14,10 @@ export function useInputValue<ValueType = any>(externalValue?: ValueType, extern
     } else {
         value = internalValue;
         // @ts-ignore
-        setValue = (value?: ValueType) => setInternalValue(value);
+        setValue = (value?: ValueType) => {
+            setInternalValue(value);
+            externalOnChange?.(value);
+        };
     }
 
     return [value, setValue]

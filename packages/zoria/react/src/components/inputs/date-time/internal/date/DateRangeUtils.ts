@@ -3,7 +3,7 @@ import {EN_DASH} from "../../../../../types/CommonTypes";
 
 export namespace DateRangeUtils {
     export function toDisplay(value?: DateRangeValue): string | undefined {
-        if (!value) {
+        if (!value || !value.end || !value.start) {
             return undefined;
         }
 

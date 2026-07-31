@@ -8,7 +8,7 @@ import {Card} from "../../../card/Card";
 import {H4} from "../../../typography/Typography";
 import {Button} from "../../../buttons/Button";
 import * as React from "react";
-import {type ChangeEvent, type KeyboardEventHandler, useRef, useState} from "react";
+import {type ChangeEvent, type KeyboardEventHandler, useEffect, useRef, useState} from "react";
 import {TimePickerSelect} from "../internal/time/TimePickerSelect";
 import {TimeRangeUtils} from "../internal/time/TimeRangeUtils";
 import {useTimePickerSelectOptions} from "../internal/time/useTimePickerSelectOptions";
@@ -16,6 +16,7 @@ import {TimeUtils} from "../internal/time/TimeUtils";
 import {FUNCTIONAL_KEYS} from "../internal/Utils";
 import {StringUtils} from "../../../../utils/StringUtils";
 import type {ZoriaInputProps} from "../../ZoriaInputProps";
+import {useInputValue} from "../../internal/useInputValue";
 
 interface TimeRangePickerInputProps extends ZoriaInputProps<TimeRangeValue> {
     startTimeLabel?: string;
@@ -28,7 +29,6 @@ interface TimeRangePickerInputProps extends ZoriaInputProps<TimeRangeValue> {
     maxMin?: number;
 }
 
-/* TODO controlled */
 const TimeRangePickerInput = ({
     value,
     defaultValue,
@@ -42,13 +42,26 @@ const TimeRangePickerInput = ({
     maxMin = 60,
     startTimeLabel = 'Start',
     endTimeLabel = 'End',
-    // isControlled = false,
+    isControlled = false,
 }: TimeRangePickerInputProps) => {
+    const [rangeValue, setRangeValue] = useInputValue<TimeRangeValue>(value, onChange, defaultValue, isControlled);
     const [error, setError] = useState<string | undefined>(externalError);
     const [startTime, setStartTime] = useState(defaultValue?.start);
     const [endTime, setEndTime] = useState(defaultValue?.end);
     const [displayValue, setDisplayValue] = useState(TimeRangeUtils.toDisplay(value));
     const [displayDefaultValue] = useState(TimeRangeUtils.toDisplay(defaultValue))
+
+
+    useEffect(() => {
+        if (!rangeValue) {
+            setStartTime(undefined);
+            setEndTime(undefined);
+        } else {
+            setStartTime(rangeValue.start);
+            setEndTime(rangeValue.end);
+        }
+        setDisplayValue(TimeRangeUtils.toDisplay(rangeValue));
+    }, [rangeValue]);
 
     const inputRef = useRef<HTMLInputElement>(null);
     const popoverRef = useRef<PopoverHandle>(null);
@@ -91,17 +104,13 @@ const TimeRangePickerInput = ({
 
         const range = TimeRangeUtils.parseTimeRange(displayValue);
         if (range) {
-            // const formattedValue = displayValue.replace(
-            //     /(\d{1,2}:\d{2}(?::\d{2})?)\s*[–—\-]\s*(\d{1,2}:\d{2}(?::\d{2})?)/,
-            //     `$1 ${EN_DASH} $2`
-            // );
             const startTimeIsoString = range.startTime.formatted;
             const endTimeIsoString = range.endTime.formatted;
             const formattedValue = `${startTimeIsoString} ${EN_DASH} ${endTimeIsoString}`;
             setStartTime(startTimeIsoString);
             setEndTime(endTimeIsoString);
             setDisplayValue(formattedValue)
-            onChange?.({
+            setRangeValue({
                 start: startTimeIsoString,
                 end: endTimeIsoString
             })
@@ -160,7 +169,7 @@ const TimeRangePickerInput = ({
                 end: endTime
             };
             setDisplayValue(TimeRangeUtils.toDisplay(newValue));
-            onChange?.(newValue);
+            setRangeValue(newValue);
             popoverRef.current?.close();
         }
     }

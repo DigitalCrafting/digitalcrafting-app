@@ -38,7 +38,24 @@ interface DateTimePickerInputProps extends ZoriaInputProps<string> {
     months?: string[]
 }
 
-const DateTimePickerInput = ({error: externalError, label, min, max, value, defaultValue, onChange, minutesInterval = 30, minHour = 0, maxHour = 24, minMin = 0, maxMin = 60, ...calendarProps}: DateTimePickerInputProps) => {
+const DateTimePickerInput = ({
+    error: externalError,
+    label,
+    min,
+    max,
+    value,
+    defaultValue,
+    onChange,
+    isControlled = false,
+    disabled = false,
+    "data-testid": dataTestId = 'qa-date-time-picker-input',
+    minutesInterval = 30,
+    minHour = 0,
+    maxHour = 24,
+    minMin = 0,
+    maxMin = 60,
+    ...calendarProps
+}: DateTimePickerInputProps) => {
     const [error, setError] = useState<string | undefined>(externalError);
     const [defaultDate, defaultTime] = DateTimeUtils.split(defaultValue || '');
     const [displayValue, setDisplayValue] = useState<string | undefined>(DateTimeUtils.join(defaultDate, defaultTime));
@@ -48,7 +65,7 @@ const DateTimePickerInput = ({error: externalError, label, min, max, value, defa
     const inputRef = useRef<HTMLInputElement>(null);
     const popoverRef = useRef<PopoverHandle>(null);
 
-    const onCalendarChange = (value: string) => {
+    const onCalendarChange = (value?: string) => {
         setSelectedDate(value);
     }
 
@@ -137,10 +154,12 @@ const DateTimePickerInput = ({error: externalError, label, min, max, value, defa
                     <div className='z-date-time-input-dropdown'>
                         <div className='z-date-time-input-dropdown-wrapper'>
                             <div className='z-date-time-input-dropdown-calendar-column'>
-                                <Calendar isControlled value={selectedDate} onChange={onCalendarChange} minDate={min} maxDate={max} {...calendarProps}/>
+                                <Calendar isControlled value={selectedDate} onChange={onCalendarChange} minDate={min}
+                                          maxDate={max} {...calendarProps}/>
                             </div>
                             <div className='z-date-time-input-dropdown-time-column'>
-                                <TimePickerSelect value={selectedTime} isControlled onSelected={onTimepickerChange} options={timePickerOptions} />
+                                <TimePickerSelect value={selectedTime} isControlled onSelected={onTimepickerChange}
+                                                  options={timePickerOptions}/>
                             </div>
                         </div>
                         <div className='z-date-time-input-dropdown-actions'>

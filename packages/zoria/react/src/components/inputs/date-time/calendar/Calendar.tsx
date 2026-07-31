@@ -237,7 +237,7 @@ export const Calendar = React.memo((
         <div className='z-calendar-header'>
             <div className='year-picker'>
                 <SelectInput hideLabel valueDecoration={monthLabel}
-                             value={visibleDate.getFullYear()}
+                             value={selectedDate?.getFullYear() ?? visibleDate.getFullYear()}
                              onChange={onYearSelected} options={yearOptions}
                              defaultValue={visibleDate.getFullYear()}
                              data-testid={`${dataTestId}-year`}

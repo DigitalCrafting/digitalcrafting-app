@@ -2,7 +2,7 @@
 export interface ZoriaInputProps<T = any> {
     value?: T;
     defaultValue?: T;
-    onChange?: (value: T) => void;
+    onChange?: (value?: T) => void;
     isControlled?: boolean
 
     label?: string;
