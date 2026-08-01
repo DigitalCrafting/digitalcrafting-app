@@ -1,5 +1,5 @@
-import {CodeBlock, Col, DatePickerInput, DateUtils, Row} from "@zoria-ui/react";
-import {useMemo} from "react";
+import {CodeBlock, Col, DatePickerInput, DateUtils, Grid, H4} from "@zoria-ui/react";
+import {useMemo, useState} from "react";
 import {ZoriaDocsPanel} from "../../../zoria-docs-panel/ZoriaDocsPanel.tsx";
 
 export const DatePickerInputDocs = () => {
@@ -27,21 +27,65 @@ export const DatePickerInputDocs = () => {
         'Grudzień'
     ];
 
+    const [value, setValue] = useState<string | undefined>();
+
+    const firstPickerOnChange = (value?: string) => {
+        setValue(value);
+        console.log('Picker 1 changed value');
+        console.log(value);
+    };
+
+    const secondPickerOnChange = (value?: string) => {
+        setValue(value);
+        console.log('Picker 2 changed value');
+        console.log(value);
+    };
+
+
     return <ZoriaDocsPanel>
         <ZoriaDocsPanel.Title>Date Picker Input</ZoriaDocsPanel.Title>
         <ZoriaDocsPanel.Body>
             <ZoriaDocsPanel.Demo>
-                <Row>
-                    <Col span={1}/>
-                    <Col span={4}>
-                        <DatePickerInput onChange={(value) => console.log(value)} label='Date Picker'/>
-                    </Col>
-                    <Col span={2}/>
-                    <Col span={4}>
-                        <DatePickerInput months={monthsPl} weekdays={weekdaysPl} startingDay={'Pn'} onChange={(value) => console.log(value)} min={min} max={max} label='Date Picker PL with Min/Max'/>
-                    </Col>
-                    <Col span={1}/>
-                </Row>
+                <Col>
+                    <Grid>
+                        <Grid.Col span={1}/>
+                        <Grid.Col span={4}>
+                            <H4>Standalone Inputs</H4>
+                        </Grid.Col>
+                    </Grid>
+                    <Grid>
+                        <Grid.Col span={1}/>
+                        <Grid.Col span={4}>
+                            <DatePickerInput onChange={(value) => console.log(value)} label='Date Picker'/>
+                        </Grid.Col>
+                        <Grid.Col span={2}/>
+                        <Grid.Col span={4}>
+                            <DatePickerInput months={monthsPl} weekdays={weekdaysPl} startingDay={'Pn'}
+                                             onChange={(value) => console.log(value)} min={min} max={max}
+                                             label='Date Picker PL with Min/Max'/>
+                        </Grid.Col>
+                        <Grid.Col span={1}/>
+                    </Grid>
+                    <Grid>
+                        <Grid.Col span={1}/>
+                        <Grid.Col span={4}>
+                            <H4>Controlled Inputs</H4>
+                        </Grid.Col>
+                    </Grid>
+                    <Grid>
+                        <Grid.Col span={1}/>
+                        <Grid.Col span={4}>
+                            <DatePickerInput isControlled value={value} onChange={firstPickerOnChange}
+                                             label='Date Picker 1'/>
+                        </Grid.Col>
+                        <Grid.Col span={2}/>
+                        <Grid.Col span={4}>
+                            <DatePickerInput isControlled value={value} onChange={secondPickerOnChange}
+                                             label='Date Picker 2'/>
+                        </Grid.Col>
+                        <Grid.Col span={1}/>
+                    </Grid>
+                </Col>
             </ZoriaDocsPanel.Demo>
             <ZoriaDocsPanel.Code>
                 <Col span={12}>
@@ -71,7 +115,7 @@ export const DatePickerInputDocs = () => {
                     </CodeBlock>
                 </Col>
             </ZoriaDocsPanel.Code>
-                        <ZoriaDocsPanel.Docs/>
+            <ZoriaDocsPanel.Docs/>
         </ZoriaDocsPanel.Body>
     </ZoriaDocsPanel>;
 }

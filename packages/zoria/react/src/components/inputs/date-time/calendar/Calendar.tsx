@@ -173,7 +173,6 @@ export const Calendar = React.memo((
         newDate.setDate(day);
         setSelectedDate(newDate);
         setVisibleDate(newDate);
-        onChange?.(DateUtils.dateToIsoString(newDate));
     }
 
     const dayOffset = weekdays.indexOf(startingDay);

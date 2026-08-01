@@ -97,6 +97,7 @@ const DateRangePickerInput = ({
         // TS does not understand what isEmpty does
         if (!displayValue || StringUtils.isEmpty(displayValue)) {
             setError(undefined);
+            setRangeValue(undefined);
             return;
         }
 

@@ -4,12 +4,13 @@ import {IconButton} from "../../../buttons/IconButton";
 import {CalendarIcon} from "../../../icons/Icons";
 import {Calendar} from "../calendar/Calendar";
 import * as React from "react";
-import {type ChangeEvent, type KeyboardEventHandler, useRef, useState} from "react";
+import {type ChangeEvent, type KeyboardEventHandler, useEffect, useRef, useState} from "react";
 import {DateUtils} from "../internal/date/DateUtils";
 import {StringUtils} from "../../../../utils/StringUtils";
 import {Card} from "../../../card/Card";
 import {FUNCTIONAL_KEYS} from "../internal/Utils";
 import {type ZoriaInputProps} from "../../ZoriaInputProps";
+import {useInputValue} from "../../internal/useInputValue";
 
 interface DatePickerInputProps extends ZoriaInputProps<string> {
     min?: string
@@ -23,7 +24,6 @@ interface DatePickerInputProps extends ZoriaInputProps<string> {
     months?: string[]
 }
 
-// TODO controlled
 const DatePickerInput = ({
     error: externalError,
     label,
@@ -35,37 +35,40 @@ const DatePickerInput = ({
     onChange,
     ...calendarProps
 }: DatePickerInputProps) => {
+    const [internalValue, setInternalValue] = useInputValue<string>(value, onChange, defaultValue, isControlled);
+
     const [error, setError] = useState<string | undefined>(externalError);
-    const [displayValue, setDisplayValue] = useState(value);
-    const [displayDefaultValue] = useState(defaultValue)
+    const [displayValue, setDisplayValue] = useState(internalValue);
+    const [displayDefaultValue] = useState(internalValue)
+
+    useEffect(() => {
+        setDisplayValue(internalValue);
+    }, [internalValue]);
 
     const popoverRef = useRef<PopoverHandle>(null);
 
     const onCalendarChange = (value?: string) => {
-        setDisplayValue(value);
-        popoverRef.current?.close();
-        onChange?.(value);
+        setInternalValue(value);
         setError(undefined); // we assume Calendar will ALWAYS return correct date
+        popoverRef.current?.close();
     }
 
     const onBlur = () => {
-        if (displayValue) {
-            if (StringUtils.isEmpty(displayValue)) {
-                setError(undefined);
-                onInputChange(displayValue);
-                return;
-            }
+        if (!displayValue || StringUtils.isEmpty(displayValue)) {
+            setError(undefined);
+            setInternalValue(displayValue);
+            return;
+        }
 
-            if (!DateUtils.validateDate(displayValue)) {
-                setError("Incorrect date");
-            } else if (!!min && DateUtils.isBefore(displayValue, min)) {
-                setError(`Date must be no earlier than ${min}`);
-            } else if (!!max && DateUtils.isAfter(displayValue, max)) {
-                setError(`Date must be no later than ${max}`);
-            } else {
-                setError(undefined);
-                onInputChange(displayValue);
-            }
+        if (!DateUtils.validateDate(displayValue)) {
+            setError("Incorrect date");
+        } else if (!!min && DateUtils.isBefore(displayValue, min)) {
+            setError(`Date must be no earlier than ${min}`);
+        } else if (!!max && DateUtils.isAfter(displayValue, max)) {
+            setError(`Date must be no later than ${max}`);
+        } else {
+            setError(undefined);
+            setInternalValue(displayValue);
         }
     }
 
@@ -88,11 +91,6 @@ const DatePickerInput = ({
         let value = targetElement.value;
         setDisplayValue(value);
     };
-
-    const onInputChange = (value: string) => {
-        setDisplayValue(value);
-        onChange?.(value);
-    }
 
     return <Input
         label={label}

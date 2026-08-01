@@ -4,7 +4,7 @@ import {IconButton} from "../../../buttons/IconButton";
 import {CalendarClockIcon} from "../../../icons/Icons";
 import {Calendar} from "../calendar/Calendar";
 import * as React from "react";
-import {type ChangeEvent, type KeyboardEventHandler, useRef, useState} from "react";
+import {type ChangeEvent, type KeyboardEventHandler, useEffect, useRef, useState} from "react";
 import {DateUtils} from "../internal/date/DateUtils";
 import {StringUtils} from "../../../../utils/StringUtils";
 import {Card} from "../../../card/Card";
@@ -12,9 +12,9 @@ import {DateTimeUtils} from "../internal/DateTimeUtils";
 import {TimePickerSelect} from "../internal/time/TimePickerSelect";
 import {Button} from "../../../buttons/Button";
 import {useTimePickerSelectOptions} from "../internal/time/useTimePickerSelectOptions";
-import {DateTimeInputUtils} from "../internal/DateTimeInputUtils";
 import {FUNCTIONAL_KEYS} from "../internal/Utils";
 import type {ZoriaInputProps} from "../../ZoriaInputProps";
+import {useInputValue} from "../../internal/useInputValue";
 
 interface DateTimePickerInputProps extends ZoriaInputProps<string> {
     min?: string
@@ -56,13 +56,27 @@ const DateTimePickerInput = ({
     maxMin = 60,
     ...calendarProps
 }: DateTimePickerInputProps) => {
+    const [internalValue, setInternalValue] = useInputValue<string>(value, onChange, defaultValue, isControlled);
+
     const [error, setError] = useState<string | undefined>(externalError);
-    const [defaultDate, defaultTime] = DateTimeUtils.split(defaultValue || '');
+    const [defaultDate, defaultTime] = DateTimeUtils.split(internalValue ?? '');
     const [displayValue, setDisplayValue] = useState<string | undefined>(DateTimeUtils.join(defaultDate, defaultTime));
     const [selectedDate, setSelectedDate] = useState<string | undefined>(defaultDate);
     const [selectedTime, setSelectedTime] = useState<string | undefined>(defaultTime);
 
-    const inputRef = useRef<HTMLInputElement>(null);
+    useEffect(() => {
+        if (!internalValue) {
+            setSelectedDate(undefined);
+            setSelectedTime(undefined);
+            setDisplayValue(undefined);
+        } else {
+            const [date, time] = DateTimeUtils.split(internalValue);
+            setSelectedDate(date);
+            setSelectedTime(time);
+            setDisplayValue(DateTimeUtils.toDisplay(internalValue));
+        }
+    }, [internalValue]);
+
     const popoverRef = useRef<PopoverHandle>(null);
 
     const onCalendarChange = (value?: string) => {
@@ -70,29 +84,23 @@ const DateTimePickerInput = ({
     }
 
     const onBlur = () => {
-        if (inputRef.current) {
-            const value = inputRef.current.value;
-            if (StringUtils.isEmpty(value)) {
-                setError(undefined);
-                onChange?.(value);
-                return;
-            }
+        if (!displayValue || StringUtils.isEmpty(displayValue)) {
+            setError(undefined);
+            setInternalValue(undefined);
+            return;
+        }
 
-            const isoString = DateTimeInputUtils.displayToIsoString(value);
+        const isoString = DateTimeUtils.toValue(displayValue);
 
-            if (!DateUtils.validateDate(isoString)) {
-                setError("Incorrect date");
-            } else if (!!min && DateUtils.isBefore(isoString, min)) {
-                setError(`Date must be no earlier than ${min}`);
-            } else if (!!max && DateUtils.isAfter(isoString, max)) {
-                setError(`Date must be no later than ${max}`);
-            } else {
-                const [date, time] = DateTimeUtils.split(isoString);
-                setSelectedDate(date);
-                setSelectedTime(time);
-                setError(undefined);
-                onChange?.(isoString);
-            }
+        if (!DateUtils.validateDate(isoString)) {
+            setError("Incorrect date");
+        } else if (!!min && DateUtils.isBefore(isoString!, min)) {
+            setError(`Date must be no earlier than ${min}`);
+        } else if (!!max && DateUtils.isAfter(isoString!, max)) {
+            setError(`Date must be no later than ${max}`);
+        } else {
+            setError(undefined);
+            setInternalValue?.(isoString);
         }
     }
 
@@ -110,7 +118,6 @@ const DateTimePickerInput = ({
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const targetElement = event.target;
         let value = targetElement.value;
-        /* TODO validate */
         setDisplayValue(value);
     };
 
@@ -128,8 +135,7 @@ const DateTimePickerInput = ({
 
     const onOkClicked = () => {
         if (selectedDate && selectedTime) {
-            setDisplayValue(`${selectedDate} ${selectedTime}`);
-            onChange?.(DateTimeUtils.join(selectedDate, selectedTime));
+            setInternalValue(DateTimeUtils.join(selectedDate, selectedTime));
             popoverRef.current?.close();
         }
     }
@@ -137,7 +143,6 @@ const DateTimePickerInput = ({
     return <Input
         label={label}
         value={displayValue}
-        ref={inputRef}
         onBlur={onBlur}
         onChange={handleInputChange}
         onKeyDown={onKeyDown}

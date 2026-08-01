@@ -1,5 +1,5 @@
 import {ZoriaUIRoutePathsEnum, ZoriaUISubroutesPathsEnum} from "./ZoriaUIRoutesTypes.ts";
-import {redirect, type RouteObject} from "react-router-dom";
+import {Navigate, redirect, type RouteObject} from "react-router-dom";
 import {TextDocs} from "../react/typography/TextDocs.tsx";
 import {ZoriaUiReactAbout} from "../react/ZoriaUiReactAbout.tsx";
 import {ModalDocs} from "../react/display/ModalDocs.tsx";
@@ -254,5 +254,9 @@ export const ZoriaUIRoutesConfig: RouteObject[] = [
                 Component: EventEmitterDocs
             }
         ]
+    },
+    {
+        path: '*',
+        element: <Navigate to='/zoria' replace />
     }
 ]

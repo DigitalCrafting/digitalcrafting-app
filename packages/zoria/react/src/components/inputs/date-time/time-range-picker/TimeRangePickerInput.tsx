@@ -99,6 +99,7 @@ const TimeRangePickerInput = ({
     const onBlur = () => {
         if (!displayValue || StringUtils.isEmpty(displayValue)) {
             setError(undefined);
+            setRangeValue(undefined);
             return;
         }
 

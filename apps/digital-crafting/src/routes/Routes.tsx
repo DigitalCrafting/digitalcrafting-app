@@ -1,4 +1,4 @@
-import {createBrowserRouter} from "react-router-dom";
+import {createBrowserRouter, Navigate} from "react-router-dom";
 import {LandingPage} from "../pages/landing-page/LandingPage.tsx";
 import App from "../App.tsx";
 import {ZoriaUIRoutesConfig} from "../pages/zoria-ui-demo/config/ZoriaUIRoutesConfig.tsx";
@@ -26,6 +26,10 @@ export const Router = createBrowserRouter([
                     const {ThreeJsDroneGamePage} = await import('../pages/threejs-drone-game/ThreeJsDroneGamePage.tsx');
                     return {element: <ThreeJsDroneGamePage />};
                 },
+            },
+            {
+                path: '*',
+                element: <Navigate to='/' replace />
             }
         ]
     },
