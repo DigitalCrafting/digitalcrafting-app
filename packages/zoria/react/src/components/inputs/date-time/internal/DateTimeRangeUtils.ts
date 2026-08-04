@@ -1,4 +1,4 @@
-import type {DateRangeValue, DateTimeRangeValue, InternalDateTimeRangeValue} from "../types/DateTimeTypes";
+import type {DateTimeRangeValue, InternalDateTimeRangeValue} from "../types/DateTimeTypes";
 import {EN_DASH} from "../../../../types/CommonTypes";
 
 export namespace DateTimeRangeUtils {
@@ -59,7 +59,7 @@ export namespace DateTimeRangeUtils {
         }
     }
 
-    export function fromExternalValue(value?: DateRangeValue): InternalDateTimeRangeValue | undefined {
+    export function fromExternalValue(value?: DateTimeRangeValue): InternalDateTimeRangeValue | undefined {
         if (!value || !value.start || !value.end) {
             return undefined;
         }

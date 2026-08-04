@@ -7,23 +7,15 @@ import {SelectDropdownController} from "./controllers/SelectDropdownController";
 import {SelectInputController} from "./controllers/SelectInputController";
 import {Card} from "../../card/Card";
 import {type NativeSelectOption, type ZoriaSelectOption} from "./SelectInputTypes";
+import type {ZoriaInputProps} from "../ZoriaInputProps";
 
-interface SelectInputInternalProps<T = string> {
+interface SelectInputInternalProps<T = string>  extends ZoriaInputProps<T> {
     native?: boolean;
-    className?: string;
-    'data-testid'?: string;
-    label?: string;
     hideLabel?: boolean;
-    error?: string;
     id?: string;
-    disabled?: boolean;
     compact?: boolean;
-    value?: T;
-    defaultValue?: T;
     valueDecoration?: string;
     placeholder?: string;
-    onChange?: (value: any) => void;
-    isControlled?: boolean
 }
 
 type NativeSelectInputProps = SelectInputInternalProps & { native: true, options: NativeSelectOption[] }
@@ -149,7 +141,7 @@ type ZoriaSelectInputProps<T = any> = SelectInputInternalProps<T> & {
 
 const ZoriaSelectInput = ({
     className: externalClassName = '',
-    'data-testid': dataTestId,
+    'data-testid': dataTestId = 'qa-select',
     id,
     label,
     hideLabel = false,
@@ -218,7 +210,7 @@ const ZoriaSelectInput = ({
         }
         <Popover ref={popoverRef}>
             <Popover.Trigger disabled={disabled}>
-                <div className={`z-input-container ${disabled ? 'disabled' : ''}`} ref={containerRef}>
+                <div data-testid={`${dataTestId}-dropdown-trigger`} className={`z-input-container ${disabled ? 'disabled' : ''}`} ref={containerRef}>
                     <div className='z-input z-select z-select-custom'>
                         <input tabIndex={-1} type='hidden' {...props} id={id} disabled={disabled}/>
                         <button onKeyDown={onKeyDown}
@@ -242,6 +234,7 @@ const ZoriaSelectInput = ({
                                          onSelected={onSelected}
                                          sentinelRef={sentinelRef}
                                          close={() => popoverRef.current?.close()}
+                                         data-testid={`${dataTestId}-dropdown`}
                     />
                 </Card>
             </Popover.Body>

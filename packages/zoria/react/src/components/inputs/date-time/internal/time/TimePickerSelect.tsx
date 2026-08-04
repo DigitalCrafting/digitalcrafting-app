@@ -9,6 +9,7 @@ interface TimePickerSelectProps {
     options: ZoriaSelectOption<any, any>[];
     onSelected: (value?: string) => void;
     isControlled?: boolean;
+    "data-testid"?: string
 }
 
 export const TimePickerSelect = ({
@@ -16,7 +17,8 @@ export const TimePickerSelect = ({
     defaultValue: externalDefaultValue,
     options,
     onSelected: externalOnSelected,
-    isControlled = false
+    isControlled = false,
+    "data-testid": dataTestId = 'qa-time-picker-select'
 }: TimePickerSelectProps) => {
     const listRef = useRef<HTMLUListElement>(null);
     const onKeyDown = useTimePickerSelectKeyDownController(listRef);
@@ -32,6 +34,7 @@ export const TimePickerSelect = ({
                tabIndex={-1}
                ref={listRef}
                onKeyDown={onKeyDown}
+               data-testid={dataTestId}
     >
         {
             options.map(option => {

@@ -13,6 +13,7 @@ import {type AutocompleteDropdownOption} from "./AutocompleteTypes";
 import {SpinnerCircle} from "../../spinner/Spinner";
 import type {UniversalInteractionEvent} from "../../../types/CommonTypes";
 import {useAutocompleteKeyHandler} from "./useAutocompleteKeyHandler";
+import type {ZoriaInputProps} from "../ZoriaInputProps";
 
 interface AutocompleteDropdownProps {
     width: number;
@@ -214,23 +215,12 @@ const BaseAutocompleteInput = ({
     </>
 }
 
-interface CommonAutocompleteInputProps<T = unknown> {
-    className?: string;
-    'data-testid'?: string;
-    label?: string;
+interface CommonAutocompleteInputProps<T = unknown> extends ZoriaInputProps<T> {
     hideLabel?: boolean;
-    error?: string;
     id?: string;
-    disabled?: boolean;
-    defaultValue?: T;
     valueDecoration?: string;
-    onChange?: (value?: any) => void;
     placeholder?: string;
     noResultsMessage?: string;
-
-    // controlled
-    value?: T;
-    controlled?: boolean;
 }
 
 interface StaticAutocompleteInputProps<T = unknown> extends CommonAutocompleteInputProps<T> {
@@ -240,7 +230,7 @@ interface StaticAutocompleteInputProps<T = unknown> extends CommonAutocompleteIn
 const StaticAutocompleteInput = ({
     value = undefined,
     defaultValue = undefined,
-    controlled = false,
+    isControlled = false,
     onChange,
     options: externalOptions = undefined,
     ...baseProps
@@ -256,7 +246,7 @@ const StaticAutocompleteInput = ({
     const [internalCurrentlySelected, setCurrentlySelected] = useState<AutocompleteDropdownOption<any, any> | undefined>(defaultSelectedValue);
 
     let currentlySelected: AutocompleteDropdownOption<any, any> | undefined = undefined;
-    if (controlled) {
+    if (isControlled) {
         currentlySelected = useMemo(() => {
             if (value) {
                 return options?.find(option => option.value === value);
@@ -347,7 +337,7 @@ interface DynamicAutocompleteInputProps<T = unknown> extends CommonAutocompleteI
 const DynamicAutocompleteInput = ({
     value = undefined,
     defaultValue = undefined,
-    controlled = false,
+    isControlled = false,
     onChange,
     onQueryChange,
     queryOptions = undefined,
@@ -365,7 +355,7 @@ const DynamicAutocompleteInput = ({
     const [internalCurrentlySelected, setCurrentlySelected] = useState<AutocompleteDropdownOption<any, any> | undefined>(defaultSelectedValue);
 
     let currentlySelected: AutocompleteDropdownOption<any, any> | undefined = undefined;
-    if (controlled) {
+    if (isControlled) {
         currentlySelected = useMemo(() => {
             if (value) {
                 return options?.find(option => option.value === value);

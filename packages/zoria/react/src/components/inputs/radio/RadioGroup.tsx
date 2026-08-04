@@ -1,5 +1,6 @@
 import * as React from "react";
 import {useState} from "react";
+import type {ZoriaInputProps} from "../ZoriaInputProps";
 
 interface RadioGroupContextType {
     name: string,
@@ -28,17 +29,12 @@ const RadioGroupItem = ({children, className: externalClassName = '', value: rad
     </label>
 }
 
-interface RadioGroupProps {
+interface RadioGroupProps extends ZoriaInputProps {
     name: string;
-    className?: string;
     children: React.ReactElement<typeof RadioGroupItem>[];
-    value?: any;
-    defaultValue?: any;
-    onChange?: (value: any) => void;
-    isControlled?: boolean;
 }
 
-const RadioGroupInternal = ({children, name, value: externalValue, defaultValue, isControlled = false, onChange: externalOnChange = () => {}, className: externalClassName = ''}: RadioGroupProps) => {
+const RadioGroupInternal = ({children, "data-testid": dataTestId = 'qa-radio-group', name, value: externalValue, defaultValue, isControlled = false, onChange: externalOnChange = () => {}, className: externalClassName = ''}: RadioGroupProps) => {
     const [internalValue, setInternalValue] = useState(defaultValue);
     const internalOnChange = (value: any) => {
         setInternalValue(value);
@@ -50,7 +46,7 @@ const RadioGroupInternal = ({children, name, value: externalValue, defaultValue,
     const onChange = isControlled ? externalOnChange : internalOnChange;
 
     return <RadioGroupContext.Provider value={{name, onChange, value}}>
-        <div className={`z-radio-group ${externalClassName}`.trim()}>
+        <div data-testid={`${dataTestId}`} className={`z-radio-group ${externalClassName}`.trim()}>
             {children}
         </div>
     </RadioGroupContext.Provider>

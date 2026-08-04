@@ -45,7 +45,7 @@ const ControlledAutocomplete = ({queryOptions}: {queryOptions?: (query: string) 
     }
 
     return <AutocompleteInput placeholder='Type to search' value={value} onChange={onChange}
-                              controlled
+                              isControlled
                               queryOptions={queryOptions} label='Controlled autocomplete with query'/>
 }
 

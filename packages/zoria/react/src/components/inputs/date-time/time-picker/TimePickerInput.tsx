@@ -13,6 +13,7 @@ import {useTimePickerSelectOptions} from "../internal/time/useTimePickerSelectOp
 import {FUNCTIONAL_KEYS} from "../internal/Utils";
 import type {ZoriaInputProps} from "../../ZoriaInputProps";
 import {useInputValue} from "../../internal/useInputValue";
+import {useInputError} from "../../internal/useInputError";
 
 interface TimePickerInputProps extends ZoriaInputProps<string> {
     minutesInterval?: number;
@@ -27,18 +28,19 @@ const TimePickerInput = ({
     onChange,
     isControlled = false,
     defaultValue,
-    "data-testid": dataTestId = 'qa-time-picker-input',
+    "data-testid": dataTestId = 'qa-time-picker',
     error: externalError,
     minutesInterval = 30,
     minHour = 0,
     maxHour = 24,
     minMin = 0,
     maxMin = 60,
+    disabled,
     ...inputProps
 }: TimePickerInputProps) => {
     const [internalValue, setInternalValue] = useInputValue<string>(value, onChange, defaultValue, isControlled);
+    const [error, setError] = useInputError(externalError);
 
-    const [error, setError] = useState<string | undefined>(externalError);
     const [selectedTime, setSelectedTime] = useState<string | undefined>(value);
     const [displayValue, setDisplayValue] = useState(internalValue);
     const [displayDefaultValue] = useState(internalValue)
@@ -117,10 +119,13 @@ const TimePickerInput = ({
                   onKeyDown={onKeyDown}
                   error={error}
                   type='text'
-                  placeholder='--:--'>
+                  placeholder='--:--'
+                  disabled={disabled}
+                  data-testid={`${dataTestId}-input`}
+    >
         <Popover ref={popoverRef}>
             <Popover.Trigger>
-                <IconButton><ClockIcon/></IconButton>
+                <IconButton disabled={disabled} data-testid={`${dataTestId}-dropdown-trigger`}><ClockIcon/></IconButton>
             </Popover.Trigger>
             <Popover.Body>
                 <Card padding='none' shadow='lg'>
@@ -129,6 +134,7 @@ const TimePickerInput = ({
                                          onSelected={onTimepickerChange}
                                          sentinelRef={inputRef}
                                          width={75}
+                                         data-testid={`${dataTestId}-time`}
                                          close={() => popoverRef?.current?.close()}/>
                 </Card>
             </Popover.Body>

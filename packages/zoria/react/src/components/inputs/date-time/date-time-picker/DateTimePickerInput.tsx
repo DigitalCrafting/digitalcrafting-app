@@ -15,6 +15,7 @@ import {useTimePickerSelectOptions} from "../internal/time/useTimePickerSelectOp
 import {FUNCTIONAL_KEYS} from "../internal/Utils";
 import type {ZoriaInputProps} from "../../ZoriaInputProps";
 import {useInputValue} from "../../internal/useInputValue";
+import {useInputError} from "../../internal/useInputError";
 
 interface DateTimePickerInputProps extends ZoriaInputProps<string> {
     min?: string
@@ -48,7 +49,7 @@ const DateTimePickerInput = ({
     onChange,
     isControlled = false,
     disabled = false,
-    "data-testid": dataTestId = 'qa-date-time-picker-input',
+    "data-testid": dataTestId = 'qa-date-time-picker',
     minutesInterval = 30,
     minHour = 0,
     maxHour = 24,
@@ -57,8 +58,8 @@ const DateTimePickerInput = ({
     ...calendarProps
 }: DateTimePickerInputProps) => {
     const [internalValue, setInternalValue] = useInputValue<string>(value, onChange, defaultValue, isControlled);
+    const [error, setError] = useInputError(externalError);
 
-    const [error, setError] = useState<string | undefined>(externalError);
     const [defaultDate, defaultTime] = DateTimeUtils.split(internalValue ?? '');
     const [displayValue, setDisplayValue] = useState<string | undefined>(DateTimeUtils.join(defaultDate, defaultTime));
     const [selectedDate, setSelectedDate] = useState<string | undefined>(defaultDate);
@@ -149,26 +150,28 @@ const DateTimePickerInput = ({
         error={error}
         type='text'
         placeholder='yyyy-MM-dd HH:mm'
+        data-testid={`${dataTestId}-input`}
+        disabled={disabled}
     >
         <Popover ref={popoverRef}>
             <Popover.Trigger>
-                <IconButton><CalendarClockIcon/></IconButton>
+                <IconButton disabled={disabled} data-testid={`${dataTestId}-dropdown-trigger`}><CalendarClockIcon/></IconButton>
             </Popover.Trigger>
             <Popover.Body trapFocus>
                 <Card padding='none' shadow='lg'>
                     <div className='z-date-time-input-dropdown'>
                         <div className='z-date-time-input-dropdown-wrapper'>
                             <div className='z-date-time-input-dropdown-calendar-column'>
-                                <Calendar isControlled value={selectedDate} onChange={onCalendarChange} minDate={min}
+                                <Calendar data-testid={`${dataTestId}-date`} isControlled value={selectedDate} onChange={onCalendarChange} minDate={min}
                                           maxDate={max} {...calendarProps}/>
                             </div>
                             <div className='z-date-time-input-dropdown-time-column'>
-                                <TimePickerSelect value={selectedTime} isControlled onSelected={onTimepickerChange}
+                                <TimePickerSelect data-testid={`${dataTestId}-time`} value={selectedTime} isControlled onSelected={onTimepickerChange}
                                                   options={timePickerOptions}/>
                             </div>
                         </div>
                         <div className='z-date-time-input-dropdown-actions'>
-                            <Button onClick={onOkClicked}>OK</Button>
+                            <Button data-testid={`${dataTestId}-ok-btn`} onClick={onOkClicked}>OK</Button>
                         </div>
                     </div>
                 </Card>

@@ -11,6 +11,7 @@ import {Card} from "../../../card/Card";
 import {FUNCTIONAL_KEYS} from "../internal/Utils";
 import {type ZoriaInputProps} from "../../ZoriaInputProps";
 import {useInputValue} from "../../internal/useInputValue";
+import {useInputError} from "../../internal/useInputError";
 
 interface DatePickerInputProps extends ZoriaInputProps<string> {
     min?: string
@@ -33,11 +34,13 @@ const DatePickerInput = ({
     defaultValue,
     isControlled = false,
     onChange,
+    disabled,
+    "data-testid": dataTestId = 'qa-date-picker',
     ...calendarProps
 }: DatePickerInputProps) => {
     const [internalValue, setInternalValue] = useInputValue<string>(value, onChange, defaultValue, isControlled);
+    const [error, setError] = useInputError(externalError);
 
-    const [error, setError] = useState<string | undefined>(externalError);
     const [displayValue, setDisplayValue] = useState(internalValue);
     const [displayDefaultValue] = useState(internalValue)
 
@@ -102,14 +105,16 @@ const DatePickerInput = ({
         error={error}
         type='text'
         placeholder='yyyy-MM-dd'
+        data-testid={`${dataTestId}-input`}
+        disabled={disabled}
     >
         <Popover ref={popoverRef}>
             <Popover.Trigger>
-                <IconButton><CalendarIcon/></IconButton>
+                <IconButton disabled={disabled} data-testid={`${dataTestId}-dropdown-trigger`}><CalendarIcon/></IconButton>
             </Popover.Trigger>
             <Popover.Body trapFocus>
                 <Card padding='md' shadow='lg'>
-                    <Calendar isControlled value={displayValue} onChange={onCalendarChange} minDate={min}
+                    <Calendar data-testid={`${dataTestId}-date`} isControlled value={displayValue} onChange={onCalendarChange} minDate={min}
                               maxDate={max} {...calendarProps}/>
                 </Card>
             </Popover.Body>

@@ -19,6 +19,7 @@ import {ZDateTimeRegex} from "../internal/type-wrapper/ZDateTimeRegex";
 import {type ZoriaInputProps} from "../../ZoriaInputProps";
 import DISPLAY_DATE_RANGE_REGEX = ZDateTimeRegex.DISPLAY_DATE_RANGE_REGEX;
 import {useInputValue} from "../../internal/useInputValue";
+import {useInputError} from "../../internal/useInputError";
 
 interface DateRangePickerInputProps extends ZoriaInputProps<DateRangeValue> {
     startDateLabel?: string;
@@ -45,10 +46,12 @@ const DateRangePickerInput = ({
     startDateLabel = 'Start',
     endDateLabel = 'End',
     isControlled = false,
+    "data-testid": dataTestId = 'qa-date-range-picker',
     ...calendarProps
 }: DateRangePickerInputProps) => {
     const [rangeValue, setRangeValue] = useInputValue<DateRangeValue>(value, onChange, defaultValue, isControlled);
-    const [error, setError] = useState<string | undefined>(externalError);
+    const [error, setError] = useInputError(externalError);
+
     const [startDate, setStartDate] = useState(rangeValue?.start);
     const [endDate, setEndDate] = useState(rangeValue?.end);
     const [displayValue, setDisplayValue] = useState(DateRangeUtils.toDisplay(rangeValue));
@@ -198,6 +201,7 @@ const DateRangePickerInput = ({
         error={error}
         type='text'
         placeholder={`yyyy-MM-dd ${EN_DASH} yyyy-MM-dd`}
+        data-testid={`${dataTestId}-input`}
     >
         <Popover ref={popoverRef} onClose={onDropdownClose}>
             <Popover.Trigger>
@@ -224,6 +228,7 @@ const DateRangePickerInput = ({
                                     maxDate={maxStartDate}
                                     visibleDate={visibleStartDate}
                                     onVisibleDateChange={onVisibleStartDateChange}
+                                    data-testid={`${dataTestId}-date-start`}
                                     {...calendarProps}
                                 />
                             </div>
@@ -244,12 +249,14 @@ const DateRangePickerInput = ({
                                     maxDate={maxEndDate}
                                     visibleDate={visibleEndDate}
                                     onVisibleDateChange={onVisibleEndDateChange}
+                                    data-testid={`${dataTestId}-date-end`}
                                     {...calendarProps}
                                 />
                             </div>
                         </div>
                         <div className='z-date-range-input-dropdown-actions'>
-                            <Button onClick={onOkClicked}>OK</Button>
+                            {/* TODO button label */}
+                            <Button data-testid={`${dataTestId}-ok-btn`} onClick={onOkClicked}>OK</Button>
                         </div>
                     </div>
                 </Card>

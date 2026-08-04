@@ -17,6 +17,7 @@ import {FUNCTIONAL_KEYS} from "../internal/Utils";
 import {StringUtils} from "../../../../utils/StringUtils";
 import type {ZoriaInputProps} from "../../ZoriaInputProps";
 import {useInputValue} from "../../internal/useInputValue";
+import {useInputError} from "../../internal/useInputError";
 
 interface TimeRangePickerInputProps extends ZoriaInputProps<TimeRangeValue> {
     startTimeLabel?: string;
@@ -43,14 +44,15 @@ const TimeRangePickerInput = ({
     startTimeLabel = 'Start',
     endTimeLabel = 'End',
     isControlled = false,
+    "data-testid": dataTestId = 'qa-time-range-picker'
 }: TimeRangePickerInputProps) => {
     const [rangeValue, setRangeValue] = useInputValue<TimeRangeValue>(value, onChange, defaultValue, isControlled);
-    const [error, setError] = useState<string | undefined>(externalError);
+    const [error, setError] = useInputError(externalError);
+
     const [startTime, setStartTime] = useState(defaultValue?.start);
     const [endTime, setEndTime] = useState(defaultValue?.end);
     const [displayValue, setDisplayValue] = useState(TimeRangeUtils.toDisplay(value));
     const [displayDefaultValue] = useState(TimeRangeUtils.toDisplay(defaultValue))
-
 
     useEffect(() => {
         if (!rangeValue) {
@@ -187,10 +189,11 @@ const TimeRangePickerInput = ({
         error={error}
         type='text'
         placeholder={`HH:mm ${EN_DASH} HH:mm`}
+        data-testid={`${dataTestId}-input`}
     >
         <Popover ref={popoverRef} onClose={onDropdownClose}>
             <Popover.Trigger>
-                <IconButton><CalendarIcon/></IconButton>
+                <IconButton data-testid={`${dataTestId}-dropdown-trigger`}><CalendarIcon/></IconButton>
             </Popover.Trigger>
             <Popover.Body>
                 <Card padding='none' shadow='lg'>
@@ -208,6 +211,7 @@ const TimeRangePickerInput = ({
                                     value={startTime}
                                     onSelected={onLeftTimeChange}
                                     options={startTimePickerOptions}
+                                    data-testid={`${dataTestId}-time-start`}
                                 />
                             </div>
                             <div className='z-time-range-input-dropdown-time-column'>
@@ -222,11 +226,12 @@ const TimeRangePickerInput = ({
                                     value={endTime}
                                     onSelected={onRightTimeChange}
                                     options={endTimePickerOptions}
+                                    data-testid={`${dataTestId}-time-end`}
                                 />
                             </div>
                         </div>
                         <div className='z-time-range-input-dropdown-actions'>
-                            <Button onClick={onOkClicked}>OK</Button>
+                            <Button data-testid={`${dataTestId}-ok-btn`} onClick={onOkClicked}>OK</Button>
                         </div>
                     </div>
                 </Card>

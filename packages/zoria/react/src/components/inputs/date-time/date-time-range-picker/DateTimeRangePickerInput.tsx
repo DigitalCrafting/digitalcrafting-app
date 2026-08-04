@@ -24,6 +24,7 @@ import {FUNCTIONAL_KEYS} from "../internal/Utils";
 import {StringUtils} from "../../../../utils/StringUtils";
 import {type ZoriaInputProps} from "../../ZoriaInputProps";
 import {useInputValue} from "../../internal/useInputValue";
+import {useInputError} from "../../internal/useInputError";
 
 interface DateTimeRangePickerInputProps extends ZoriaInputProps<DateTimeRangeValue> {
     startLabel?: string;
@@ -49,6 +50,7 @@ interface DateTimeRangePickerInputProps extends ZoriaInputProps<DateTimeRangeVal
 const DateTimeRangePickerInput = ({
     label,
     error: externalError,
+    disabled,
 
     value,
     defaultValue,
@@ -70,12 +72,14 @@ const DateTimeRangePickerInput = ({
     maxHour,
     minMin,
     maxMin,
+
+    "data-testid": dataTestId = 'qa-date-time-range-picker'
 }: DateTimeRangePickerInputProps) => {
     const [rangeValue, setRangeValue] = useInputValue<DateTimeRangeValue>(value, onChange, defaultValue, isControlled);
+    const [error, setError] = useInputError(externalError);
 
     const internalRangeValue = DateTimeRangeUtils.fromExternalValue(rangeValue);
 
-    const [error, setError] = useState<string | undefined>(externalError);
     const [startDate, setStartDate] = useState(internalRangeValue?.startDate);
     const [endDate, setEndDate] = useState(internalRangeValue?.endDate);
     const [startTime, setStartTime] = useState(internalRangeValue?.startTime);
@@ -279,10 +283,12 @@ const DateTimeRangePickerInput = ({
         error={error}
         type='text'
         placeholder={`yyyy-MM-dd HH:mm ${EN_DASH} yyyy-MM-dd HH:mm`}
+        data-testid={`${dataTestId}-input`}
+        disabled={disabled}
     >
         <Popover ref={popoverRef} onClose={onDropdownClose}>
             <Popover.Trigger>
-                <IconButton><CalendarIcon/></IconButton>
+                <IconButton disabled={disabled} data-testid={`${dataTestId}-dropdown-trigger`}><CalendarIcon/></IconButton>
             </Popover.Trigger>
             <Popover.Body trapFocus>
                 <Card padding='none' shadow='lg'>
@@ -305,6 +311,7 @@ const DateTimeRangePickerInput = ({
                                     maxDate={maxStartDate}
                                     visibleDate={visibleStartDate}
                                     onVisibleDateChange={onVisibleStartDateChange}
+                                    data-testid={`${dataTestId}-date-start`}
                                     {...calendarProps}
                                 />
                             </div>
@@ -314,6 +321,7 @@ const DateTimeRangePickerInput = ({
                                     value={startTime}
                                     onSelected={onLeftTimeChange}
                                     options={startTimePickerOptions}
+                                    data-testid={`${dataTestId}-time-start`}
                                 />
                             </div>
                             <div className='z-date-time-range-input-dropdown-calendar-column'>
@@ -333,6 +341,7 @@ const DateTimeRangePickerInput = ({
                                     maxDate={maxEndDate}
                                     visibleDate={visibleEndDate}
                                     onVisibleDateChange={onVisibleEndDateChange}
+                                    data-testid={`${dataTestId}-date-end`}
                                     {...calendarProps}
                                 />
                             </div>
@@ -342,11 +351,12 @@ const DateTimeRangePickerInput = ({
                                     value={endTime}
                                     onSelected={onRightTimeChange}
                                     options={endTimePickerOptions}
+                                    data-testid={`${dataTestId}-time-end`}
                                 />
                             </div>
                         </div>
                         <div className='z-date-time-range-input-dropdown-actions'>
-                            <Button onClick={onOkClicked}>OK</Button>
+                            <Button data-testid={`${dataTestId}-ok-btn`} onClick={onOkClicked}>OK</Button>
                         </div>
                     </div>
                 </Card>
