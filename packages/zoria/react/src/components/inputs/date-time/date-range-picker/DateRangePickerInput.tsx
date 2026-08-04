@@ -17,7 +17,6 @@ import {useVisibleDateRange} from "../internal/date/useVisibleDateRange";
 import {DateUtils} from "../internal/date/DateUtils";
 import {ZDateTimeRegex} from "../internal/type-wrapper/ZDateTimeRegex";
 import {type ZoriaInputProps} from "../../ZoriaInputProps";
-import DISPLAY_DATE_RANGE_REGEX = ZDateTimeRegex.DISPLAY_DATE_RANGE_REGEX;
 import {useInputValue} from "../../internal/useInputValue";
 import {useInputError} from "../../internal/useInputError";
 
@@ -90,7 +89,7 @@ const DateRangePickerInput = ({
             return;
         }
         const normalizedValue = displayValue.replace(
-            DISPLAY_DATE_RANGE_REGEX,
+            ZDateTimeRegex.DISPLAY_DATE_RANGE_REGEX,
             `$1 ${HYPHEN} $2`
         );
         setDisplayValue(normalizedValue);
@@ -107,7 +106,7 @@ const DateRangePickerInput = ({
         const range = DateRangeUtils.parseDateRange(displayValue);
         if (range) {
             const formattedValue = displayValue.replace(
-                DISPLAY_DATE_RANGE_REGEX,
+                ZDateTimeRegex.DISPLAY_DATE_RANGE_REGEX,
                 `$1 ${EN_DASH} $2`
             );
             const startDateIsoString = DateUtils.dateToIsoString(range.startDate);
