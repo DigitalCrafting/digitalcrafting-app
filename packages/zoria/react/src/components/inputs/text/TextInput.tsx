@@ -1,19 +1,35 @@
-import {Input, type InputProps} from "../Input";
+import {Input} from "../Input";
 import {noop} from "../../../utils/Utils";
 import type {ChangeEvent} from "react";
+import {useInputValue} from "../internal/useInputValue";
+import {useInputError} from "../internal/useInputError";
+import {ZoriaInputProps} from "../ZoriaInputProps";
 
-interface TextInputProps extends Omit<InputProps, 'type' | 'onChange'> {
-    onChange?: (value: string) => void
+interface TextInputProps extends ZoriaInputProps<string> {
+    children?: any
 }
 
-const TextInput = ({children, onChange = noop, ...props}: TextInputProps) => {
+const TextInput = ({
+    children,
+    value: externalValue = '',
+    defaultValue: externalDefaultValue = '',
+    onChange: externalOnChage = noop,
+    error: externalError,
+    isControlled = false,
+    "data-testid": dataTestId = 'qa-text-input',
+    ...props
+}: TextInputProps) => {
+    const [value, setValue] = useInputValue(externalValue, externalOnChage, externalDefaultValue, isControlled);
+    const [error] = useInputError(externalError);
+
     const internalOnChange = (event: ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
-        onChange(value);
+        setValue(value);
     }
 
-    return <Input {...props} onChange={internalOnChange} type='text'>{children}</Input>
+    return <Input {...props} data-testid={dataTestId} value={value} error={error} onChange={internalOnChange}
+                  type='text'>{children}</Input>
 };
 
 export {TextInput};
-export type { TextInputProps };
+export type {TextInputProps};

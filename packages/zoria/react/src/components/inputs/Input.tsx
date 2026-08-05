@@ -38,7 +38,7 @@ export const Input = ({
             label ? <label className='z-input-label' htmlFor={id}>{label}</label> : null
         }
         <div className='z-input-container' data-labelhidden={!label}>
-            <input className='z-input' {...inputProps} id={id} disabled={disabled}/>
+            <input data-testid={`${dataTestId}-input`} className='z-input' {...inputProps} id={id} disabled={disabled}/>
             {children}
         </div>
         {

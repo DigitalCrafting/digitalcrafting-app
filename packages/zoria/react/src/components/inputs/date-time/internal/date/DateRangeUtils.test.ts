@@ -9,7 +9,7 @@ describe('DateRangeUtils', () => {
             // given
             const value: DateRangeValue = {
                 start: '2026-12-12',
-                end: null,
+                end: '2026-12-12',
                 isSameDay: true
             }
 
