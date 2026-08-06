@@ -1,43 +1,51 @@
-import * as React from "react";
-import {CryptoUtils} from "../../../utils/Utils";
+import type {ChangeEvent} from "react";
+import {CryptoUtils, noop} from "../../../utils/Utils";
+import {ZoriaInputProps} from "../ZoriaInputProps";
+import {useInputValue} from "../internal/useInputValue";
+import {useInputError} from "../internal/useInputError";
 
-interface TextareaInputProps extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange'> {
-    className?: string
-    'data-testid'?: string
-    label?: string
-    error?: string
-    id?: string
-    disabled?: boolean
-    onChange?: (value: string) => void
-    children?: React.ReactNode;
+interface TextareaInputProps extends ZoriaInputProps<string> {
+    children?: any
 }
 
 const TextareaInput = ({
     className: externalClassName = '',
-    'data-testid': dataTestId,
+    'data-testid': dataTestId = 'qa-textarea-input',
     label,
-    error,
+    value: externalValue = '',
+    defaultValue: externalDefaultValue = '',
+    onChange: externalOnChange = noop,
+    error: externalError,
+    isControlled = false,
     id,
     disabled,
-    onChange,
     children,
     ...textareaProps
 }: TextareaInputProps) => {
+    const [value, setValue] = useInputValue(externalValue, externalOnChange, externalDefaultValue, isControlled);
+    const [error] = useInputError(externalError);
+
     if (!id) {
         id = `input-${CryptoUtils.UUID()}`
     }
 
-    if (!dataTestId) {
-        dataTestId = `${id}-testId`
+    const internalOnChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        const value = event.target.value;
+        setValue(value);
     }
 
     return <div className={`z-input-wrapper ${externalClassName}`}
-                data-testid={dataTestId}
+                data-testid={`${dataTestId}-wrapper`}
     >
         <label className='z-input-label' htmlFor={id}>{label}</label>
         <div className='z-input-container'>
-            <textarea className='z-input z-textarea' {...textareaProps} id={id} disabled={disabled}
-                      onChange={(e) => onChange?.(e.target.value)}/>
+            <textarea className='z-input z-textarea'
+                      {...textareaProps}
+                      data-testid={dataTestId}
+                      id={id}
+                      disabled={disabled}
+                      value={value}
+                      onChange={internalOnChange}/>
             {children}
         </div>
         {

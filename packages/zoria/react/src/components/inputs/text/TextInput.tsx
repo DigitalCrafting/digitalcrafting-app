@@ -13,13 +13,13 @@ const TextInput = ({
     children,
     value: externalValue = '',
     defaultValue: externalDefaultValue = '',
-    onChange: externalOnChage = noop,
+    onChange: externalOnChange = noop,
     error: externalError,
     isControlled = false,
     "data-testid": dataTestId = 'qa-text-input',
     ...props
 }: TextInputProps) => {
-    const [value, setValue] = useInputValue(externalValue, externalOnChage, externalDefaultValue, isControlled);
+    const [value, setValue] = useInputValue(externalValue, externalOnChange, externalDefaultValue, isControlled);
     const [error] = useInputError(externalError);
 
     const internalOnChange = (event: ChangeEvent<HTMLInputElement>) => {
