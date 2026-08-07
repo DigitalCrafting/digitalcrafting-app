@@ -1,23 +1,41 @@
-import {Input, type InputProps} from "../Input";
+import {Input} from "../Input";
 import {type ChangeEvent, useState} from "react";
 import {EyeIcon, EyeOffIcon} from "../../icons/Icons";
 import {IconButton} from "../../buttons/IconButton";
 import {Tooltip} from "../../tooltip/Tooltip";
 import {noop} from "../../../utils/Utils";
+import {ZoriaInputProps} from "../ZoriaInputProps";
+import {useInputValue} from "../internal/useInputValue";
+import {useInputError} from "../internal/useInputError";
 
-interface PasswordInputProps extends Omit<InputProps, 'type' | 'onChange'> {
-    onChange?: (value: string) => void
+interface PasswordInputProps extends ZoriaInputProps<string> {
+    children?: any
 }
 
-const PasswordInput = ({children, onChange = noop, ...props}: PasswordInputProps) => {
+const PasswordInput = ({
+    className: externalClassName = '',
+    'data-testid': dataTestId = 'qa-password-input',
+    label,
+    value: externalValue = '',
+    defaultValue: externalDefaultValue = '',
+    onChange: externalOnChange = noop,
+    error: externalError,
+    isControlled = false,
+    id,
+    disabled,
+    ...props
+}: PasswordInputProps) => {
+    const [value, setValue] = useInputValue(externalValue, externalOnChange, externalDefaultValue, isControlled);
+    const [error] = useInputError(externalError);
+
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
     const internalOnChange = (event: ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
-        onChange(value);
+        setValue(value);
     }
 
-    return <Input {...props} onChange={internalOnChange} type={showPassword ? 'text' : 'password'}>
+    return <Input {...props} data-testid={dataTestId} value={value} error={error} onChange={internalOnChange} type={showPassword ? 'text' : 'password'}>
         <IconButton onClick={() => setShowPassword(curr => !curr)}>
             {
                 showPassword ?
