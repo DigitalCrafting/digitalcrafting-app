@@ -11,4 +11,5 @@ export interface ZoriaInputProps<T = any> {
     error?: string
     id?: string
     disabled?: boolean
+    placeholder?: string
 }

@@ -1,19 +1,36 @@
 import * as React from 'react';
-import {Input, type InputProps} from "../Input";
-import {type ChangeEvent, type KeyboardEventHandler, useState} from "react";
+import {type ChangeEvent, type KeyboardEventHandler} from 'react';
+import {Input} from "../Input";
 import {noop} from "../../../utils/Utils";
+import {ZoriaInputProps} from "../ZoriaInputProps";
+import {useInputValue} from "../internal/useInputValue";
+import {useInputError} from "../internal/useInputError";
 
-interface EmailInputProps extends Omit<InputProps, 'type' | 'inputMode' | 'onChange'> {
-    onKeyDown?: KeyboardEventHandler<HTMLInputElement>
-    onChange?: (value?: string) => void;
+interface EmailInputProps extends ZoriaInputProps<string> {
     invalidMailMessage?: string;
+    children?: any
 }
 
 const blockedEmailKeysRegex = /[^a-zA-Z0-9@._+\-!#$%&'*\/=?^`{|}~]/;
 const emailValidationRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-const EmailInput = ({children, onKeyDown: externalOnKeyDown = noop, onChange = noop, invalidMailMessage = "Email invalid", ...props}: EmailInputProps) => {
-    const [error, setError] = useState<string | undefined>();
+const EmailInput = ({
+    className: externalClassName = '',
+    'data-testid': dataTestId = 'qa-email-input',
+    label,
+    value: externalValue = '',
+    defaultValue: externalDefaultValue = '',
+    onChange: externalOnChange = noop,
+    error: externalError,
+    isControlled = false,
+    id,
+    disabled,
+    children,
+    placeholder = 'example@mail.com',
+    invalidMailMessage = "Email invalid", ...props
+}: EmailInputProps) => {
+    const [value, setValue] = useInputValue(externalValue, externalOnChange, externalDefaultValue, isControlled);
+    const [error, setError] = useInputError(externalError);
 
     const onKeyDown: KeyboardEventHandler<HTMLInputElement> = (event: React.KeyboardEvent | KeyboardEvent) => {
         const functionalKeys = ["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab", "Enter"];
@@ -40,20 +57,16 @@ const EmailInput = ({children, onKeyDown: externalOnKeyDown = noop, onChange = n
 
     const internalOnChange = (event: ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
-
-        if (!value) {
-            onChange(undefined);
-            return;
-        }
-        const isValid = emailValidationRegex.test(value);
-        if (isValid) {
-            setError(undefined);
-        }
-        onChange(value);
-
+        setValue(value);
     }
 
-    return <Input placeholder="example@mail.com" error={error} {...props} onChange={internalOnChange} onKeyDown={onKeyDown} onBlur={onBlur} type='email'
+    return <Input placeholder={placeholder}
+                  {...props}
+                  error={error}
+                  data-testid={dataTestId}
+                  value={value}
+                  onChange={internalOnChange}
+                  onKeyDown={onKeyDown} onBlur={onBlur} type='email'
                   inputMode='email'>{children}</Input>
 }
 
