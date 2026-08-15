@@ -10,7 +10,8 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
     id?: string
     disabled?: boolean
     children?: React.ReactNode;
-    ref?: Ref<HTMLInputElement>
+    ref?: Ref<HTMLInputElement>;
+    value?: any
 }
 
 export const Input = ({
@@ -21,6 +22,7 @@ export const Input = ({
     id,
     disabled,
     children,
+    value = '',
     ...inputProps
 }: InputProps) => {
     if (!id) {
@@ -38,7 +40,7 @@ export const Input = ({
             label ? <label className='z-input-label' htmlFor={id}>{label}</label> : null
         }
         <div className='z-input-container' data-labelhidden={!label}>
-            <input data-testid={`${dataTestId}-input`} className='z-input' {...inputProps} id={id} disabled={disabled}/>
+            <input data-testid={`${dataTestId}-input`} className='z-input' {...inputProps} value={value} id={id} disabled={disabled}/>
             {children}
         </div>
         {
